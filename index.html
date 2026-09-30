@@ -1430,7 +1430,7 @@ async function geocodeCity(city){
     "?text=" + encodeURIComponent(city) +
     "&limit=1" +
     "&lang=pt" +
-    "&apiKey=" + encodeURIComponent(GEOAPIFY_API_KEY);
+    "&apiKey=" + encodeURIComponent(a3cf4feb4f3b41eda5c8b8ec7361b924);
 
   const response =
     await fetch(url);
@@ -1548,7 +1548,7 @@ async function searchRealPlaces(city){
 
     if(
       !GEOAPIFY_API_KEY ||
-      GEOAPIFY_API_KEY === "COLOCA_AQUI_A_TUA_CHAVE"
+      GEOAPIFY_API_KEY === "a3cf4feb4f3b41eda5c8b8ec7361b924"
     ){
 
       throw new Error(
