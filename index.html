@@ -3619,6 +3619,103 @@ document.addEventListener(
 );
 
 </script>
+/* =========================================================
+   IMAGENS REAIS DOS DESTINOS
+   ========================================================= */
 
+const destinationImages = {
+
+"Lisboa":
+"https://images.unsplash.com/photo-1555881400-74d7acaacd8b",
+
+"Porto":
+"https://images.unsplash.com/photo-1555881400-6936f6e2a6f7",
+
+"Paris":
+"https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
+
+"Roma":
+"https://images.unsplash.com/photo-1529260830199-42c24126f198",
+
+"Londres":
+"https://images.unsplash.com/photo-1513635269975-59663e0ac1ad",
+
+"Barcelona":
+"https://images.unsplash.com/photo-1539037116277-4db20889f2d4",
+
+"Amesterdão":
+"https://images.unsplash.com/photo-1534351590666-13e3e96b5017",
+
+"Tóquio":
+"https://images.unsplash.com/photo-1540959733332-eab4deabeeaf",
+
+"Nova Iorque":
+"https://images.unsplash.com/photo-1496588152823-86ff7695e68f",
+
+"Dubai":
+"https://images.unsplash.com/photo-1512453979798-5ea266f8880c",
+
+"Sydney":
+"https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9"
+
+};
+
+
+/* adicionar imagens aos destinos */
+
+destinations.forEach(destination => {
+
+if(destinationImages[destination.name]){
+
+destination.image =
+destinationImages[destination.name];
+
+}
+
+});
+
+
+/* substituir o desenho por fotografia */
+
+const oldRenderDestinations =
+renderDestinations;
+
+
+renderDestinations = function(list = destinations){
+
+oldRenderDestinations(list);
+
+
+document
+.querySelectorAll(".destination-card")
+.forEach((card,index)=>{
+
+const destination=list[index];
+
+if(destination && destination.image){
+
+const image =
+card.querySelector(".destination-image");
+
+if(image){
+
+image.style.backgroundImage =
+"url('" + destination.image + "')";
+
+image.style.backgroundSize =
+"cover";
+
+image.style.backgroundPosition =
+"center";
+
+image.innerHTML="";
+
+}
+
+}
+
+});
+
+};
 </body>
 </html>
