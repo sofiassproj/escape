@@ -1,1116 +1,1789 @@
 
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Escapadinha ✈️ | Descobre a tua próxima viagem</title>
+<title>Escapadinha ✈️ | Descobre o mundo</title>
 
-  <meta name="description" content="Descobre escapadinhas económicas para destinos incríveis em todo o mundo.">
+<style>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f7fb;
+    color:#172033;
+    line-height:1.6;
+}
+
+header{
+    background:white;
+    padding:18px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.world{
+    color:#667085;
+    font-size:14px;
+}
+
+.hero{
+    padding:70px 6% 55px;
+    text-align:center;
+    background:linear-gradient(135deg,#dff6ff,#eef2ff,#fff);
+}
+
+.hero h1{
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+.hero p{
+    color:#5d6677;
+    font-size:18px;
+    margin-bottom:30px;
+}
+
+.search-box{
+    max-width:1100px;
+    margin:auto;
+    background:white;
+    padding:22px;
+    border-radius:20px;
+    box-shadow:0 10px 35px rgba(0,0,0,.10);
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+}
+
+input,select{
+    width:100%;
+    padding:14px;
+    border:1px solid #d9dee8;
+    border-radius:12px;
+    background:white;
+    font-size:15px;
+}
+
+button{
+    border:none;
+    border-radius:12px;
+    padding:13px 18px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:bold;
+    transition:.2s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+.search-button{
+    background:#172033;
+    color:white;
+}
+
+.container{
+    max-width:1250px;
+    margin:auto;
+    padding:45px 20px;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.section-title h2{
+    font-size:30px;
+    margin-bottom:7px;
+}
+
+.section-title p{
+    color:#687386;
+}
+
+.categories{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:30px;
+}
+
+.category{
+    background:white;
+    border:1px solid #dde2ea;
+}
+
+.category.active{
+    background:#172033;
+    color:white;
+}
+
+.extra-filters{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:25px;
+    flex-wrap:wrap;
+}
+
+.sort{
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    background:white;
+}
+
+.results{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+}
+
+.card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card-image{
+    position:relative;
+    height:220px;
+}
+
+.card-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.favorite{
+    position:absolute;
+    top:12px;
+    right:12px;
+    background:white;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    padding:0;
+    font-size:20px;
+}
+
+.card-content{
+    padding:20px;
+}
+
+.card-content h3{
+    font-size:23px;
+    margin-bottom:3px;
+}
+
+.country{
+    color:#667085;
+    margin-bottom:12px;
+}
+
+.tags{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+    margin-bottom:16px;
+}
+
+.tag{
+    background:#eef2f7;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+.card-buttons{
+    display:flex;
+    gap:8px;
+}
+
+.primary{
+    flex:1;
+    background:#172033;
+    color:white;
+}
+
+.secondary{
+    background:#edf1f6;
+}
+
+.empty{
+    grid-column:1/-1;
+    text-align:center;
+    padding:50px;
+    background:white;
+    border-radius:18px;
+}
+
+.popular{
+    background:white;
+}
+
+.popular-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.popular-item{
+    border-radius:16px;
+    overflow:hidden;
+    background:#f6f7fa;
+}
+
+.popular-item img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+}
+
+.popular-item div{
+    padding:14px;
+}
+
+.continents{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:15px;
+}
+
+.continent{
+    background:white;
+    padding:25px 15px;
+    text-align:center;
+    border-radius:18px;
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:.2s;
+}
+
+.continent:hover{
+    border-color:#172033;
+    transform:translateY(-3px);
+}
+
+.continent span{
+    font-size:38px;
+    display:block;
+    margin-bottom:8px;
+}
+
+.month-section{
+    background:#172033;
+    color:white;
+    border-radius:25px;
+    padding:40px;
+    margin-top:20px;
+}
+
+.month-section p{
+    color:#c8d0dc;
+}
+
+.month-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-top:25px;
+}
+
+.month{
+    background:#263149;
+    padding:16px;
+    border-radius:12px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.month:hover{
+    background:#34415e;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.feature{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 4px 16px rgba(0,0,0,.06);
+}
+
+.feature-icon{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+footer{
+    background:#101827;
+    color:white;
+    text-align:center;
+    padding:35px 20px;
+    margin-top:30px;
+}
+
+footer p{
+    color:#aeb8c7;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    z-index:100;
+    padding:20px;
+    overflow:auto;
+}
+
+.modal-box{
+    background:white;
+    max-width:850px;
+    margin:40px auto;
+    border-radius:24px;
+    overflow:hidden;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    top:15px;
+    right:15px;
+    z-index:3;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:white;
+    font-size:20px;
+    padding:0;
+}
+
+.modal-image{
+    width:100%;
+    height:330px;
+    object-fit:cover;
+}
+
+.modal-content{
+    padding:30px;
+}
+
+.modal-content h2{
+    font-size:34px;
+    margin-bottom:5px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin:22px 0;
+}
+
+.info{
+    background:#f4f6f9;
+    padding:15px;
+    border-radius:12px;
+    text-align:center;
+}
+
+.rating{
+    display:grid;
+    gap:10px;
+    margin:20px 0;
+}
+
+.rating-row{
+    display:flex;
+    justify-content:space-between;
+    background:#f5f6f8;
+    padding:12px 15px;
+    border-radius:10px;
+}
+
+.checklist{
+    display:grid;
+    gap:8px;
+    margin-top:15px;
+}
+
+.checklist label{
+    background:#f5f6f8;
+    padding:10px;
+    border-radius:10px;
+}
+
+.phrase{
+    margin-top:20px;
+    background:#eef4ff;
+    padding:18px;
+    border-radius:14px;
+}
+
+.surprise{
+    background:linear-gradient(135deg,#fff4d9,#ffe9ef);
+    padding:45px 25px;
+    border-radius:25px;
+    text-align:center;
+    margin-top:30px;
+}
+
+.surprise button{
+    background:#172033;
+    color:white;
+    margin-top:18px;
+}
+
+.notice{
+    max-width:900px;
+    margin:0 auto 35px;
+    background:#fff;
+    padding:18px;
+    border-radius:15px;
+    text-align:center;
+    color:#596579;
+    border:1px solid #e2e6ed;
+}
+
+@media(max-width:900px){
+
+    .search-box{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f5f7fb;
-      color: #172033;
-      line-height: 1.5;
+    .results{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    header {
-      background: #ffffff;
-      padding: 18px 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #e5e7eb;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+    .popular-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .logo {
-      font-size: 25px;
-      font-weight: 800;
-      color: #172033;
+    .continents{
+        grid-template-columns:repeat(3,1fr);
     }
 
-    .world {
-      font-size: 14px;
-      color: #64748b;
+    .features{
+        grid-template-columns:1fr;
     }
 
-    .hero {
-      background: linear-gradient(135deg, #2563eb, #0891b2);
-      color: white;
-      padding: 65px 20px 75px;
-      text-align: center;
+}
+
+@media(max-width:600px){
+
+    header{
+        padding:15px 4%;
     }
 
-    .hero h1 {
-      font-size: 44px;
-      margin-bottom: 12px;
-      letter-spacing: -1px;
+    .hero{
+        padding:45px 15px;
     }
 
-    .hero p {
-      font-size: 18px;
-      opacity: 0.95;
-      margin-bottom: 32px;
+    .hero h1{
+        font-size:31px;
     }
 
-    .search-box {
-      background: white;
-      color: #172033;
-      max-width: 1100px;
-      margin: auto;
-      padding: 20px;
-      border-radius: 18px;
-      display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
-      gap: 12px;
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+    .search-box{
+        grid-template-columns:1fr;
     }
 
-    .search-box input,
-    .search-box select,
-    .search-box button {
-      width: 100%;
-      padding: 14px;
-      border-radius: 10px;
-      font-size: 15px;
+    .results{
+        grid-template-columns:1fr;
     }
 
-    .search-box input,
-    .search-box select {
-      border: 1px solid #d7dce5;
-      background: #fff;
+    .popular-grid{
+        grid-template-columns:1fr;
     }
 
-    .search-box button {
-      border: none;
-      background: #172033;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
+    .continents{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .search-box button:hover {
-      background: #334155;
+    .month-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .notice {
-      max-width: 900px;
-      margin: 25px auto 0;
-      padding: 14px 18px;
-      background: #fff7ed;
-      color: #9a3412;
-      border-radius: 10px;
-      font-size: 14px;
+    .month-section{
+        padding:25px 18px;
     }
 
-    main {
-      max-width: 1200px;
-      margin: 45px auto;
-      padding: 0 20px;
+    .info-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .section-title {
-      margin-bottom: 25px;
+    .modal-image{
+        height:220px;
     }
 
-    .section-title h2 {
-      font-size: 30px;
-      margin-bottom: 5px;
-    }
+}
 
-    .section-title p {
-      color: #64748b;
-    }
-
-    .filters {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 25px;
-    }
-
-    .category {
-      padding: 9px 16px;
-      border: 1px solid #e2e8f0;
-      border-radius: 30px;
-      background: white;
-      color: #334155;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .category.active {
-      background: #2563eb;
-      color: white;
-      border-color: #2563eb;
-    }
-
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .sort {
-      padding: 10px 14px;
-      border: 1px solid #d7dce5;
-      border-radius: 9px;
-      background: white;
-    }
-
-    .results {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 5px 20px rgba(15, 23, 42, 0.08);
-      transition: 0.2s;
-      position: relative;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
-    }
-
-    .card-image {
-      height: 200px;
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      align-items: flex-end;
-      padding: 15px;
-    }
-
-    .tag {
-      background: rgba(255,255,255,0.95);
-      padding: 6px 11px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .favorite {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 40px;
-      height: 40px;
-      border: none;
-      border-radius: 50%;
-      background: white;
-      font-size: 21px;
-      cursor: pointer;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
-    }
-
-    .favorite.active {
-      color: #ef4444;
-    }
-
-    .card-content {
-      padding: 19px;
-    }
-
-    .card-content h3 {
-      font-size: 23px;
-      margin-bottom: 3px;
-    }
-
-    .country {
-      color: #64748b;
-      margin-bottom: 15px;
-    }
-
-    .info {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      color: #475569;
-      margin-bottom: 15px;
-    }
-
-    .price {
-      color: #2563eb;
-      font-size: 25px;
-      font-weight: 800;
-      margin-bottom: 15px;
-    }
-
-    .price small {
-      color: #94a3b8;
-      font-size: 11px;
-      font-weight: normal;
-    }
-
-    .buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .buttons button {
-      padding: 11px;
-      border-radius: 9px;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .details {
-      background: #eef2ff;
-      color: #3730a3;
-    }
-
-    .travel {
-      background: #2563eb;
-      color: white;
-    }
-
-    .empty {
-      background: white;
-      padding: 45px;
-      text-align: center;
-      border-radius: 18px;
-      grid-column: 1 / -1;
-    }
-
-    .how {
-      margin-top: 55px;
-      background: white;
-      border-radius: 22px;
-      padding: 45px 25px;
-    }
-
-    .how h2 {
-      text-align: center;
-      font-size: 30px;
-      margin-bottom: 35px;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-
-    .step {
-      text-align: center;
-      padding: 20px;
-    }
-
-    .step-icon {
-      font-size: 38px;
-      margin-bottom: 12px;
-    }
-
-    .step h3 {
-      margin-bottom: 7px;
-    }
-
-    .step p {
-      color: #64748b;
-      font-size: 14px;
-    }
-
-    .discover {
-      margin-top: 40px;
-      background: linear-gradient(135deg, #172033, #26354d);
-      color: white;
-      padding: 50px 25px;
-      border-radius: 22px;
-      text-align: center;
-    }
-
-    .discover h2 {
-      font-size: 30px;
-      margin-bottom: 12px;
-    }
-
-    .discover p {
-      max-width: 700px;
-      margin: 0 auto;
-      color: #dbeafe;
-    }
-
-    .travel-icons {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-      font-size: 16px;
-    }
-
-    footer {
-      margin-top: 55px;
-      background: #111827;
-      color: white;
-      padding: 35px 20px;
-      text-align: center;
-    }
-
-    footer p {
-      color: #9ca3af;
-      font-size: 14px;
-      margin-top: 6px;
-    }
-
-    @media (max-width: 950px) {
-      .search-box {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .results {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .steps {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        gap: 5px;
-      }
-
-      .hero {
-        padding: 45px 15px 55px;
-      }
-
-      .hero h1 {
-        font-size: 32px;
-      }
-
-      .hero p {
-        font-size: 16px;
-      }
-
-      .search-box {
-        grid-template-columns: 1fr;
-      }
-
-      .results {
-        grid-template-columns: 1fr;
-      }
-
-      .steps {
-        grid-template-columns: 1fr;
-      }
-
-      .buttons {
-        grid-template-columns: 1fr;
-      }
-
-      main {
-        padding: 0 15px;
-      }
-    }
-  </style>
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">✈️ Escapadinha</div>
-  <div class="world">🌍 Para todo o mundo</div>
+
+    <div class="logo">✈️ Escapadinha</div>
+
+    <div class="world">🌍 Para todo o mundo</div>
+
 </header>
+
 
 <section class="hero">
 
-  <h1>Encontra a tua próxima escapadinha</h1>
+    <h1>Encontra a tua próxima escapadinha</h1>
 
-  <p>
-    Descobre destinos incríveis para pequenas viagens,
-    dentro do teu orçamento.
-  </p>
+    <p>
+        Descobre cidades, praias, natureza e aventuras em todo o mundo.
+    </p>
 
-  <div class="search-box">
+    <div class="search-box">
 
-    <input
-      type="text"
-      id="origin"
-      placeholder="📍 De onde partes?"
-    >
+        <input
+            id="origin"
+            type="text"
+            placeholder="📍 De onde partes?"
+        >
 
-    <select id="month">
-      <option value="">📅 Qualquer mês</option>
-      <option value="Janeiro">Janeiro</option>
-      <option value="Fevereiro">Fevereiro</option>
-      <option value="Março">Março</option>
-      <option value="Abril">Abril</option>
-      <option value="Maio">Maio</option>
-      <option value="Junho">Junho</option>
-      <option value="Julho">Julho</option>
-      <option value="Agosto">Agosto</option>
-      <option value="Setembro">Setembro</option>
-      <option value="Outubro">Outubro</option>
-      <option value="Novembro">Novembro</option>
-      <option value="Dezembro">Dezembro</option>
-    </select>
+        <select id="month">
+            <option value="">📅 Qualquer mês</option>
+            <option>Janeiro</option>
+            <option>Fevereiro</option>
+            <option>Março</option>
+            <option>Abril</option>
+            <option>Maio</option>
+            <option>Junho</option>
+            <option>Julho</option>
+            <option>Agosto</option>
+            <option>Setembro</option>
+            <option>Outubro</option>
+            <option>Novembro</option>
+            <option>Dezembro</option>
+        </select>
 
-    <select id="nights">
-      <option value="">🌙 Qualquer duração</option>
-      <option value="2">2 noites</option>
-      <option value="3">3 noites</option>
-      <option value="4">4 noites</option>
-      <option value="5">5 noites</option>
-      <option value="7">7 noites</option>
-    </select>
+        <select id="nights">
+            <option value="">🌙 Qualquer duração</option>
+            <option value="2">2 noites</option>
+            <option value="3">3 noites</option>
+            <option value="4">4 noites</option>
+            <option value="5">5 noites</option>
+            <option value="7">7 noites</option>
+        </select>
 
-    <select id="budget">
-      <option value="">💰 Qualquer orçamento</option>
-      <option value="100">Até €100</option>
-      <option value="200">Até €200</option>
-      <option value="300">Até €300</option>
-      <option value="500">Até €500</option>
-      <option value="800">Até €800</option>
-    </select>
+        <select id="budget">
+            <option value="">💶 Qualquer orçamento</option>
+            <option value="150">Até €150</option>
+            <option value="250">Até €250</option>
+            <option value="400">Até €400</option>
+            <option value="600">Até €600</option>
+        </select>
 
-    <button onclick="searchTrips()">
-      🔎 Encontrar
-    </button>
+        <button class="search-button" onclick="searchTrips()">
+            🔎 Encontrar
+        </button>
 
-  </div>
-
-  <div class="notice">
-    ⚠️ Os preços apresentados são exemplos e ainda não representam preços reais.
-  </div>
+    </div>
 
 </section>
 
+
 <main>
 
-  <div class="top-bar">
+<div class="container">
 
-    <div class="section-title">
-      <h2>🌎 Descobre destinos</h2>
-      <p>Explora ideias para a tua próxima viagem.</p>
+    <div class="notice">
+        🌍 Explora destinos de todo o mundo e encontra ideias para a tua próxima viagem.
     </div>
 
-    <select class="sort" id="sort" onchange="searchTrips()">
-      <option value="price">💶 Mais baratas</option>
-      <option value="name">🔤 Nome A-Z</option>
-      <option value="nights">🌙 Menos noites</option>
-    </select>
 
-  </div>
+    <section>
 
-  <div class="filters">
+        <div class="section-title">
 
-    <button class="category active"
-      onclick="setCategory('Todos', this)">
-      🌍 Todos
-    </button>
+            <h2>🔥 Destinos populares</h2>
 
-    <button class="category"
-      onclick="setCategory('Praia', this)">
-      🏖️ Praia
-    </button>
+            <p>Algumas ideias para começares a explorar.</p>
 
-    <button class="category"
-      onclick="setCategory('Cidade', this)">
-      🏙️ Cidade
-    </button>
+        </div>
 
-    <button class="category"
-      onclick="setCategory('Natureza', this)">
-      🌲 Natureza
-    </button>
+        <div class="popular-grid" id="popularGrid"></div>
 
-    <button class="category"
-      onclick="setCategory('Aventura', this)">
-      🧗 Aventura
-    </button>
+    </section>
 
-    <button class="category"
-      onclick="showFavorites()">
-      ❤️ Favoritos
-    </button>
 
-  </div>
+    <section style="margin-top:60px">
 
-  <div id="results" class="results"></div>
+        <div class="section-title">
 
-  <section class="how">
+            <h2>🌍 Explorar por continente</h2>
 
-    <h2>Como funciona?</h2>
+            <p>Escolhe uma região do mundo.</p>
 
-    <div class="steps">
+        </div>
 
-      <div class="step">
-        <div class="step-icon">📍</div>
-        <h3>Escolhe a origem</h3>
+        <div class="continents">
+
+            <div class="continent" onclick="continentFilter('Europa')">
+                <span>🇪🇺</span>
+                <strong>Europa</strong>
+            </div>
+
+            <div class="continent" onclick="continentFilter('Ásia')">
+                <span>🌏</span>
+                <strong>Ásia</strong>
+            </div>
+
+            <div class="continent" onclick="continentFilter('África')">
+                <span>🌍</span>
+                <strong>África</strong>
+            </div>
+
+            <div class="continent" onclick="continentFilter('América')">
+                <span>🌎</span>
+                <strong>América</strong>
+            </div>
+
+            <div class="continent" onclick="continentFilter('Oceânia')">
+                <span>🌏</span>
+                <strong>Oceânia</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section style="margin-top:60px">
+
+        <div class="section-title">
+
+            <h2>🎯 Explora por tipo</h2>
+
+            <p>Que tipo de escapadinha procuras?</p>
+
+        </div>
+
+        <div class="categories">
+
+            <button class="category active" onclick="setCategory('Todos',this)">
+                🌍 Todos
+            </button>
+
+            <button class="category" onclick="setCategory('Cidade',this)">
+                🏙️ Cidade
+            </button>
+
+            <button class="category" onclick="setCategory('Praia',this)">
+                🏖️ Praia
+            </button>
+
+            <button class="category" onclick="setCategory('Natureza',this)">
+                🌲 Natureza
+            </button>
+
+            <button class="category" onclick="setCategory('Aventura',this)">
+                🧗 Aventura
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section>
+
+        <div class="extra-filters">
+
+            <strong id="resultCount">20 escapadinhas</strong>
+
+            <select class="sort" id="sort" onchange="sortTrips()">
+
+                <option value="price">
+                    Ordenar por preço
+                </option>
+
+                <option value="name">
+                    Ordenar por nome
+                </option>
+
+                <option value="nights">
+                    Ordenar por duração
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="results" id="results"></div>
+
+    </section>
+
+
+    <section class="month-section">
+
+        <h2>📅 Onde ir em cada mês?</h2>
+
         <p>
-          Diz-nos de onde queres partir.
+            Escolhe um mês e descobre destinos recomendados para essa altura do ano.
         </p>
-      </div>
 
-      <div class="step">
-        <div class="step-icon">📅</div>
-        <h3>Escolhe quando</h3>
+        <div class="month-grid">
+
+            <div class="month" onclick="monthFilter('Janeiro')">Janeiro ❄️</div>
+            <div class="month" onclick="monthFilter('Fevereiro')">Fevereiro ❄️</div>
+            <div class="month" onclick="monthFilter('Março')">Março 🌸</div>
+            <div class="month" onclick="monthFilter('Abril')">Abril 🌷</div>
+            <div class="month" onclick="monthFilter('Maio')">Maio ☀️</div>
+            <div class="month" onclick="monthFilter('Junho')">Junho ☀️</div>
+            <div class="month" onclick="monthFilter('Julho')">Julho 🏖️</div>
+            <div class="month" onclick="monthFilter('Agosto')">Agosto 🏖️</div>
+            <div class="month" onclick="monthFilter('Setembro')">Setembro 🍂</div>
+            <div class="month" onclick="monthFilter('Outubro')">Outubro 🍁</div>
+            <div class="month" onclick="monthFilter('Novembro')">Novembro 🍂</div>
+            <div class="month" onclick="monthFilter('Dezembro')">Dezembro 🎄</div>
+
+        </div>
+
+    </section>
+
+
+    <section class="surprise">
+
+        <h2>🎲 Surpreende-me!</h2>
+
         <p>
-          Seleciona o mês e a duração.
+            Não sabes para onde ir? Deixa a Escapadinha escolher uma ideia aleatória.
         </p>
-      </div>
 
-      <div class="step">
-        <div class="step-icon">💰</div>
-        <h3>Define o orçamento</h3>
-        <p>
-          Encontra ideias dentro do teu orçamento.
-        </p>
-      </div>
+        <button onclick="surpriseMe()">
+            ✨ Quero uma surpresa
+        </button>
 
-      <div class="step">
-        <div class="step-icon">✈️</div>
-        <h3>Escolhe o destino</h3>
-        <p>
-          Explora a tua próxima escapadinha.
-        </p>
-      </div>
+    </section>
 
-    </div>
 
-  </section>
+    <section style="margin-top:60px">
 
-  <section class="discover">
+        <div class="section-title">
 
-    <h2>🌍 A tua próxima viagem começa aqui</h2>
+            <h2>🧳 Tudo para preparar a viagem</h2>
 
-    <p>
-      Descobre destinos, compara opções e encontra
-      a escapadinha que combina contigo.
-    </p>
+            <p>
+                Pequenas ferramentas para tornares a tua escapadinha mais simples.
+            </p>
 
-    <div class="travel-icons">
-      <span>✈️ Voos</span>
-      <span>🏨 Alojamento</span>
-      <span>🌎 Destinos</span>
-      <span>💰 Diferentes orçamentos</span>
-    </div>
+        </div>
 
-  </section>
+        <div class="features">
+
+            <div class="feature">
+
+                <div class="feature-icon">📋</div>
+
+                <h3>Checklist</h3>
+
+                <p>
+                    Consulta uma lista rápida das coisas importantes para levar.
+                </p>
+
+            </div>
+
+            <div class="feature">
+
+                <div class="feature-icon">🗣️</div>
+
+                <h3>Frases úteis</h3>
+
+                <p>
+                    Aprende algumas palavras e expressões úteis do destino.
+                </p>
+
+            </div>
+
+            <div class="feature">
+
+                <div class="feature-icon">🌤️</div>
+
+                <h3>Melhor época</h3>
+
+                <p>
+                    Vê em que mês a escapadinha é recomendada.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
 
 </main>
 
+
 <footer>
 
-  <strong>✈️ Escapadinha</strong>
+    <div style="font-size:24px;margin-bottom:8px;">
+        ✈️ Escapadinha
+    </div>
 
-  <p>
-    Descobre. Compara. Viaja.
-  </p>
-
-  <p>
-    🌍 Ideias de viagem para todo o mundo.
-  </p>
+    <p>
+        Descobre o mundo, uma escapadinha de cada vez. 🌍
+    </p>
 
 </footer>
+
+
+<div class="modal" id="modal">
+
+    <div class="modal-box">
+
+        <button class="close" onclick="closeModal()">✕</button>
+
+        <img
+            id="modalImage"
+            class="modal-image"
+            src=""
+            alt=""
+        >
+
+        <div class="modal-content">
+
+            <h2 id="modalTitle"></h2>
+
+            <p id="modalCountry" class="country"></p>
+
+            <div class="info-grid">
+
+                <div class="info">
+                    📅<br>
+                    <strong id="modalMonth"></strong>
+                </div>
+
+                <div class="info">
+                    🌙<br>
+                    <strong id="modalNights"></strong>
+                </div>
+
+                <div class="info">
+                    🌍<br>
+                    <strong id="modalContinent"></strong>
+                </div>
+
+                <div class="info">
+                    🏷️<br>
+                    <strong id="modalCategory"></strong>
+                </div>
+
+            </div>
+
+
+            <h3>🌤️ Melhor época</h3>
+
+            <p id="modalBest"></p>
+
+
+            <div class="rating">
+
+                <div class="rating-row">
+                    <span>☀️ Clima</span>
+                    <strong id="climate"></strong>
+                </div>
+
+                <div class="rating-row">
+                    <span>🏖️ Praia</span>
+                    <strong id="beach"></strong>
+                </div>
+
+                <div class="rating-row">
+                    <span>🌲 Natureza</span>
+                    <strong id="nature"></strong>
+                </div>
+
+                <div class="rating-row">
+                    <span>🎉 Ambiente</span>
+                    <strong id="fun"></strong>
+                </div>
+
+            </div>
+
+
+            <h3>📸 Sobre este destino</h3>
+
+            <p id="modalDescription"></p>
+
+
+            <div class="phrase">
+
+                <h3>🗣️ Frase útil</h3>
+
+                <p id="modalPhrase"></p>
+
+            </div>
+
+
+            <div style="margin-top:25px">
+
+                <h3>📋 Checklist da viagem</h3>
+
+                <div class="checklist">
+
+                    <label>
+                        <input type="checkbox">
+                        Passaporte / documento
+                    </label>
+
+                    <label>
+                        <input type="checkbox">
+                        Carregador do telemóvel
+                    </label>
+
+                    <label>
+                        <input type="checkbox">
+                        Roupa adequada
+                    </label>
+
+                    <label>
+                        <input type="checkbox">
+                        Produtos pessoais
+                    </label>
+
+                    <label>
+                        <input type="checkbox">
+                        Seguro de viagem
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 <script>
 
 const trips = [
 
-  {
-    id: 1,
-    name: "Madrid",
-    country: "Espanha",
-    price: 89,
-    nights: 2,
-    month: "Janeiro",
-    category: "Cidade",
-    image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4"
-  },
+{
+name:"Madrid",
+country:"Espanha",
+continent:"Europa",
+price:89,
+nights:2,
+month:"Janeiro",
+category:"Cidade",
+image:"https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1000&q=80",
+best:"Primavera e outono são ótimas alturas para explorar a cidade.",
+description:"Uma cidade vibrante, com praças históricas, museus, restaurantes e muita vida.",
+phrase:"Hola! — Olá!",
+climate:"⭐⭐⭐⭐",
+beach:"⭐",
+nature:"⭐⭐",
+fun:"⭐⭐⭐⭐⭐"
+},
 
-  {
-    id: 2,
-    name: "Barcelona",
-    country: "Espanha",
-    price: 129,
-    nights: 3,
-    month: "Fevereiro",
-    category: "Cidade",
-    image: "https://images.unsplash.com/photo-1583422409516-2895a77efded"
-  },
+{
+name:"Barcelona",
+country:"Espanha",
+continent:"Europa",
+price:129,
+nights:3,
+month:"Fevereiro",
+category:"Cidade",
+image:"https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1000&q=80",
+best:"Primavera e início do outono.",
+description:"Mistura de praia, arquitetura, gastronomia e cultura numa só cidade.",
+phrase:"Gracias! — Obrigado!",
+climate:"⭐⭐⭐⭐",
+beach:"⭐⭐⭐⭐",
+nature:"⭐⭐⭐",
+fun:"⭐⭐⭐⭐⭐"
+},
 
-  {
-    id: 3,
-    name: "Paris",
-    country: "França",
-    price: 149,
-    nights: 3,
-    month: "Março",
-    category: "Cidade",
-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34"
-  },
+{
+name:"Paris",
+country:"França",
+continent:"Europa",
+price:149,
+nights:3,
+month:"Março",
+category:"Cidade",
+image:"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1000&q=80",
+best:"Primavera e outono.",
+description:"Uma das cidades mais famosas do mundo, conhecida pela sua arquitetura, arte e gastronomia.",
+phrase:"Bonjour! — Bom dia!",
+climate:"⭐⭐⭐⭐",
+beach:"⭐",
+nature:"⭐⭐",
+fun:"⭐⭐⭐⭐⭐"
+},
 
-  {
-    id: 4,
-    name: "Roma",
-    country: "Itália",
-    price: 129,
-    nights: 3,
-    month: "Abril",
-    category: "Cidade",
-    image: "https://images.unsplash.com/photo-1529260830199-42c24126f198"
-  },
+{
+name:"Roma",
+country:"Itália",
+continent:"Europa",
+price:129,
+nights:3,
+month:"Abril",
+category:"Cidade",
+image:"https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&w=1000&q=80",
+best:"Primavera e outono.",
+description:"História, monumentos, comida italiana e ruas cheias de vida.",
+phrase:"Ciao! — Olá!",
+climate:"⭐⭐⭐⭐",
+beach:"⭐⭐",
+nature:"⭐⭐",
+fun:"⭐⭐⭐⭐"
+},
 
-  {
-    id: 5,
-    name: "Amesterdão",
-    country: "Países Baixos",
-    price: 179,
-    nights: 3,
-    month: "Maio",
-    category: "Cidade",
-    image: "https://images.unsplash.com/photo-1534351590666-13e3e96b5017"
-  },
+{
+name:"Amesterdão",
+country:"Países Baixos",
+continent:"Europa",
+price:179,
+nights:3,
+month:"Maio",
+category:"Cidade",
+image:"https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&w=1000&q=80",
+best:"Primavera.",
+description:"Canais, bicicletas, museus e bairros muito característicos.",
+phrase:"Dank je! — Obrigado!",
+climate:"⭐⭐⭐⭐",
+beach:"⭐",
+nature:"⭐⭐⭐",
+fun:"⭐⭐⭐⭐"
+},
 
-  {
-    id: 6,
-    name: "Algarve",
-    country: "Portugal",
-    price: 139,
-    nights: 3,
-    month: "Junho",
-    category: "Praia",
-    image: "https://images.unsplash.com/photo-1533104816931-20fa691ff6ca"
-  },
+{
+name:"Algarve",
+country:"Portugal",
+continent:"Europa",
+price:139,
+nights:3,
+month:"Junho",
+category:"Praia",
+image:"https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=1000&q=80",
+best:"Final da primavera e verão.",
+description:"Praias, falésias, pequenas vilas e águas muito convidativas.",
+phrase:"Olá! — Olá!",
+climate:"⭐⭐⭐⭐⭐",
+beach:"⭐⭐⭐⭐⭐",
+nature:"⭐⭐⭐⭐",
+fun:"⭐⭐⭐⭐"
+},
 
-  {
-    id: 7,
-    name: "Santorini",
-    country: "Grécia",
-    price: 249,
-    nights: 4,
-    month: "Julho",
-    category: "Praia",
-    image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff"
-  },
+{
+name:"Santorini",
+country:"Grécia",
+continent:"Europa",
+price:249,
+nights:4,
+month:"Julho",
+category:"Praia",
+image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=1000&q=80",
+best:"Final da primavera até início do outono.",
+description:"Casas brancas, mar azul, pôr do sol e paisagens vulcânicas.",
+phrase:"Kaliméra! — Bom dia!",
+climate:"⭐⭐⭐⭐⭐",
+beach:"⭐⭐⭐⭐⭐",
+nature:"⭐⭐⭐⭐",
+fun:"⭐⭐⭐⭐"
+},
 
-  {
-    id: 8,
-    name: "Bali",
-    country: "Indonésia",
-    price: 499,
-    nights: 7,
-    month: "Agosto",
-    category: "Praia",
-    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4"
-  },
+{
+name:"Bali",
+country:"Indonésia",
+continent:"Ásia",
+price:499,
+nights:7,
+month:"Agosto",
+category:"Praia",
+image:"https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1000&q=80",
+best:"Meses mais secos do ano.",
+description:"Templos, praias, arrozais, natureza tropical e uma cultura muito própria.",
+phrase:"Terima kasih! — Obrigado!",
+climate:"⭐⭐⭐⭐⭐",
+beach:"⭐⭐⭐⭐⭐",
+nature:"⭐⭐⭐⭐⭐",
+fun:"⭐⭐⭐⭐⭐"
+},
 
-  {
-    id: 9,
-    name: "Madeira",
-    country: "Portugal",
-    price: 169,
-    nights: 3,
-    month: "Setembro",
-    category: "Natureza",
-    image: "https://images.unsplash.com/photo-1526392060635-9d6019884377"
-  },
+{
+name:"Madeira",
+country:"Portugal",
+continent:"Europa",
+price:169,
+nights:3,
+month:"Setembro",
+category:"Natureza",
+image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1000&q=80",
+best:"Primavera, verão e início do outono.",
+description:"Montanhas, levadas, mar, florestas e paisagens incríveis.",
+phrase:"Obrigado! — Obrigado!",
+climate:"⭐⭐⭐⭐⭐",
+beach:"⭐⭐⭐",
+nature:"⭐⭐⭐⭐⭐",
+fun:"⭐⭐⭐⭐"
+},
 
-  {
-    id: 10,
-    name: "Praga",
-    country: "Chéquia",
-    price: 119,
-    nights: 3,
-    month: "Outubro",
-    category: "Cidade",
-    image: "https://images.unsplash.com/photo-1541849546-216549ae216d"
-  },
+{
+name:"Praga",
+country:"Chéquia",
+continent:"Europa",
+price:119,
+nights:3,
+month:"Outubro",
+category:"Cidade",
+image:"https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=1000&q=80",
+best:"Primavera e início do outono.",
+description:"Uma cidade histórica com arquitetura impressionante e ruas encantadoras.",
+phrase:"Děkuji! — Obrigado!",
+climate:"⭐⭐⭐⭐",
+beach:"⭐",
+nature:"⭐⭐⭐",
+fun:"⭐⭐⭐⭐"
+},
 
-  {
-    id: 11,
-    name: "Marraquexe",
-    country: "Marrocos",
-    price: 139,
-    nights: 3,
-    month: "Novembro",
-    category: "Aventura",
-    image: "https://images.unsplash.com/photo-1597212618440-806262de4f6b"
-  },
+{
+name:"Marraquexe",
+country:"Marrocos",
+continent:"África",
+price:139,
+nights:3,
+month:"Novembro",
+category:"Aventura",
+image:"https://images.unsplash.com/photo-1597212618440-806262de4f6b?auto=format&fit=crop&w=1000&q=80",
+best:"Primavera e outono.",
+description:"Mercados, palácios, comida, cultura e paisagens do deserto.",
+phrase:"Shukran! — Obrigado!",
+climate:"⭐⭐⭐⭐",
+beach:"⭐",
+nature:"⭐⭐⭐",
+fun:"⭐⭐⭐⭐⭐"
+},
 
-  {
-    id: 12,
-    name: "Tenerife",
-    country: "Espanha",
-    price: 199,
-    nights: 4,
-    month: "Dezembro",
-    category: "Praia",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
-  },
+{
+name:"Tenerife",
+country:"Espanha",
+continent:"Europa",
+price:199,
+nights:4,
+month:"Dezembro",
+category:"Praia",
+image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80",
+best:"Quase todo o ano.",
+description:"Praias, vulcões, natureza e clima agradável.",
+phrase:"Gracias! — Obrigado!",
+climate:"⭐⭐⭐⭐⭐",
+beach:"⭐⭐⭐⭐⭐",
+nature:"⭐⭐⭐⭐",
+fun:"⭐⭐⭐⭐"
+},
 
-  {
-    id: 13,
-    name: "Nova Iorque",
-    country: "Estados Unidos",
-    price: 399,
-    nights: 5,
-    month: "Janeiro",
-    category: "Cidade",
-    image: "https://images.unsplash.com/photo-1485871981521-5b1fd3805eee"
-  },
+{
+name:"Nova Iorque",
+country:"Estados Unidos",
+continent:"América",
+price:399,
+nights:5,
+month:"Janeiro",
+category:"Cidade",
+image:"https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?auto=format&fit=crop&w=1000&q=80",
+best:"Primavera e outono.",
+description:"Arranha-céus, parques, museus, bairros famosos e uma enorme variedade cultural.",
+phrase:"Hello! — Olá!",
+climate:"⭐⭐⭐",
+beach:"⭐",
+nature:"⭐⭐⭐",
+fun:"⭐⭐⭐⭐⭐"
+},
 
-  {
-    id: 14,
-    name: "Islândia",
-    country: "Islândia",
-    price: 449,
-    nights: 5,
-    month: "Fevereiro",
-    category: "Natureza",
-    image: "https://images.unsplash.com/photo-1504829857797-ddff29c27927"
-  },
+{
+name:"Islândia",
+country:"Islândia",
+continent:"Europa",
+price:449,
+nights:5,
+month:"Fevereiro",
+category:"Natureza",
+image:"https://images.unsplash.com/photo-1504893524553-b855bce32c67?auto=format&fit=crop&w=1000&q=80",
+best:"Inverno para paisagens de inverno e auroras; verão para dias longos.",
+description:"Vulcões, cascatas, glaciares e paisagens naturais únicas.",
+phrase:"Takk! — Obrigado!",
+climate:"⭐⭐⭐",
+beach:"⭐",
+nature:"⭐⭐⭐⭐⭐",
+fun:"⭐⭐⭐⭐"
+},
 
-  {
-    id: 15,
-    name: "Dubai",
-    country: "Emirados Árabes Unidos",
-    price: 329,
-    nights: 4,
-    month: "Março",
-    category: "Aventura",
-    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c"
-  },
+{
+name:"Dubai",
+country:"Emirados Árabes Unidos",
+continent:"Ásia",
+price:329,
+nights:4,
+month:"Março",
+category:"Aventura",
+image:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1000&q=80",
+best:"Meses mais frescos do ano.",
+description:"Arranha-céus, deserto, praias, arquitetura moderna e experiências diferentes.",
+phrase:"Shukran! — Obrigado!",
+climate:"⭐⭐⭐⭐⭐",
+beach:"⭐⭐⭐⭐",
+nature:"⭐⭐⭐",
+fun:"⭐⭐⭐⭐⭐"
+},
 
-  {
-    id: 16,
-    name: "Londres",
-    country: "Reino Unido",
-    price: 169,
-    nights: 3,
-    month: "Abril",
-    category: "Cidade",
-    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad"
-  },
+{
+name:"Londres",
+country:"Reino Unido",
+continent:"Europa",
+price:169,
+nights:3,
+month:"Abril",
+category:"Cidade",
+image:"https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1000&q=80",
+best:"Primavera e início do outono.",
+description:"Museus, parques, mercados, monumentos e bairros cheios de personalidade.",
+phrase:"Thank you! — Obrigado!",
+climate:"⭐⭐⭐",
+beach:"⭐",
+nature:"⭐⭐⭐",
+fun:"⭐⭐⭐⭐⭐"
+},
 
-  {
-    id: 17,
-    name: "Malta",
-    country: "Malta",
-    price: 219,
-    nights: 4,
-    month: "Maio",
-    category: "Praia",
-    image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963"
-  },
+{
+name:"Malta",
+country:"Malta",
+continent:"Europa",
+price:219,
+nights:4,
+month:"Maio",
+category:"Praia",
+image:"https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=1000&q=80",
+best:"Primavera e início do outono.",
+description:"Mar azul, cidades históricas, pequenas ilhas e praias.",
+phrase:"Grazzi! — Obrigado!",
+climate:"⭐⭐⭐⭐⭐",
+beach:"⭐⭐⭐⭐⭐",
+nature:"⭐⭐⭐⭐",
+fun:"⭐⭐⭐⭐"
+},
 
-  {
-    id: 18,
-    name: "Costa Rica",
-    country: "Costa Rica",
-    price: 479,
-    nights: 7,
-    month: "Junho",
-    category: "Natureza",
-    image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5"
-  },
+{
+name:"Costa Rica",
+country:"Costa Rica",
+continent:"América",
+price:479,
+nights:7,
+month:"Junho",
+category:"Natureza",
+image:"https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1000&q=80",
+best:"Depende da região e do tipo de viagem.",
+description:"Florestas tropicais, vulcões, praias e uma enorme diversidade natural.",
+phrase:"Pura vida! — Expressão muito usada na Costa Rica.",
+climate:"⭐⭐⭐⭐",
+beach:"⭐⭐⭐⭐⭐",
+nature:"⭐⭐⭐⭐⭐",
+fun:"⭐⭐⭐⭐"
+},
 
-  {
-    id: 19,
-    name: "Istambul",
-    country: "Turquia",
-    price: 139,
-    nights: 4,
-    month: "Julho",
-    category: "Cidade",
-    image: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200"
-  },
+{
+name:"Istambul",
+country:"Turquia",
+continent:"Ásia",
+price:139,
+nights:4,
+month:"Julho",
+category:"Cidade",
+image:"https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1000&q=80",
+best:"Primavera e outono.",
+description:"Uma cidade entre dois continentes, com história, mercados e gastronomia.",
+phrase:"Teşekkürler! — Obrigado!",
+climate:"⭐⭐⭐⭐",
+beach:"⭐⭐",
+nature:"⭐⭐⭐",
+fun:"⭐⭐⭐⭐⭐"
+},
 
-  {
-    id: 20,
-    name: "Tirana",
-    country: "Albânia",
-    price: 119,
-    nights: 3,
-    month: "Agosto",
-    category: "Cidade",
-    image: "https://images.unsplash.com/photo-1596395819057-e37f55a8516a"
-  }
+{
+name:"Tirana",
+country:"Albânia",
+continent:"Europa",
+price:119,
+nights:3,
+month:"Agosto",
+category:"Cidade",
+image:"https://images.unsplash.com/photo-1579606032821-4e6161c81bd3?auto=format&fit=crop&w=1000&q=80",
+best:"Primavera e verão.",
+description:"Uma capital jovem, com cafés, montanhas próximas e acesso a outras zonas da Albânia.",
+phrase:"Faleminderit! — Obrigado!",
+climate:"⭐⭐⭐⭐",
+beach:"⭐⭐⭐",
+nature:"⭐⭐⭐⭐",
+fun:"⭐⭐⭐⭐"
+},
+
+{
+name:"Tóquio",
+country:"Japão",
+continent:"Ásia",
+price:599,
+nights:7,
+month:"Setembro",
+category:"Cidade",
+image:"https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1000&q=80",
+best:"Primavera e outono.",
+description:"Tecnologia, tradição, gastronomia e bairros completamente diferentes entre si.",
+phrase:"Arigatō! — Obrigado!",
+climate:"⭐⭐⭐⭐",
+beach:"⭐",
+nature:"⭐⭐⭐",
+fun:"⭐⭐⭐⭐⭐"
+},
+
+{
+name:"Sydney",
+country:"Austrália",
+continent:"Oceânia",
+price:599,
+nights:7,
+month:"Outubro",
+category:"Praia",
+image:"https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d8?auto=format&fit=crop&w=1000&q=80",
+best:"Primavera e outono para temperaturas moderadas.",
+description:"Praias, arquitetura, natureza e uma cidade muito ligada ao mar.",
+phrase:"Hello! — Olá!",
+climate:"⭐⭐⭐⭐⭐",
+beach:"⭐⭐⭐⭐⭐",
+nature:"⭐⭐⭐⭐",
+fun:"⭐⭐⭐⭐⭐"
+}
 
 ];
 
+
+let currentTrips = [...trips];
+
 let currentCategory = "Todos";
 
-let favorites =
-  JSON.parse(localStorage.getItem("favorites")) || [];
 
-function displayTrips(list) {
+function displayTrips(list){
 
-  const results =
-    document.getElementById("results");
+    const results = document.getElementById("results");
 
-  if (list.length === 0) {
+    results.innerHTML = "";
 
-    results.innerHTML = `
-      <div class="empty">
-        <h2>😕 Não encontrámos resultados</h2>
-        <p>
-          Experimenta outro mês, orçamento ou duração.
-        </p>
-      </div>
-    `;
+    document.getElementById("resultCount").textContent =
+        list.length + (list.length === 1 ? " escapadinha" : " escapadinhas");
 
-    return;
-  }
 
-  results.innerHTML = list.map(trip => {
+    if(list.length === 0){
 
-    const favorite =
-      favorites.includes(trip.id);
+        results.innerHTML = `
+            <div class="empty">
+                <h3>😕 Não encontrámos resultados</h3>
+                <p>Tenta mudar os filtros e explorar novamente.</p>
+            </div>
+        `;
 
-    return `
+        return;
+    }
 
-      <article class="card">
 
-        <div
-          class="card-image"
-          style="
-            background-image:
-            url('${trip.image}?auto=format&fit=crop&w=800&q=80')
-          "
-        >
+    list.forEach((trip,index)=>{
 
-          <span class="tag">
-            ${trip.category}
-          </span>
+        const originalIndex = trips.indexOf(trip);
 
-        </div>
+        const favorite =
+            localStorage.getItem("fav-"+originalIndex) === "true";
 
-        <button
-          class="favorite ${favorite ? "active" : ""}"
-          onclick="toggleFavorite(${trip.id})"
-        >
-          ${favorite ? "❤️" : "♡"}
-        </button>
+        results.innerHTML += `
 
-        <div class="card-content">
+        <article class="card">
 
-          <h3>${trip.name}</h3>
+            <div class="card-image">
 
-          <div class="country">
-            🌍 ${trip.country}
-          </div>
+                <img
+                    src="${trip.image}"
+                    alt="${trip.name}"
+                >
 
-          <div class="info">
-            <span>🌙 ${trip.nights} noites</span>
-            <span>📅 ${trip.month}</span>
-          </div>
+                <button
+                    class="favorite"
+                    onclick="toggleFavorite(${originalIndex})"
+                >
+                    ${favorite ? "❤️" : "🤍"}
+                </button>
 
-          <div class="price">
-            €${trip.price}
-            <small>desde</small>
-          </div>
+            </div>
 
-          <div class="buttons">
 
-            <button
-              class="details"
-              onclick="showDetails(${trip.id})"
+            <div class="card-content">
+
+                <h3>${trip.name}</h3>
+
+                <div class="country">
+                    ${trip.country}
+                </div>
+
+
+                <div class="tags">
+
+                    <span class="tag">
+                        ${trip.category}
+                    </span>
+
+                    <span class="tag">
+                        📅 ${trip.month}
+                    </span>
+
+                    <span class="tag">
+                        🌙 ${trip.nights} noites
+                    </span>
+
+                </div>
+
+
+                <div class="card-buttons">
+
+                    <button
+                        class="primary"
+                        onclick="showDetails(${originalIndex})"
+                    >
+                        Explorar
+                    </button>
+
+                    <button
+                        class="secondary"
+                        onclick="toggleFavorite(${originalIndex})"
+                    >
+                        ❤️
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+        `;
+
+    });
+
+}
+
+
+function searchTrips(){
+
+    const month =
+        document.getElementById("month").value;
+
+    const nights =
+        document.getElementById("nights").value;
+
+    const budget =
+        document.getElementById("budget").value;
+
+    currentTrips = trips.filter(trip=>{
+
+        const monthOK =
+            !month || trip.month === month;
+
+        const nightsOK =
+            !nights || trip.nights <= Number(nights);
+
+        const budgetOK =
+            !budget || trip.price <= Number(budget);
+
+        const categoryOK =
+            currentCategory === "Todos" ||
+            trip.category === currentCategory;
+
+        return monthOK &&
+               nightsOK &&
+               budgetOK &&
+               categoryOK;
+
+    });
+
+    displayTrips(currentTrips);
+
+    window.scrollTo({
+        top:document.getElementById("results").offsetTop - 100,
+        behavior:"smooth"
+    });
+
+}
+
+
+function setCategory(category,button){
+
+    currentCategory = category;
+
+    document
+        .querySelectorAll(".category")
+        .forEach(btn=>btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    searchTrips();
+
+}
+
+
+function monthFilter(month){
+
+    document.getElementById("month").value = month;
+
+    searchTrips();
+
+}
+
+
+function continentFilter(continent){
+
+    currentTrips = trips.filter(trip =>
+        trip.continent === continent
+    );
+
+    displayTrips(currentTrips);
+
+    window.scrollTo({
+        top:document.getElementById("results").offsetTop - 100,
+        behavior:"smooth"
+    });
+
+}
+
+
+function sortTrips(){
+
+    const sort =
+        document.getElementById("sort").value;
+
+    currentTrips.sort((a,b)=>{
+
+        if(sort === "price"){
+            return a.price - b.price;
+        }
+
+        if(sort === "name"){
+            return a.name.localeCompare(b.name);
+        }
+
+        if(sort === "nights"){
+            return a.nights - b.nights;
+        }
+
+    });
+
+    displayTrips(currentTrips);
+
+}
+
+
+function toggleFavorite(index){
+
+    const key = "fav-"+index;
+
+    const current =
+        localStorage.getItem(key) === "true";
+
+    localStorage.setItem(
+        key,
+        String(!current)
+    );
+
+    displayTrips(currentTrips);
+
+}
+
+
+function showDetails(index){
+
+    const trip = trips[index];
+
+    document.getElementById("modalTitle").textContent =
+        trip.name;
+
+    document.getElementById("modalCountry").textContent =
+        "📍 " + trip.country;
+
+    document.getElementById("modalMonth").textContent =
+        trip.month;
+
+    document.getElementById("modalNights").textContent =
+        trip.nights + " noites";
+
+    document.getElementById("modalContinent").textContent =
+        trip.continent;
+
+    document.getElementById("modalCategory").textContent =
+        trip.category;
+
+    document.getElementById("modalBest").textContent =
+        trip.best;
+
+    document.getElementById("modalDescription").textContent =
+        trip.description;
+
+    document.getElementById("modalPhrase").textContent =
+        trip.phrase;
+
+    document.getElementById("climate").textContent =
+        trip.climate;
+
+    document.getElementById("beach").textContent =
+        trip.beach;
+
+    document.getElementById("nature").textContent =
+        trip.nature;
+
+    document.getElementById("fun").textContent =
+        trip.fun;
+
+    document.getElementById("modalImage").src =
+        trip.image;
+
+    document.getElementById("modalImage").alt =
+        trip.name;
+
+    document.getElementById("modal").style.display =
+        "block";
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+function closeModal(){
+
+    document.getElementById("modal").style.display =
+        "none";
+
+    document.body.style.overflow =
+        "auto";
+
+}
+
+
+document.getElementById("modal").addEventListener(
+    "click",
+    function(event){
+
+        if(event.target === this){
+            closeModal();
+        }
+
+    }
+);
+
+
+function surpriseMe(){
+
+    const random =
+        trips[Math.floor(Math.random()*trips.length)];
+
+    const index =
+        trips.indexOf(random);
+
+    showDetails(index);
+
+}
+
+
+function createPopular(){
+
+    const popular =
+        trips.slice(0,8);
+
+    const container =
+        document.getElementById("popularGrid");
+
+    popular.forEach(trip=>{
+
+        const index =
+            trips.indexOf(trip);
+
+        container.innerHTML += `
+
+            <div
+                class="popular-item"
+                onclick="showDetails(${index})"
             >
-              Ver escapadinha
-            </button>
 
-            <button
-              class="travel"
-              onclick="searchTravel('${trip.name}')"
-            >
-              ✈️ Explorar
-            </button>
+                <img
+                    src="${trip.image}"
+                    alt="${trip.name}"
+                >
 
-          </div>
+                <div>
 
-        </div>
+                    <strong>
+                        ${trip.name}
+                    </strong>
 
-      </article>
+                    <p>
+                        ${trip.country}
+                    </p>
 
-    `;
+                </div>
 
-  }).join("");
+            </div>
 
-}
+        `;
 
-function searchTrips() {
-
-  const month =
-    document.getElementById("month").value;
-
-  const nights =
-    document.getElementById("nights").value;
-
-  const budget =
-    document.getElementById("budget").value;
-
-  const origin =
-    document.getElementById("origin")
-      .value
-      .toLowerCase();
-
-  const sort =
-    document.getElementById("sort").value;
-
-  let filtered = trips.filter(trip => {
-
-    const monthMatch =
-      !month || trip.month === month;
-
-    const nightsMatch =
-      !nights || trip.nights <= Number(nights);
-
-    const budgetMatch =
-      !budget || trip.price <= Number(budget);
-
-    const categoryMatch =
-      currentCategory === "Todos" ||
-      trip.category === currentCategory;
-
-    const originMatch =
-      !origin ||
-      trip.country.toLowerCase().includes(origin) ||
-      trip.name.toLowerCase().includes(origin);
-
-    return (
-      monthMatch &&
-      nightsMatch &&
-      budgetMatch &&
-      categoryMatch &&
-      originMatch
-    );
-
-  });
-
-  if (sort === "price") {
-    filtered.sort(
-      (a,b) => a.price - b.price
-    );
-  }
-
-  if (sort === "name") {
-    filtered.sort(
-      (a,b) => a.name.localeCompare(b.name)
-    );
-  }
-
-  if (sort === "nights") {
-    filtered.sort(
-      (a,b) => a.nights - b.nights
-    );
-  }
-
-  displayTrips(filtered);
+    });
 
 }
 
-function setCategory(category, button) {
 
-  currentCategory = category;
+displayTrips(currentTrips);
 
-  document
-    .querySelectorAll(".category")
-    .forEach(btn =>
-      btn.classList.remove("active")
-    );
-
-  button.classList.add("active");
-
-  searchTrips();
-
-}
-
-function toggleFavorite(id) {
-
-  if (favorites.includes(id)) {
-
-    favorites =
-      favorites.filter(item => item !== id);
-
-  } else {
-
-    favorites.push(id);
-
-  }
-
-  localStorage.setItem(
-    "favorites",
-    JSON.stringify(favorites)
-  );
-
-  searchTrips();
-
-}
-
-function showFavorites() {
-
-  const favoriteTrips =
-    trips.filter(trip =>
-      favorites.includes(trip.id)
-    );
-
-  displayTrips(favoriteTrips);
-
-}
-
-function showDetails(id) {
-
-  const trip =
-    trips.find(item => item.id === id);
-
-  if (!trip) return;
-
-  alert(
-    "🌍 " + trip.name +
-    "\n\n" +
-    "🌎 " + trip.country +
-    "\n" +
-    "📅 Mês: " + trip.month +
-    "\n" +
-    "🌙 " + trip.nights + " noites" +
-    "\n" +
-    "💰 Desde €" + trip.price +
-    "\n\n" +
-    "Os preços são apenas indicativos nesta versão."
-  );
-
-}
-
-function searchTravel(destination) {
-
-  alert(
-    "✈️ Explorar " +
-    destination +
-    "\n\n" +
-    "Em breve poderás pesquisar voos e alojamento para este destino."
-  );
-
-}
-
-displayTrips(trips);
+createPopular();
 
 </script>
 
