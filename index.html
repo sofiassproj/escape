@@ -508,7 +508,10 @@ function searchTrips() {
   filtered.sort((a, b) => a.price - b.price);
 
   const results = document.getElementById("results");
-  const empty = document.getElementById("empty");
+  const empty = document.getElementById("empty");const title = document.querySelector(".section-title h2");
+title.textContent = origin
+  ? `🌎 Escapadinhas a partir de ${origin}`
+  : "🌎 Destinos em destaque";
 
   results.innerHTML = "";
 
