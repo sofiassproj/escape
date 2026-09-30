@@ -37,7 +37,8 @@ a {
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
 }
 
@@ -162,7 +163,8 @@ nav a:hover {
 }
 
 .field input,
-.field select {
+.field select,
+.field textarea {
   width: 100%;
   border: 1px solid rgba(255,255,255,.12);
   background: rgba(0,0,0,.25);
@@ -173,7 +175,8 @@ nav a:hover {
 }
 
 .field input:focus,
-.field select:focus {
+.field select:focus,
+.field textarea:focus {
   border-color: #7fd6ff;
 }
 
@@ -901,7 +904,7 @@ Ver tempo
 
 <div class="section-title">
 
-<h2>🏛️ Atrações reais</h2>
+<h2>🏛️️ Atrações reais</h2>
 
 <p>
 Lugares encontrados através de dados geográficos reais.
@@ -940,7 +943,7 @@ Cidade
 <div
  id="attractionsList"
  class="real-grid"
-style="margin-top:20px"
+ style="margin-top:20px"
 >
 
 <div class="notice">
@@ -1471,2156 +1474,506 @@ Descobre. Explora. Planeia.
    CONFIGURAÇÃO GEOAPIFY
    ========================================================= */
 
-/*
-a3cf4feb4f3b41eda5c8b8ec7361b924
-   Exemplo:
+const GEOAPIFY_API_KEY = "a3cf4feb4f3b41eda5c8b8ec7361b924";
 
-   const GEOAPIFY_API_KEY = "abc123...";
-*/
-
-const GEOAPIFY_API_KEY =
-"a3cf4feb4f3b41eda5c8b8ec7361b924";
-
+function checkApiKey() {
+  if (!GEOAPIFY_API_KEY) {
+    throw new Error("Chave da API Geoapify não configurada.");
+  }
+}
 
 /* =========================================================
    DESTINOS
    ========================================================= */
 
 const destinations = [
-
-{
-  name:"Lisboa",
-  country:"Portugal",
-  region:"Europa",
-  emoji:"🇵🇹",
-  description:"História, miradouros, comida e mar."
-},
-
-{
-  name:"Porto",
-  country:"Portugal",
-  region:"Europa",
-  emoji:"🇵🇹",
-  description:"Ribeira, vinho e arquitetura."
-},
-
-{
-  name:"Madrid",
-  country:"Espanha",
-  region:"Europa",
-  emoji:"🇪🇸",
-  description:"Museus, parques e gastronomia."
-},
-
-{
-  name:"Barcelona",
-  country:"Espanha",
-  region:"Europa",
-  emoji:"🇪🇸",
-  description:"Gaudí, praia e vida urbana."
-},
-
-{
-  name:"Paris",
-  country:"França",
-  region:"Europa",
-  emoji:"🇫🇷",
-  description:"Arte, cultura e gastronomia."
-},
-
-{
-  name:"Roma",
-  country:"Itália",
-  region:"Europa",
-  emoji:"🇮🇹",
-  description:"História, monumentos e comida."
-},
-
-{
-  name:"Londres",
-  country:"Reino Unido",
-  region:"Europa",
-  emoji:"🇬🇧",
-  description:"Museus, história e bairros."
-},
-
-{
-  name:"Amesterdão",
-  country:"Países Baixos",
-  region:"Europa",
-  emoji:"🇳🇱",
-  description:"Canais, bicicletas e arte."
-},
-
-{
-  name:"Praga",
-  country:"Chéquia",
-  region:"Europa",
-  emoji:"🇨🇿",
-  description:"Centro histórico e arquitetura."
-},
-
-{
-  name:"Reiquiavique",
-  country:"Islândia",
-  region:"Europa",
-  emoji:"🇮🇸",
-  description:"Natureza, vulcões e auroras."
-},
-
-{
-  name:"Atenas",
-  country:"Grécia",
-  region:"Europa",
-  emoji:"🇬🇷",
-  description:"Antiguidade, ilhas e gastronomia."
-},
-
-{
-  name:"Istambul",
-  country:"Turquia",
-  region:"Europa",
-  emoji:"🇹🇷",
-  description:"Dois continentes numa só cidade."
-},
-
-{
-  name:"Tóquio",
-  country:"Japão",
-  region:"Ásia",
-  emoji:"🇯🇵",
-  description:"Tecnologia, cultura e gastronomia."
-},
-
-{
-  name:"Seul",
-  country:"Coreia do Sul",
-  region:"Ásia",
-  emoji:"🇰🇷",
-  description:"Tecnologia, tradição e cultura pop."
-},
-
-{
-  name:"Banguecoque",
-  country:"Tailândia",
-  region:"Ásia",
-  emoji:"🇹🇭",
-  description:"Templos, mercados e comida."
-},
-
-{
-  name:"Bali",
-  country:"Indonésia",
-  region:"Ásia",
-  emoji:"🇮🇩",
-  description:"Praias, templos e natureza."
-},
-
-{
-  name:"Dubai",
-  country:"Emirados Árabes Unidos",
-  region:"Ásia",
-  emoji:"🇦🇪",
-  description:"Arquitetura, luxo e deserto."
-},
-
-{
-  name:"Nova Iorque",
-  country:"Estados Unidos",
-  region:"América",
-  emoji:"🇺🇸",
-  description:"Arranha-céus, museus e bairros."
-},
-
-{
-  name:"Cidade do México",
-  country:"México",
-  region:"América",
-  emoji:"🇲🇽",
-  description:"História, arte e gastronomia."
-},
-
-{
-  name:"Buenos Aires",
-  country:"Argentina",
-  region:"América",
-  emoji:"🇦🇷",
-  description:"Cultura, tango e gastronomia."
-},
-
-{
-  name:"Marrakech",
-  country:"Marrocos",
-  region:"África",
-  emoji:"🇲🇦",
-  description:"Medina, mercados e cultura."
-},
-
-{
-  name:"Cidade do Cabo",
-  country:"África do Sul",
-  region:"África",
-  emoji:"🇿🇦",
-  description:"Montanhas, oceano e natureza."
-},
-
-{
-  name:"Sydney",
-  country:"Austrália",
-  region:"Oceânia",
-  emoji:"🇦🇺",
-  description:"Praias, cidade e natureza."
-},
-
-{
-  name:"Auckland",
-  country:"Nova Zelândia",
-  region:"Oceânia",
-  emoji:"🇳🇿",
-  description:"Vulcões, mar e paisagens."
-}
-
+  { name:"Lisboa", country:"Portugal", region:"Europa", emoji:"🇵🇹", description:"História, miradouros, comida e mar." },
+  { name:"Porto", country:"Portugal", region:"Europa", emoji:"🇵🇹", description:"Ribeira, vinho e arquitetura." },
+  { name:"Madrid", country:"Espanha", region:"Europa", emoji:"🇪🇸", description:"Museus, parques e gastronomia." },
+  { name:"Barcelona", country:"Espanha", region:"Europa", emoji:"🇪🇸", description:"Gaudí, praia e vida urbana." },
+  { name:"Paris", country:"França", region:"Europa", emoji:"🇫🇷", description:"Arte, cultura e gastronomia." },
+  { name:"Roma", country:"Itália", region:"Europa", emoji:"🇮🇹", description:"História, monumentos e comida." },
+  { name:"Londres", country:"Reino Unido", region:"Europa", emoji:"🇬🇧", description:"Museus, história e bairros." },
+  { name:"Amesterdão", country:"Países Baixos", region:"Europa", emoji:"🇳🇱", description:"Canais, bicicletas e arte." },
+  { name:"Praga", country:"Chéquia", region:"Europa", emoji:"🇨🇿", description:"Centro histórico e arquitetura." },
+  { name:"Reiquiavique", country:"Islândia", region:"Europa", emoji:"🇮🇸", description:"Natureza, vulcões e auroras." },
+  { name:"Atenas", country:"Grécia", region:"Europa", emoji:"🇬🇷", description:"Antiguidade, ilhas e gastronomia." },
+  { name:"Istambul", country:"Turquia", region:"Europa", emoji:"🇹🇷", description:"Dois continentes numa só cidade." },
+  { name:"Tóquio", country:"Japão", region:"Ásia", emoji:"🇯🇵", description:"Tecnologia, cultura e gastronomia." },
+  { name:"Seul", country:"Coreia do Sul", region:"Ásia", emoji:"🇰🇷", description:"Tecnologia, tradição e cultura pop." },
+  { name:"Banguecoque", country:"Tailândia", region:"Ásia", emoji:"🇹🇭", description:"Templos, mercados e comida." },
+  { name:"Bali", country:"Indonésia", region:"Ásia", emoji:"🇮🇩", description:"Praias, templos e natureza." },
+  { name:"Dubai", country:"Emirados Árabes Unidos", region:"Ásia", emoji:"🇦🇪", description:"Arquitetura, luxo e deserto." },
+  { name:"Nova Iorque", country:"Estados Unidos", region:"América", emoji:"🇺🇸", description:"Arranha-céus, museus e bairros." },
+  { name:"Cidade do México", country:"México", region:"América", emoji:"🇲🇽", description:"História, arte e gastronomia." },
+  { name:"Buenos Aires", country:"Argentina", region:"América", emoji:"🇦🇷", description:"Cultura, tango e gastronomia." },
+  { name:"Marrakech", country:"Marrocos", region:"África", emoji:"🇲🇦", description:"Medina, mercados e cultura." },
+  { name:"Cidade do Cabo", country:"África do Sul", region:"África", emoji:"🇿🇦", description:"Montanhas, oceano e natureza." },
+  { name:"Sydney", country:"Austrália", region:"Oceânia", emoji:"🇦🇺", description:"Praias, cidade e natureza." },
+  { name:"Auckland", country:"Nova Zelândia", region:"Oceânia", emoji:"🇳🇿", description:"Vulcões, mar e paisagens." }
 ];
 
-
 /* =========================================================
-   LOCAL STORAGE
+   LOCAL STORAGE & HELPERS
    ========================================================= */
 
-let favorites =
-JSON.parse(localStorage.getItem("escapadinhaFavorites") || "[]");
+let favorites = JSON.parse(localStorage.getItem("escapadinhaFavorites") || "[]");
+let visited = JSON.parse(localStorage.getItem("escapadinhaVisited") || "[]");
+let diary = JSON.parse(localStorage.getItem("escapadinhaDiary") || "[]");
+let xp = Number(localStorage.getItem("escapadinhaXP") || 0);
 
-let visited =
-JSON.parse(localStorage.getItem("escapadinhaVisited") || "[]");
+function escapeHtml(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
 
-let diary =
-JSON.parse(localStorage.getItem("escapadinhaDiary") || "[]");
-
-let xp =
-Number(localStorage.getItem("escapadinhaXP") || 0);
-
-let quizScore =
-Number(localStorage.getItem("escapadinhaQuiz") || 0);
-
+function escapeJs(str) {
+  return String(str || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
 
 /* =========================================================
-   DESTINOS
+   DESTINOS & INTERFASE
    ========================================================= */
 
 function renderDestinations(list = destinations) {
+  const grid = document.getElementById("destinationGrid");
+  grid.innerHTML = list.map(destination => {
+    const isFavorite = favorites.includes(destination.name);
+    const isVisited = visited.includes(destination.name);
 
-  const grid =
-    document.getElementById("destinationGrid");
-
-  grid.innerHTML =
-    list.map(destination => {
-
-      const isFavorite =
-        favorites.includes(destination.name);
-
-      const isVisited =
-        visited.includes(destination.name);
-
-      return `
-
+    return `
       <article class="destination-card">
-
-        <div class="destination-image">
-          ${destination.emoji}
-        </div>
-
+        <div class="destination-image">${destination.emoji}</div>
         <div class="destination-content">
-
-          <h3>
-            ${escapeHtml(destination.name)}
-          </h3>
-
-          <strong>
-            ${escapeHtml(destination.country)}
-          </strong>
-
-          <p>
-            ${escapeHtml(destination.description)}
-          </p>
-
+          <h3>${escapeHtml(destination.name)}</h3>
+          <strong>${escapeHtml(destination.country)}</strong>
+          <p>${escapeHtml(destination.description)}</p>
           <div class="card-buttons">
-
-            <button
-              class="small-btn ${isFavorite ? "active" : ""}"
-              onclick="toggleFavorite('${escapeJs(destination.name)}')"
-            >
+            <button class="small-btn ${isFavorite ? "active" : ""}" onclick="toggleFavorite('${escapeJs(destination.name)}')">
               ${isFavorite ? "❤️" : "🤍"}
             </button>
-
-            <button
-              class="small-btn ${isVisited ? "active" : ""}"
-              onclick="toggleVisited('${escapeJs(destination.name)}')"
-            >
+            <button class="small-btn ${isVisited ? "active" : ""}" onclick="toggleVisited('${escapeJs(destination.name)}')">
               ${isVisited ? "✓ Visitado" : "📍 Visitei"}
             </button>
-
-            <button
-              class="small-btn"
-              onclick="exploreDestination('${escapeJs(destination.name)}')"
-            >
+            <button class="small-btn" onclick="exploreDestination('${escapeJs(destination.name)}')">
               Explorar
             </button>
-
           </div>
-
         </div>
-
       </article>
-
-      `;
-
-    }).join("");
+    `;
+  }).join("");
 
   updateStats();
 }
 
-
 function filterDestinations(region, button) {
-
-  document
-    .querySelectorAll(".filter")
-    .forEach(b => b.classList.remove("active"));
-
+  document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
   button.classList.add("active");
 
   if (region === "todos") {
-
     renderDestinations(destinations);
-
     return;
   }
-
-  renderDestinations(
-    destinations.filter(
-      d => d.region === region
-    )
-  );
+  renderDestinations(destinations.filter(d => d.region === region));
 }
-
-
-/* =========================================================
-   FAVORITOS
-   ========================================================= */
 
 function toggleFavorite(name) {
-
   if (favorites.includes(name)) {
-
-    favorites =
-      favorites.filter(
-        item => item !== name
-      );
-
+    favorites = favorites.filter(item => item !== name);
   } else {
-
     favorites.push(name);
     xp += 5;
-
   }
-
-  localStorage.setItem(
-    "escapadinhaFavorites",
-    JSON.stringify(favorites)
-  );
-
-  localStorage.setItem(
-    "escapadinhaXP",
-    xp
-  );
-
+  localStorage.setItem("escapadinhaFavorites", JSON.stringify(favorites));
+  localStorage.setItem("escapadinhaXP", xp);
   renderDestinations();
-  updateStats();
 }
 
-
 function toggleVisited(name) {
-
   if (visited.includes(name)) {
-
-    visited =
-      visited.filter(
-        item => item !== name
-      );
-
+    visited = visited.filter(item => item !== name);
   } else {
-
     visited.push(name);
     xp += 20;
-
   }
-
-  localStorage.setItem(
-    "escapadinhaVisited",
-    JSON.stringify(visited)
-  );
-
-  localStorage.setItem(
-    "escapadinhaXP",
-    xp
-  );
-
+  localStorage.setItem("escapadinhaVisited", JSON.stringify(visited));
+  localStorage.setItem("escapadinhaXP", xp);
   renderDestinations();
-  updateStats();
   renderAchievements();
 }
 
-
-/* =========================================================
-   EXPLORAR DESTINO
-   ========================================================= */
-
-function exploreDestination(city) {
-
-  document.getElementById("attractionCity").value = city;
-
-  document.getElementById("restaurantCity").value = city;
-
-  document.getElementById("plannerDestination").value = city;
-
-  loadRealPlaces(city);
-
-  document
-    .getElementById("atracoes")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
+function updateStats() {
+  document.getElementById("statDestinations").textContent = destinations.length;
+  document.getElementById("statFavorites").textContent = favorites.length;
+  document.getElementById("statVisited").textContent = visited.length;
+  document.getElementById("statXP").textContent = xp;
+  document.getElementById("gameVisited").textContent = visited.length;
 }
 
+function exploreDestination(city) {
+  document.getElementById("attractionCity").value = city;
+  document.getElementById("restaurantCity").value = city;
+  document.getElementById("plannerDestination").value = city;
+  loadRealPlaces(city);
+  document.getElementById("atracoes").scrollIntoView({ behavior:"smooth" });
+}
 
 /* =========================================================
    PESQUISA PRINCIPAL
    ========================================================= */
 
 function searchTrip() {
-
-  const origin =
-    document.getElementById("origin").value.trim();
-
-  const destination =
-    document.getElementById("destination").value.trim();
-
-  const from =
-    document.getElementById("dateFrom").value;
-
-  const to =
-    document.getElementById("dateTo").value;
-
-  const people =
-    Number(
-      document.getElementById("people").value || 1
-    );
-
-  const children =
-    Number(
-      document.getElementById("children").value || 0
-    );
-
-  const result =
-    document.getElementById("searchResult");
+  const origin = document.getElementById("origin").value.trim();
+  const destination = document.getElementById("destination").value.trim();
+  const from = document.getElementById("dateFrom").value;
+  const to = document.getElementById("dateTo").value;
+  const people = Number(document.getElementById("people").value || 1);
+  const children = Number(document.getElementById("children").value || 0);
+  const result = document.getElementById("searchResult");
 
   if (!destination) {
-
-    result.innerHTML = `
-      <div class="result-box">
-        ⚠️ Escreve primeiro um destino.
-      </div>
-    `;
-
+    result.innerHTML = `<div class="result-box">⚠️ Escreve primeiro um destino.</div>`;
     return;
   }
 
-  document.getElementById("plannerDestination").value =
-    destination;
-
-  document.getElementById("plannerPeople").value =
-    people;
-
-  document.getElementById("plannerFrom").value =
-    from;
-
-  document.getElementById("plannerTo").value =
-    to;
+  document.getElementById("plannerDestination").value = destination;
+  document.getElementById("plannerPeople").value = people;
+  document.getElementById("plannerFrom").value = from;
+  document.getElementById("plannerTo").value = to;
 
   result.innerHTML = `
-
     <div class="result-box">
-
-      <strong>
-        ✈️ Viagem para ${escapeHtml(destination)}
-      </strong>
-
-      <p>
-        ${
-          origin
-            ? "Partida: " + escapeHtml(origin)
-            : "Origem não indicada."
-        }
-      </p>
-
-      <p>
-        👥 ${people} pessoa(s)
-        ${
-          children > 0
-            ? " · " + children + " criança(s)"
-            : ""
-        }
-      </p>
-
-      ${
-        from && to
-          ? `
-            <p>
-              📅 ${escapeHtml(from)}
-              → ${escapeHtml(to)}
-            </p>
-          `
-          : ""
-      }
-
+      <strong>✈️ Viagem para ${escapeHtml(destination)}</strong>
+      <p>${origin ? "Partida: " + escapeHtml(origin) : "Origem não indicada."}</p>
+      <p>👥 ${people} pessoa(s) ${children > 0 ? " · " + children + " criança(s)" : ""}</p>
+      ${from && to ? `<p>📅 ${escapeHtml(from)} →${escapeHtml(to)}</p>` : ""}
     </div>
-
   `;
 
   loadRealPlaces(destination);
 }
 
-
 function clearSearch() {
-
   document.getElementById("origin").value = "";
   document.getElementById("destination").value = "";
   document.getElementById("dateFrom").value = "";
   document.getElementById("dateTo").value = "";
   document.getElementById("people").value = "1";
   document.getElementById("children").value = "0";
-
   document.getElementById("searchResult").innerHTML = "";
 }
 
-
 function surpriseMe() {
-
-  const random =
-    destinations[
-      Math.floor(
-        Math.random() * destinations.length
-      )
-    ];
-
-  document.getElementById("destination").value =
-    random.name;
-
+  const random = destinations[Math.floor(Math.random() * destinations.length)];
+  document.getElementById("destination").value = random.name;
   searchTrip();
 }
 
-
 /* =========================================================
-   GEOAPIFY — GEOCODIFICAÇÃO
+   GEOAPIFY — GEOCODIFICAÇÃO E PLACES
    ========================================================= */
 
 async function getCityCoordinates(city) {
-
   checkApiKey();
-
-  const url =
-    "https://api.geoapify.com/v1/geocode/search" +
-    "?text=" +
-    encodeURIComponent(city) +
-    "&format=json" +
-    "&limit=1" +
-    "&apiKey=" +
-    encodeURIComponent(GEOAPIFY_API_KEY);
-
-  const response =
-    await fetch(url);
-
-  if (!response.ok) {
-
-    throw new Error(
-      "Não foi possível localizar a cidade."
-    );
-  }
-
-  const data =
-    await response.json();
-
-  if (
-    !data.results ||
-    !data.results.length
-  ) {
-
-    throw new Error(
-      "Cidade não encontrada."
-    );
-  }
-
-  const place =
-    data.results[0];
-
+  const url = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(city)}&format=json&limit=1&apiKey=${encodeURIComponent(GEOAPIFY_API_KEY)}`;
+  const response = await fetch(url);
+  if (!response.ok) throw new Error("Não foi possível localizar a cidade.");
+  const data = await response.json();
+  if (!data.results || !data.results.length) throw new Error("Cidade não encontrada.");
+  const place = data.results[0];
   return {
-
-    lat:Number(place.lat),
-
-    lon:Number(place.lon),
-
-    name:
-      place.city ||
-      place.name ||
-      city,
-
-    country:
-      place.country || ""
-
+    lat: Number(place.lat),
+    lon: Number(place.lon),
+    name: place.city || place.name || city,
+    country: place.country || ""
   };
 }
 
-
-/* =========================================================
-   GEOAPIFY — PESQUISA DE PLACES
-   ========================================================= */
-
-async function searchGeoapifyPlaces(
-  city,
-  categories
-) {
-
-  const location =
-    await getCityCoordinates(city);
-
+async function searchGeoapifyPlaces(city, categories) {
+  const location = await getCityCoordinates(city);
   const radius = 12000;
+  const filter = `circle:${location.lon},${location.lat},${radius}`;
+  const bias = `proximity:${location.lon},${location.lat}`;
+  const url = `https://api.geoapify.com/v2/places?categories=${encodeURIComponent(categories)}&filter=${encodeURIComponent(filter)}&bias=${encodeURIComponent(bias)}&limit=20&lang=pt&apiKey=${encodeURIComponent(GEOAPIFY_API_KEY)}`;
 
-  const filter =
-    "circle:" +
-    location.lon +
-    "," +
-    location.lat +
-    "," +
-    radius;
-
-  const bias =
-    "proximity:" +
-    location.lon +
-    "," +
-    location.lat;
-
-  const url =
-    "https://api.geoapify.com/v2/places" +
-    "?categories=" +
-    encodeURIComponent(categories) +
-    "&filter=" +
-    encodeURIComponent(filter) +
-    "&bias=" +
-    encodeURIComponent(bias) +
-    "&limit=20" +
-    "&lang=pt" +
-    "&apiKey=" +
-    encodeURIComponent(GEOAPIFY_API_KEY);
-
-  const response =
-    await fetch(url);
-
+  const response = await fetch(url);
   if (!response.ok) {
-
-    let message =
-      "Erro ao consultar os dados reais.";
-
+    let message = "Erro ao consultar os dados reais.";
     try {
-
-      const errorData =
-        await response.json();
-
-      if (errorData.message) {
-        message =
-          errorData.message;
-      }
-
+      const errorData = await response.json();
+      if (errorData.message) message = errorData.message;
     } catch (_) {}
-
     throw new Error(message);
   }
-
-  const data =
-    await response.json();
-
-  return {
-
-    location,
-
-    places:
-      data.features || []
-
-  };
+  const data = await response.json();
+  return { location, places: data.features || [] };
 }
-
-
-/* =========================================================
-   NORMALIZAR PLACE
-   ========================================================= */
 
 function normalizeGeoapifyPlace(feature) {
-
-  const p =
-    feature.properties || {};
-
-  const name =
-    p.name ||
-    p.address_line1 ||
-    p.street ||
-    "Local sem nome";
-
-  const address =
-    p.address_line2 ||
-    p.formatted ||
-    "";
-
-  const categories =
-    Array.isArray(p.categories)
-      ? p.categories
-      : [];
+  const p = feature.properties || {};
+  const name = p.name || p.address_line1 || p.street || "Local sem nome";
+  const address = p.address_line2 || p.formatted || "";
+  const categories = Array.isArray(p.categories) ? p.categories : [];
 
   let type = "Local";
+  if (categories.some(c => c.includes("restaurant"))) type = "Restaurante";
+  else if (categories.some(c => c.includes("cafe"))) type = "Café";
+  else if (categories.some(c => c.includes("museum"))) type = "Museu";
+  else if (categories.some(c => c.includes("attraction"))) type = "Atração";
+  else if (categories.some(c => c.includes("park"))) type = "Parque";
 
-  if (
-    categories.some(
-      c => c.includes("restaurant")
-    )
-  ) {
-
-    type = "Restaurante";
-
-  } else if (
-    categories.some(
-      c => c.includes("cafe")
-    )
-  ) {
-
-    type = "Café";
-
-  } else if (
-    categories.some(
-      c => c.includes("museum")
-    )
-  ) {
-
-    type = "Museu";
-
-  } else if (
-    categories.some(
-      c => c.includes("attraction")
-    )
-  ) {
-
-    type = "Atração";
-
-  } else if (
-    categories.some(
-      c => c.includes("park")
-    )
-  ) {
-
-    type = "Parque";
-  }
-
-  const lat =
-    p.lat;
-
-  const lon =
-    p.lon;
-
-  const mapsUrl =
-    lat && lon
-      ? "https://www.google.com/maps/search/?api=1&query=" +
-        encodeURIComponent(
-          lat + "," + lon
-        )
-      : "#";
+  const lat = p.lat;
+  const lon = p.lon;
+  const mapsUrl = lat && lon ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(lat + "," + lon)}` : "#";
 
   return {
-
-    id:
-      p.place_id ||
-      feature.id ||
-      Math.random().toString(36),
-
+    id: p.place_id || feature.id || Math.random().toString(36),
     name,
-
     address,
-
     type,
-
     lat,
-
     lon,
-
     categories,
-
-    phone:
-      p.contact?.phone ||
-      p.phone ||
-      "",
-
-    website:
-      p.website ||
-      p.contact?.website ||
-      "",
-
-    openingHours:
-      p.opening_hours ||
-      "",
-
-    cuisine:
-      p.catering?.cuisine ||
-      p.cuisine ||
-      "",
-
+    phone: p.contact?.phone || p.phone || "",
+    website: p.website || p.contact?.website || "",
     mapsUrl
-
   };
 }
 
-
-/* =========================================================
-   CARTÃO PLACE
-   ========================================================= */
-
-function createRealPlaceCard(place) {
-
-  const website =
-    place.website
-      ? `
-
-        <a
-          href="${escapeHtml(place.website)}"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="place-link"
-        >
-          🌐 Website
-        </a>
-
-      `
-      : "";
-
-  const phone =
-    place.phone
-      ? `
-
-        <div class="place-extra">
-          📞 ${escapeHtml(place.phone)}
-        </div>
-
-      `
-      : "";
-
-  const hours =
-    place.openingHours
-      ? `
-
-        <div class="place-extra">
-          🕐 ${escapeHtml(place.openingHours)}
-        </div>
-
-      `
-      : "";
-
-  const cuisine =
-    place.cuisine
-      ? `
-
-        <div class="place-extra">
-          🍽️ ${escapeHtml(place.cuisine)}
-        </div>
-
-      `
-      : "";
-
-  return `
-
-    <article class="real-place-card">
-
-      <div class="place-type">
-        ${escapeHtml(place.type)}
-      </div>
-
-      <h3>
-        ${escapeHtml(place.name)}
-      </h3>
-
-      ${
-        place.address
-          ? `
-            <div class="place-address">
-              📍 ${escapeHtml(place.address)}
-            </div>
-          `
-          : ""
-      }
-
-      ${cuisine}
-
-      ${hours}
-
-      ${phone}
-
-      <div class="place-actions">
-
-        <a
-          href="${place.mapsUrl}"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="place-link primary"
-        >
-          🗺️ Ver no mapa
-        </a>
-
-        ${website}
-
-      </div>
-
-    </article>
-
-  `;
-}
-
-
-/* =========================================================
-   ATRAÇÕES
-   ========================================================= */
-
-async function loadRealAttractions(city) {
-
-  const container =
-    document.getElementById(
-      "attractionsList"
-    );
-
-  container.innerHTML = `
-
-    <div class="loading-real-data">
-
-      🔎 A procurar atrações reais
-      em ${escapeHtml(city)}...
-
-    </div>
-
-  `;
-
-  try {
-
-    const result =
-      await searchGeoapifyPlaces(
-
-        city,
-
-        [
-          "tourism.attraction",
-          "tourism.sights",
-          "entertainment.museum",
-          "entertainment.culture",
-          "leisure.park"
-        ].join(",")
-
-      );
-
-    const places =
-      result.places
-        .map(
-          normalizeGeoapifyPlace
-        )
-        .filter(
-          p => p.name
-        )
-        .slice(0,20);
-
-    if (!places.length) {
-
-      container.innerHTML = `
-
-        <div class="empty-real-data">
-
-          😕 Não foram encontradas atrações
-          nesta área.
-
-        </div>
-
-      `;
-
-      return;
-    }
-
-    container.innerHTML =
-      places
-        .map(
-          createRealPlaceCard
-        )
-        .join("");
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML = `
-
-      <div class="error-real-data">
-
-        ⚠️ Não foi possível carregar
-        as atrações.
-
-        <br><br>
-
-        ${escapeHtml(error.message)}
-
-      </div>
-
-    `;
-  }
-}
-
-
-function loadRealAttractionsFromInput() {
-
-  const city =
-    document
-      .getElementById(
-        "attractionCity"
-      )
-      .value
-      .trim();
-
-  if (!city) {
-
-    alert(
-      "Escreve primeiro uma cidade."
-    );
-
+function renderPlacesList(containerId, places, emptyMsg) {
+  const container = document.getElementById(containerId);
+  if (!places.length) {
+    container.innerHTML = `<div class="empty-real-data">${escapeHtml(emptyMsg)}</div>`;
     return;
   }
-
-  loadRealAttractions(city);
-}
-
-
-/* =========================================================
-   RESTAURANTES
-   ========================================================= */
-
-async function loadRealRestaurants(city) {
-
-  const container =
-    document.getElementById(
-      "restaurantsList"
-    );
-
-  container.innerHTML = `
-
-    <div class="loading-real-data">
-
-      🔎 A procurar restaurantes reais
-      em ${escapeHtml(city)}...
-
-    </div>
-
-  `;
-
-  try {
-
-    const result =
-      await searchGeoapifyPlaces(
-
-        city,
-
-        [
-          "catering.restaurant",
-          "catering.cafe",
-          "catering.fast_food"
-        ].join(",")
-
-      );
-
-    const places =
-      result.places
-        .map(
-          normalizeGeoapifyPlace
-        )
-        .filter(
-          p => p.name
-        )
-        .slice(0,20);
-
-    if (!places.length) {
-
-      container.innerHTML = `
-
-        <div class="empty-real-data">
-
-          😕 Não foram encontrados
-          restaurantes nesta área.
-
+  container.innerHTML = places.map(f => {
+    const p = normalizeGeoapifyPlace(f);
+    return `
+      <div class="real-place-card">
+        <span class="place-type">${escapeHtml(p.type)}</span>
+        <h3>${escapeHtml(p.name)}</h3>
+        <p class="place-address">📍 ${escapeHtml(p.address || "Endereço indisponível")}</p>
+        ${p.phone ? `<p class="place-extra">📞 ${escapeHtml(p.phone)}</p>` : ""}
+        <div class="place-actions">
+          <a class="place-link primary" href="${p.mapsUrl}" target="_blank" rel="noopener">🗺️ Ver no Mapa</a>
+          ${p.website ? `<a class="place-link" href="${p.website}" target="_blank" rel="noopener">🌐 Website</a>` : ""}
         </div>
-
-      `;
-
-      return;
-    }
-
-    container.innerHTML =
-      places
-        .map(
-          createRealPlaceCard
-        )
-        .join("");
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML = `
-
-      <div class="error-real-data">
-
-        ⚠️ Não foi possível carregar
-        os restaurantes.
-
-        <br><br>
-
-        ${escapeHtml(error.message)}
-
       </div>
-
     `;
-  }
+  }).join("");
 }
-
-
-function loadRealRestaurantsFromInput() {
-
-  const city =
-    document
-      .getElementById(
-        "restaurantCity"
-      )
-      .value
-      .trim();
-
-  if (!city) {
-
-    alert(
-      "Escreve primeiro uma cidade."
-    );
-
-    return;
-  }
-
-  loadRealRestaurants(city);
-}
-
 
 async function loadRealPlaces(city) {
+  const attList = document.getElementById("attractionsList");
+  const restList = document.getElementById("restaurantsList");
 
-  document.getElementById(
-    "attractionCity"
-  ).value = city;
+  attList.innerHTML = `<div class="loading-real-data">⏳ A carregar atrações reais...</div>`;
+  restList.innerHTML = `<div class="loading-real-data">⏳ A carregar restaurantes reais...</div>`;
 
-  document.getElementById(
-    "restaurantCity"
-  ).value = city;
+  try {
+    const attRes = await searchGeoapifyPlaces(city, "entertainment,tourism,leisure,heritage");
+    renderPlacesList("attractionsList", attRes.places, "Nenhuma atração encontrada.");
+  } catch (err) {
+    attList.innerHTML = `<div class="error-real-data">⚠️ ${escapeHtml(err.message)}</div>`;
+  }
 
-  await Promise.allSettled([
-
-    loadRealAttractions(city),
-
-    loadRealRestaurants(city)
-
-  ]);
+  try {
+    const restRes = await searchGeoapifyPlaces(city, "catering.restaurant,catering.cafe");
+    renderPlacesList("restaurantsList", restRes.places, "Nenhum restaurante encontrado.");
+  } catch (err) {
+    restList.innerHTML = `<div class="error-real-data">⚠️ ${escapeHtml(err.message)}</div>`;
+  }
 }
 
+function loadRealAttractionsFromInput() {
+  const city = document.getElementById("attractionCity").value.trim();
+  if (city) loadRealPlaces(city);
+}
+
+function loadRealRestaurantsFromInput() {
+  const city = document.getElementById("restaurantCity").value.trim();
+  if (city) loadRealPlaces(city);
+}
 
 /* =========================================================
-   PAÍSES
+   DADOS REAIS, EVENTOS & DIVERSOS
    ========================================================= */
 
 async function loadCountryData() {
+  const country = document.getElementById("countrySearch").value.trim();
+  const resBox = document.getElementById("countryResult");
+  if (!country) return;
 
-  const country =
-    document
-      .getElementById(
-        "countrySearch"
-      )
-      .value
-      .trim();
-
-  const result =
-    document.getElementById(
-      "countryResult"
-    );
-
-  if (!country) {
-
-    result.innerHTML =
-      `<div class="result-box">
-        Escreve um país.
-      </div>`;
-
-    return;
-  }
-
-  result.innerHTML =
-    `<div class="result-box">
-      🔎 A procurar dados...
-    </div>`;
-
+  resBox.innerHTML = `<div class="result-box">⏳ A pesquisar país...</div>`;
   try {
+    const res = await fetch(`https://restcountries.com/v3.1/name/${encodeURIComponent(country)}`);
+    if (!res.ok) throw new Error("País não encontrado.");
+    const data = await res.json();
+    const c = data[0];
+    const currencies = c.currencies ? Object.values(c.currencies).map(curr => `${curr.name} (${curr.symbol || ''})`).join(", ") : "N/D";
+    const languages = c.languages ? Object.values(c.languages).join(", ") : "N/D";
 
-    const response =
-      await fetch(
-        "https://restcountries.com/v3.1/name/" +
-        encodeURIComponent(country)
-      );
-
-    if (!response.ok) {
-      throw new Error(
-        "País não encontrado."
-      );
-    }
-
-    const data =
-      await response.json();
-
-    const p =
-      data[0];
-
-    const currencies =
-      Object.values(
-        p.currencies || {}
-      )
-      .map(
-        c => `${c.name} (${c.symbol || ""})`
-      )
-      .join(", ");
-
-    const languages =
-      Object.values(
-        p.languages || {}
-      ).join(", ");
-
-    result.innerHTML = `
-
+    resBox.innerHTML = `
       <div class="result-box">
-
-        <h3>
-          ${escapeHtml(
-            p.name?.common || country
-          )}
-        </h3>
-
-        <p>
-          🏛️ Capital:
-          ${escapeHtml(
-            p.capital?.[0] || "—"
-          )}
-        </p>
-
-        <p>
-          🌍 Região:
-          ${escapeHtml(
-            p.region || "—"
-          )}
-        </p>
-
-        <p>
-          👥 População:
-          ${Number(
-            p.population || 0
-          ).toLocaleString("pt-PT")}
-        </p>
-
-        <p>
-          💰 Moeda:
-          ${escapeHtml(
-            currencies || "—"
-          )}
-        </p>
-
-        <p>
-          🗣️ Línguas:
-          ${escapeHtml(
-            languages || "—"
-          )}
-        </p>
-
-        <p>
-          🕐 Fusos horários:
-          ${escapeHtml(
-            (p.timezones || []).join(", ")
-          )}
-        </p>
-
+        <h4>${c.flag || ''} ${escapeHtml(c.name.common)}</h4>
+        <p><strong>Capital:</strong> ${escapeHtml(c.capital ? c.capital[0] : "N/D")}</p>
+        <p><strong>População:</strong> ${c.population.toLocaleString("pt-PT")}</p>
+        <p><strong>Língua(s):</strong> ${escapeHtml(languages)}</p>
+        <p><strong>Moeda:</strong> ${escapeHtml(currencies)}</p>
       </div>
-
     `;
-
-  } catch (error) {
-
-    result.innerHTML = `
-
-      <div class="result-box">
-
-        ⚠️ ${escapeHtml(
-          error.message
-        )}
-
-      </div>
-
-    `;
+  } catch (err) {
+    resBox.innerHTML = `<div class="result-box">⚠️ ${escapeHtml(err.message)}</div>`;
   }
 }
-
-
-/* =========================================================
-   TEMPO — OPEN METEO
-   ========================================================= */
 
 async function loadWeather() {
+  const city = document.getElementById("weatherCity").value.trim();
+  const resBox = document.getElementById("weatherResult");
+  if (!city) return;
 
-  const city =
-    document
-      .getElementById(
-        "weatherCity"
-      )
-      .value
-      .trim();
-
-  const result =
-    document.getElementById(
-      "weatherResult"
-    );
-
-  if (!city) {
-
-    result.innerHTML =
-      `<div class="result-box">
-        Escreve uma cidade.
-      </div>`;
-
-    return;
-  }
-
-  result.innerHTML =
-    `<div class="result-box">
-      🔎 A procurar...
-    </div>`;
-
+  resBox.innerHTML = `<div class="result-box">⏳ A carregar meteorologia...</div>`;
   try {
+    const coords = await getCityCoordinates(city);
+    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current_weather=true`);
+    if (!res.ok) throw new Error("Erro ao consultar dados do tempo.");
+    const data = await res.json();
+    const weather = data.current_weather;
 
-    const geoResponse =
-      await fetch(
-        "https://geocoding-api.open-meteo.com/v1/search" +
-        "?name=" +
-        encodeURIComponent(city) +
-        "&count=1" +
-        "&language=pt" +
-        "&format=json"
-      );
-
-    const geo =
-      await geoResponse.json();
-
-    if (
-      !geo.results ||
-      !geo.results.length
-    ) {
-
-      throw new Error(
-        "Cidade não encontrada."
-      );
-    }
-
-    const place =
-      geo.results[0];
-
-    const weatherResponse =
-      await fetch(
-        "https://api.open-meteo.com/v1/forecast" +
-        "?latitude=" +
-        place.latitude +
-        "&longitude=" +
-        place.longitude +
-        "&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m" +
-        "&timezone=auto"
-      );
-
-    const weather =
-      await weatherResponse.json();
-
-    const current =
-      weather.current;
-
-    result.innerHTML = `
-
+    resBox.innerHTML = `
       <div class="result-box">
-
-        <h3>
-          ${escapeHtml(
-            place.name
-          )}
-        </h3>
-
-        <p>
-          🌡️ Temperatura:
-          ${current.temperature_2m}°C
-        </p>
-
-        <p>
-          🌡️ Sensação:
-          ${current.apparent_temperature}°C
-        </p>
-
-        <p>
-          💧 Humidade:
-          ${current.relative_humidity_2m}%
-        </p>
-
-        <p>
-          💨 Vento:
-          ${current.wind_speed_10m} km/h
-        </p>
-
-        <p>
-          🕐 Hora local:
-          ${escapeHtml(
-            current.time
-          )}
-        </p>
-
+        <h4>☀️ ${escapeHtml(coords.name)}</h4>
+        <p><strong>Temperatura:</strong> ${weather.temperature}°C</p>
+        <p><strong>Vento:</strong> ${weather.windspeed} km/h</p>
       </div>
-
     `;
-
-  } catch (error) {
-
-    result.innerHTML = `
-
-      <div class="result-box">
-
-        ⚠️ ${escapeHtml(
-          error.message
-        )}
-
-      </div>
-
-    `;
+  } catch (err) {
+    resBox.innerHTML = `<div class="result-box">⚠️ ${escapeHtml(err.message)}</div>`;
   }
 }
-
-
-/* =========================================================
-   PLANEADOR
-   ========================================================= */
-
-function buildTripPlan() {
-
-  const destination =
-    document
-      .getElementById(
-        "plannerDestination"
-      )
-      .value
-      .trim();
-
-  const people =
-    Number(
-      document
-        .getElementById(
-          "plannerPeople"
-        )
-        .value || 1
-    );
-
-  const from =
-    document
-      .getElementById(
-        "plannerFrom"
-      )
-      .value;
-
-  const to =
-    document
-      .getElementById(
-        "plannerTo"
-      )
-      .value;
-
-  const result =
-    document.getElementById(
-      "plannerResult"
-    );
-
-  if (!destination) {
-
-    result.innerHTML =
-      `<div class="result-box">
-        Escolhe um destino.
-      </div>`;
-
-    return;
-  }
-
-  let days = 1;
-
-  if (from && to) {
-
-    const start =
-      new Date(from);
-
-    const end =
-      new Date(to);
-
-    const difference =
-      Math.round(
-        (
-          end - start
-        ) /
-        (1000 * 60 * 60 * 24)
-      );
-
-    if (difference >= 0) {
-      days =
-        Math.min(
-          150,
-          difference + 1
-        );
-    }
-  }
-
-  result.innerHTML = `
-
-    <div class="result-box">
-
-      <h3>
-        🧳 Plano para
-        ${escapeHtml(destination)}
-      </h3>
-
-      <p>
-        👥 Viagem para
-        ${people}
-        pessoa(s).
-      </p>
-
-      <p>
-        📅 Duração:
-        ${days}
-        dia(s).
-      </p>
-
-      <hr>
-
-      <p>
-        📍 Dia 1 — Explorar o centro
-      </p>
-
-      <p>
-        🏛️ Descobrir atrações locais
-      </p>
-
-      <p>
-        🍽️ Experimentar restaurantes locais
-      </p>
-
-      <p>
-        📸 Guardar memórias no diário
-      </p>
-
-      <div class="actions">
-
-        <button
-          class="btn btn-secondary"
-          onclick="loadRealPlaces('${escapeJs(destination)}')"
-        >
-          🔎 Procurar lugares reais
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-}
-
-
-/* =========================================================
-   MAPA
-   ========================================================= */
-
-function openMap() {
-
-  const city =
-    document
-      .getElementById(
-        "mapCity"
-      )
-      .value
-      .trim();
-
-  if (!city) {
-
-    alert(
-      "Escreve primeiro uma cidade."
-    );
-
-    return;
-  }
-
-  const url =
-    "https://www.google.com/maps/search/?api=1&query=" +
-    encodeURIComponent(city);
-
-  window.open(
-    url,
-    "_blank"
-  );
-}
-
-
-/* =========================================================
-   EVENTOS
-   ========================================================= */
 
 function searchEvents() {
-
-  const city =
-    document
-      .getElementById(
-        "eventCity"
-      )
-      .value
-      .trim();
-
-  const result =
-    document.getElementById(
-      "eventResult"
-    );
-
-  if (!city) {
-
-    result.innerHTML =
-      `<div class="result-box">
-        Escreve uma cidade.
-      </div>`;
-
-    return;
-  }
-
-  const url =
-    "https://www.google.com/search?q=" +
-    encodeURIComponent(
-      "eventos em " + city
-    );
-
-  result.innerHTML = `
-
+  const city = document.getElementById("eventCity").value.trim();
+  const resBox = document.getElementById("eventResult");
+  if (!city) return;
+  resBox.innerHTML = `
     <div class="result-box">
-
-      🔎 Para evitar inventar eventos,
-      abrimos uma pesquisa atual para
-      <strong>${escapeHtml(city)}</strong>.
-
-      <div class="actions">
-
-        <a
-          class="place-link primary"
-          href="${url}"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          🎟️ Procurar eventos
-        </a>
-
-      </div>
-
+      ℹ️ Sem API de eventos em tempo real configurada. Para pesquisar eventos em <strong>${escapeHtml(city)}</strong>, recomendiza-se consultar a agenda cultural oficial da cidade.
     </div>
-
   `;
 }
-
-
-/* =========================================================
-   ENTRADA
-   ========================================================= */
 
 function checkEntry() {
+  const nationality = document.getElementById("nationality").value;
+  const dest = document.getElementById("entryDestination").value.trim();
+  const resBox = document.getElementById("entryResult");
+  if (!dest) return;
 
-  const nationality =
-    document
-      .getElementById(
-        "nationality"
-      )
-      .value;
-
-  const destination =
-    document
-      .getElementById(
-        "entryDestination"
-      )
-      .value
-      .trim();
-
-  const result =
-    document.getElementById(
-      "entryResult"
-    );
-
-  if (!destination) {
-
-    result.innerHTML =
-      `<div class="result-box">
-        Indica o país de destino.
-      </div>`;
-
-    return;
-  }
-
-  const url =
-    "https://www.google.com/search?q=" +
-    encodeURIComponent(
-      "official entry requirements " +
-      nationality +
-      " " +
-      destination
-    );
-
-  result.innerHTML = `
-
+  resBox.innerHTML = `
     <div class="result-box">
-
-      <strong>
-        🛂 Verificação necessária
-      </strong>
-
-      <p>
-        Os requisitos de entrada dependem
-        da nacionalidade, destino e data
-        da viagem.
-      </p>
-
-      <p>
-        Consulta sempre uma fonte oficial
-        antes de viajar.
-      </p>
-
-      <div class="actions">
-
-        <a
-          class="place-link primary"
-          href="${url}"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          🔎 Procurar requisitos atuais
-        </a>
-
-      </div>
-
+      <p>🛂 Para viajar de <strong>${escapeHtml(nationality)}</strong> para <strong>${escapeHtml(dest)}</strong>, verifica os requisitos de passaporte, vistos e vacinas com a embaixada oficial.</p>
     </div>
-
   `;
 }
 
+function buildTripPlan() {
+  const dest = document.getElementById("plannerDestination").value.trim();
+  const people = document.getElementById("plannerPeople").value;
+  const from = document.getElementById("plannerFrom").value;
+  const to = document.getElementById("plannerTo").value;
+  const resBox = document.getElementById("plannerResult");
 
-/* =========================================================
-   QUIZ
-   ========================================================= */
+  if (!dest) return;
 
-function answerQuiz(button, answer) {
-
-  const result =
-    document.getElementById(
-      "quizResult"
-    );
-
-  if (answer === "Lisboa") {
-
-    result.innerHTML =
-      "🎉 Correto! +10 XP";
-
-    quizScore++;
-    xp += 10;
-
-    localStorage.setItem(
-      "escapadinhaQuiz",
-      quizScore
-    );
-
-    localStorage.setItem(
-      "escapadinhaXP",
-      xp
-    );
-
-  } else {
-
-    result.innerHTML =
-      "❌ Não é essa. A resposta é Lisboa.";
-
-  }
-
-  updateStats();
-  renderAchievements();
+  resBox.innerHTML = `
+    <div class="result-box">
+      <h4>📋 Plano de Viagem: ${escapeHtml(dest)}</h4>
+      <p>👥 Viajantes: ${people}</p>
+      ${from && to ? `<p>📅 Período: ${escapeHtml(from)} até ${escapeHtml(to)}</p>` : ""}
+      <ul>
+        <li>Dia 1: Chegada, check-in e passeio pelo centro histórico.</li>
+        <li>Dia 2: Visita a atrações principais e jantar de gastronomia local.</li>
+        <li>Dia 3: Exploração cultural ou natureza e compras locais.</li>
+      </ul>
+    </div>
+  `;
 }
 
+function openMap() {
+  const city = document.getElementById("mapCity").value.trim();
+  if (city) {
+    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(city)}`, "_blank");
+  }
+}
 
 /* =========================================================
-   CONQUISTAS
+   JOGOS, CONQUISTAS & DIÁRIO
    ========================================================= */
+
+function answerQuiz(btn, answer) {
+  const res = document.getElementById("quizResult");
+  if (answer === "Lisboa") {
+    res.innerHTML = "✅ Correto! Ganhaste +10 XP!";
+    xp += 10;
+    localStorage.setItem("escapadinhaXP", xp);
+    updateStats();
+  } else {
+    res.innerHTML = "❌ Incorreto. Tenta novamente!";
+  }
+}
 
 function renderAchievements() {
+  const list = document.getElementById("achievements");
+  let items = [];
+  if (visited.length >= 1) items.push("🏆 Primeiro Passo (Visitou 1 destino)");
+  if (visited.length >= 5) items.push("🌍 Explorador Frequentador (5 destinos)");
+  if (favorites.length >= 3) items.push("❤️ Colecionador de Sonhos (3 favoritos)");
+  if (!items.length) items.push("Marca destinos como visitados ou favoritos para desbloquear conquistas!");
 
-  const list =
-    document.getElementById(
-      "achievements"
-    );
-
-  const achievements = [
-
-    {
-      name:"Primeira viagem",
-      unlocked:visited.length >= 1
-    },
-
-    {
-      name:"5 destinos",
-      unlocked:visited.length >= 5
-    },
-
-    {
-      name:"10 destinos",
-      unlocked:visited.length >= 10
-    },
-
-    {
-      name:"20 destinos",
-      unlocked:visited.length >= 20
-    },
-
-    {
-      name:"Colecionador de favoritos",
-      unlocked:favorites.length >= 5
-    },
-
-    {
-      name:"Quiz inicial",
-      unlocked:quizScore >= 1
-    }
-
-  ];
-
-  list.innerHTML =
-    achievements
-      .map(
-        achievement => `
-
-          <li>
-
-            ${
-              achievement.unlocked
-                ? "🏆"
-                : "🔒"
-            }
-
-            ${escapeHtml(
-              achievement.name
-            )}
-
-          </li>
-
-        `
-      )
-      .join("");
+  list.innerHTML = items.map(item => `<li>${escapeHtml(item)}</li>`).join("");
 }
-
-
-/* =========================================================
-   DIÁRIO
-   ========================================================= */
 
 function saveDiary() {
+  const title = document.getElementById("diaryTitle").value.trim();
+  const text = document.getElementById("diaryText").value.trim();
+  if (!title || !text) return;
 
-  const title =
-    document
-      .getElementById(
-        "diaryTitle"
-      )
-      .value
-      .trim();
-
-  const text =
-    document
-      .getElementById(
-        "diaryText"
-      )
-      .value
-      .trim();
-
-  if (!title || !text) {
-
-    alert(
-      "Preenche o título e a memória."
-    );
-
-    return;
-  }
-
-  diary.unshift({
-
-    id:Date.now(),
-
-    title,
-
-    text,
-
-    date:
-      new Date()
-        .toLocaleDateString(
-          "pt-PT"
-        )
-
-  });
-
-  localStorage.setItem(
-    "escapadinhaDiary",
-    JSON.stringify(diary)
-  );
-
-  document.getElementById(
-    "diaryTitle"
-  ).value = "";
-
-  document.getElementById(
-    "diaryText"
-  ).value = "";
-
+  diary.push({ title, text, date: new Date().toLocaleDateString("pt-PT") });
+  localStorage.setItem("escapadinhaDiary", JSON.stringify(diary));
+  document.getElementById("diaryTitle").value = "";
+  document.getElementById("diaryText").value = "";
   renderDiary();
-
-  xp += 5;
-
-  localStorage.setItem(
-    "escapadinhaXP",
-    xp
-  );
-
-  updateStats();
 }
-
 
 function renderDiary() {
-
-  const container =
-    document.getElementById(
-      "diaryList"
-    );
-
+  const container = document.getElementById("diaryList");
   if (!diary.length) {
-
-    container.innerHTML = `
-
-      <div class="notice">
-
-        Ainda não tens memórias guardadas.
-
-      </div>
-
-    `;
-
+    container.innerHTML = `<p style="margin-top:15px; color:#aebbc7;">Ainda não tens nenhuma memória guardada.</p>`;
     return;
   }
-
-  container.innerHTML =
-    diary
-      .map(
-        entry => `
-
-          <div class="diary-entry">
-
-            <strong>
-              ${escapeHtml(
-                entry.title
-              )}
-            </strong>
-
-            <small>
-              ${escapeHtml(
-                entry.date
-              )}
-            </small>
-
-            <p>
-              ${escapeHtml(
-                entry.text
-              )}
-            </p>
-
-            <button
-              class="small-btn"
-              onclick="deleteDiary(${entry.id})"
-            >
-              🗑️ Apagar
-            </button>
-
-          </div>
-
-        `
-      )
-      .join("");
+  container.innerHTML = diary.map(entry => `
+    <div class="diary-entry">
+      <h4>${escapeHtml(entry.title)} <small style="font-weight:normal; font-size:12px; color:#aebbc7;">(${escapeHtml(entry.date)})</small></h4>
+      <p>${escapeHtml(entry.text)}</p>
+    </div>
+  `).join("");
 }
-
-
-function deleteDiary(id) {
-
-  diary =
-    diary.filter(
-      entry => entry.id !== id
-    );
-
-  localStorage.setItem(
-    "escapadinhaDiary",
-    JSON.stringify(diary)
-  );
-
-  renderDiary();
-}
-
-
-/* =========================================================
-   ESTATÍSTICAS
-   ========================================================= */
-
-function updateStats() {
-
-  document.getElementById(
-    "statFavorites"
-  ).textContent =
-    favorites.length;
-
-  document.getElementById(
-    "statVisited"
-  ).textContent =
-    visited.length;
-
-  document.getElementById(
-    "statXP"
-  ).textContent =
-    xp;
-
-  document.getElementById(
-    "gameVisited"
-  ).textContent =
-    visited.length;
-}
-
-
-/* =========================================================
-   API KEY
-   ========================================================= */
-
-function checkApiKey() {
-
-  if (
-    !GEOAPIFY_API_KEY ||
-    GEOAPIFY_API_KEY ===
-      "COLOCA_AQUI_A_TUA_CHAVE"
-  ) {
-
-    throw new Error(
-      "Falta colocar a tua chave Geoapify no index.html."
-    );
-  }
-}
-
-
-/* =========================================================
-   SEGURANÇA HTML
-   ========================================================= */
-
-function escapeHtml(value) {
-
-  if (
-    value === null ||
-    value === undefined
-  ) {
-
-    return "";
-
-  }
-
-  return String(value)
-
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-}
-
-
-function escapeJs(value) {
-
-  return String(value)
-    .replace(
-      /\\/g,
-      "\\\\"
-    )
-    .replace(
-      /'/g,
-      "\\'"
-    );
-}
-
 
 /* =========================================================
    INICIALIZAÇÃO
    ========================================================= */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    renderDestinations();
-
-    renderDiary();
-
-    renderAchievements();
-
-    updateStats();
-
-  }
-);
+document.addEventListener("DOMContentLoaded", () => {
+  renderDestinations();
+  renderAchievements();
+  renderDiary();
+});
 
 </script>
-
-
-};
 </body>
 </html>
