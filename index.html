@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
@@ -6,7 +7,10 @@
 
 <title>Escapadinha 🌍</title>
 
-<meta name="description" content="Descobre destinos, atrações, restaurantes e ideias para a tua próxima viagem.">
+<meta
+  name="description"
+  content="Descobre destinos, atrações, restaurantes e ideias para a tua próxima viagem."
+>
 
 <style>
 *{
@@ -376,18 +380,13 @@ header{
   color:#4f46e5;
   font-weight:700;
   font-size:.8rem;
+  margin-bottom:4px;
 }
 
-.loading{
-  padding:30px;
-  text-align:center;
-  background:white;
-  border-radius:18px;
-  color:#64748b;
-}
-
+.loading,
 .empty{
   padding:30px;
+  text-align:center;
   background:white;
   border-radius:18px;
   color:#64748b;
@@ -397,6 +396,24 @@ header{
   background:#eef2ff;
   border:1px solid #c7d2fe;
   color:#3730a3;
+  padding:15px;
+  border-radius:14px;
+  margin-bottom:20px;
+}
+
+.success{
+  background:#ecfdf5;
+  border:1px solid #a7f3d0;
+  color:#065f46;
+  padding:15px;
+  border-radius:14px;
+  margin-bottom:20px;
+}
+
+.error{
+  background:#fef2f2;
+  border:1px solid #fecaca;
+  color:#991b1b;
   padding:15px;
   border-radius:14px;
   margin-bottom:20px;
@@ -434,15 +451,10 @@ header{
 }
 
 .game{
-  background:
-    linear-gradient(135deg,#312e81,#4f46e5);
+  background:linear-gradient(135deg,#312e81,#4f46e5);
   color:white;
   padding:30px;
   border-radius:22px;
-}
-
-.game button{
-  margin-top:15px;
 }
 
 .quiz-options{
@@ -459,6 +471,11 @@ header{
   background:white;
   color:#312e81;
   font-weight:700;
+}
+
+.quiz-options button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
 .diary-list{
@@ -499,10 +516,17 @@ header{
 .photo-credit{
   font-size:.7rem;
   color:#94a3b8;
-  margin-top:6px;
+  margin-top:8px;
+}
+
+.distance{
+  color:#475569;
+  font-size:.8rem;
+  margin-top:7px;
 }
 
 @media(max-width:1050px){
+
   .search-box{
     grid-template-columns:repeat(3,1fr);
   }
@@ -517,6 +541,7 @@ header{
 }
 
 @media(max-width:750px){
+
   .nav{
     align-items:flex-start;
     flex-direction:column;
@@ -554,8 +579,12 @@ header{
 <body>
 
 <header>
+
   <nav class="nav">
-    <div class="logo">🌍 Escapadinha</div>
+
+    <div class="logo">
+      🌍 Escapadinha
+    </div>
 
     <div class="nav-links">
       <a href="#explorar">Explorar</a>
@@ -568,76 +597,102 @@ header{
       <a href="#jogos">Jogos</a>
       <a href="#diario">Diário</a>
     </div>
+
   </nav>
+
 </header>
 
+
 <section class="hero">
+
   <div class="hero-inner">
 
-    <h1>A tua próxima viagem começa aqui 🌍</h1>
+    <h1>
+      A tua próxima viagem começa aqui 🌍
+    </h1>
 
     <p>
-      Descobre destinos, atrações, restaurantes e ideias para criares
-      a tua próxima escapadinha.
+      Descobre destinos, atrações, restaurantes e ideias
+      para criares a tua próxima escapadinha.
     </p>
 
     <div class="search-box">
 
       <div class="field">
-        <label>De onde sais?</label>
+        <label for="origin">De onde sais?</label>
         <input id="origin" placeholder="Ex.: Lisboa">
       </div>
 
       <div class="field">
-        <label>Para onde?</label>
-        <input id="destination" placeholder="Ex.: Paris">
+        <label for="destination">Para onde?</label>
+        <input
+          id="destination"
+          placeholder="Ex.: Paris"
+          autocomplete="off"
+        >
       </div>
 
       <div class="field">
-        <label>Desde</label>
+        <label for="startDate">Desde</label>
         <input id="startDate" type="date">
       </div>
 
       <div class="field">
-        <label>Até</label>
+        <label for="endDate">Até</label>
         <input id="endDate" type="date">
       </div>
 
       <div class="field">
-        <label>Pessoas</label>
+        <label for="people">Pessoas</label>
         <input id="people" type="number" min="1" value="1">
       </div>
 
       <div class="field">
-        <label>Crianças</label>
+        <label for="children">Crianças</label>
         <input id="children" type="number" min="0" value="0">
       </div>
 
-      <button class="primary" onclick="searchDestination()">
+      <button
+        id="searchButton"
+        class="primary"
+        type="button"
+      >
         Pesquisar
       </button>
 
     </div>
 
     <div class="hero-buttons">
-      <button class="secondary" onclick="surpriseMe()">
+
+      <button
+        id="surpriseButton"
+        class="secondary"
+        type="button"
+      >
         🎲 Surpreende-me
       </button>
 
-      <button class="secondary" onclick="clearSearch()">
+      <button
+        id="clearButton"
+        class="secondary"
+        type="button"
+      >
         Limpar
       </button>
+
     </div>
 
   </div>
+
 </section>
+
 
 <section class="container" style="padding-top:20px">
 
   <div class="stats">
 
     <div class="stat">
-      <strong id="destinationCount">24</strong>
+      <strong id="destinationCount">0</strong>
       <span>destinos iniciais</span>
     </div>
 
@@ -660,41 +715,105 @@ header{
 
 </section>
 
+
 <section id="explorar" class="container">
 
   <div class="section-title">
-    <h2>🌎 Explorar destinos</h2>
-    <p>Escolhe um destino e vê fotografias reais, informações e ideias.</p>
+
+    <h2>
+      🌎 Explorar destinos
+    </h2>
+
+    <p>
+      Escolhe um destino e vê fotografias reais,
+      informações e ideias.
+    </p>
+
   </div>
 
   <div class="filters">
-    <button class="filter active" onclick="filterDestinations('Todos',this)">Todos</button>
-    <button class="filter" onclick="filterDestinations('Europa',this)">Europa</button>
-    <button class="filter" onclick="filterDestinations('Ásia',this)">Ásia</button>
-    <button class="filter" onclick="filterDestinations('América',this)">América</button>
-    <button class="filter" onclick="filterDestinations('África',this)">África</button>
-    <button class="filter" onclick="filterDestinations('Oceânia',this)">Oceânia</button>
+
+    <button
+      class="filter active"
+      data-region="Todos"
+      type="button"
+    >
+      Todos
+    </button>
+
+    <button
+      class="filter"
+      data-region="Europa"
+      type="button"
+    >
+      Europa
+    </button>
+
+    <button
+      class="filter"
+      data-region="Ásia"
+      type="button"
+    >
+      Ásia
+    </button>
+
+    <button
+      class="filter"
+      data-region="América"
+      type="button"
+    >
+      América
+    </button>
+
+    <button
+      class="filter"
+      data-region="África"
+      type="button"
+    >
+      África
+    </button>
+
+    <button
+      class="filter"
+      data-region="Oceânia"
+      type="button"
+    >
+      Oceânia
+    </button>
+
   </div>
 
-  <div id="destinationCards" class="cards"></div>
+  <div
+    id="destinationCards"
+    class="cards"
+  ></div>
 
 </section>
+
 
 <section id="reais" class="container">
 
   <div class="section-title">
-    <h2>📍 Informação real dos lugares</h2>
+
+    <h2>
+      📍 Informação real dos lugares
+    </h2>
+
     <p>
       Os locais são pesquisados através da Geoapify Places API.
     </p>
+
   </div>
 
   <div class="notice">
-    🔎 Pesquisa um destino acima para carregar atrações e restaurantes
-    reais desse local.
+    🔎 Pesquisa um destino para carregar atrações
+    e restaurantes reais desse local.
   </div>
 
-  <div id="realPlaces" class="real-grid">
+  <div
+    id="realPlaces"
+    class="real-grid"
+  >
     <div class="empty">
       Ainda não pesquisaste nenhum destino.
     </div>
@@ -702,14 +821,25 @@ header{
 
 </section>
 
+
 <section id="atracoes" class="container">
 
   <div class="section-title">
-    <h2>🏛️ Atrações</h2>
-    <p>Locais interessantes encontrados para o destino pesquisado.</p>
+
+    <h2>
+      🏛️ Atrações
+    </h2>
+
+    <p>
+      Locais interessantes encontrados para o destino pesquisado.
+    </p>
+
   </div>
 
-  <div id="attractions" class="real-grid">
+  <div
+    id="attractions"
+    class="real-grid"
+  >
     <div class="empty">
       Pesquisa um destino para carregar as atrações.
     </div>
@@ -717,14 +847,25 @@ header{
 
 </section>
 
+
 <section id="restaurantes" class="container">
 
   <div class="section-title">
-    <h2>🍽️ Restaurantes</h2>
-    <p>Restaurantes e cafés encontrados no destino.</p>
+
+    <h2>
+      🍽️ Restaurantes
+    </h2>
+
+    <p>
+      Restaurantes e cafés encontrados no destino.
+    </p>
+
   </div>
 
-  <div id="restaurants" class="real-grid">
+  <div
+    id="restaurants"
+    class="real-grid"
+  >
     <div class="empty">
       Pesquisa um destino para carregar restaurantes.
     </div>
@@ -732,11 +873,19 @@ header{
 
 </section>
 
+
 <section id="eventos" class="container">
 
   <div class="section-title">
-    <h2>🎟️ Eventos</h2>
-    <p>Procura eventos e atividades no destino.</p>
+
+    <h2>
+      🎟️ Eventos
+    </h2>
+
+    <p>
+      Procura eventos e atividades no destino.
+    </p>
+
   </div>
 
   <div class="panel">
@@ -746,12 +895,16 @@ header{
     </h3>
 
     <p>
-      Podes abrir uma pesquisa de eventos atualizada para a cidade escolhida.
+      Abre uma pesquisa atualizada de eventos para a cidade escolhida.
     </p>
 
     <br>
 
-    <button class="primary" onclick="openEvents()">
+    <button
+      id="eventsButton"
+      class="primary"
+      type="button"
+    >
       Ver eventos
     </button>
 
@@ -759,11 +912,19 @@ header{
 
 </section>
 
+
 <section id="entrada" class="container">
 
   <div class="section-title">
-    <h2>🛂 Entrada no país</h2>
-    <p>Consulta informações oficiais antes de viajar.</p>
+
+    <h2>
+      🛂 Entrada no país
+    </h2>
+
+    <p>
+      Consulta informações oficiais antes de viajar.
+    </p>
+
   </div>
 
   <div class="panel">
@@ -773,13 +934,17 @@ header{
     </h3>
 
     <p>
-      Os requisitos de entrada podem mudar. Confirma sempre a informação
-      junto das autoridades oficiais antes da viagem.
+      Os requisitos de entrada podem mudar.
+      Confirma sempre a informação junto das autoridades oficiais.
     </p>
 
     <br>
 
-    <button class="primary" onclick="openEntryRequirements()">
+    <button
+      id="entryButton"
+      class="primary"
+      type="button"
+    >
       Ver requisitos
     </button>
 
@@ -787,56 +952,110 @@ header{
 
 </section>
 
+
 <section id="planear" class="container">
 
   <div class="section-title">
-    <h2>🧳 Planear viagem</h2>
-    <p>Organiza rapidamente os principais detalhes da tua escapadinha.</p>
+
+    <h2>
+      🧳 Planear viagem
+    </h2>
+
+    <p>
+      Organiza rapidamente os principais detalhes da tua escapadinha.
+    </p>
+
   </div>
 
   <div class="planner">
 
     <div class="panel">
 
-      <h3>Detalhes</h3>
+      <h3>
+        Detalhes
+      </h3>
 
       <div class="form-grid">
 
         <div class="field">
-          <label>Destino</label>
-          <input id="plannerDestination" placeholder="Paris">
+
+          <label for="plannerDestination">
+            Destino
+          </label>
+
+          <input
+            id="plannerDestination"
+            placeholder="Paris"
+          >
+
         </div>
 
         <div class="field">
-          <label>Pessoas</label>
-          <input id="plannerPeople" type="number" min="1" value="1">
+
+          <label for="plannerPeople">
+            Pessoas
+          </label>
+
+          <input
+            id="plannerPeople"
+            type="number"
+            min="1"
+            value="1"
+          >
+
         </div>
 
         <div class="field">
-          <label>Desde</label>
-          <input id="plannerStart" type="date">
+
+          <label for="plannerStart">
+            Desde
+          </label>
+
+          <input
+            id="plannerStart"
+            type="date"
+          >
+
         </div>
 
         <div class="field">
-          <label>Até</label>
-          <input id="plannerEnd" type="date">
+
+          <label for="plannerEnd">
+            Até
+          </label>
+
+          <input
+            id="plannerEnd"
+            type="date"
+          >
+
         </div>
 
       </div>
 
       <br>
 
-      <button class="primary" onclick="buildTripPlan()">
+      <button
+        id="planButton"
+        class="primary"
+        type="button"
+      >
         Criar plano
       </button>
 
-      <div id="plannerResult" class="result hidden"></div>
+      <div
+        id="plannerResult"
+        class="result hidden"
+      ></div>
 
     </div>
 
+
     <div class="panel">
 
-      <h3>🗺️ Mapa</h3>
+      <h3>
+        🗺️ Mapa
+      </h3>
 
       <p>
         Abre o destino diretamente no Google Maps.
@@ -844,7 +1063,11 @@ header{
 
       <br>
 
-      <button class="primary" onclick="openMap()">
+      <button
+        id="mapButton"
+        class="primary"
+        type="button"
+      >
         Abrir mapa
       </button>
 
@@ -854,85 +1077,118 @@ header{
 
 </section>
 
+
 <section id="jogos" class="container">
 
   <div class="section-title">
-    <h2>🎮 Jogos de viagem</h2>
-    <p>Ganha XP enquanto exploras.</p>
+
+    <h2>
+      🎮 Jogos de viagem
+    </h2>
+
+    <p>
+      Ganha XP enquanto exploras.
+    </p>
+
   </div>
 
   <div class="game">
 
-    <h3>🧠 Quiz rápido</h3>
+    <h3>
+      🧠 Quiz rápido
+    </h3>
 
     <p id="quizQuestion">
       Qual é a capital de Portugal?
     </p>
 
-    <div class="quiz-options">
+    <div
+      id="quizOptions"
+      class="quiz-options"
+    ></div>
 
-      <button onclick="answerQuiz('Lisboa')">
-        Lisboa
-      </button>
-
-      <button onclick="answerQuiz('Porto')">
-        Porto
-      </button>
-
-      <button onclick="answerQuiz('Madrid')">
-        Madrid
-      </button>
-
-      <button onclick="answerQuiz('Paris')">
-        Paris
-      </button>
-
-    </div>
-
-    <p id="quizResult" style="margin-top:15px"></p>
+    <p
+      id="quizResult"
+      style="margin-top:15px"
+    ></p>
 
   </div>
 
 </section>
 
+
 <section id="diario" class="container">
 
   <div class="section-title">
-    <h2>📖 Diário de viagem</h2>
-    <p>Guarda pequenas memórias das tuas viagens neste dispositivo.</p>
+
+    <h2>
+      📖 Diário de viagem
+    </h2>
+
+    <p>
+      Guarda pequenas memórias das tuas viagens neste dispositivo.
+    </p>
+
   </div>
 
   <div class="panel">
 
     <div class="field">
-      <label>Destino</label>
-      <input id="diaryDestination" placeholder="Ex.: Paris">
+
+      <label for="diaryDestination">
+        Destino
+      </label>
+
+      <input
+        id="diaryDestination"
+        placeholder="Ex.: Paris"
+      >
+
     </div>
 
     <br>
 
     <div class="field">
-      <label>Memória</label>
-      <textarea id="diaryText" rows="5" placeholder="O que viveste nesta viagem?"></textarea>
+
+      <label for="diaryText">
+        Memória
+      </label>
+
+      <textarea
+        id="diaryText"
+        rows="5"
+        placeholder="O que viveste nesta viagem?"
+      ></textarea>
+
     </div>
 
     <br>
 
-    <button class="primary" onclick="saveDiary()">
+    <button
+      id="diaryButton"
+      class="primary"
+      type="button"
+    >
       Guardar memória
     </button>
 
   </div>
 
-  <div id="diaryList" class="diary-list"></div>
+  <div
+    id="diaryList"
+    class="diary-list"
+  ></div>
 
 </section>
+
 
 <footer class="footer">
 
   <div class="footer-inner">
 
-    <h3>🌍 Escapadinha</h3>
+    <h3>
+      🌍 Escapadinha
+    </h3>
 
     <p>
       Descobre o mundo, guarda ideias e planeia a tua próxima viagem.
@@ -941,7 +1197,7 @@ header{
     <br>
 
     <p class="small">
-      Fotografias apresentadas através de Wikimedia Commons quando disponíveis.
+      Fotografias através do Wikimedia Commons quando disponíveis.
       Dados de lugares através de Geoapify/OpenStreetMap.
     </p>
 
@@ -949,13 +1205,25 @@ header{
 
 </footer>
 
+
 <script>
 
 /* =========================================================
    CONFIGURAÇÃO
    ========================================================= */
 
-const GEOAPIFY_API_KEY = "a3cf4feb4f3b41eda5c8b8ec7361b924";
+/*
+  COLOCA AQUI A TUA NOVA CHAVE GEOAPIFY.
+
+  IMPORTANTE:
+  Uma chave colocada diretamente no HTML fica visível
+  para quem abrir o código da página.
+
+  Para testes locais funciona.
+  Para produção recomenda-se utilizar um backend/proxy.
+*/
+
+const GEOAPIFY_API_KEY = "COLOCA_AQUI_A_TUA_NOVA_CHAVE";
 
 
 /* =========================================================
@@ -964,34 +1232,173 @@ const GEOAPIFY_API_KEY = "a3cf4feb4f3b41eda5c8b8ec7361b924";
 
 const destinations = [
 
-  {name:"Lisboa",region:"Europa",country:"Portugal",query:"Lisbon Portugal"},
-  {name:"Porto",region:"Europa",country:"Portugal",query:"Porto Portugal"},
-  {name:"Madrid",region:"Europa",country:"Espanha",query:"Madrid Spain"},
-  {name:"Barcelona",region:"Europa",country:"Espanha",query:"Barcelona Spain"},
-  {name:"Paris",region:"Europa",country:"França",query:"Paris France"},
-  {name:"Roma",region:"Europa",country:"Itália",query:"Rome Italy"},
-  {name:"Londres",region:"Europa",country:"Reino Unido",query:"London England"},
-  {name:"Amesterdão",region:"Europa",country:"Países Baixos",query:"Amsterdam Netherlands"},
-  {name:"Praga",region:"Europa",country:"Chéquia",query:"Prague Czech Republic"},
-  {name:"Reiquiavique",region:"Europa",country:"Islândia",query:"Reykjavik Iceland"},
-  {name:"Atenas",region:"Europa",country:"Grécia",query:"Athens Greece"},
-  {name:"Istambul",region:"Europa",country:"Turquia",query:"Istanbul Turkey"},
+  {
+    name:"Lisboa",
+    region:"Europa",
+    country:"Portugal",
+    query:"Lisbon Portugal"
+  },
 
-  {name:"Tóquio",region:"Ásia",country:"Japão",query:"Tokyo Japan"},
-  {name:"Seul",region:"Ásia",country:"Coreia do Sul",query:"Seoul South Korea"},
-  {name:"Banguecoque",region:"Ásia",country:"Tailândia",query:"Bangkok Thailand"},
-  {name:"Bali",region:"Ásia",country:"Indonésia",query:"Bali Indonesia"},
-  {name:"Dubai",region:"Ásia",country:"Emirados Árabes Unidos",query:"Dubai UAE"},
+  {
+    name:"Porto",
+    region:"Europa",
+    country:"Portugal",
+    query:"Porto Portugal"
+  },
 
-  {name:"Marrakech",region:"África",country:"Marrocos",query:"Marrakesh Morocco"},
-  {name:"Cidade do Cabo",region:"África",country:"África do Sul",query:"Cape Town South Africa"},
+  {
+    name:"Madrid",
+    region:"Europa",
+    country:"Espanha",
+    query:"Madrid Spain"
+  },
 
-  {name:"Nova Iorque",region:"América",country:"Estados Unidos",query:"New York City USA"},
-  {name:"Cidade do México",region:"América",country:"México",query:"Mexico City Mexico"},
-  {name:"Buenos Aires",region:"América",country:"Argentina",query:"Buenos Aires Argentina"},
+  {
+    name:"Barcelona",
+    region:"Europa",
+    country:"Espanha",
+    query:"Barcelona Spain"
+  },
 
-  {name:"Sydney",region:"Oceânia",country:"Austrália",query:"Sydney Australia"},
-  {name:"Auckland",region:"Oceânia",country:"Nova Zelândia",query:"Auckland New Zealand"}
+  {
+    name:"Paris",
+    region:"Europa",
+    country:"França",
+    query:"Paris France"
+  },
+
+  {
+    name:"Roma",
+    region:"Europa",
+    country:"Itália",
+    query:"Rome Italy"
+  },
+
+  {
+    name:"Londres",
+    region:"Europa",
+    country:"Reino Unido",
+    query:"London England"
+  },
+
+  {
+    name:"Amesterdão",
+    region:"Europa",
+    country:"Países Baixos",
+    query:"Amsterdam Netherlands"
+  },
+
+  {
+    name:"Praga",
+    region:"Europa",
+    country:"Chéquia",
+    query:"Prague Czech Republic"
+  },
+
+  {
+    name:"Reiquiavique",
+    region:"Europa",
+    country:"Islândia",
+    query:"Reykjavik Iceland"
+  },
+
+  {
+    name:"Atenas",
+    region:"Europa",
+    country:"Grécia",
+    query:"Athens Greece"
+  },
+
+  {
+    name:"Istambul",
+    region:"Europa",
+    country:"Turquia",
+    query:"Istanbul Turkey"
+  },
+
+  {
+    name:"Tóquio",
+    region:"Ásia",
+    country:"Japão",
+    query:"Tokyo Japan"
+  },
+
+  {
+    name:"Seul",
+    region:"Ásia",
+    country:"Coreia do Sul",
+    query:"Seoul South Korea"
+  },
+
+  {
+    name:"Banguecoque",
+    region:"Ásia",
+    country:"Tailândia",
+    query:"Bangkok Thailand"
+  },
+
+  {
+    name:"Bali",
+    region:"Ásia",
+    country:"Indonésia",
+    query:"Bali Indonesia"
+  },
+
+  {
+    name:"Dubai",
+    region:"Ásia",
+    country:"Emirados Árabes Unidos",
+    query:"Dubai UAE"
+  },
+
+  {
+    name:"Marrakech",
+    region:"África",
+    country:"Marrocos",
+    query:"Marrakesh Morocco"
+  },
+
+  {
+    name:"Cidade do Cabo",
+    region:"África",
+    country:"África do Sul",
+    query:"Cape Town South Africa"
+  },
+
+  {
+    name:"Nova Iorque",
+    region:"América",
+    country:"Estados Unidos",
+    query:"New York City USA"
+  },
+
+  {
+    name:"Cidade do México",
+    region:"América",
+    country:"México",
+    query:"Mexico City Mexico"
+  },
+
+  {
+    name:"Buenos Aires",
+    region:"América",
+    country:"Argentina",
+    query:"Buenos Aires Argentina"
+  },
+
+  {
+    name:"Sydney",
+    region:"Oceânia",
+    country:"Austrália",
+    query:"Sydney Australia"
+  },
+
+  {
+    name:"Auckland",
+    region:"Oceânia",
+    country:"Nova Zelândia",
+    query:"Auckland New Zealand"
+  }
 
 ];
 
@@ -1005,16 +1412,59 @@ let currentCountry = "";
 let currentImage = "";
 
 let favorites =
-  JSON.parse(localStorage.getItem("escapadinha_favorites") || "[]");
+  JSON.parse(
+    localStorage.getItem("escapadinha_favorites") || "[]"
+  );
 
 let visited =
-  JSON.parse(localStorage.getItem("escapadinha_visited") || "[]");
+  JSON.parse(
+    localStorage.getItem("escapadinha_visited") || "[]"
+  );
 
 let diary =
-  JSON.parse(localStorage.getItem("escapadinha_diary") || "[]");
+  JSON.parse(
+    localStorage.getItem("escapadinha_diary") || "[]"
+  );
 
 let xp =
-  Number(localStorage.getItem("escapadinha_xp") || 0);
+  Number(
+    localStorage.getItem("escapadinha_xp") || 0
+  );
+
+
+/* =========================================================
+   QUIZ
+   ========================================================= */
+
+const quizQuestions = [
+
+  {
+    question:"Qual é a capital de Portugal?",
+    answers:["Lisboa","Porto","Madrid","Paris"],
+    correct:"Lisboa"
+  },
+
+  {
+    question:"Qual é a capital de França?",
+    answers:["Roma","Paris","Berlim","Madrid"],
+    correct:"Paris"
+  },
+
+  {
+    question:"Em que país fica Praga?",
+    answers:["Áustria","Chéquia","Polónia","Hungria"],
+    correct:"Chéquia"
+  },
+
+  {
+    question:"Qual destas cidades fica no Japão?",
+    answers:["Seul","Banguecoque","Tóquio","Pequim"],
+    correct:"Tóquio"
+  }
+
+];
+
+let currentQuiz = 0;
 
 
 /* =========================================================
@@ -1023,7 +1473,10 @@ let xp =
 
 function escapeHtml(value){
 
-  if(value === null || value === undefined){
+  if(
+    value === null ||
+    value === undefined
+  ){
     return "";
   }
 
@@ -1033,6 +1486,7 @@ function escapeHtml(value){
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
+
 }
 
 
@@ -1048,7 +1502,8 @@ async function getWikimediaImage(searchTerm){
       "https://commons.wikimedia.org/w/api.php" +
       "?action=query" +
       "&generator=search" +
-      "&gsrsearch=" + encodeURIComponent(searchTerm) +
+      "&gsrsearch=" +
+      encodeURIComponent(searchTerm) +
       "&gsrnamespace=6" +
       "&gsrlimit=5" +
       "&prop=imageinfo" +
@@ -1057,23 +1512,31 @@ async function getWikimediaImage(searchTerm){
       "&format=json" +
       "&origin=*";
 
-    const response = await fetch(url);
+    const response =
+      await fetch(url);
 
     if(!response.ok){
       return null;
     }
 
-    const data = await response.json();
+    const data =
+      await response.json();
 
-    if(!data.query || !data.query.pages){
+    if(
+      !data.query ||
+      !data.query.pages
+    ){
       return null;
     }
 
-    const pages = Object.values(data.query.pages);
+    const pages =
+      Object.values(data.query.pages);
 
     for(const page of pages){
 
-      const info = page.imageinfo && page.imageinfo[0];
+      const info =
+        page.imageinfo &&
+        page.imageinfo[0];
 
       if(!info){
         continue;
@@ -1096,16 +1559,22 @@ async function getWikimediaImage(searchTerm){
         url:imageUrl,
         title:title
       };
+
     }
 
     return null;
 
   }catch(error){
 
-    console.error("Erro Wikimedia:",error);
+    console.error(
+      "Erro Wikimedia:",
+      error
+    );
 
     return null;
+
   }
+
 }
 
 
@@ -1116,17 +1585,22 @@ async function getWikimediaImage(searchTerm){
 function fallbackImage(){
 
   return "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=900&q=80";
+
 }
 
 
 /* =========================================================
-   CARREGAR DESTINOS
+   DESTINOS
    ========================================================= */
 
-async function renderDestinations(list = destinations){
+async function renderDestinations(
+  list = destinations
+){
 
   const container =
-    document.getElementById("destinationCards");
+    document.getElementById(
+      "destinationCards"
+    );
 
   container.innerHTML = "";
 
@@ -1138,6 +1612,7 @@ async function renderDestinations(list = destinations){
     card.className = "card";
 
     card.innerHTML = `
+
       <img
         class="card-image"
         src="${fallbackImage()}"
@@ -1162,20 +1637,26 @@ async function renderDestinations(list = destinations){
         <div class="card-actions">
 
           <button
-            onclick="selectDestination('${escapeHtml(destination.name)}','${escapeHtml(destination.country)}')"
+            class="explore-button"
+            type="button"
           >
             Explorar
           </button>
 
           <button
-            class="favorite"
-            onclick="toggleFavorite('${escapeHtml(destination.name)}')"
+            class="favorite favorite-button"
+            type="button"
           >
-            ${favorites.includes(destination.name) ? "❤️" : "♡"}
+            ${
+              favorites.includes(destination.name)
+                ? "❤️"
+                : "♡"
+            }
           </button>
 
           <button
-            onclick="markVisited('${escapeHtml(destination.name)}')"
+            class="visited-button"
+            type="button"
           >
             ✓ Visitei
           </button>
@@ -1191,32 +1672,79 @@ async function renderDestinations(list = destinations){
 
     container.appendChild(card);
 
-    getWikimediaImage(destination.query)
-      .then(photo => {
 
-        const img = card.querySelector("img");
-        const credit = card.querySelector(".photo-credit");
-
-        if(photo){
-
-          img.src = photo.url;
-
-          credit.innerHTML =
-            "Foto: Wikimedia Commons — " +
-            escapeHtml(photo.title);
-
-        }else{
-
-          credit.innerHTML =
-            "Fotografia ilustrativa";
-
+    card
+      .querySelector(".explore-button")
+      .addEventListener(
+        "click",
+        () => {
+          selectDestination(
+            destination.name,
+            destination.country
+          );
         }
+      );
 
-      });
+
+    card
+      .querySelector(".favorite-button")
+      .addEventListener(
+        "click",
+        () => {
+          toggleFavorite(
+            destination.name
+          );
+        }
+      );
+
+
+    card
+      .querySelector(".visited-button")
+      .addEventListener(
+        "click",
+        () => {
+          markVisited(
+            destination.name
+          );
+        }
+      );
+
+
+    getWikimediaImage(
+      destination.query
+    )
+    .then(photo => {
+
+      const img =
+        card.querySelector("img");
+
+      const credit =
+        card.querySelector(
+          ".photo-credit"
+        );
+
+      if(photo){
+
+        img.src =
+          photo.url;
+
+        credit.innerHTML =
+          "Foto: Wikimedia Commons — " +
+          escapeHtml(photo.title);
+
+      }else{
+
+        credit.innerHTML =
+          "Fotografia ilustrativa";
+
+      }
+
+    });
 
   }
 
   updateStats();
+
 }
 
 
@@ -1224,23 +1752,32 @@ async function renderDestinations(list = destinations){
    FILTROS
    ========================================================= */
 
-function filterDestinations(region,button){
+function filterDestinations(
+  region,
+  button
+){
 
   document
     .querySelectorAll(".filter")
-    .forEach(el => el.classList.remove("active"));
+    .forEach(
+      element =>
+        element.classList.remove("active")
+    );
 
   button.classList.add("active");
 
   if(region === "Todos"){
 
-    renderDestinations(destinations);
+    renderDestinations(
+      destinations
+    );
 
   }else{
 
     renderDestinations(
       destinations.filter(
-        d => d.region === region
+        destination =>
+          destination.region === region
       )
     );
 
@@ -1255,20 +1792,20 @@ function filterDestinations(region,button){
 
 function toggleFavorite(name){
 
-  if(favorites.includes(name)){
+  if(
+    favorites.includes(name)
+  ){
 
     favorites =
-      favorites.filter(item => item !== name);
+      favorites.filter(
+        item => item !== name
+      );
 
   }else{
 
     favorites.push(name);
-    xp += 5;
 
-    localStorage.setItem(
-      "escapadinha_xp",
-      xp
-    );
+    xp += 5;
 
   }
 
@@ -1277,8 +1814,32 @@ function toggleFavorite(name){
     JSON.stringify(favorites)
   );
 
+  localStorage.setItem(
+    "escapadinha_xp",
+    xp
+  );
+
   updateStats();
-  renderDestinations();
+
+  const activeFilter =
+    document.querySelector(
+      ".filter.active"
+    );
+
+  const region =
+    activeFilter
+      ? activeFilter.dataset.region
+      : "Todos";
+
+  const list =
+    region === "Todos"
+      ? destinations
+      : destinations.filter(
+          d => d.region === region
+        );
+
+  renderDestinations(list);
+
 }
 
 
@@ -1288,7 +1849,9 @@ function toggleFavorite(name){
 
 function markVisited(name){
 
-  if(!visited.includes(name)){
+  if(
+    !visited.includes(name)
+  ){
 
     visited.push(name);
 
@@ -1331,17 +1894,25 @@ function markVisited(name){
 
 function updateStats(){
 
-  document.getElementById("favoriteCount")
-    .textContent = favorites.length;
+  document.getElementById(
+    "favoriteCount"
+  ).textContent =
+    favorites.length;
 
-  document.getElementById("visitedCount")
-    .textContent = visited.length;
+  document.getElementById(
+    "visitedCount"
+  ).textContent =
+    visited.length;
 
-  document.getElementById("xpCount")
-    .textContent = xp;
+  document.getElementById(
+    "xpCount"
+  ).textContent =
+    xp;
 
-  document.getElementById("destinationCount")
-    .textContent = destinations.length;
+  document.getElementById(
+    "destinationCount"
+  ).textContent =
+    destinations.length;
 
 }
 
@@ -1350,20 +1921,35 @@ function updateStats(){
    SELECIONAR DESTINO
    ========================================================= */
 
-async function selectDestination(name,country){
+async function selectDestination(
+  name,
+  country
+){
 
-  currentDestination = name;
-  currentCountry = country;
+  currentDestination =
+    name;
 
-  document.getElementById("destination").value = name;
+  currentCountry =
+    country;
 
-  document.getElementById("plannerDestination").value = name;
+  document.getElementById(
+    "destination"
+  ).value = name;
 
-  document.getElementById("eventCity").textContent =
+  document.getElementById(
+    "plannerDestination"
+  ).value = name;
+
+  document.getElementById(
+    "eventCity"
+  ).textContent =
     "Eventos em " + name;
 
-  document.getElementById("entryCity").textContent =
-    "Informações de entrada — " + name;
+  document.getElementById(
+    "entryCity"
+  ).textContent =
+    "Informações de entrada — " +
+    name;
 
   document
     .getElementById("reais")
@@ -1371,7 +1957,9 @@ async function selectDestination(name,country){
       behavior:"smooth"
     });
 
-  await searchRealPlaces(name);
+  await searchRealPlaces(
+    name
+  );
 
 }
 
@@ -1384,7 +1972,9 @@ async function searchDestination(){
 
   const destination =
     document
-      .getElementById("destination")
+      .getElementById(
+        "destination"
+      )
       .value
       .trim();
 
@@ -1395,18 +1985,28 @@ async function searchDestination(){
     );
 
     return;
+
   }
 
-  currentDestination = destination;
-
-  document.getElementById("plannerDestination").value =
+  currentDestination =
     destination;
 
-  document.getElementById("eventCity").textContent =
-    "Eventos em " + destination;
+  document.getElementById(
+    "plannerDestination"
+  ).value =
+    destination;
 
-  document.getElementById("entryCity").textContent =
-    "Informações de entrada — " + destination;
+  document.getElementById(
+    "eventCity"
+  ).textContent =
+    "Eventos em " +
+    destination;
+
+  document.getElementById(
+    "entryCity"
+  ).textContent =
+    "Informações de entrada — " +
+    destination;
 
   document
     .getElementById("reais")
@@ -1414,7 +2014,9 @@ async function searchDestination(){
       behavior:"smooth"
     });
 
-  await searchRealPlaces(destination);
+  await searchRealPlaces(
+    destination
+  );
 
 }
 
@@ -1425,17 +2027,49 @@ async function searchDestination(){
 
 async function geocodeCity(city){
 
+  if(
+    !GEOAPIFY_API_KEY ||
+    GEOAPIFY_API_KEY ===
+      "COLOCA_AQUI_A_TUA_NOVA_CHAVE"
+  ){
+
+    throw new Error(
+      "A chave Geoapify não está configurada."
+    );
+
+  }
+
   const url =
     "https://api.geoapify.com/v1/geocode/search" +
-    "?text=" + encodeURIComponent(city) +
+    "?text=" +
+    encodeURIComponent(city) +
     "&limit=1" +
     "&lang=pt" +
-    "&apiKey=" + encodeURIComponent(a3cf4feb4f3b41eda5c8b8ec7361b924);
+    "&apiKey=" +
+    encodeURIComponent(
+      GEOAPIFY_API_KEY
+    );
 
   const response =
     await fetch(url);
 
   if(!response.ok){
+
+    if(response.status === 401){
+
+      throw new Error(
+        "A chave Geoapify é inválida ou não está autorizada."
+      );
+
+    }
+
+    if(response.status === 403){
+
+      throw new Error(
+        "A Geoapify recusou o pedido. Verifica a chave e as permissões da API."
+      );
+
+    }
 
     throw new Error(
       "Erro na geocodificação: " +
@@ -1458,18 +2092,31 @@ async function geocodeCity(city){
 
   }
 
+  const feature =
+    data.features[0];
+
   const properties =
-    data.features[0].properties;
+    feature.properties || {};
 
   return {
-    lat:properties.lat,
-    lon:properties.lon,
+
+    lat:
+      properties.lat ??
+      feature.geometry?.coordinates?.[1],
+
+    lon:
+      properties.lon ??
+      feature.geometry?.coordinates?.[0],
+
     city:
       properties.city ||
       properties.name ||
       city,
+
     country:
-      properties.country || ""
+      properties.country ||
+      ""
+
   };
 
 }
@@ -1479,20 +2126,31 @@ async function geocodeCity(city){
    GEOAPIFY PLACES
    ========================================================= */
 
-async function getPlaces(lat,lon,categories){
+async function getPlaces(
+  lat,
+  lon,
+  categories
+){
 
   const url =
     "https://api.geoapify.com/v2/places" +
     "?categories=" +
-    encodeURIComponent(categories) +
+    encodeURIComponent(
+      categories
+    ) +
     "&filter=circle:" +
     encodeURIComponent(
-      lon + "," + lat + ",12000"
+      lon +
+      "," +
+      lat +
+      ",12000"
     ) +
     "&limit=20" +
     "&lang=pt" +
     "&apiKey=" +
-    encodeURIComponent(GEOAPIFY_API_KEY);
+    encodeURIComponent(
+      GEOAPIFY_API_KEY
+    );
 
   const response =
     await fetch(url);
@@ -1500,7 +2158,7 @@ async function getPlaces(lat,lon,categories){
   if(!response.ok){
 
     throw new Error(
-      "Geoapify devolveu " +
+      "Geoapify Places devolveu " +
       response.status
     );
 
@@ -1515,67 +2173,96 @@ async function getPlaces(lat,lon,categories){
 
 
 /* =========================================================
-   PESQUISA DE ATRAÇÕES + RESTAURANTES
+   PESQUISA DE LUGARES
    ========================================================= */
 
-async function searchRealPlaces(city){
+async function searchRealPlaces(
+  city
+){
 
   const all =
-    document.getElementById("realPlaces");
+    document.getElementById(
+      "realPlaces"
+    );
 
   const attractions =
-    document.getElementById("attractions");
+    document.getElementById(
+      "attractions"
+    );
 
   const restaurants =
-    document.getElementById("restaurants");
+    document.getElementById(
+      "restaurants"
+    );
+
 
   all.innerHTML =
     `<div class="loading">
-      🔎 A procurar lugares reais em ${escapeHtml(city)}...
+      🔎 A procurar lugares reais em
+      ${escapeHtml(city)}...
     </div>`;
+
 
   attractions.innerHTML =
     `<div class="loading">
       🔎 A procurar atrações...
     </div>`;
 
+
   restaurants.innerHTML =
     `<div class="loading">
       🔎 A procurar restaurantes...
     </div>`;
 
+
   try{
 
     if(
       !GEOAPIFY_API_KEY ||
-      GEOAPIFY_API_KEY === "a3cf4feb4f3b41eda5c8b8ec7361b924"
+      GEOAPIFY_API_KEY ===
+        "COLOCA_AQUI_A_TUA_NOVA_CHAVE"
     ){
 
       throw new Error(
-        "A chave Geoapify ainda não está configurada."
+        "A chave Geoapify não está configurada."
       );
 
     }
 
+
     const location =
       await geocodeCity(city);
 
+
     currentCountry =
       location.country;
+
 
     const attractionPlaces =
       await getPlaces(
         location.lat,
         location.lon,
-        "tourism.attraction,tourism.sights,entertainment.museum,entertainment.culture,leisure.park"
+        [
+          "tourism.attraction",
+          "tourism.sights",
+          "entertainment.museum",
+          "entertainment.culture",
+          "leisure.park"
+        ].join(",")
       );
+
 
     const restaurantPlaces =
       await getPlaces(
         location.lat,
         location.lon,
-        "catering.restaurant,catering.cafe,catering.fast_food"
+        [
+          "catering.restaurant",
+          "catering.cafe",
+          "catering.fast_food"
+        ].join(",")
       );
+
 
     renderRealPlaces(
       all,
@@ -1585,35 +2272,44 @@ async function searchRealPlaces(city){
       ]
     );
 
+
     renderRealPlaces(
       attractions,
       attractionPlaces
     );
+
 
     renderRealPlaces(
       restaurants,
       restaurantPlaces
     );
 
+
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Erro ao pesquisar lugares:",
+      error
+    );
 
     const message =
       error.message ||
       "Não foi possível carregar os dados.";
 
+
     all.innerHTML =
-      `<div class="empty">
+      `<div class="error">
         ❌ ${escapeHtml(message)}
         <br><br>
-        Confirma se a tua chave Geoapify está correta.
+        Verifica a configuração da chave Geoapify.
       </div>`;
+
 
     attractions.innerHTML =
       `<div class="empty">
         Não foi possível carregar as atrações.
       </div>`;
+
 
     restaurants.innerHTML =
       `<div class="empty">
@@ -1626,10 +2322,71 @@ async function searchRealPlaces(city){
 
 
 /* =========================================================
-   CARTÕES DE LUGARES REAIS
+   DISTÂNCIA
    ========================================================= */
 
-function renderRealPlaces(container,places){
+function calculateDistanceKm(
+  lat1,
+  lon1,
+  lat2,
+  lon2
+){
+
+  if(
+    !Number.isFinite(lat1) ||
+    !Number.isFinite(lon1) ||
+    !Number.isFinite(lat2) ||
+    !Number.isFinite(lon2)
+  ){
+
+    return null;
+
+  }
+
+  const earthRadius = 6371;
+
+  const dLat =
+    (lat2 - lat1) *
+    Math.PI /
+    180;
+
+  const dLon =
+    (lon2 - lon1) *
+    Math.PI /
+    180;
+
+  const a =
+    Math.sin(dLat / 2) *
+    Math.sin(dLat / 2) +
+    Math.cos(
+      lat1 * Math.PI / 180
+    ) *
+    Math.cos(
+      lat2 * Math.PI / 180
+    ) *
+    Math.sin(dLon / 2) *
+    Math.sin(dLon / 2);
+
+  const c =
+    2 *
+    Math.atan2(
+      Math.sqrt(a),
+      Math.sqrt(1 - a)
+    );
+
+  return earthRadius * c;
+
+}
+
+
+/* =========================================================
+   CARTÕES DOS LOCAIS REAIS
+   ========================================================= */
+
+function renderRealPlaces(
+  container,
+  places
+){
 
   if(!places.length){
 
@@ -1639,143 +2396,211 @@ function renderRealPlaces(container,places){
       </div>`;
 
     return;
+
   }
+
 
   container.innerHTML = "";
 
-  places.forEach((place,index) => {
 
-    const p =
-      place.properties || {};
+  places.forEach(
+    (place,index) => {
 
-    const name =
-      p.name ||
-      p.address_line1 ||
-      "Local sem nome";
+      const p =
+        place.properties || {};
 
-    const address =
-      p.address_line2 ||
-      p.formatted ||
-      "";
 
-    const category =
-      p.categories &&
-      p.categories.length
-        ? p.categories[0]
-        : "Local";
+      const name =
+        p.name ||
+        p.address_line1 ||
+        "Local sem nome";
 
-    const lat =
-      p.lat;
 
-    const lon =
-      p.lon;
+      const address =
+        p.address_line2 ||
+        p.formatted ||
+        "";
 
-    const mapsUrl =
-      "https://www.google.com/maps/search/?api=1&query=" +
-      encodeURIComponent(
-        name + " " + address
-      );
 
-    const card =
-      document.createElement("article");
+      const category =
+        p.categories &&
+        p.categories.length
+          ? p.categories[0]
+          : "Local";
 
-    card.className =
-      "real-card";
 
-    const image =
-      document.createElement("img");
+      const lat =
+        Number(
+          p.lat ??
+          place.geometry?.coordinates?.[1]
+        );
 
-    image.alt = name;
-    image.loading = "lazy";
-    image.src = fallbackImage();
 
-    const body =
-      document.createElement("div");
+      const lon =
+        Number(
+          p.lon ??
+          place.geometry?.coordinates?.[0]
+        );
 
-    body.className =
-      "real-body";
 
-    body.innerHTML = `
+      const mapsUrl =
+        "https://www.google.com/maps/search/?api=1&query=" +
+        encodeURIComponent(
+          name +
+          " " +
+          address
+        );
 
-      <div class="type">
-        ${escapeHtml(category)}
-      </div>
 
-      <h3>
-        ${escapeHtml(name)}
-      </h3>
+      const card =
+        document.createElement(
+          "article"
+        );
 
-      ${
-        address
-          ? `<p>📍 ${escapeHtml(address)}</p>`
-          : ""
-      }
+      card.className =
+        "real-card";
 
-      ${
-        p.website
-          ? `<p>🌐 Website disponível</p>`
-          : ""
-      }
 
-      ${
-        p.contact &&
-        p.contact.phone
-          ? `<p>📞 ${escapeHtml(p.contact.phone)}</p>`
-          : ""
-      }
+      const image =
+        document.createElement(
+          "img"
+        );
 
-      <div class="card-actions">
+      image.alt =
+        name;
 
-        <a
-          href="${mapsUrl}"
-          target="_blank"
-          rel="noopener"
-        >
-          📍 Google Maps
-        </a>
+      image.loading =
+        "lazy";
+
+      image.src =
+        fallbackImage();
+
+
+      const body =
+        document.createElement(
+          "div"
+        );
+
+      body.className =
+        "real-body";
+
+
+      const website =
+        p.website ||
+        p.contact?.website ||
+        "";
+
+
+      const phone =
+        p.contact?.phone ||
+        p.phone ||
+        "";
+
+
+      body.innerHTML = `
+
+        <div class="type">
+          ${escapeHtml(category)}
+        </div>
+
+        <h3>
+          ${escapeHtml(name)}
+        </h3>
 
         ${
-          p.website
+          address
             ? `
-              <a
-                href="${escapeHtml(p.website)}"
-                target="_blank"
-                rel="noopener"
-              >
-                🌐 Website
-              </a>
+              <p>
+                📍 ${escapeHtml(address)}
+              </p>
             `
             : ""
         }
 
-      </div>
+        ${
+          phone
+            ? `
+              <p>
+                📞 ${escapeHtml(phone)}
+              </p>
+            `
+            : ""
+        }
 
-      <div class="photo-credit">
-        A procurar fotografia...
-      </div>
-    `;
+        ${
+          website
+            ? `
+              <p>
+                🌐 Website disponível
+              </p>
+            `
+            : ""
+        }
 
-    card.appendChild(image);
-    card.appendChild(body);
+        <div class="card-actions">
 
-    container.appendChild(card);
+          <a
+            href="${mapsUrl}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            📍 Google Maps
+          </a>
 
-    /*
-      Procuramos a fotografia pelo nome + cidade.
-      Isto dá-nos uma fotografia específica quando
-      existe uma imagem adequada no Wikimedia Commons.
-    */
+          ${
+            website
+              ? `
+                <a
+                  href="${escapeHtml(website)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  🌐 Website
+                </a>
+              `
+              : ""
+          }
 
-    const searchTerm =
-      currentDestination
-        ? name + " " + currentDestination
-        : name;
+        </div>
 
-    getWikimediaImage(searchTerm)
+        <div class="photo-credit">
+          A procurar fotografia...
+        </div>
+
+      `;
+
+
+      card.appendChild(
+        image
+      );
+
+      card.appendChild(
+        body
+      );
+
+      container.appendChild(
+        card
+      );
+
+
+      const searchTerm =
+        currentDestination
+          ? name +
+            " " +
+            currentDestination
+          : name;
+
+
+      getWikimediaImage(
+        searchTerm
+      )
       .then(photo => {
 
         const credit =
-          body.querySelector(".photo-credit");
+          body.querySelector(
+            ".photo-credit"
+          );
+
 
         if(photo){
 
@@ -1784,43 +2609,43 @@ function renderRealPlaces(container,places){
 
           credit.innerHTML =
             "Foto: Wikimedia Commons — " +
-            escapeHtml(photo.title);
+            escapeHtml(
+              photo.title
+            );
 
         }else{
 
-          /*
-            Segunda tentativa usando apenas
-            o nome do local.
-          */
+          getWikimediaImage(
+            name
+          )
+          .then(secondPhoto => {
 
-          getWikimediaImage(name)
-            .then(secondPhoto => {
+            if(secondPhoto){
 
-              if(secondPhoto){
+              image.src =
+                secondPhoto.url;
 
-                image.src =
-                  secondPhoto.url;
+              credit.innerHTML =
+                "Foto: Wikimedia Commons — " +
+                escapeHtml(
+                  secondPhoto.title
+                );
 
-                credit.innerHTML =
-                  "Foto: Wikimedia Commons — " +
-                  escapeHtml(
-                    secondPhoto.title
-                  );
+            }else{
 
-              }else{
+              credit.innerHTML =
+                "Fotografia não disponível";
 
-                credit.innerHTML =
-                  "Fotografia não disponível";
+            }
 
-              }
-
-            });
+          });
 
         }
 
       });
 
-  });
+    }
+  );
 
 }
 
@@ -1839,8 +2664,12 @@ function surpriseMe(){
       )
     ];
 
-  document.getElementById("destination").value =
+
+  document.getElementById(
+    "destination"
+  ).value =
     random.name;
+
 
   selectDestination(
     random.name,
@@ -1851,17 +2680,40 @@ function surpriseMe(){
 
 
 /* =========================================================
-   LIMPAR PESQUISA
+   LIMPAR
    ========================================================= */
 
 function clearSearch(){
 
-  document.getElementById("origin").value = "";
-  document.getElementById("destination").value = "";
-  document.getElementById("startDate").value = "";
-  document.getElementById("endDate").value = "";
-  document.getElementById("people").value = "1";
-  document.getElementById("children").value = "0";
+  document.getElementById(
+    "origin"
+  ).value = "";
+
+  document.getElementById(
+    "destination"
+  ).value = "";
+
+  document.getElementById(
+    "startDate"
+  ).value = "";
+
+  document.getElementById(
+    "endDate"
+  ).value = "";
+
+  document.getElementById(
+    "people"
+  ).value = "1";
+
+  document.getElementById(
+    "children"
+  ).value = "0";
+
+  currentDestination =
+    "";
+
+  currentCountry =
+    "";
 
 }
 
@@ -1874,58 +2726,120 @@ function buildTripPlan(){
 
   const destination =
     document
-      .getElementById("plannerDestination")
+      .getElementById(
+        "plannerDestination"
+      )
       .value
       .trim();
 
+
   const people =
     Number(
-      document.getElementById("plannerPeople").value
+      document.getElementById(
+        "plannerPeople"
+      ).value
     ) || 1;
 
+
   const start =
-    document.getElementById("plannerStart").value;
+    document.getElementById(
+      "plannerStart"
+    ).value;
+
 
   const end =
-    document.getElementById("plannerEnd").value;
+    document.getElementById(
+      "plannerEnd"
+    ).value;
+
 
   const result =
-    document.getElementById("plannerResult");
+    document.getElementById(
+      "plannerResult"
+    );
+
 
   if(!destination){
 
-    result.classList.remove("hidden");
+    result.classList.remove(
+      "hidden"
+    );
 
     result.innerHTML =
       "Escreve primeiro um destino.";
 
     return;
+
   }
+
+
+  if(
+    start &&
+    end &&
+    end < start
+  ){
+
+    result.classList.remove(
+      "hidden"
+    );
+
+    result.innerHTML =
+      "A data final não pode ser anterior à data inicial.";
+
+    return;
+
+  }
+
 
   let datesText =
     "datas ainda não escolhidas";
 
+
   if(start && end){
 
+    const startDate =
+      new Date(
+        start + "T00:00:00"
+      );
+
+    const endDate =
+      new Date(
+        end + "T00:00:00"
+      );
+
+
     datesText =
-      new Date(start).toLocaleDateString("pt-PT") +
+      startDate.toLocaleDateString(
+        "pt-PT"
+      ) +
       " → " +
-      new Date(end).toLocaleDateString("pt-PT");
+      endDate.toLocaleDateString(
+        "pt-PT"
+      );
 
   }
 
-  result.classList.remove("hidden");
+
+  result.classList.remove(
+    "hidden"
+  );
+
 
   result.innerHTML = `
 
-    <h3>✈️ Plano criado</h3>
+    <h3>
+      ✈️ Plano criado
+    </h3>
 
     <p>
-      <strong>${escapeHtml(destination)}</strong>
+      <strong>
+        ${escapeHtml(destination)}
+      </strong>
     </p>
 
     <p>
-      👥 Viagem para ${people}
+      👥 Viagem para
+      ${people}
       ${people === 1 ? "pessoa" : "pessoas"}
     </p>
 
@@ -1953,6 +2867,30 @@ function buildTripPlan(){
 
   `;
 
+
+  currentDestination =
+    destination;
+
+
+  document.getElementById(
+    "destination"
+  ).value =
+    destination;
+
+
+  document.getElementById(
+    "eventCity"
+  ).textContent =
+    "Eventos em " +
+    destination;
+
+
+  document.getElementById(
+    "entryCity"
+  ).textContent =
+    "Informações de entrada — " +
+    destination;
+
 }
 
 
@@ -1964,9 +2902,12 @@ function openMap(){
 
   const destination =
     document
-      .getElementById("plannerDestination")
+      .getElementById(
+        "plannerDestination"
+      )
       .value
       .trim();
+
 
   if(!destination){
 
@@ -1975,15 +2916,21 @@ function openMap(){
     );
 
     return;
+
   }
+
 
   const url =
     "https://www.google.com/maps/search/?api=1&query=" +
-    encodeURIComponent(destination);
+    encodeURIComponent(
+      destination
+    );
+
 
   window.open(
     url,
-    "_blank"
+    "_blank",
+    "noopener,noreferrer"
   );
 
 }
@@ -1998,9 +2945,12 @@ function openEvents(){
   const city =
     currentDestination ||
     document
-      .getElementById("destination")
+      .getElementById(
+        "destination"
+      )
       .value
       .trim();
+
 
   if(!city){
 
@@ -2009,17 +2959,22 @@ function openEvents(){
     );
 
     return;
+
   }
+
 
   const url =
     "https://www.google.com/search?q=" +
     encodeURIComponent(
-      "eventos em " + city
+      "eventos hoje em " +
+      city
     );
+
 
   window.open(
     url,
-    "_blank"
+    "_blank",
+    "noopener,noreferrer"
   );
 
 }
@@ -2034,9 +2989,12 @@ function openEntryRequirements(){
   const city =
     currentDestination ||
     document
-      .getElementById("destination")
+      .getElementById(
+        "destination"
+      )
       .value
       .trim();
+
 
   if(!city){
 
@@ -2045,18 +3003,27 @@ function openEntryRequirements(){
     );
 
     return;
+
   }
+
+
+  const query =
+    "site:gov.pt requisitos entrada " +
+    city +
+    " viajar";
+
 
   const url =
     "https://www.google.com/search?q=" +
     encodeURIComponent(
-      "official entry requirements Portugal " +
-      city
+      query
     );
+
 
   window.open(
     url,
-    "_blank"
+    "_blank",
+    "noopener,noreferrer"
   );
 
 }
@@ -2066,12 +3033,108 @@ function openEntryRequirements(){
    QUIZ
    ========================================================= */
 
-function answerQuiz(answer){
+function renderQuiz(){
+
+  const question =
+    quizQuestions[
+      currentQuiz
+    ];
+
+
+  document.getElementById(
+    "quizQuestion"
+  ).textContent =
+    question.question;
+
+
+  const container =
+    document.getElementById(
+      "quizOptions"
+    );
+
 
   const result =
-    document.getElementById("quizResult");
+    document.getElementById(
+      "quizResult"
+    );
 
-  if(answer === "Lisboa"){
+
+  result.textContent =
+    "";
+
+
+  container.innerHTML =
+    "";
+
+
+  question.answers.forEach(
+    answer => {
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+      button.type =
+        "button";
+
+      button.textContent =
+        answer;
+
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          answerQuiz(
+            answer,
+            button
+          );
+
+        }
+      );
+
+
+      container.appendChild(
+        button
+      );
+
+    }
+  );
+
+}
+
+
+function answerQuiz(
+  answer,
+  clickedButton
+){
+
+  const question =
+    quizQuestions[
+      currentQuiz
+    ];
+
+
+  const result =
+    document.getElementById(
+      "quizResult"
+    );
+
+
+  document
+    .querySelectorAll(
+      "#quizOptions button"
+    )
+    .forEach(
+      button =>
+        button.disabled = true
+    );
+
+
+  if(
+    answer === question.correct
+  ){
 
     result.textContent =
       "🎉 Correto! +20 XP";
@@ -2088,9 +3151,27 @@ function answerQuiz(answer){
   }else{
 
     result.textContent =
-      "❌ Não é essa. A resposta correta é Lisboa.";
+      "❌ Não é essa. A resposta correta é " +
+      question.correct +
+      ".";
 
   }
+
+
+  setTimeout(
+    () => {
+
+      currentQuiz =
+        (
+          currentQuiz + 1
+        ) %
+        quizQuestions.length;
+
+      renderQuiz();
+
+    },
+    1400
+  );
 
 }
 
@@ -2103,49 +3184,70 @@ function saveDiary(){
 
   const destination =
     document
-      .getElementById("diaryDestination")
+      .getElementById(
+        "diaryDestination"
+      )
       .value
       .trim();
+
 
   const text =
     document
-      .getElementById("diaryText")
+      .getElementById(
+        "diaryText"
+      )
       .value
       .trim();
 
-  if(!destination || !text){
+
+  if(
+    !destination ||
+    !text
+  ){
 
     alert(
       "Preenche o destino e a memória."
     );
 
     return;
+
   }
+
 
   diary.unshift({
 
-    destination:destination,
+    destination:
+      destination,
 
-    text:text,
+    text:
+      text,
 
     date:
       new Date()
-        .toLocaleDateString("pt-PT")
+        .toLocaleDateString(
+          "pt-PT"
+        )
 
   });
 
+
   localStorage.setItem(
     "escapadinha_diary",
-    JSON.stringify(diary)
+    JSON.stringify(
+      diary
+    )
   );
+
 
   document.getElementById(
     "diaryDestination"
   ).value = "";
 
+
   document.getElementById(
     "diaryText"
   ).value = "";
+
 
   renderDiary();
 
@@ -2155,7 +3257,10 @@ function saveDiary(){
 function renderDiary(){
 
   const container =
-    document.getElementById("diaryList");
+    document.getElementById(
+      "diaryList"
+    );
+
 
   if(!diary.length){
 
@@ -2165,28 +3270,40 @@ function renderDiary(){
       </div>`;
 
     return;
+
   }
 
+
   container.innerHTML =
-    diary.map(item => `
+    diary
+      .map(
+        item => `
 
-      <article class="diary-item">
+          <article class="diary-item">
 
-        <strong>
-          ${escapeHtml(item.destination)}
-        </strong>
+            <strong>
+              ${escapeHtml(
+                item.destination
+              )}
+            </strong>
 
-        <div class="small">
-          ${escapeHtml(item.date)}
-        </div>
+            <div class="small">
+              ${escapeHtml(
+                item.date
+              )}
+            </div>
 
-        <p style="margin-top:8px">
-          ${escapeHtml(item.text)}
-        </p>
+            <p style="margin-top:8px">
+              ${escapeHtml(
+                item.text
+              )}
+            </p>
 
-      </article>
+          </article>
 
-    `).join("");
+        `
+      )
+      .join("");
 
 }
 
@@ -2197,26 +3314,209 @@ function renderDiary(){
 
 function setupDates(){
 
+  const now =
+    new Date();
+
+
   const today =
-    new Date()
+    new Date(
+      now.getTime() -
+      now.getTimezoneOffset() *
+      60000
+    )
       .toISOString()
       .split("T")[0];
 
-  document.getElementById(
-    "startDate"
-  ).min = today;
 
-  document.getElementById(
-    "endDate"
-  ).min = today;
+  const startDate =
+    document.getElementById(
+      "startDate"
+    );
 
-  document.getElementById(
-    "plannerStart"
-  ).min = today;
+  const endDate =
+    document.getElementById(
+      "endDate"
+    );
 
-  document.getElementById(
-    "plannerEnd"
-  ).min = today;
+  const plannerStart =
+    document.getElementById(
+      "plannerStart"
+    );
+
+  const plannerEnd =
+    document.getElementById(
+      "plannerEnd"
+    );
+
+
+  startDate.min =
+    today;
+
+  endDate.min =
+    today;
+
+  plannerStart.min =
+    today;
+
+  plannerEnd.min =
+    today;
+
+
+  startDate.addEventListener(
+    "change",
+    () => {
+
+      endDate.min =
+        startDate.value ||
+        today;
+
+    }
+  );
+
+
+  plannerStart.addEventListener(
+    "change",
+    () => {
+
+      plannerEnd.min =
+        plannerStart.value ||
+        today;
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   EVENTOS DOS BOTÕES
+   ========================================================= */
+
+function setupEventListeners(){
+
+  document
+    .getElementById(
+      "searchButton"
+    )
+    .addEventListener(
+      "click",
+      searchDestination
+    );
+
+
+  document
+    .getElementById(
+      "surpriseButton"
+    )
+    .addEventListener(
+      "click",
+      surpriseMe
+    );
+
+
+  document
+    .getElementById(
+      "clearButton"
+    )
+    .addEventListener(
+      "click",
+      clearSearch
+    );
+
+
+  document
+    .getElementById(
+      "eventsButton"
+    )
+    .addEventListener(
+      "click",
+      openEvents
+    );
+
+
+  document
+    .getElementById(
+      "entryButton"
+    )
+    .addEventListener(
+      "click",
+      openEntryRequirements
+    );
+
+
+  document
+    .getElementById(
+      "planButton"
+    )
+    .addEventListener(
+      "click",
+      buildTripPlan
+    );
+
+
+  document
+    .getElementById(
+      "mapButton"
+    )
+    .addEventListener(
+      "click",
+      openMap
+    );
+
+
+  document
+    .getElementById(
+      "diaryButton"
+    )
+    .addEventListener(
+      "click",
+      saveDiary
+    );
+
+
+  document
+    .querySelectorAll(
+      ".filter"
+    )
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            filterDestinations(
+              button.dataset.region,
+              button
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "destination"
+    )
+    .addEventListener(
+      "keydown",
+      event => {
+
+        if(
+          event.key === "Enter"
+        ){
+
+          event.preventDefault();
+
+          searchDestination();
+
+        }
+
+      }
+    );
 
 }
 
@@ -2231,9 +3531,14 @@ renderDiary();
 
 setupDates();
 
+setupEventListeners();
+
+renderQuiz();
+
 updateStats();
 
 </script>
 
 </body>
 </html>
+```
