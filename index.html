@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Escapadinha ✈️</title>
+
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -31,29 +34,33 @@
       font-weight: bold;
     }
 
+    .world {
+      color: #6b7280;
+    }
+
     .hero {
       background: linear-gradient(135deg, #2563eb, #7c3aed);
       color: white;
-      padding: 70px 20px;
+      padding: 70px 20px 90px;
       text-align: center;
     }
 
     .hero h1 {
-      font-size: 42px;
+      font-size: 44px;
       margin-bottom: 15px;
     }
 
     .hero p {
-      font-size: 18px;
+      font-size: 19px;
       opacity: 0.95;
     }
 
     .search-box {
       background: white;
-      max-width: 1000px;
-      margin: -35px auto 40px;
-      padding: 25px;
-      border-radius: 18px;
+      max-width: 1050px;
+      margin: -45px auto 45px;
+      padding: 28px;
+      border-radius: 20px;
       box-shadow: 0 10px 35px rgba(0,0,0,0.12);
       position: relative;
     }
@@ -68,23 +75,30 @@
       display: block;
       font-size: 13px;
       font-weight: bold;
-      margin-bottom: 7px;
+      margin-bottom: 8px;
       color: #374151;
     }
 
-    input, select {
+    input,
+    select {
       width: 100%;
-      padding: 13px;
+      padding: 14px;
       border: 1px solid #d1d5db;
       border-radius: 10px;
       font-size: 15px;
       background: white;
+      outline: none;
     }
 
-    button {
+    input:focus,
+    select:focus {
+      border-color: #2563eb;
+    }
+
+    .search-button {
       width: 100%;
-      margin-top: 18px;
-      padding: 15px;
+      margin-top: 20px;
+      padding: 16px;
       border: none;
       border-radius: 10px;
       background: #2563eb;
@@ -94,24 +108,38 @@
       cursor: pointer;
     }
 
-    button:hover {
+    .search-button:hover {
       background: #1d4ed8;
     }
 
     .container {
       max-width: 1100px;
       margin: auto;
-      padding: 0 20px 60px;
+      padding: 0 20px 70px;
+    }
+
+    .notice {
+      background: #fff7ed;
+      color: #9a3412;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      text-align: center;
+      font-size: 14px;
     }
 
     .section-title {
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 28px;
     }
 
     .section-title h2 {
       font-size: 30px;
       margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: #6b7280;
     }
 
     .results {
@@ -125,6 +153,11 @@
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
     }
 
     .card-image {
@@ -132,7 +165,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 60px;
+      font-size: 65px;
       background: #eef2ff;
     }
 
@@ -173,10 +206,19 @@
     }
 
     .details {
+      width: 100%;
       background: #111827;
+      color: white;
+      border: none;
       margin-top: 15px;
       padding: 11px;
+      border-radius: 8px;
       font-size: 14px;
+      cursor: pointer;
+    }
+
+    .details:hover {
+      background: #374151;
     }
 
     .empty {
@@ -187,20 +229,13 @@
       display: none;
     }
 
-    .notice {
-      background: #fff7ed;
-      color: #9a3412;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 25px;
-      text-align: center;
-      font-size: 14px;
+    .empty h3 {
+      margin-bottom: 10px;
     }
 
     .how {
       background: white;
-      padding: 50px 20px;
-      margin-top: 20px;
+      padding: 60px 20px;
     }
 
     .steps {
@@ -217,18 +252,33 @@
     }
 
     .step-icon {
-      font-size: 40px;
+      font-size: 42px;
       margin-bottom: 12px;
+    }
+
+    .step h3 {
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      color: #6b7280;
+      line-height: 1.5;
     }
 
     footer {
       background: #111827;
       color: white;
       text-align: center;
-      padding: 30px 20px;
+      padding: 35px 20px;
+    }
+
+    footer p + p {
+      margin-top: 8px;
+      opacity: 0.7;
     }
 
     @media (max-width: 800px) {
+
       .fields {
         grid-template-columns: 1fr 1fr;
       }
@@ -237,340 +287,766 @@
         grid-template-columns: 1fr 1fr;
       }
 
-      .steps {
-        grid-template-columns: 1fr;
+      .hero h1 {
+        font-size: 34px;
       }
 
-      .hero h1 {
-        font-size: 32px;
+      .steps {
+        grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 550px) {
-      .fields,
-      .results {
-        grid-template-columns: 1fr;
-      }
 
       header {
         padding: 18px 20px;
       }
+
+      .world {
+        display: none;
+      }
+
+      .fields {
+        grid-template-columns: 1fr;
+      }
+
+      .results {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 55px 20px 80px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .search-box {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
     }
+
   </style>
+
 </head>
 
 <body>
 
-<header>
-  <div class="logo">✈️ Escapadinha</div>
-  <div>🌍 Para todo o mundo</div>
-</header>
+  <!-- CABEÇALHO -->
 
-<section class="hero">
-  <h1>Encontra a tua próxima escapadinha</h1>
-  <p>Descobre destinos que podem caber no teu orçamento.</p>
-</section>
+  <header>
 
-<div class="search-box">
-
-  <div class="fields">
-
-<div>
-  <label for="origin">📍 De onde partes?</label>
-  <input
-    type="text"
-    id="origin"
-    name="origin"
-    placeholder="Escreve uma cidade ou aeroporto..."
-    autocomplete="off"
-    style="cursor: text;"
-  >
-</div>
-    <div>
-      <label>📅 Mês</label>
-      <select id="month">
-        <option value="todos">Qualquer mês</option>
-        <option value="janeiro">Janeiro</option>
-        <option value="fevereiro">Fevereiro</option>
-        <option value="marco">Março</option>
-        <option value="abril">Abril</option>
-        <option value="maio">Maio</option>
-        <option value="junho">Junho</option>
-        <option value="julho">Julho</option>
-        <option value="agosto">Agosto</option>
-        <option value="setembro">Setembro</option>
-        <option value="outubro">Outubro</option>
-        <option value="novembro">Novembro</option>
-        <option value="dezembro">Dezembro</option>
-      </select>
+    <div class="logo">
+      ✈️ Escapadinha
     </div>
 
-    <div>
-      <label>🌙 Noites</label>
-      <select id="nights">
-        <option value="2">2 noites</option>
-        <option value="3" selected>3 noites</option>
-        <option value="4">4 noites</option>
-        <option value="5">5 noites</option>
-      </select>
+    <div class="world">
+      🌍 Para todo o mundo
     </div>
 
-    <div>
-      <label>💰 Orçamento</label>
-      <input
-        type="number"
-        id="budget"
-        placeholder="Ex: 200"
-        min="1"
-      >
-    </div>
-
-  </div>
-
-  <button onclick="searchTrips()">
-    🔎 Encontrar escapadinhas
-  </button>
-
-</div>
-
-<div class="container">
-
-  <div class="notice">
-    ⚠️ <strong>Preços de demonstração:</strong>
-    os valores apresentados nesta versão são exemplos e ainda não representam preços reais.
-  </div>
-
-  <div class="section-title">
-    <h2>🌎 Destinos em destaque</h2>
-    <p>Escolhe o teu orçamento e vê algumas possibilidades.</p>
-  </div>
-
-  <div class="results" id="results"></div>
-
-  <div class="empty" id="empty">
-    <h3>😕 Não encontrámos resultados</h3>
-    <p>Tenta aumentar o orçamento ou escolher outro mês.</p>
-  </div>
-
-</div>
-
-<section class="how">
-
-  <div class="section-title">
-    <h2>Como funciona?</h2>
-    <p>Uma forma simples de encontrar viagens económicas.</p>
-  </div>
-
-  <div class="steps">
-
-    <div class="step">
-      <div class="step-icon">📍</div>
-      <h3>1. Escolhe a origem</h3>
-      <p>Diz-nos de onde queres partir.</p>
-    </div>
-
-    <div class="step">
-      <div class="step-icon">📅</div>
-      <h3>2. Escolhe quando</h3>
-      <p>Seleciona o mês e o número de noites.</p>
-    </div>
-
-    <div class="step">
-      <div class="step-icon">💰</div>
-      <h3>3. Define o orçamento</h3>
-      <p>Mostramos opções dentro do valor indicado.</p>
-    </div>
-
-  </div>
-
-</section>
-
-<footer>
-  <p>✈️ Escapadinha</p>
-  <p style="margin-top:8px; opacity:0.7;">
-    Encontra. Compara. Viaja.
-  </p>
-</footer>
-
-<script>
-
-const trips = [
-
-  {
-    destination: "Sevilha",
-    country: "🇪🇸 Espanha",
-    price: 134,
-    icon: "🇪🇸",
-    months: ["janeiro","fevereiro","marco","outubro","novembro"]
-  },
-
-  {
-    destination: "Roma",
-    country: "🇮🇹 Itália",
-    price: 156,
-    icon: "🇮🇹",
-    months: ["fevereiro","marco","abril","outubro","novembro"]
-  },
-
-  {
-    destination: "Budapeste",
-    country: "🇭🇺 Hungria",
-    price: 145,
-    icon: "🇭🇺",
-    months: ["janeiro","fevereiro","marco","novembro","dezembro"]
-  },
-
-  {
-    destination: "Marrakech",
-    country: "🇲🇦 Marrocos",
-    price: 189,
-    icon: "🇲🇦",
-    months: ["janeiro","fevereiro","marco","novembro","dezembro"]
-  },
-
-  {
-    destination: "Praga",
-    country: "🇨🇿 República Checa",
-    price: 165,
-    icon: "🇨🇿",
-    months: ["janeiro","fevereiro","marco","outubro","novembro"]
-  },
-
-  {
-    destination: "Paris",
-    country: "🇫🇷 França",
-    price: 210,
-    icon: "🇫🇷",
-    months: ["janeiro","fevereiro","marco","abril","outubro"]
-  },
-
-  {
-    destination: "Istambul",
-    country: "🇹🇷 Turquia",
-    price: 175,
-    icon: "🇹🇷",
-    months: ["fevereiro","marco","abril","outubro","novembro"]
-  },
-
-  {
-    destination: "Atenas",
-    country: "🇬🇷 Grécia",
-    price: 195,
-    icon: "🇬🇷",
-    months: ["marco","abril","maio","outubro","novembro"]
-  },
-
-  {
-    destination: "Banguecoque",
-    country: "🇹🇭 Tailândia",
-    price: 390,
-    icon: "🇹🇭",
-    months: ["janeiro","fevereiro","novembro","dezembro"]
-  },
-
-  {
-    destination: "Nova Iorque",
-    country: "🇺🇸 Estados Unidos",
-    price: 450,
-    icon: "🇺🇸",
-    months: ["janeiro","fevereiro","marco","novembro"]
-  }
-
-];
-
-function searchTrips() {
+  </header>
 
 
+  <!-- HERO -->
 
-  const origin = document.getElementById("origin").value.trim();
-  const month = document.getElementById("month").value;
-  const budget = Number(document.getElementById("budget").value);
-    const origin = document.getElementById("origin").value.trim();
+  <section class="hero">
 
-  if (!origin) {
-    alert("Escreve primeiro de onde queres partir ✈️");
-    return;
-  }
+    <h1>
+      Encontra a tua próxima escapadinha
+    </h1>
 
-  let filtered = trips.filter(trip => {
+    <p>
+      Descobre destinos que podem caber no teu orçamento.
+    </p>
 
-    const correctMonth =
-      month === "todos" || trip.months.includes(month);
+  </section>
 
-    const correctBudget =
-      !budget || trip.price <= budget;
 
-    return correctMonth && correctBudget;
+  <!-- PESQUISA -->
 
-  });
+  <div class="search-box">
 
-  filtered.sort((a, b) => a.price - b.price);
+    <div class="fields">
 
-  const results = document.getElementById("results");
-  const empty = document.getElementById("empty");const title = document.querySelector(".section-title h2");
-title.textContent = origin
-  ? `🌎 Escapadinhas a partir de ${origin}`
-  : "🌎 Destinos em destaque";
+      <!-- ORIGEM -->
 
-  results.innerHTML = "";
+      <div>
 
-  if 
-    
+        <label for="origin">
+          📍 De onde partes?
+        </label>
 
-    empty.style.display = "block";
-    return;
-
-  }
-
-  empty.style.display = "none";
-
-  filtered.forEach(trip => {
-
-    results.innerHTML += `
-
-      <div class="card">
-
-        <div class="card-image">
-          ${trip.icon}
-        </div>
-
-        <div class="card-content">
-
-          <h3>${trip.destination}</h3>
-
-          <div class="country">
-            ${trip.country}
-          </div>
-
-          <div class="price">
-            ${trip.price} €
-            <small> / pessoa</small>
-          </div>
-
-          <span class="tag">
-            💸 Opção económica
-          </span>
-
-          <button
-            class="details"
-            onclick="alert('Em breve poderás comparar voos e hotéis para este destino!')"
-          >
-            Ver detalhes
-          </button>
-
-        </div>
+        <input
+          type="text"
+          id="origin"
+          placeholder="Ex: Lisboa, Londres, Paris..."
+          autocomplete="off"
+        >
 
       </div>
 
-    `;
 
-  });
+      <!-- MÊS -->
 
-}
+      <div>
 
-searchTrips();
+        <label for="month">
+          📅 Mês
+        </label>
 
-</script>
+        <select id="month">
+
+          <option value="todos">
+            Qualquer mês
+          </option>
+
+          <option value="janeiro">
+            Janeiro
+          </option>
+
+          <option value="fevereiro">
+            Fevereiro
+          </option>
+
+          <option value="marco">
+            Março
+          </option>
+
+          <option value="abril">
+            Abril
+          </option>
+
+          <option value="maio">
+            Maio
+          </option>
+
+          <option value="junho">
+            Junho
+          </option>
+
+          <option value="julho">
+            Julho
+          </option>
+
+          <option value="agosto">
+            Agosto
+          </option>
+
+          <option value="setembro">
+            Setembro
+          </option>
+
+          <option value="outubro">
+            Outubro
+          </option>
+
+          <option value="novembro">
+            Novembro
+          </option>
+
+          <option value="dezembro">
+            Dezembro
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- NOITES -->
+
+      <div>
+
+        <label for="nights">
+          🌙 Noites
+        </label>
+
+        <select id="nights">
+
+          <option value="2">
+            2 noites
+          </option>
+
+          <option value="3" selected>
+            3 noites
+          </option>
+
+          <option value="4">
+            4 noites
+          </option>
+
+          <option value="5">
+            5 noites
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- ORÇAMENTO -->
+
+      <div>
+
+        <label for="budget">
+          💰 Orçamento
+        </label>
+
+        <input
+          type="number"
+          id="budget"
+          placeholder="Ex: 200"
+          min="1"
+        >
+
+      </div>
+
+    </div>
+
+
+    <!-- BOTÃO -->
+
+    <button
+      class="search-button"
+      onclick="searchTrips()"
+    >
+      🔎 Encontrar escapadinhas
+    </button>
+
+  </div>
+
+
+  <!-- RESULTADOS -->
+
+  <div class="container">
+
+
+    <div class="notice">
+
+      ⚠️
+      <strong>Preços de demonstração:</strong>
+
+      os valores apresentados nesta versão
+      são exemplos e ainda não representam
+      preços reais.
+
+    </div>
+
+
+    <div class="section-title">
+
+      <h2 id="results-title">
+        🌎 Destinos em destaque
+      </h2>
+
+      <p id="results-subtitle">
+        Escolhe o teu orçamento e vê algumas possibilidades.
+      </p>
+
+    </div>
+
+
+    <div
+      class="results"
+      id="results"
+    ></div>
+
+
+    <div
+      class="empty"
+      id="empty"
+    >
+
+      <h3>
+        😕 Não encontrámos resultados
+      </h3>
+
+      <p>
+        Tenta aumentar o orçamento
+        ou escolher outro mês.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- COMO FUNCIONA -->
+
+  <section class="how">
+
+    <div class="section-title">
+
+      <h2>
+        Como funciona?
+      </h2>
+
+      <p>
+        Uma forma simples de encontrar viagens económicas.
+      </p>
+
+    </div>
+
+
+    <div class="steps">
+
+
+      <div class="step">
+
+        <div class="step-icon">
+          📍
+        </div>
+
+        <h3>
+          1. Escolhe a origem
+        </h3>
+
+        <p>
+          Diz-nos de onde queres partir.
+        </p>
+
+      </div>
+
+
+      <div class="step">
+
+        <div class="step-icon">
+          📅
+        </div>
+
+        <h3>
+          2. Escolhe quando
+        </h3>
+
+        <p>
+          Seleciona o mês e o número de noites.
+        </p>
+
+      </div>
+
+
+      <div class="step">
+
+        <div class="step-icon">
+          💰
+        </div>
+
+        <h3>
+          3. Define o orçamento
+        </h3>
+
+        <p>
+          Mostramos opções dentro do valor indicado.
+        </p>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+  <!-- RODAPÉ -->
+
+  <footer>
+
+    <p>
+      ✈️ Escapadinha
+    </p>
+
+    <p>
+      Encontra. Compara. Viaja.
+    </p>
+
+  </footer>
+
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+
+    /*
+      DESTINOS DE DEMONSTRAÇÃO
+
+      IMPORTANTE:
+      Estes valores ainda não são preços reais.
+    */
+
+    const trips = [
+
+      {
+        destination: "Sevilha",
+        country: "🇪🇸 Espanha",
+        price: 134,
+        icon: "🇪🇸",
+        months: [
+          "janeiro",
+          "fevereiro",
+          "marco",
+          "outubro",
+          "novembro"
+        ]
+      },
+
+
+      {
+        destination: "Budapeste",
+        country: "🇭🇺 Hungria",
+        price: 145,
+        icon: "🇭🇺",
+        months: [
+          "janeiro",
+          "fevereiro",
+          "marco",
+          "novembro",
+          "dezembro"
+        ]
+      },
+
+
+      {
+        destination: "Roma",
+        country: "🇮🇹 Itália",
+        price: 156,
+        icon: "🇮🇹",
+        months: [
+          "fevereiro",
+          "marco",
+          "abril",
+          "outubro",
+          "novembro"
+        ]
+      },
+
+
+      {
+        destination: "Praga",
+        country: "🇨🇿 República Checa",
+        price: 165,
+        icon: "🇨🇿",
+        months: [
+          "janeiro",
+          "fevereiro",
+          "marco",
+          "outubro",
+          "novembro"
+        ]
+      },
+
+
+      {
+        destination: "Istambul",
+        country: "🇹🇷 Turquia",
+        price: 175,
+        icon: "🇹🇷",
+        months: [
+          "fevereiro",
+          "marco",
+          "abril",
+          "outubro",
+          "novembro"
+        ]
+      },
+
+
+      {
+        destination: "Marrakech",
+        country: "🇲🇦 Marrocos",
+        price: 189,
+        icon: "🇲🇦",
+        months: [
+          "janeiro",
+          "fevereiro",
+          "marco",
+          "novembro",
+          "dezembro"
+        ]
+      },
+
+
+      {
+        destination: "Atenas",
+        country: "🇬🇷 Grécia",
+        price: 195,
+        icon: "🇬🇷",
+        months: [
+          "marco",
+          "abril",
+          "maio",
+          "outubro",
+          "novembro"
+        ]
+      },
+
+
+      {
+        destination: "Paris",
+        country: "🇫🇷 França",
+        price: 210,
+        icon: "🇫🇷",
+        months: [
+          "janeiro",
+          "fevereiro",
+          "marco",
+          "abril",
+          "outubro"
+        ]
+      },
+
+
+      {
+        destination: "Banguecoque",
+        country: "🇹🇭 Tailândia",
+        price: 390,
+        icon: "🇹🇭",
+        months: [
+          "janeiro",
+          "fevereiro",
+          "novembro",
+          "dezembro"
+        ]
+      },
+
+
+      {
+        destination: "Nova Iorque",
+        country: "🇺🇸 Estados Unidos",
+        price: 450,
+        icon: "🇺🇸",
+        months: [
+          "janeiro",
+          "fevereiro",
+          "marco",
+          "novembro"
+        ]
+      }
+
+    ];
+
+
+    /*
+      FUNÇÃO PRINCIPAL
+    */
+
+    function searchTrips() {
+
+
+      const origin =
+        document.getElementById("origin").value.trim();
+
+
+      const month =
+        document.getElementById("month").value;
+
+
+      const nights =
+        document.getElementById("nights").value;
+
+
+      const budget =
+        Number(
+          document.getElementById("budget").value
+        );
+
+
+      /*
+        Verificar origem
+      */
+
+      if (!origin) {
+
+        alert(
+          "Escreve primeiro de onde queres partir ✈️"
+        );
+
+        return;
+      }
+
+
+      /*
+        Alterar título
+      */
+
+      document.getElementById(
+        "results-title"
+      ).textContent =
+        `🌎 Escapadinhas a partir de ${origin}`;
+
+
+      /*
+        Alterar subtítulo
+      */
+
+      document.getElementById(
+        "results-subtitle"
+      ).textContent =
+        `${nights} noites • opções dentro do teu orçamento`;
+
+
+      /*
+        Filtrar destinos
+      */
+
+      let filtered = trips.filter(function(trip) {
+
+
+        const correctMonth =
+          month === "todos" ||
+          trip.months.includes(month);
+
+
+        const correctBudget =
+          !budget ||
+          trip.price <= budget;
+
+
+        return correctMonth && correctBudget;
+
+      });
+
+
+      /*
+        Ordenar do mais barato
+      */
+
+      filtered.sort(function(a, b) {
+
+        return a.price - b.price;
+
+      });
+
+
+      /*
+        Encontrar elementos
+      */
+
+      const results =
+        document.getElementById("results");
+
+
+      const empty =
+        document.getElementById("empty");
+
+
+      /*
+        Limpar resultados antigos
+      */
+
+      results.innerHTML = "";
+
+
+      /*
+        Sem resultados
+      */
+
+      if (filtered.length === 0) {
+
+        empty.style.display = "block";
+
+        return;
+      }
+
+
+      /*
+        Mostrar resultados
+      */
+
+      empty.style.display = "none";
+
+
+      /*
+        Criar cartões
+      */
+
+      filtered.forEach(function(trip) {
+
+
+        results.innerHTML += `
+
+          <div class="card">
+
+
+            <div class="card-image">
+              ${trip.icon}
+            </div>
+
+
+            <div class="card-content">
+
+
+              <h3>
+                ${trip.destination}
+              </h3>
+
+
+              <div class="country">
+                ${trip.country}
+              </div>
+
+
+              <div class="price">
+
+                ${trip.price} €
+
+                <small>
+                  / pessoa
+                </small>
+
+              </div>
+
+
+              <span class="tag">
+                💸 Opção económica
+              </span>
+
+
+              <button
+                class="details"
+                onclick="showDetails('${trip.destination}', ${trip.price})"
+              >
+                Ver detalhes
+              </button>
+
+
+            </div>
+
+
+          </div>
+
+        `;
+
+      });
+
+    }
+
+
+    /*
+      VER DETALHES
+    */
+
+    function showDetails(
+      destination,
+      price
+    ) {
+
+      alert(
+
+        `✈️ ${destination}\n\n` +
+
+        `Preço de demonstração: ${price} € por pessoa.\n\n` +
+
+        `Em breve poderás comparar voos e hotéis reais para este destino.`
+
+      );
+
+    }
+
+
+  </script>
 
 </body>
 </html>
