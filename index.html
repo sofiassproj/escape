@@ -1,1 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escapadinha</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+    }
+
+    header {
+      background: white;
+      padding: 20px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 70px 20px 40px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #667085;
+    }
+
+    .search-box {
+      max-width: 850px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    .fields {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    select,
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 15px;
+      border: 0;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #172033;
+      color: white;
+    }
+
+    .results {
+      max-width: 850px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .results h2 {
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .destination {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .price {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .small {
+      color: #667085;
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 700px) {
+      .fields {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">✈️ Escapadinha</div>
+</header>
+
+<section class="hero">
+  <h1>Encontra a tua próxima escapadinha</h1>
+  <p>Descobre destinos baratos para viajar em qualquer época do ano.</p>
+
+  <div class="search-box">
+
+    <div class="fields">
+
+      <div>
+        <label>De onde partes?</label>
+        <select id="origin">
+          <option>Lisboa</option>
+          <option>Porto</option>
+          <option>Funchal</option>
+          <option>Faro</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Mês</label>
+        <select id="month">
+          <option>Janeiro</option>
+          <option>Fevereiro</option>
+          <option>Março</option>
+          <option>Abril</option>
+          <option>Maio</option>
+          <option>Junho</option>
+          <option>Julho</option>
+          <option>Agosto</option>
+          <option>Setembro</option>
+          <option>Outubro</option>
+          <option>Novembro</option>
+          <option>Dezembro</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Noites</label>
+        <select id="nights">
+          <option>2 noites</option>
+          <option>3 noites</option>
+          <option>4 noites</option>
+          <option>5 noites</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Orçamento</label>
+        <input id="budget" type="number" placeholder="Ex: 200">
+      </div>
+
+    </div>
+
+    <button onclick="searchTrips()">🔎 Encontrar escapadinhas</button>
+
+  </div>
+</section>
+
+<section class="results">
+
+  <h2>Exemplos de escapadinhas</h2>
+
+  <div id="results">
+
+    <div class="card">
+      <div>
+        <div class="destination">🇪🇸 Sevilha</div>
+        <div class="small">Voo + 2 noites de alojamento</div>
+      </div>
+      <div class="price">134 €</div>
+    </div>
+
+    <div class="card">
+      <div>
+        <div class="destination">🇮🇹 Roma</div>
+        <div class="small">Voo + 2 noites de alojamento</div>
+      </div>
+      <div class="price">156 €</div>
+    </div>
+
+    <div class="card">
+      <div>
+        <div class="destination">🇪🇸 Madrid</div>
+        <div class="small">Voo + 2 noites de alojamento</div>
+      </div>
+      <div class="price">174 €</div>
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+
+function searchTrips() {
+
+  const budget = Number(document.getElementById("budget").value);
+  const results = document.getElementById("results");
+
+  if (!budget) {
+    alert("Indica o teu orçamento.");
+    return;
+  }
+
+  const trips = [
+    { name: "🇪🇸 Sevilha", price: 134 },
+    { name: "🇮🇹 Roma", price: 156 },
+    { name: "🇪🇸 Madrid", price: 174 },
+    { name: "🇲🇦 Marrakech", price: 189 },
+    { name: "🇫🇷 Paris", price: 210 }
+  ];
+
+  const available = trips.filter(trip => trip.price <= budget);
+
+  if (available.length === 0) {
+    results.innerHTML = "<p>Não encontrámos escapadinhas dentro desse orçamento.</p>";
+    return;
+  }
+
+  results.innerHTML = "";
+
+  available.forEach(trip => {
+
+    results.innerHTML += `
+      <div class="card">
+        <div>
+          <div class="destination">${trip.name}</div>
+          <div class="small">Voo + alojamento</div>
+        </div>
+        <div class="price">${trip.price} €</div>
+      </div>
+    `;
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>
