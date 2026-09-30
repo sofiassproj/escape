@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-   <script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1" data-cmp-ab="2">
-    (function () {
-        var script = document.createElement("script");
-        script.async = 1;
-        script.setAttribute("data-cmp-ab","2");
-        script.src = 'https://emrldtp.com/NTc5ODE2.js?t=579816';
-        document.head.appendChild(script);
-    })();
-  </script>
-
-  <meta charset="UTF-8">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -265,6 +254,24 @@
       line-height: 1.5;
     }
 
+    .money {
+      margin-top: 60px;
+      background: #172033;
+      color: white;
+      padding: 30px;
+      border-radius: 18px;
+      text-align: center;
+    }
+
+    .money h2 {
+      margin-top: 0;
+    }
+
+    .money p {
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
     footer {
       background: #172033;
       color: white;
@@ -328,7 +335,7 @@
       <h1>Encontra a tua próxima escapadinha</h1>
 
       <p>
-        Descobre destinos que podem caber no teu orçamento.
+        Descobre destinos baratos para viajar pelo mundo.
       </p>
 
       <div class="search-box">
@@ -368,7 +375,7 @@
 
           <select id="nights">
             <option value="2">2 noites</option>
-            <option value="3">3 noites</option>
+            <option value="3" selected>3 noites</option>
             <option value="4">4 noites</option>
             <option value="5">5 noites</option>
           </select>
@@ -394,8 +401,8 @@
       </div>
 
       <div class="notice">
-        ⚠️ <strong>Preços de demonstração:</strong>
-        os valores apresentados nesta versão são exemplos e ainda não representam preços reais.
+        ⚠️ <strong>Versão inicial:</strong>
+        os preços apresentados são exemplos e ainda não representam preços reais.
       </div>
 
     </div>
@@ -407,7 +414,7 @@
       <h2 id="results-title">🌎 Destinos em destaque</h2>
 
       <p id="results-subtitle">
-        Escolhe a tua origem, orçamento e período para encontrar possibilidades.
+        Escolhe a tua origem, mês, número de noites e orçamento.
       </p>
     </div>
 
@@ -425,7 +432,7 @@
         <h2>Como funciona?</h2>
 
         <p>
-          Uma forma simples de encontrar viagens económicas.
+          Encontra ideias para pequenas viagens sem perder horas a pesquisar.
         </p>
       </div>
 
@@ -447,7 +454,7 @@
           <h3>2. Escolhe quando</h3>
 
           <p>
-            Seleciona o mês e o número de noites.
+            Seleciona o mês e quantas noites queres ficar.
           </p>
         </div>
 
@@ -457,11 +464,27 @@
           <h3>3. Define o orçamento</h3>
 
           <p>
-            Mostramos opções dentro do valor indicado.
+            Encontra possibilidades dentro do valor que podes gastar.
           </p>
         </div>
 
       </div>
+
+    </section>
+
+    <section class="money">
+
+      <h2>💸 A Escapadinha pode ganhar dinheiro por ti</h2>
+
+      <p>
+        No futuro, os botões das viagens poderão levar os visitantes
+        para plataformas de reservas através de links de afiliado.
+      </p>
+
+      <p>
+        Quando alguém reservar através de um desses links,
+        poderás receber uma comissão.
+      </p>
 
     </section>
 
@@ -487,12 +510,30 @@
       },
 
       {
+        destination: "Istambul",
+        country: "Turquia",
+        month: "Janeiro",
+        nights: 4,
+        price: 139,
+        icon: "🇹🇷"
+      },
+
+      {
         destination: "Paris",
         country: "França",
         month: "Fevereiro",
         nights: 3,
         price: 149,
         icon: "🇫🇷"
+      },
+
+      {
+        destination: "Tirana",
+        country: "Albânia",
+        month: "Fevereiro",
+        nights: 3,
+        price: 119,
+        icon: "🇦🇱"
       },
 
       {
@@ -505,12 +546,30 @@
       },
 
       {
+        destination: "Cracóvia",
+        country: "Polónia",
+        month: "Março",
+        nights: 3,
+        price: 99,
+        icon: "🇵🇱"
+      },
+
+      {
         destination: "Barcelona",
         country: "Espanha",
         month: "Abril",
         nights: 2,
         price: 109,
         icon: "🇪🇸"
+      },
+
+      {
+        destination: "Lisboa",
+        country: "Portugal",
+        month: "Abril",
+        nights: 2,
+        price: 79,
+        icon: "🇵🇹"
       },
 
       {
@@ -523,12 +582,30 @@
       },
 
       {
+        destination: "Valência",
+        country: "Espanha",
+        month: "Maio",
+        nights: 2,
+        price: 99,
+        icon: "🇪🇸"
+      },
+
+      {
         destination: "Amesterdão",
         country: "Países Baixos",
         month: "Junho",
         nights: 3,
         price: 169,
         icon: "🇳🇱"
+      },
+
+      {
+        destination: "Milão",
+        country: "Itália",
+        month: "Junho",
+        nights: 3,
+        price: 139,
+        icon: "🇮🇹"
       },
 
       {
@@ -583,60 +660,6 @@
         nights: 3,
         price: 179,
         icon: "🇧🇪"
-      },
-
-      {
-        destination: "Istambul",
-        country: "Turquia",
-        month: "Janeiro",
-        nights: 4,
-        price: 139,
-        icon: "🇹🇷"
-      },
-
-      {
-        destination: "Tirana",
-        country: "Albânia",
-        month: "Fevereiro",
-        nights: 3,
-        price: 119,
-        icon: "🇦🇱"
-      },
-
-      {
-        destination: "Cracóvia",
-        country: "Polónia",
-        month: "Março",
-        nights: 3,
-        price: 99,
-        icon: "🇵🇱"
-      },
-
-      {
-        destination: "Lisboa",
-        country: "Portugal",
-        month: "Abril",
-        nights: 2,
-        price: 79,
-        icon: "🇵🇹"
-      },
-
-      {
-        destination: "Valência",
-        country: "Espanha",
-        month: "Maio",
-        nights: 2,
-        price: 99,
-        icon: "🇪🇸"
-      },
-
-      {
-        destination: "Milão",
-        country: "Itália",
-        month: "Junho",
-        nights: 3,
-        price: 139,
-        icon: "🇮🇹"
       }
 
     ];
@@ -650,9 +673,7 @@
       results.innerHTML = "";
 
       if (list.length === 0) {
-
         empty.style.display = "block";
-
         return;
       }
 
@@ -685,7 +706,7 @@
             </p>
 
             <p>
-              🌙 ${nights} noites
+              🌙 ${trip.nights} noites
             </p>
 
             <div class="price">
@@ -779,16 +800,10 @@
 
       });
 
-      const title =
-        document.getElementById("results-title");
-
-      const subtitle =
-        document.getElementById("results-subtitle");
-
-      title.textContent =
+      document.getElementById("results-title").textContent =
         "🌎 Escapadinhas a partir de " + origin;
 
-      subtitle.textContent =
+      document.getElementById("results-subtitle").textContent =
         "Encontrámos " +
         filtered.length +
         " possibilidade(s) dentro do teu orçamento.";
@@ -811,14 +826,11 @@
         "Preço de demonstração: €" +
         price +
         "\n\n" +
-        "Nesta primeira versão ainda não existe reserva real. " +
-        "A próxima fase será ligar preços e reservas reais."
+        "Estamos a preparar a ligação a reservas reais."
       );
 
     }
 
-
-    // Mostrar alguns destinos quando a página abre
 
     showResults(
       trips.slice(0, 6),
