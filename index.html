@@ -1,12 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Escapadinha ✈️ | Encontra a tua próxima viagem</title>
+  <title>Escapadinha ✈️ | Descobre a tua próxima viagem</title>
 
-  <meta name="description" content="Descobre escapadinhas económicas para vários destinos do mundo. Pesquisa por mês, orçamento e número de noites.">
+  <meta name="description" content="Descobre escapadinhas económicas para destinos incríveis em todo o mundo.">
 
   <style>
     * {
@@ -16,110 +17,121 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       background: #f5f7fb;
-      color: #1f2937;
+      color: #172033;
       line-height: 1.5;
     }
 
     header {
-      background: #111827;
-      color: white;
-      padding: 18px 20px;
+      background: #ffffff;
+      padding: 18px 25px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1px solid #e5e7eb;
       position: sticky;
       top: 0;
       z-index: 100;
     }
 
     .logo {
-      font-size: 24px;
-      font-weight: bold;
+      font-size: 25px;
+      font-weight: 800;
+      color: #172033;
     }
 
     .world {
       font-size: 14px;
-      opacity: 0.9;
+      color: #64748b;
     }
 
     .hero {
-      background: linear-gradient(135deg, #2563eb, #06b6d4);
+      background: linear-gradient(135deg, #2563eb, #0891b2);
       color: white;
-      padding: 60px 20px;
+      padding: 65px 20px 75px;
       text-align: center;
     }
 
     .hero h1 {
-      font-size: 42px;
+      font-size: 44px;
       margin-bottom: 12px;
+      letter-spacing: -1px;
     }
 
     .hero p {
       font-size: 18px;
-      margin-bottom: 30px;
+      opacity: 0.95;
+      margin-bottom: 32px;
     }
 
     .search-box {
       background: white;
-      color: #111827;
+      color: #172033;
       max-width: 1100px;
       margin: auto;
       padding: 20px;
       border-radius: 18px;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
       gap: 12px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
     }
 
     .search-box input,
     .search-box select,
     .search-box button {
       width: 100%;
-      padding: 13px;
-      border: 1px solid #d1d5db;
+      padding: 14px;
       border-radius: 10px;
       font-size: 15px;
     }
 
+    .search-box input,
+    .search-box select {
+      border: 1px solid #d7dce5;
+      background: #fff;
+    }
+
     .search-box button {
-      background: #111827;
-      color: white;
-      cursor: pointer;
       border: none;
+      background: #172033;
+      color: white;
       font-weight: bold;
+      cursor: pointer;
     }
 
     .search-box button:hover {
-      background: #374151;
+      background: #334155;
+    }
+
+    .notice {
+      max-width: 900px;
+      margin: 25px auto 0;
+      padding: 14px 18px;
+      background: #fff7ed;
+      color: #9a3412;
+      border-radius: 10px;
+      font-size: 14px;
     }
 
     main {
       max-width: 1200px;
-      margin: 40px auto;
+      margin: 45px auto;
       padding: 0 20px;
     }
 
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
+    .section-title {
       margin-bottom: 25px;
-      flex-wrap: wrap;
     }
 
-    .top-bar h2 {
-      font-size: 28px;
+    .section-title h2 {
+      font-size: 30px;
+      margin-bottom: 5px;
     }
 
-    .sort {
-      padding: 10px;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-      background: white;
+    .section-title p {
+      color: #64748b;
     }
 
     .filters {
@@ -130,41 +142,59 @@
     }
 
     .category {
-      padding: 9px 15px;
-      border: none;
-      border-radius: 20px;
+      padding: 9px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 30px;
       background: white;
+      color: #334155;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      font-weight: 600;
     }
 
     .category.active {
       background: #2563eb;
       color: white;
+      border-color: #2563eb;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .sort {
+      padding: 10px 14px;
+      border: 1px solid #d7dce5;
+      border-radius: 9px;
+      background: white;
     }
 
     .results {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
+      gap: 24px;
     }
 
     .card {
       background: white;
       border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 5px 20px rgba(15, 23, 42, 0.08);
+      transition: 0.2s;
       position: relative;
     }
 
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
     }
 
     .card-image {
-      height: 190px;
+      height: 200px;
       background-size: cover;
       background-position: center;
       display: flex;
@@ -173,8 +203,8 @@
     }
 
     .tag {
-      background: white;
-      padding: 6px 10px;
+      background: rgba(255,255,255,0.95);
+      padding: 6px 11px;
       border-radius: 20px;
       font-size: 13px;
       font-weight: bold;
@@ -184,45 +214,53 @@
       position: absolute;
       top: 12px;
       right: 12px;
-      background: white;
+      width: 40px;
+      height: 40px;
       border: none;
-      width: 38px;
-      height: 38px;
       border-radius: 50%;
-      font-size: 20px;
+      background: white;
+      font-size: 21px;
       cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
     }
 
     .favorite.active {
-      color: red;
+      color: #ef4444;
     }
 
     .card-content {
-      padding: 18px;
+      padding: 19px;
     }
 
     .card-content h3 {
-      font-size: 22px;
-      margin-bottom: 5px;
+      font-size: 23px;
+      margin-bottom: 3px;
     }
 
     .country {
-      color: #6b7280;
-      margin-bottom: 12px;
+      color: #64748b;
+      margin-bottom: 15px;
     }
 
     .info {
       display: flex;
       justify-content: space-between;
-      margin: 12px 0;
       font-size: 14px;
+      color: #475569;
+      margin-bottom: 15px;
     }
 
     .price {
-      font-size: 24px;
-      font-weight: bold;
       color: #2563eb;
+      font-size: 25px;
+      font-weight: 800;
       margin-bottom: 15px;
+    }
+
+    .price small {
+      color: #94a3b8;
+      font-size: 11px;
+      font-weight: normal;
     }
 
     .buttons {
@@ -240,8 +278,8 @@
     }
 
     .details {
-      background: #111827;
-      color: white;
+      background: #eef2ff;
+      color: #3730a3;
     }
 
     .travel {
@@ -250,23 +288,24 @@
     }
 
     .empty {
-      text-align: center;
       background: white;
-      padding: 40px;
-      border-radius: 15px;
+      padding: 45px;
+      text-align: center;
+      border-radius: 18px;
       grid-column: 1 / -1;
     }
 
     .how {
+      margin-top: 55px;
       background: white;
-      margin-top: 50px;
-      padding: 40px 25px;
-      border-radius: 20px;
+      border-radius: 22px;
+      padding: 45px 25px;
     }
 
     .how h2 {
       text-align: center;
-      margin-bottom: 30px;
+      font-size: 30px;
+      margin-bottom: 35px;
     }
 
     .steps {
@@ -282,43 +321,62 @@
 
     .step-icon {
       font-size: 38px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
-    .future {
-      margin-top: 40px;
-      background: #111827;
-      color: white;
-      padding: 40px 25px;
-      border-radius: 20px;
-      text-align: center;
+    .step h3 {
+      margin-bottom: 7px;
     }
 
-    .future h2 {
-      margin-bottom: 15px;
-    }
-
-    .future p {
-      max-width: 750px;
-      margin: auto;
-      opacity: 0.9;
-    }
-
-    footer {
-      margin-top: 50px;
-      background: #111827;
-      color: white;
-      text-align: center;
-      padding: 30px 20px;
-    }
-
-    footer p {
-      margin: 6px 0;
-      opacity: 0.8;
+    .step p {
+      color: #64748b;
       font-size: 14px;
     }
 
-    @media (max-width: 900px) {
+    .discover {
+      margin-top: 40px;
+      background: linear-gradient(135deg, #172033, #26354d);
+      color: white;
+      padding: 50px 25px;
+      border-radius: 22px;
+      text-align: center;
+    }
+
+    .discover h2 {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .discover p {
+      max-width: 700px;
+      margin: 0 auto;
+      color: #dbeafe;
+    }
+
+    .travel-icons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+      font-size: 16px;
+    }
+
+    footer {
+      margin-top: 55px;
+      background: #111827;
+      color: white;
+      padding: 35px 20px;
+      text-align: center;
+    }
+
+    footer p {
+      color: #9ca3af;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 950px) {
       .search-box {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -339,11 +397,15 @@
       }
 
       .hero {
-        padding: 40px 15px;
+        padding: 45px 15px 55px;
       }
 
       .hero h1 {
-        font-size: 31px;
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 16px;
       }
 
       .search-box {
@@ -355,6 +417,10 @@
       }
 
       .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .buttons {
         grid-template-columns: 1fr;
       }
 
@@ -377,7 +443,8 @@
   <h1>Encontra a tua próxima escapadinha</h1>
 
   <p>
-    Descobre destinos incríveis para viajar sem gastar uma fortuna.
+    Descobre destinos incríveis para pequenas viagens,
+    dentro do teu orçamento.
   </p>
 
   <div class="search-box">
@@ -385,11 +452,11 @@
     <input
       type="text"
       id="origin"
-      placeholder="De onde partes?"
+      placeholder="📍 De onde partes?"
     >
 
     <select id="month">
-      <option value="">Qualquer mês</option>
+      <option value="">📅 Qualquer mês</option>
       <option value="Janeiro">Janeiro</option>
       <option value="Fevereiro">Fevereiro</option>
       <option value="Março">Março</option>
@@ -405,7 +472,7 @@
     </select>
 
     <select id="nights">
-      <option value="">Qualquer duração</option>
+      <option value="">🌙 Qualquer duração</option>
       <option value="2">2 noites</option>
       <option value="3">3 noites</option>
       <option value="4">4 noites</option>
@@ -414,7 +481,7 @@
     </select>
 
     <select id="budget">
-      <option value="">Qualquer orçamento</option>
+      <option value="">💰 Qualquer orçamento</option>
       <option value="100">Até €100</option>
       <option value="200">Até €200</option>
       <option value="300">Até €300</option>
@@ -423,9 +490,13 @@
     </select>
 
     <button onclick="searchTrips()">
-      🔎 Procurar
+      🔎 Encontrar
     </button>
 
+  </div>
+
+  <div class="notice">
+    ⚠️ Os preços apresentados são exemplos e ainda não representam preços reais.
   </div>
 
 </section>
@@ -434,39 +505,48 @@
 
   <div class="top-bar">
 
-    <h2>🌍 Escapadinhas</h2>
+    <div class="section-title">
+      <h2>🌎 Descobre destinos</h2>
+      <p>Explora ideias para a tua próxima viagem.</p>
+    </div>
 
     <select class="sort" id="sort" onchange="searchTrips()">
-      <option value="price">Mais baratas primeiro</option>
-      <option value="name">Nome A-Z</option>
-      <option value="nights">Menos noites</option>
+      <option value="price">💶 Mais baratas</option>
+      <option value="name">🔤 Nome A-Z</option>
+      <option value="nights">🌙 Menos noites</option>
     </select>
 
   </div>
 
   <div class="filters">
 
-    <button class="category active" onclick="setCategory('Todos', this)">
+    <button class="category active"
+      onclick="setCategory('Todos', this)">
       🌍 Todos
     </button>
 
-    <button class="category" onclick="setCategory('Praia', this)">
+    <button class="category"
+      onclick="setCategory('Praia', this)">
       🏖️ Praia
     </button>
 
-    <button class="category" onclick="setCategory('Cidade', this)">
+    <button class="category"
+      onclick="setCategory('Cidade', this)">
       🏙️ Cidade
     </button>
 
-    <button class="category" onclick="setCategory('Natureza', this)">
+    <button class="category"
+      onclick="setCategory('Natureza', this)">
       🌲 Natureza
     </button>
 
-    <button class="category" onclick="setCategory('Aventura', this)">
+    <button class="category"
+      onclick="setCategory('Aventura', this)">
       🧗 Aventura
     </button>
 
-    <button class="category" onclick="showFavorites()">
+    <button class="category"
+      onclick="showFavorites()">
       ❤️ Favoritos
     </button>
 
@@ -481,50 +561,56 @@
     <div class="steps">
 
       <div class="step">
-        <div class="step-icon">🔎</div>
-        <h3>1. Pesquisa</h3>
-        <p>Escolhe o mês, orçamento e duração.</p>
+        <div class="step-icon">📍</div>
+        <h3>Escolhe a origem</h3>
+        <p>
+          Diz-nos de onde queres partir.
+        </p>
       </div>
 
       <div class="step">
-        <div class="step-icon">🌍</div>
-        <h3>2. Descobre</h3>
-        <p>Explora destinos espalhados pelo mundo.</p>
+        <div class="step-icon">📅</div>
+        <h3>Escolhe quando</h3>
+        <p>
+          Seleciona o mês e a duração.
+        </p>
       </div>
 
       <div class="step">
-        <div class="step-icon">💶</div>
-        <h3>3. Compara</h3>
-        <p>Vê opções dentro do teu orçamento.</p>
+        <div class="step-icon">💰</div>
+        <h3>Define o orçamento</h3>
+        <p>
+          Encontra ideias dentro do teu orçamento.
+        </p>
       </div>
 
       <div class="step">
         <div class="step-icon">✈️</div>
-        <h3>4. Viaja</h3>
-        <p>Encontra voos e alojamento.</p>
+        <h3>Escolhe o destino</h3>
+        <p>
+          Explora a tua próxima escapadinha.
+        </p>
       </div>
 
     </div>
 
   </section>
 
-  <section class="future">
+  <section class="discover">
 
-    <h2>💰 Como a Escapadinha poderá ganhar dinheiro</h2>
-
-    <p>
-      No futuro, os botões de voos e hotéis poderão utilizar
-      links de afiliados. Quando um visitante reservar através
-      desses links, a Escapadinha poderá receber uma comissão,
-      de acordo com as condições de cada parceiro.
-    </p>
-
-    <br>
+    <h2>🌍 A tua próxima viagem começa aqui</h2>
 
     <p>
-      Os preços apresentados nesta versão são apenas exemplos
-      para demonstração.
+      Descobre destinos, compara opções e encontra
+      a escapadinha que combina contigo.
     </p>
+
+    <div class="travel-icons">
+      <span>✈️ Voos</span>
+      <span>🏨 Alojamento</span>
+      <span>🌎 Destinos</span>
+      <span>💰 Diferentes orçamentos</span>
+    </div>
 
   </section>
 
@@ -534,9 +620,13 @@
 
   <strong>✈️ Escapadinha</strong>
 
-  <p>Descobre. Compara. Viaja.</p>
+  <p>
+    Descobre. Compara. Viaja.
+  </p>
 
-  <p>🌍 Feito para explorar o mundo.</p>
+  <p>
+    🌍 Ideias de viagem para todo o mundo.
+  </p>
 
 </footer>
 
@@ -546,13 +636,13 @@ const trips = [
 
   {
     id: 1,
-    name: "Lisboa",
-    country: "Portugal",
+    name: "Madrid",
+    country: "Espanha",
     price: 89,
     nights: 2,
     month: "Janeiro",
     category: "Cidade",
-    image: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b"
+    image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4"
   },
 
   {
@@ -563,14 +653,14 @@ const trips = [
     nights: 3,
     month: "Fevereiro",
     category: "Cidade",
-    image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4"
+    image: "https://images.unsplash.com/photo-1583422409516-2895a77efded"
   },
 
   {
     id: 3,
     name: "Paris",
     country: "França",
-    price: 159,
+    price: 149,
     nights: 3,
     month: "Março",
     category: "Cidade",
@@ -581,7 +671,7 @@ const trips = [
     id: 4,
     name: "Roma",
     country: "Itália",
-    price: 149,
+    price: 129,
     nights: 3,
     month: "Abril",
     category: "Cidade",
@@ -740,24 +830,50 @@ const trips = [
     month: "Junho",
     category: "Natureza",
     image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5"
+  },
+
+  {
+    id: 19,
+    name: "Istambul",
+    country: "Turquia",
+    price: 139,
+    nights: 4,
+    month: "Julho",
+    category: "Cidade",
+    image: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200"
+  },
+
+  {
+    id: 20,
+    name: "Tirana",
+    country: "Albânia",
+    price: 119,
+    nights: 3,
+    month: "Agosto",
+    category: "Cidade",
+    image: "https://images.unsplash.com/photo-1596395819057-e37f55a8516a"
   }
 
 ];
 
 let currentCategory = "Todos";
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-let showingFavorites = false;
+
+let favorites =
+  JSON.parse(localStorage.getItem("favorites")) || [];
 
 function displayTrips(list) {
 
-  const results = document.getElementById("results");
+  const results =
+    document.getElementById("results");
 
   if (list.length === 0) {
 
     results.innerHTML = `
       <div class="empty">
-        <h2>😕 Não encontrámos escapadinhas</h2>
-        <p>Tenta aumentar o orçamento ou escolher outro mês.</p>
+        <h2>😕 Não encontrámos resultados</h2>
+        <p>
+          Experimenta outro mês, orçamento ou duração.
+        </p>
       </div>
     `;
 
@@ -766,7 +882,8 @@ function displayTrips(list) {
 
   results.innerHTML = list.map(trip => {
 
-    const isFavorite = favorites.includes(trip.id);
+    const favorite =
+      favorites.includes(trip.id);
 
     return `
 
@@ -774,7 +891,10 @@ function displayTrips(list) {
 
         <div
           class="card-image"
-          style="background-image:url('${trip.image}?auto=format&fit=crop&w=800&q=80')"
+          style="
+            background-image:
+            url('${trip.image}?auto=format&fit=crop&w=800&q=80')
+          "
         >
 
           <span class="tag">
@@ -784,11 +904,10 @@ function displayTrips(list) {
         </div>
 
         <button
-          class="favorite ${isFavorite ? "active" : ""}"
+          class="favorite ${favorite ? "active" : ""}"
           onclick="toggleFavorite(${trip.id})"
-          title="Adicionar aos favoritos"
         >
-          ${isFavorite ? "❤️" : "♡"}
+          ${favorite ? "❤️" : "♡"}
         </button>
 
         <div class="card-content">
@@ -796,7 +915,7 @@ function displayTrips(list) {
           <h3>${trip.name}</h3>
 
           <div class="country">
-            📍 ${trip.country}
+            🌍 ${trip.country}
           </div>
 
           <div class="info">
@@ -805,7 +924,8 @@ function displayTrips(list) {
           </div>
 
           <div class="price">
-            Desde €${trip.price}
+            €${trip.price}
+            <small>desde</small>
           </div>
 
           <div class="buttons">
@@ -814,14 +934,14 @@ function displayTrips(list) {
               class="details"
               onclick="showDetails(${trip.id})"
             >
-              Ver detalhes
+              Ver escapadinha
             </button>
 
             <button
               class="travel"
               onclick="searchTravel('${trip.name}')"
             >
-              ✈️ Viajar
+              ✈️ Explorar
             </button>
 
           </div>
@@ -838,13 +958,22 @@ function displayTrips(list) {
 
 function searchTrips() {
 
-  showingFavorites = false;
+  const month =
+    document.getElementById("month").value;
 
-  const month = document.getElementById("month").value;
-  const nights = document.getElementById("nights").value;
-  const budget = document.getElementById("budget").value;
-  const origin = document.getElementById("origin").value.toLowerCase();
-  const sort = document.getElementById("sort").value;
+  const nights =
+    document.getElementById("nights").value;
+
+  const budget =
+    document.getElementById("budget").value;
+
+  const origin =
+    document.getElementById("origin")
+      .value
+      .toLowerCase();
+
+  const sort =
+    document.getElementById("sort").value;
 
   let filtered = trips.filter(trip => {
 
@@ -877,18 +1006,20 @@ function searchTrips() {
   });
 
   if (sort === "price") {
-    filtered.sort((a,b) => a.price - b.price);
+    filtered.sort(
+      (a,b) => a.price - b.price
+    );
   }
 
   if (sort === "name") {
-    filtered.sort((a,b) =>
-      a.name.localeCompare(b.name)
+    filtered.sort(
+      (a,b) => a.name.localeCompare(b.name)
     );
   }
 
   if (sort === "nights") {
-    filtered.sort((a,b) =>
-      a.nights - b.nights
+    filtered.sort(
+      (a,b) => a.nights - b.nights
     );
   }
 
@@ -899,10 +1030,12 @@ function searchTrips() {
 function setCategory(category, button) {
 
   currentCategory = category;
-  showingFavorites = false;
 
-  document.querySelectorAll(".category")
-    .forEach(btn => btn.classList.remove("active"));
+  document
+    .querySelectorAll(".category")
+    .forEach(btn =>
+      btn.classList.remove("active")
+    );
 
   button.classList.add("active");
 
@@ -934,8 +1067,6 @@ function toggleFavorite(id) {
 
 function showFavorites() {
 
-  showingFavorites = true;
-
   const favoriteTrips =
     trips.filter(trip =>
       favorites.includes(trip.id)
@@ -955,15 +1086,15 @@ function showDetails(id) {
   alert(
     "🌍 " + trip.name +
     "\n\n" +
-    "📍 " + trip.country +
+    "🌎 " + trip.country +
     "\n" +
-    "📅 Melhor mês: " + trip.month +
+    "📅 Mês: " + trip.month +
     "\n" +
     "🌙 " + trip.nights + " noites" +
     "\n" +
-    "💶 Desde €" + trip.price +
+    "💰 Desde €" + trip.price +
     "\n\n" +
-    "Os preços são exemplos nesta versão."
+    "Os preços são apenas indicativos nesta versão."
   );
 
 }
@@ -971,10 +1102,10 @@ function showDetails(id) {
 function searchTravel(destination) {
 
   alert(
-    "✈️ Pesquisa de viagem para " +
+    "✈️ Explorar " +
     destination +
     "\n\n" +
-    "Em breve este botão será ligado a uma plataforma de voos/hotéis."
+    "Em breve poderás pesquisar voos e alojamento para este destino."
   );
 
 }
