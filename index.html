@@ -486,6 +486,12 @@ function searchTrips() {
   const origin = document.getElementById("origin").value.trim();
   const month = document.getElementById("month").value;
   const budget = Number(document.getElementById("budget").value);
+    const origin = document.getElementById("origin").value.trim();
+
+  if (!origin) {
+    alert("Escreve primeiro de onde queres partir ✈️");
+    return;
+  }
 
   let filtered = trips.filter(trip => {
 
@@ -506,7 +512,8 @@ function searchTrips() {
 
   results.innerHTML = "";
 
-  if (filtered.length === 0) {
+  if 
+    
 
     empty.style.display = "block";
     return;
