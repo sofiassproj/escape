@@ -3,104 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>🌍 Escapadinha — Planeia a tua viagem</title>
-
-<meta
-  name="description"
-  content="Escapadinha — planeia viagens, descobre lugares reais, consulta meteorologia e organiza a tua viagem."
->
+<meta name="theme-color" content="#f5f7fb">
+<meta name="description" content="Escapadinha — planeia viagens, descobre lugares reais e organiza tudo num só lugar.">
+<title>🌍 Escapadinha</title>
 
 <style>
+*{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f4f7f5;
-  --surface:#ffffff;
-  --surface-2:#eef4f2;
-  --text:#173b38;
-  --muted:#71807d;
-  --primary:#166b65;
-  --primary-dark:#0d514c;
-  --accent:#e9a65b;
-  --border:rgba(23,59,56,.09);
-  --shadow:0 18px 55px rgba(23,59,56,.08);
-  --radius:26px;
+  --bg:#f5f7fb;
+  --bg2:#eef3f9;
+  --card:rgba(255,255,255,.88);
+  --text:#172033;
+  --muted:#687386;
+  --line:#e4e8ef;
+  --primary:#315efb;
+  --primary2:#7048e8;
+  --green:#159570;
+  --orange:#ef8b2c;
+  --red:#dc4c4c;
+  --shadow:0 18px 55px rgba(28,42,72,.09);
+  --radius:24px;
 }
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
+html{scroll-behavior:smooth}
 body{
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   background:
-    radial-gradient(
-      circle at 8% 8%,
-      rgba(91,170,157,.16),
-      transparent 27%
-    ),
-    radial-gradient(
-      circle at 90% 10%,
-      rgba(240,182,112,.16),
-      transparent 25%
-    ),
-    linear-gradient(
-      135deg,
-      #f7f9f7 0%,
-      #eef5f2 50%,
-      #f8f7f3 100%
-    );
-
+    radial-gradient(circle at 10% 0%,rgba(49,94,251,.10),transparent 28%),
+    radial-gradient(circle at 90% 15%,rgba(112,72,232,.09),transparent 28%),
+    linear-gradient(135deg,#f8fafc,#f1f5fa 55%,#f8fafc);
   color:var(--text);
   min-height:100vh;
+  overflow-x:hidden;
 }
 
-button,
-input,
-select{
-  font:inherit;
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.32;
+  background-image:
+    linear-gradient(90deg,transparent 49%,rgba(49,94,251,.025) 50%,transparent 51%),
+    linear-gradient(0deg,transparent 49%,rgba(49,94,251,.025) 50%,transparent 51%);
+  background-size:80px 80px;
+  mask-image:linear-gradient(to bottom,black,transparent 75%);
 }
 
-button{
-  cursor:pointer;
-}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
 
-a{
-  color:inherit;
-  text-decoration:none;
+.container{
+  width:min(1180px,calc(100% - 32px));
+  margin:auto;
 }
-
-/* =========================================================
-   HEADER
-========================================================= */
 
 header{
   position:sticky;
   top:0;
-  z-index:1000;
-  background:rgba(248,250,249,.82);
+  z-index:100;
   backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--border);
+  background:rgba(248,250,252,.78);
+  border-bottom:1px solid rgba(220,225,235,.8);
 }
 
-.navbar{
-  max-width:1240px;
-  margin:auto;
-  min-height:76px;
-  padding:0 22px;
+.nav{
+  height:72px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -108,251 +77,164 @@ header{
 }
 
 .logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:22px;
+  font-size:1.2rem;
   font-weight:900;
   letter-spacing:-.5px;
 }
 
-.logo span{
-  display:inline-flex;
-  width:40px;
-  height:40px;
-  align-items:center;
-  justify-content:center;
-  border-radius:14px;
-  background:#dff0eb;
-  box-shadow:0 8px 25px rgba(22,107,101,.12);
-}
+.logo span{color:var(--primary)}
 
-.nav-links{
+nav{
   display:flex;
+  gap:7px;
   align-items:center;
-  gap:8px;
 }
 
-.nav-links button{
-  border:0;
-  background:transparent;
-  color:#52625f;
+nav a{
   padding:10px 14px;
-  border-radius:14px;
-  transition:.2s;
+  border-radius:12px;
+  color:#536075;
+  font-size:.92rem;
+  font-weight:700;
 }
 
-.nav-links button:hover{
-  background:#e7f0ed;
+nav a:hover{
+  background:white;
   color:var(--primary);
 }
 
-.header-actions{
-  display:flex;
-  gap:8px;
+.nav-btn{
+  border:0;
+  background:#172033;
+  color:white;
+  padding:10px 15px;
+  border-radius:13px;
+  font-weight:800;
 }
-
-.icon-btn{
-  border:1px solid var(--border);
-  background:white;
-  width:42px;
-  height:42px;
-  border-radius:14px;
-  display:grid;
-  place-items:center;
-  transition:.2s;
-}
-
-.icon-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 25px rgba(0,0,0,.06);
-}
-
-/* =========================================================
-   GENERAL
-========================================================= */
-
-main{
-  overflow:hidden;
-}
-
-.container{
-  width:min(1240px, calc(100% - 36px));
-  margin:auto;
-}
-
-.section{
-  padding:80px 0;
-}
-
-.section-heading{
-  display:flex;
-  align-items:flex-start;
-  gap:14px;
-  margin-bottom:28px;
-}
-
-.section-heading > span{
-  width:48px;
-  height:48px;
-  display:grid;
-  place-items:center;
-  border-radius:16px;
-  background:#e2f0ec;
-  font-size:23px;
-}
-
-.section-heading h2{
-  font-size:30px;
-  letter-spacing:-1px;
-}
-
-.section-heading p{
-  margin-top:6px;
-  color:var(--muted);
-  line-height:1.6;
-}
-
-.hidden{
-  display:none!important;
-}
-
-/* =========================================================
-   HERO
-========================================================= */
 
 .hero{
+  padding:70px 0 45px;
   position:relative;
-  padding:72px 0 40px;
-}
-
-.hero:before{
-  content:"";
-  position:absolute;
-  width:500px;
-  height:500px;
-  right:-250px;
-  top:-180px;
-  border-radius:50%;
-  border:1px dashed rgba(22,107,101,.15);
-}
-
-.hero:after{
-  content:"✈";
-  position:absolute;
-  right:11%;
-  top:110px;
-  font-size:25px;
-  opacity:.14;
-  transform:rotate(-12deg);
 }
 
 .hero-grid{
   display:grid;
-  grid-template-columns:1fr 1.1fr;
-  gap:42px;
+  grid-template-columns:1.05fr .95fr;
+  gap:55px;
   align-items:center;
-}
-
-.hero-copy{
-  position:relative;
-  z-index:2;
 }
 
 .eyebrow{
   display:inline-flex;
-  padding:8px 13px;
+  gap:8px;
+  padding:8px 12px;
   border-radius:999px;
-  background:#e2f0ec;
+  background:white;
+  border:1px solid var(--line);
+  box-shadow:0 8px 25px rgba(28,42,72,.05);
   color:var(--primary);
-  font-size:12px;
   font-weight:800;
-  margin-bottom:18px;
+  font-size:.82rem;
 }
 
-.hero h1{
-  font-size:clamp(42px,6vw,72px);
-  line-height:.98;
-  letter-spacing:-3px;
-  max-width:700px;
+h1{
+  font-size:clamp(3rem,6vw,5.6rem);
+  line-height:.92;
+  letter-spacing:-5px;
+  margin:20px 0;
 }
 
-.hero h1 em{
+.hero h1 span{
   color:var(--primary);
-  font-style:normal;
 }
 
-.hero-copy p{
-  max-width:590px;
-  margin-top:22px;
-  font-size:17px;
-  line-height:1.7;
+.hero-copy{
+  max-width:650px;
   color:var(--muted);
+  font-size:1.08rem;
+  line-height:1.7;
 }
 
-.hero-mini{
-  margin-top:24px;
-  display:flex;
-  gap:9px;
-  flex-wrap:wrap;
+.hero-art{
+  min-height:360px;
+  border-radius:35px;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 25% 30%,rgba(49,94,251,.16),transparent 28%),
+    radial-gradient(circle at 80% 70%,rgba(112,72,232,.17),transparent 30%),
+    rgba(255,255,255,.65);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:var(--shadow);
 }
 
-.hero-mini span{
-  padding:9px 12px;
-  border-radius:999px;
-  background:rgba(255,255,255,.72);
-  border:1px solid var(--border);
-  font-size:12px;
-  color:#5b6967;
+.route{
+  position:absolute;
+  width:78%;
+  height:55%;
+  left:11%;
+  top:22%;
+  border:2px dashed rgba(49,94,251,.22);
+  border-radius:50%;
+  transform:rotate(-10deg);
 }
 
-/* =========================================================
-   PLANNER
-========================================================= */
+.city-dot{
+  position:absolute;
+  width:15px;
+  height:15px;
+  background:var(--primary);
+  border-radius:50%;
+  box-shadow:0 0 0 8px rgba(49,94,251,.09);
+}
+
+.dot1{left:20%;top:65%}
+.dot2{left:45%;top:25%}
+.dot3{right:18%;top:55%}
+
+.hero-plane{
+  position:absolute;
+  left:38%;
+  top:39%;
+  font-size:4.3rem;
+  transform:rotate(-13deg);
+  filter:drop-shadow(0 15px 15px rgba(30,40,80,.15));
+  animation:floatPlane 4s ease-in-out infinite;
+}
+
+@keyframes floatPlane{
+  0%,100%{transform:translate(-10px,8px) rotate(-13deg)}
+  50%{transform:translate(18px,-15px) rotate(-4deg)}
+}
 
 .planner{
-  position:relative;
-  background:rgba(255,255,255,.78);
-  backdrop-filter:blur(18px);
-  border:1px solid rgba(255,255,255,.9);
-  border-radius:34px;
+  margin-top:42px;
   padding:26px;
-  box-shadow:
-    0 25px 80px rgba(23,59,56,.12),
-    inset 0 1px 0 rgba(255,255,255,.8);
-}
-
-.planner:before{
-  content:"";
-  position:absolute;
-  width:100px;
-  height:100px;
-  right:-35px;
-  bottom:-35px;
-  border:1px dashed rgba(22,107,101,.25);
-  border-radius:50%;
+  background:rgba(255,255,255,.9);
+  border:1px solid rgba(255,255,255,.95);
+  box-shadow:var(--shadow);
+  border-radius:28px;
 }
 
 .planner-title{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  gap:10px;
+  gap:20px;
   margin-bottom:20px;
 }
 
 .planner-title h2{
-  font-size:21px;
+  font-size:1.25rem;
 }
 
-.planner-title span{
-  font-size:12px;
+.planner-title p{
   color:var(--muted);
+  font-size:.88rem;
 }
 
 .form-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:repeat(4,1fr);
   gap:13px;
 }
 
@@ -360,2211 +242,1663 @@ main{
   position:relative;
 }
 
-.field.full{
-  grid-column:1/-1;
-}
-
 .field label{
   display:block;
-  margin:0 0 7px 3px;
-  font-size:11px;
+  font-size:.75rem;
   font-weight:800;
-  color:#60706d;
-  text-transform:uppercase;
-  letter-spacing:.4px;
+  color:#697489;
+  margin:0 0 6px 3px;
 }
 
 .field input,
 .field select{
   width:100%;
-  border:1px solid var(--border);
-  background:#f8faf9;
-  color:var(--text);
-  min-height:48px;
-  padding:0 14px;
-  border-radius:15px;
+  height:48px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fbfcfe;
+  padding:0 13px;
   outline:none;
-  transition:.2s;
+  color:var(--text);
 }
 
 .field input:focus,
 .field select:focus{
-  border-color:rgba(22,107,101,.45);
-  box-shadow:0 0 0 4px rgba(22,107,101,.08);
+  border-color:#9eb0ff;
+  box-shadow:0 0 0 4px rgba(49,94,251,.07);
 }
 
-.search-dropdown{
-  position:absolute;
-  z-index:50;
-  top:78px;
-  left:0;
-  right:0;
-  max-height:280px;
-  overflow:auto;
-  background:white;
-  border:1px solid var(--border);
-  border-radius:17px;
-  box-shadow:0 20px 50px rgba(0,0,0,.12);
-  display:none;
-}
-
-.search-dropdown.active{
-  display:block;
-}
-
-.dropdown-item{
-  padding:12px 14px;
-  cursor:pointer;
+.form-actions{
   display:flex;
-  align-items:center;
   gap:10px;
-}
-
-.dropdown-item:hover{
-  background:#edf5f2;
-}
-
-.dropdown-empty{
-  padding:15px;
-  color:var(--muted);
-  font-size:13px;
-}
-
-.trip-types{
-  display:flex;
-  gap:7px;
+  margin-top:16px;
   flex-wrap:wrap;
 }
 
-.trip-type{
-  border:1px solid var(--border);
-  background:#f8faf9;
-  padding:10px 12px;
-  border-radius:13px;
-  font-size:12px;
-  color:#5e6e6b;
-  transition:.2s;
+.primary{
+  border:0;
+  background:linear-gradient(135deg,var(--primary),var(--primary2));
+  color:white;
+  padding:14px 21px;
+  border-radius:15px;
+  font-weight:900;
+  box-shadow:0 10px 25px rgba(49,94,251,.2);
 }
 
-.trip-type.active{
-  background:#dff0eb;
-  border-color:#acd8cd;
-  color:#145d57;
+.secondary{
+  border:1px solid var(--line);
+  background:white;
+  color:var(--text);
+  padding:13px 18px;
+  border-radius:15px;
   font-weight:800;
 }
 
-.primary-btn{
-  width:100%;
-  min-height:54px;
-  border:0;
+.surprise{
+  background:#fff7e9;
+  color:#a55c08;
+  border-color:#f4dfb6;
+}
+
+.dropdown{
+  position:absolute;
+  z-index:80;
+  top:76px;
+  left:0;
+  right:0;
+  background:white;
+  border:1px solid var(--line);
   border-radius:17px;
-  background:linear-gradient(135deg,#176e67,#0d514c);
-  color:white;
-  font-weight:850;
-  font-size:15px;
-  box-shadow:0 13px 28px rgba(22,107,101,.22);
-  transition:.2s;
+  box-shadow:0 20px 45px rgba(20,30,50,.15);
+  max-height:290px;
+  overflow:auto;
+  display:none;
 }
 
-.primary-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 17px 35px rgba(22,107,101,.28);
-}
+.dropdown.show{display:block}
 
-.planner-submit{
-  margin-top:15px;
-}
-
-/* =========================================================
-   QUICK DISCOVERY
-========================================================= */
-
-.quick-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-}
-
-.quick-card{
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.75);
-  border-radius:22px;
-  padding:22px;
+.drop-item{
+  padding:11px 13px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border-bottom:1px solid #f0f2f6;
   cursor:pointer;
-  transition:.25s;
 }
 
-.quick-card:hover{
-  transform:translateY(-5px);
-  box-shadow:var(--shadow);
+.drop-item:hover{background:#f5f7ff}
+.drop-item small{display:block;color:var(--muted)}
+
+.section{
+  padding:55px 0;
 }
 
-.quick-card .emoji{
-  font-size:27px;
-  margin-bottom:14px;
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:20px;
+  margin-bottom:23px;
 }
 
-.quick-card h3{
-  font-size:16px;
+.section-head h2{
+  font-size:2rem;
+  letter-spacing:-1.4px;
 }
 
-.quick-card p{
-  margin-top:6px;
+.section-head p{
   color:var(--muted);
-  font-size:12px;
-  line-height:1.5;
+  max-width:600px;
+  line-height:1.6;
 }
 
-/* =========================================================
-   DESTINATIONS
-========================================================= */
-
-.destination-grid{
+.destinations{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:15px;
+  gap:16px;
 }
 
 .destination-card{
-  min-height:220px;
-  border-radius:26px;
-  overflow:hidden;
   position:relative;
+  min-height:190px;
+  border-radius:23px;
+  overflow:hidden;
   cursor:pointer;
-  background:#dce9e5;
-  transition:.25s;
-}
-
-.destination-card:hover{
-  transform:translateY(-5px) rotate(-.4deg);
+  box-shadow:var(--shadow);
+  background:#dfe5ef;
 }
 
 .destination-card img{
   width:100%;
   height:100%;
-  min-height:220px;
   object-fit:cover;
-  display:block;
+  position:absolute;
+  inset:0;
+  transition:.4s;
 }
+
+.destination-card:hover img{transform:scale(1.06)}
 
 .destination-card:after{
   content:"";
   position:absolute;
-  inset:0;
-  background:linear-gradient(
-    transparent 30%,
-    rgba(0,0,0,.7)
-  );
+  inset:35% 0 0;
+  background:linear-gradient(transparent,rgba(5,12,30,.78));
 }
 
 .destination-info{
   position:absolute;
+  bottom:17px;
+  left:17px;
   z-index:2;
-  bottom:18px;
-  left:18px;
   color:white;
 }
 
-.destination-info strong{
-  display:block;
-  font-size:21px;
+.destination-info h3{font-size:1.25rem}
+.destination-info p{font-size:.8rem;opacity:.86}
+
+.destination-placeholder{
+  height:100%;
+  display:grid;
+  place-items:center;
+  color:#66738b;
 }
 
-.destination-info span{
-  display:block;
-  margin-top:4px;
-  font-size:12px;
-  opacity:.86;
-}
-
-/* =========================================================
-   DESTINATION PANEL
-========================================================= */
-
-#destinationSection{
+#tripSection{
   display:none;
 }
 
-.destination-header{
-  border-radius:32px;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.94),
-      rgba(232,242,239,.88)
-    );
-  border:1px solid var(--border);
-  padding:28px;
-  box-shadow:var(--shadow);
-}
-
-.destination-header-top{
+.trip-top{
   display:flex;
   justify-content:space-between;
   align-items:flex-start;
   gap:20px;
+  margin-bottom:25px;
 }
 
-.destination-title{
-  font-size:40px;
-  letter-spacing:-1.5px;
+.trip-title{
+  display:flex;
+  align-items:center;
+  gap:14px;
 }
 
-.destination-subtitle{
-  margin-top:8px;
+.trip-title .flag{
+  font-size:3rem;
+}
+
+.trip-title h2{
+  font-size:2.4rem;
+  letter-spacing:-2px;
+}
+
+.trip-title p{
   color:var(--muted);
 }
 
-.back-btn{
-  border:1px solid var(--border);
+.trip-change{
+  border:1px solid var(--line);
   background:white;
-  border-radius:13px;
   padding:10px 14px;
+  border-radius:13px;
+  font-weight:800;
 }
 
 .info-grid{
   display:grid;
   grid-template-columns:repeat(6,1fr);
-  gap:10px;
-  margin-top:24px;
+  gap:12px;
 }
 
 .info-card{
-  background:rgba(255,255,255,.72);
-  border:1px solid var(--border);
+  background:var(--card);
+  border:1px solid rgba(225,230,238,.9);
+  padding:18px;
   border-radius:19px;
-  padding:15px;
-  min-height:105px;
+  min-height:120px;
 }
 
-.info-card .info-icon{
-  font-size:20px;
-}
-
-.info-card small{
-  display:block;
-  margin-top:9px;
-  color:var(--muted);
-  font-size:10px;
-  text-transform:uppercase;
-  font-weight:800;
+.info-icon{
+  font-size:1.4rem;
+  margin-bottom:12px;
 }
 
 .info-card strong{
   display:block;
-  margin-top:4px;
-  font-size:13px;
+  font-size:.78rem;
+  color:#788397;
+  margin-bottom:4px;
 }
 
-/* =========================================================
-   TABS
-========================================================= */
-
-.tabs{
-  display:flex;
-  gap:8px;
-  overflow:auto;
-  padding-bottom:4px;
-  margin:30px 0 20px;
+.info-card span{
+  font-weight:850;
+  line-height:1.35;
 }
 
-.tab{
-  flex:0 0 auto;
-  border:1px solid var(--border);
-  background:white;
-  border-radius:999px;
-  padding:11px 16px;
-  color:#61706d;
-  font-size:13px;
-  font-weight:750;
-}
-
-.tab.active{
-  background:#dff0eb;
-  color:#145d57;
-  border-color:#b6dcd3;
-}
-
-/* =========================================================
-   PLACES
-========================================================= */
-
-.places-status{
-  min-height:30px;
-  margin-bottom:15px;
-  color:var(--muted);
-  font-size:13px;
-}
-
-.places-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:17px;
-}
-
-.place-card{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:24px;
-  overflow:hidden;
-  box-shadow:0 8px 30px rgba(23,59,56,.05);
-  transition:.25s;
-  cursor:pointer;
-}
-
-.place-card:hover{
-  transform:translateY(-5px);
+.weather-wrap{
+  background:linear-gradient(135deg,#eef4ff,#f9f8ff);
+  border:1px solid #e0e7f8;
+  border-radius:28px;
+  padding:23px;
   box-shadow:var(--shadow);
 }
 
-.place-image-wrap{
-  height:190px;
-  position:relative;
-  overflow:hidden;
-  background:
-    linear-gradient(
-      135deg,
-      #e2eee9,
-      #f5f0e7
-    );
+.weather-main{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:25px;
 }
 
-.place-photo{
+.weather-current{
+  background:white;
+  border-radius:22px;
+  padding:25px;
+}
+
+.weather-temp{
+  font-size:4rem;
+  font-weight:900;
+  letter-spacing:-4px;
+}
+
+.weather-desc{
+  color:var(--muted);
+  margin:4px 0 20px;
+}
+
+.weather-metrics{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.metric{
+  padding:13px;
+  background:#f7f9fc;
+  border-radius:15px;
+}
+
+.metric small{
+  display:block;
+  color:var(--muted);
+  margin-bottom:4px;
+}
+
+.metric strong{font-size:.94rem}
+
+.weather-source{
+  color:#7a8494;
+  font-size:.75rem;
+  margin-top:17px;
+}
+
+.zone-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.zone-card{
+  border:1px solid #e1e6ef;
+  background:white;
+  border-radius:18px;
+  padding:17px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.zone-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(30,45,80,.08);
+}
+
+.zone-card.active{
+  border-color:#9eafff;
+  box-shadow:0 0 0 3px rgba(49,94,251,.06);
+}
+
+.zone-name{font-weight:900}
+.zone-temp{font-size:1.8rem;font-weight:900;margin:5px 0}
+.zone-desc{font-size:.8rem;color:var(--muted)}
+
+.localities{
+  margin-top:18px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.locality{
+  border:1px solid #dfe4ed;
+  background:white;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:.8rem;
+  font-weight:750;
+}
+
+.explore-box{
+  margin-top:25px;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.tabs{
+  display:flex;
+  gap:7px;
+  overflow:auto;
+  padding:13px;
+  border-bottom:1px solid var(--line);
+}
+
+.tab{
+  white-space:nowrap;
+  border:0;
+  background:#f2f5f9;
+  padding:11px 15px;
+  border-radius:12px;
+  font-weight:850;
+  color:#5f6a7c;
+}
+
+.tab.active{
+  background:#172033;
+  color:white;
+}
+
+.filters{
+  padding:15px 17px;
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  border-bottom:1px solid #edf0f4;
+}
+
+.filter{
+  border:1px solid var(--line);
+  background:white;
+  padding:9px 12px;
+  border-radius:10px;
+  color:#596579;
+}
+
+.results{
+  padding:17px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.place-card{
+  border:1px solid #e2e7ef;
+  border-radius:20px;
+  overflow:hidden;
+  background:white;
+  transition:.2s;
+}
+
+.place-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 35px rgba(30,45,80,.09);
+}
+
+.place-image{
+  height:175px;
+  background:#edf1f6;
+  position:relative;
+  overflow:hidden;
+}
+
+.place-image img{
   width:100%;
   height:100%;
   object-fit:cover;
-  display:block;
-  opacity:.55;
-  transition:opacity .4s, transform .4s;
 }
 
-.place-photo.loaded{
-  opacity:1;
-}
-
-.place-card:hover .place-photo{
-  transform:scale(1.04);
-}
-
-.place-placeholder{
+.image-loading{
   position:absolute;
   inset:0;
   display:grid;
   place-items:center;
-  font-size:45px;
-  opacity:.45;
+  background:linear-gradient(135deg,#edf2fa,#f8faff);
+  color:#748198;
 }
 
-.place-heart{
-  position:absolute;
-  right:12px;
-  top:12px;
-  width:39px;
-  height:39px;
-  border:0;
-  border-radius:50%;
-  background:rgba(255,255,255,.88);
-  z-index:3;
+.mini-plane{
+  display:inline-block;
+  animation:miniFly 1.8s ease-in-out infinite;
 }
 
-.place-body{
-  padding:18px;
+@keyframes miniFly{
+  0%,100%{transform:translateX(-8px) rotate(-5deg)}
+  50%{transform:translateX(8px) translateY(-4px) rotate(3deg)}
 }
 
-.place-body h3{
-  font-size:17px;
+.place-body{padding:16px}
+
+.place-top{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.place-title{
+  font-weight:900;
   line-height:1.25;
 }
 
+.heart{
+  border:0;
+  background:#f4f6fa;
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  flex:none;
+}
+
+.heart.saved{
+  background:#ffeef1;
+  color:#e04b65;
+}
+
 .place-meta{
-  margin-top:7px;
   color:var(--muted);
-  font-size:12px;
+  font-size:.78rem;
   line-height:1.5;
+  margin-top:8px;
 }
 
 .place-tags{
   display:flex;
-  gap:6px;
   flex-wrap:wrap;
+  gap:5px;
   margin-top:11px;
 }
 
-.place-tag{
-  padding:6px 8px;
-  background:#edf4f2;
-  color:#57716c;
-  border-radius:8px;
-  font-size:10px;
+.tag{
+  padding:5px 7px;
+  background:#f2f5f8;
+  border-radius:7px;
+  font-size:.68rem;
+  color:#596579;
 }
 
-.place-footer{
+.place-actions{
   display:flex;
   gap:7px;
   margin-top:14px;
 }
 
-.small-btn{
-  border:1px solid var(--border);
-  background:#f8faf9;
-  border-radius:11px;
-  padding:8px 10px;
-  font-size:11px;
-  font-weight:750;
+.place-actions button,
+.place-actions a{
+  flex:1;
+  border:1px solid var(--line);
+  background:white;
+  padding:9px 8px;
+  border-radius:10px;
+  text-align:center;
+  font-size:.76rem;
+  font-weight:800;
 }
 
-.small-btn:hover{
-  background:#e8f2ef;
+.place-actions .view{
+  background:#172033;
+  color:white;
+  border-color:#172033;
 }
 
+.loading-state,
 .empty-state{
   grid-column:1/-1;
-  padding:45px;
+  padding:45px 20px;
   text-align:center;
-  background:white;
-  border:1px dashed rgba(23,59,56,.15);
-  border-radius:25px;
   color:var(--muted);
 }
 
-/* =========================================================
-   WEATHER
-========================================================= */
-
-.weather-section{
-  margin-top:35px;
+.loading-state .big-plane{
+  font-size:3rem;
+  display:block;
+  margin-bottom:12px;
+  animation:bigPlane 2.4s ease-in-out infinite;
 }
 
-.weather-zones-grid{
+@keyframes bigPlane{
+  0%{transform:translateX(-20px) rotate(-8deg)}
+  50%{transform:translateX(20px) translateY(-8px) rotate(3deg)}
+  100%{transform:translateX(-20px) rotate(-8deg)}
+}
+
+.retry{
+  margin-top:15px;
+  border:0;
+  background:#172033;
+  color:white;
+  padding:11px 17px;
+  border-radius:12px;
+  font-weight:800;
+}
+
+.links-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:13px;
 }
 
-.weather-zone-card{
-  padding:20px;
-  border-radius:23px;
-  background:rgba(255,255,255,.84);
-  border:1px solid var(--border);
-  box-shadow:0 10px 35px rgba(23,59,56,.06);
-  transition:.2s;
+.link-card{
+  background:white;
+  border:1px solid var(--line);
+  padding:19px;
+  border-radius:19px;
 }
 
-.weather-zone-card:hover{
-  transform:translateY(-4px);
+.link-card h3{font-size:1rem;margin-bottom:7px}
+.link-card p{font-size:.78rem;color:var(--muted);line-height:1.5}
+.link-card a{
+  display:inline-block;
+  margin-top:13px;
+  color:var(--primary);
+  font-weight:850;
+  font-size:.8rem;
 }
 
-.weather-zone-top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
+.travel-tools{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
 }
 
-.weather-zone-name{
-  font-size:14px;
+.tool-card{
+  background:white;
+  border:1px solid var(--line);
+  padding:21px;
+  border-radius:22px;
+}
+
+.tool-card h3{margin-bottom:7px}
+.tool-card p{
+  color:var(--muted);
+  line-height:1.55;
+  font-size:.87rem;
+}
+
+.tool-button{
+  margin-top:15px;
+  width:100%;
+  border:1px solid var(--line);
+  background:#f8faff;
+  padding:11px;
+  border-radius:12px;
   font-weight:850;
 }
 
-.weather-icon{
-  font-size:27px;
+.my-trip{
+  background:#172033;
+  color:white;
+  border-radius:30px;
+  padding:27px;
+  box-shadow:var(--shadow);
 }
 
-.weather-temperature{
-  margin-top:13px;
-  font-size:36px;
-  font-weight:900;
-  letter-spacing:-1px;
-}
-
-.weather-description{
-  color:var(--muted);
-  font-size:12px;
-}
-
-.weather-details{
+.trip-summary{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-  margin-top:14px;
-}
-
-.weather-detail{
-  padding:8px;
-  border-radius:11px;
-  background:#f3f7f5;
-  color:#5c6b68;
-  font-size:10px;
-}
-
-.weather-source{
-  margin-top:12px;
-  font-size:9px;
-  color:#8a9693;
-}
-
-/* =========================================================
-   WEATHER HOURLY
-========================================================= */
-
-.hourly-weather{
-  display:flex;
-  gap:9px;
-  overflow:auto;
-  padding-bottom:5px;
-}
-
-.hour-card{
-  min-width:92px;
-  background:white;
-  border:1px solid var(--border);
-  border-radius:17px;
-  padding:13px;
-  text-align:center;
-}
-
-.hour-card strong{
-  font-size:12px;
-}
-
-.hour-card div{
-  font-size:22px;
-  margin:7px 0;
-}
-
-.hour-card small{
-  color:var(--muted);
-}
-
-/* =========================================================
-   TRIP
-========================================================= */
-
-.trip-panel{
-  display:grid;
-  grid-template-columns:1.3fr .7fr;
-  gap:20px;
-}
-
-.panel{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:27px;
-  padding:24px;
-  box-shadow:0 8px 30px rgba(23,59,56,.05);
-}
-
-.panel h3{
-  font-size:19px;
-}
-
-.trip-stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(5,1fr);
   gap:10px;
-  margin-top:18px;
+  margin-top:20px;
 }
 
-.trip-stat{
+.summary-box{
+  background:rgba(255,255,255,.08);
   padding:15px;
-  border-radius:17px;
-  background:#f2f7f5;
+  border-radius:15px;
 }
 
-.trip-stat small{
-  color:var(--muted);
-  font-size:10px;
-}
-
-.trip-stat strong{
+.summary-box small{
+  color:#aab4c8;
   display:block;
-  margin-top:5px;
-  font-size:19px;
+  margin-bottom:5px;
 }
+
+.summary-box strong{font-size:.92rem}
 
 .checklist{
-  display:flex;
-  flex-direction:column;
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
   gap:8px;
-  margin-top:17px;
 }
 
-.check-item{
+.check{
+  padding:11px 13px;
+  background:rgba(255,255,255,.07);
+  border-radius:11px;
   display:flex;
+  gap:8px;
   align-items:center;
-  gap:10px;
-  padding:11px;
-  border-radius:14px;
-  background:#f6f8f7;
 }
 
-.check-item input{
-  accent-color:var(--primary);
-}
+.check input{accent-color:#7e9aff}
 
-/* =========================================================
-   LOADER ✈️
-========================================================= */
-
-.travel-loader{
-  position:fixed;
-  inset:0;
-  z-index:99999;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  background:
-    radial-gradient(
-      circle at 50% 30%,
-      rgba(255,255,255,.97),
-      rgba(241,247,244,.98)
-    );
-  backdrop-filter:blur(14px);
-}
-
-.travel-loader.active{
-  display:flex;
-}
-
-.loader-route{
-  width:min(440px,75vw);
-  height:70px;
-  position:relative;
-}
-
-.route-line{
-  position:absolute;
-  top:35px;
-  left:0;
-  width:100%;
-  border-top:2px dashed rgba(22,107,101,.22);
-}
-
-.loader-plane{
-  position:absolute;
-  top:12px;
-  left:-15px;
-  font-size:32px;
-  animation:flyAcross 1.8s cubic-bezier(.4,0,.2,1) infinite;
-  filter:drop-shadow(0 8px 10px rgba(0,0,0,.13));
-}
-
-@keyframes flyAcross{
-  0%{
-    left:-15px;
-    transform:rotate(4deg) translateY(6px);
-  }
-
-  45%{
-    transform:rotate(-2deg) translateY(-4px);
-  }
-
-  100%{
-    left:calc(100% - 25px);
-    transform:rotate(4deg) translateY(4px);
-  }
-}
-
-.loader-text{
+.saved-count{
+  color:#aab4c8;
+  font-size:.85rem;
   margin-top:15px;
-  text-align:center;
 }
-
-.loader-text strong{
-  display:block;
-  font-size:18px;
-}
-
-.loader-text span{
-  display:block;
-  margin-top:6px;
-  color:var(--muted);
-  font-size:13px;
-}
-
-/* =========================================================
-   MODAL
-========================================================= */
 
 .modal{
   position:fixed;
   inset:0;
-  z-index:2000;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:rgba(13,40,37,.5);
+  background:rgba(10,16,30,.62);
   backdrop-filter:blur(10px);
+  z-index:300;
+  display:none;
+  padding:20px;
+  overflow:auto;
 }
 
-.modal.active{
-  display:flex;
+.modal.show{
+  display:grid;
+  place-items:center;
 }
 
 .modal-box{
-  width:min(900px,100%);
-  max-height:90vh;
+  width:min(850px,100%);
+  max-height:92vh;
   overflow:auto;
   background:white;
-  border-radius:30px;
-  box-shadow:0 35px 100px rgba(0,0,0,.25);
+  border-radius:28px;
+  box-shadow:0 35px 90px rgba(0,0,0,.25);
 }
 
 .modal-image{
+  height:330px;
+  background:#edf1f6;
+  position:relative;
+}
+
+.modal-image img{
   width:100%;
-  height:320px;
+  height:100%;
   object-fit:cover;
-  background:#e9efed;
 }
 
-.modal-content{
-  padding:27px;
-}
+.modal-content{padding:25px}
 
-.modal-top{
+.modal-head{
   display:flex;
   justify-content:space-between;
   gap:15px;
 }
 
-.close-modal{
+.close{
+  border:0;
+  background:#f0f2f6;
   width:40px;
   height:40px;
-  border:0;
-  border-radius:13px;
-  background:#f0f4f2;
+  border-radius:12px;
+  font-size:1.2rem;
 }
 
-.modal-content h2{
-  font-size:29px;
+.modal h2{
+  font-size:1.8rem;
+  letter-spacing:-1px;
 }
 
-.modal-description{
-  margin-top:12px;
-  color:#64736f;
-  line-height:1.7;
-}
-
-.details-list{
+.detail-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-  margin-top:22px;
-}
-
-.detail-row{
-  padding:13px;
-  background:#f4f7f6;
-  border-radius:14px;
-}
-
-.detail-row small{
-  display:block;
-  color:#84918e;
-  font-size:10px;
-  text-transform:uppercase;
-  font-weight:800;
-}
-
-.detail-row strong{
-  display:block;
-  margin-top:4px;
-  font-size:13px;
-  word-break:break-word;
-}
-
-.modal-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
   margin-top:20px;
 }
 
-.modal-actions a,
-.modal-actions button{
-  border:0;
+.detail{
+  background:#f6f8fb;
+  padding:13px;
   border-radius:13px;
-  background:#e5f1ee;
-  color:#145d57;
-  padding:11px 14px;
-  font-weight:750;
 }
 
-/* =========================================================
-   FOOTER
-========================================================= */
+.detail strong{
+  display:block;
+  color:#7a8494;
+  font-size:.72rem;
+  margin-bottom:4px;
+}
+
+.modal-buttons{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
+.modal-buttons a,
+.modal-buttons button{
+  border:0;
+  padding:11px 14px;
+  border-radius:12px;
+  background:#172033;
+  color:white;
+  font-weight:800;
+}
+
+.loader{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  display:none;
+  background:rgba(247,249,252,.94);
+  backdrop-filter:blur(15px);
+  place-items:center;
+}
+
+.loader.show{display:grid}
+
+.loader-inner{
+  width:min(600px,calc(100% - 35px));
+  text-align:center;
+}
+
+.flight-line{
+  height:2px;
+  background:repeating-linear-gradient(90deg,#cbd4e5 0 8px,transparent 8px 16px);
+  position:relative;
+  margin:45px 0 20px;
+}
+
+.flight-plane{
+  position:absolute;
+  left:0;
+  top:-22px;
+  font-size:2.2rem;
+  animation:flight 2.7s ease-in-out infinite;
+}
+
+@keyframes flight{
+  0%{left:0;transform:rotate(-6deg)}
+  50%{left:50%;top:-35px;transform:rotate(3deg)}
+  100%{left:95%;top:-42px;transform:rotate(8deg)}
+}
+
+.loader h2{font-size:1.5rem}
+.loader p{color:var(--muted);margin-top:7px}
+
+.progress{
+  height:7px;
+  background:#e7ebf2;
+  border-radius:99px;
+  margin-top:20px;
+  overflow:hidden;
+}
+
+.progress i{
+  display:block;
+  height:100%;
+  width:15%;
+  background:linear-gradient(90deg,var(--primary),var(--primary2));
+  border-radius:99px;
+  animation:progress 2.5s ease-in-out infinite;
+}
+
+@keyframes progress{
+  0%{width:10%}
+  60%{width:75%}
+  100%{width:95%}
+}
+
+.toast{
+  position:fixed;
+  bottom:22px;
+  right:22px;
+  z-index:600;
+  background:#172033;
+  color:white;
+  padding:13px 17px;
+  border-radius:13px;
+  box-shadow:0 15px 40px rgba(0,0,0,.2);
+  transform:translateY(120px);
+  opacity:0;
+  transition:.25s;
+  max-width:330px;
+}
+
+.toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
 
 footer{
-  margin-top:70px;
-  padding:40px 0;
-  border-top:1px solid var(--border);
-  color:var(--muted);
+  padding:50px 0 70px;
+  color:#778194;
+  font-size:.8rem;
+  text-align:center;
 }
 
-.footer-inner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
+@media(max-width:1000px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-art{min-height:300px}
+  .form-grid{grid-template-columns:repeat(2,1fr)}
+  .info-grid{grid-template-columns:repeat(3,1fr)}
+  .results{grid-template-columns:repeat(2,1fr)}
+  .links-grid{grid-template-columns:repeat(2,1fr)}
+  .trip-summary{grid-template-columns:repeat(3,1fr)}
 }
 
-.footer-inner strong{
-  color:var(--text);
+@media(max-width:700px){
+  nav a{display:none}
+  .nav{height:62px}
+  .hero{padding-top:40px}
+  h1{letter-spacing:-3px}
+  .planner{padding:17px}
+  .form-grid{grid-template-columns:1fr}
+  .destinations{grid-template-columns:repeat(2,1fr)}
+  .info-grid{grid-template-columns:repeat(2,1fr)}
+  .weather-main{grid-template-columns:1fr}
+  .weather-metrics{grid-template-columns:repeat(2,1fr)}
+  .zone-grid{grid-template-columns:1fr 1fr}
+  .results{grid-template-columns:1fr}
+  .links-grid{grid-template-columns:1fr}
+  .travel-tools{grid-template-columns:1fr}
+  .trip-summary{grid-template-columns:1fr 1fr}
+  .checklist{grid-template-columns:1fr}
+  .trip-top{flex-direction:column}
+  .trip-title h2{font-size:2rem}
+  .modal-image{height:230px}
 }
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media(max-width:1050px){
-
-  .hero-grid{
-    grid-template-columns:1fr;
-  }
-
-  .destination-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .quick-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .places-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .weather-zones-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .info-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-}
-
-@media(max-width:760px){
-
-  .navbar{
-    min-height:65px;
-  }
-
-  .nav-links{
-    display:none;
-  }
-
-  .hero{
-    padding-top:45px;
-  }
-
-  .hero h1{
-    font-size:45px;
-    letter-spacing:-2px;
-  }
-
-  .section{
-    padding:55px 0;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .field.full{
-    grid-column:auto;
-  }
-
-  .destination-grid,
-  .quick-grid,
-  .places-grid{
-    grid-template-columns:1fr;
-  }
-
-  .weather-zones-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .info-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .trip-panel{
-    grid-template-columns:1fr;
-  }
-
-  .details-list{
-    grid-template-columns:1fr;
-  }
-
-  .destination-title{
-    font-size:31px;
-  }
-
-  .destination-header-top{
-    flex-direction:column;
-  }
-
-  .footer-inner{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-}
-
-@media(max-width:480px){
-
-  .container{
-    width:min(100% - 24px,1240px);
-  }
-
-  .planner{
-    padding:18px;
-    border-radius:24px;
-  }
-
-  .weather-zones-grid{
-    grid-template-columns:1fr;
-  }
-
-  .info-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .trip-stats{
-    grid-template-columns:1fr;
-  }
+@media(max-width:450px){
+  .destinations{grid-template-columns:1fr}
+  .zone-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
 
-<!-- =======================================================
-     LOADER
-======================================================== -->
-
-<div id="travelLoader" class="travel-loader" aria-hidden="true">
-
-  <div class="loader-route">
-    <div class="route-line"></div>
-    <div class="loader-plane">✈️</div>
-  </div>
-
-  <div class="loader-text">
-    <strong id="loaderTitle">
-      A preparar a tua viagem...
-    </strong>
-
-    <span id="loaderSubtitle">
-      Estamos a procurar informações reais
-    </span>
-  </div>
-
-</div>
-
-<!-- =======================================================
-     HEADER
-======================================================== -->
-
 <header>
-
-  <nav class="navbar">
-
-    <a href="#" class="logo">
-      <span>🌍</span>
-      Escapadinha
-    </a>
-
-    <div class="nav-links">
-      <button onclick="scrollToSection('inicio')">
-        Início
-      </button>
-
-      <button onclick="scrollToSection('destinos')">
-        Destinos
-      </button>
-
-      <button onclick="scrollToSection('destinoSection')">
-        Descobrir
-      </button>
-
-      <button onclick="scrollToSection('minhaViagem')">
-        Minha viagem
-      </button>
-    </div>
-
-    <div class="header-actions">
-
-      <button
-        class="icon-btn"
-        onclick="scrollToSection('minhaViagem')"
-        title="Minha viagem"
-      >
-        🧳
-      </button>
-
-    </div>
-
-  </nav>
-
+  <div class="container nav">
+    <div class="logo">🌍 <span>Escapadinha</span></div>
+    <nav>
+      <a href="#planear">Planear</a>
+      <a href="#destinos">Destinos</a>
+      <a href="#descobrir">Descobrir</a>
+      <a href="#minhaViagem">Minha viagem</a>
+    </nav>
+    <button class="nav-btn" onclick="document.querySelector('#planear').scrollIntoView({behavior:'smooth'})">
+      Planear
+    </button>
+  </div>
 </header>
 
 <main>
 
-<!-- =======================================================
-     HERO
-======================================================== -->
+<section class="hero" id="planear">
+<div class="container">
 
-<section class="hero" id="inicio">
-
-  <div class="container hero-grid">
-
-    <div class="hero-copy">
-
-      <span class="eyebrow">
-        ✈️ A tua próxima escapadinha começa aqui
-      </span>
-
-      <h1>
-        Viajar começa
-        <em>antes de partir.</em>
-      </h1>
-
-      <p>
-        Escolhe um destino e deixa o Escapadinha encontrar
-        lugares reais, meteorologia, informações práticas,
-        restaurantes, cafés, atrações e alojamento.
+  <div class="hero-grid">
+    <div>
+      <span class="eyebrow">✈️ O teu próximo destino começa aqui</span>
+      <h1>Viajar sem<br><span>complicar.</span></h1>
+      <p class="hero-copy">
+        Escolhe o destino e deixa a Escapadinha juntar meteorologia,
+        locais reais, alojamento, transportes, informações úteis e a tua viagem
+        num único espaço.
       </p>
-
-      <div class="hero-mini">
-
-        <span>🌍 Dados reais</span>
-        <span>⚡ Pesquisa rápida</span>
-        <span>🌦️ Meteorologia</span>
-        <span>📍 OpenStreetMap</span>
-
-      </div>
-
     </div>
 
-    <!-- PLANNER -->
-
-    <div class="planner">
-
-      <div class="planner-title">
-
-        <div>
-          <h2>Planeia a tua escapadinha</h2>
-        </div>
-
-        <span>
-          ✨ Começa por aqui
-        </span>
-
-      </div>
-
-      <form id="plannerForm">
-
-        <div class="form-grid">
-
-          <!-- DESTINO -->
-
-          <div class="field full">
-
-            <label>Destino</label>
-
-            <input
-              id="destinationInput"
-              autocomplete="off"
-              placeholder="Para onde queres ir?"
-            >
-
-            <div
-              id="destinationDropdown"
-              class="search-dropdown"
-            ></div>
-
-          </div>
-
-          <!-- NACIONALIDADE -->
-
-          <div class="field">
-
-            <label>Nacionalidade</label>
-
-            <input
-              id="nationalityInput"
-              autocomplete="off"
-              placeholder="Escolhe o teu país"
-            >
-
-            <div
-              id="countryDropdown"
-              class="search-dropdown"
-            ></div>
-
-          </div>
-
-          <!-- PESSOAS -->
-
-          <div class="field">
-
-            <label>Pessoas</label>
-
-            <input
-              id="peopleInput"
-              type="number"
-              min="1"
-              max="30"
-              value="2"
-            >
-
-          </div>
-
-          <!-- DATA IDA -->
-
-          <div class="field">
-
-            <label>Ida</label>
-
-            <input
-              id="departureDate"
-              type="date"
-            >
-
-          </div>
-
-          <!-- DATA VOLTA -->
-
-          <div class="field">
-
-            <label>Volta</label>
-
-            <input
-              id="returnDate"
-              type="date"
-            >
-
-          </div>
-
-          <!-- ORÇAMENTO -->
-
-          <div class="field">
-
-            <label>Orçamento (€)</label>
-
-            <input
-              id="budgetInput"
-              type="number"
-              min="0"
-              placeholder="Ex.: 700"
-            >
-
-          </div>
-
-          <!-- ALOJAMENTO -->
-
-          <div class="field">
-
-            <label>Onde dormir?</label>
-
-            <select id="lodgingInput">
-
-              <option value="hotel">
-                🏨 Hotel
-              </option>
-
-              <option value="hostel">
-                🛌 Hostel
-              </option>
-
-              <option value="airbnb">
-                🏠 Airbnb
-              </option>
-
-              <option value="other">
-                🏡 Outro
-              </option>
-
-            </select>
-
-          </div>
-
-          <!-- TIPO -->
-
-          <div class="field full">
-
-            <label>Tipo de viagem</label>
-
-            <div class="trip-types">
-
-              <button
-                type="button"
-                class="trip-type active"
-                data-trip="descanso"
-              >
-                🌴 Descanso
-              </button>
-
-              <button
-                type="button"
-                class="trip-type"
-                data-trip="aventura"
-              >
-                🧗 Aventura
-              </button>
-
-              <button
-                type="button"
-                class="trip-type"
-                data-trip="cultura"
-              >
-                🏛️ Cultura
-              </button>
-
-              <button
-                type="button"
-                class="trip-type"
-                data-trip="gastronomia"
-              >
-                🍴 Gastronomia
-              </button>
-
-              <button
-                type="button"
-                class="trip-type"
-                data-trip="natureza"
-              >
-                🌿 Natureza
-              </button>
-
-              <button
-                type="button"
-                class="trip-type"
-                data-trip="familia"
-              >
-                👨‍👩‍👧 Família
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="planner-submit">
-
-          <button
-            class="primary-btn"
-            type="submit"
-          >
-            Explorar destino →
-          </button>
-
-        </div>
-
-      </form>
-
+    <div class="hero-art">
+      <div class="route"></div>
+      <div class="city-dot dot1"></div>
+      <div class="city-dot dot2"></div>
+      <div class="city-dot dot3"></div>
+      <div class="hero-plane">✈️</div>
     </div>
-
   </div>
 
-</section>
+  <form class="planner" id="plannerForm">
 
-<!-- =======================================================
-     QUICK
-======================================================== -->
-
-<section class="section">
-
-  <div class="container">
-
-    <div class="section-heading">
-
-      <span>✨</span>
-
+    <div class="planner-title">
       <div>
-        <h2>Descobre sem complicar</h2>
-        <p>
-          Algumas formas rápidas de começar a viagem.
-        </p>
+        <h2>🧳 Planeia a tua escapadinha</h2>
+        <p>Preenche só o que quiseres. O resto pode ser descoberto depois.</p>
+      </div>
+    </div>
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label>📍 Destino</label>
+        <input id="destinationInput" autocomplete="off" placeholder="Ex.: Roma">
+        <div class="dropdown" id="destinationDropdown"></div>
+      </div>
+
+      <div class="field">
+        <label>🌎 Nacionalidade</label>
+        <input id="nationalityInput" autocomplete="off" placeholder="Escolher país">
+        <div class="dropdown" id="countryDropdown"></div>
+      </div>
+
+      <div class="field">
+        <label>👥 Pessoas</label>
+        <input id="people" type="number" min="1" max="30" value="2">
+      </div>
+
+      <div class="field">
+        <label>💰 Orçamento total</label>
+        <input id="budget" type="number" min="0" placeholder="Ex.: 800">
+      </div>
+
+      <div class="field">
+        <label>📅 Ida</label>
+        <input id="departure" type="date">
+      </div>
+
+      <div class="field">
+        <label>📅 Regresso</label>
+        <input id="returnDate" type="date">
+      </div>
+
+      <div class="field">
+        <label>✨ Tipo de viagem</label>
+        <select id="tripType">
+          <option>Descanso</option>
+          <option>Aventura</option>
+          <option>Cultura</option>
+          <option>Gastronomia</option>
+          <option>Natureza</option>
+          <option>Romântica</option>
+          <option>Família</option>
+          <option>Vida noturna</option>
+          <option>Low cost</option>
+          <option>Mistura de tudo</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>🏨 Onde dormir?</label>
+        <select id="stayType">
+          <option value="hotel">🏨 Hotel</option>
+          <option value="hostel">🛌 Hostel</option>
+          <option value="airbnb">🏠 Airbnb</option>
+          <option value="other">🏡 Outros</option>
+        </select>
       </div>
 
     </div>
 
-    <div class="quick-grid">
-
-      <article
-        class="quick-card"
-        onclick="surpriseDestination()"
-      >
-
-        <div class="emoji">🎲</div>
-
-        <h3>Surpreende-me</h3>
-
-        <p>
-          Deixa o Escapadinha escolher um destino
-          para começares a explorar.
-        </p>
-
-      </article>
-
-      <article
-        class="quick-card"
-        onclick="useMadeira()"
-      >
-
-        <div class="emoji">🏝️</div>
-
-        <h3>Explorar Madeira</h3>
-
-        <p>
-          Vê a meteorologia e os locais reais
-          de várias zonas da ilha.
-        </p>
-
-      </article>
-
-      <article
-        class="quick-card"
-        onclick="setQuickTrip('cultura')"
-      >
-
-        <div class="emoji">🏛️</div>
-
-        <h3>Cultura</h3>
-
-        <p>
-          Museus, atrações, locais históricos
-          e pontos de interesse.
-        </p>
-
-      </article>
-
-      <article
-        class="quick-card"
-        onclick="setQuickTrip('gastronomia')"
-      >
-
-        <div class="emoji">🍴</div>
-
-        <h3>Comer bem</h3>
-
-        <p>
-          Restaurantes e cafés reais próximos
-          do teu destino.
-        </p>
-
-      </article>
-
+    <div class="form-actions">
+      <button class="primary" type="submit">Explorar destino →</button>
+      <button class="secondary surprise" type="button" id="surpriseBtn">🎲 Surpreende-me</button>
+      <button class="secondary" type="button" id="randomDestinationBtn">🌍 Destino aleatório</button>
     </div>
 
-  </div>
+  </form>
 
+</div>
 </section>
 
-<!-- =======================================================
-     DESTINOS
-======================================================== -->
 
 <section class="section" id="destinos">
+<div class="container">
 
-  <div class="container">
-
-    <div class="section-heading">
-
-      <span>🌍</span>
-
-      <div>
-        <h2>Destinos para começar</h2>
-
-        <p>
-          Escolhe um e começamos a procurar dados reais.
-        </p>
-      </div>
-
+  <div class="section-head">
+    <div>
+      <h2>Para onde vamos?</h2>
+      <p>Alguns destinos para começar. Podes também escrever qualquer cidade no planeador.</p>
     </div>
-
-    <div class="destination-grid">
-
-      <article
-        class="destination-card"
-        onclick="chooseDestination('Funchal')"
-      >
-
-        <img
-          src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1000&q=80"
-          alt="Funchal"
-          loading="lazy"
-        >
-
-        <div class="destination-info">
-          <strong>Funchal</strong>
-          <span>🇵🇹 Madeira</span>
-        </div>
-
-      </article>
-
-      <article
-        class="destination-card"
-        onclick="chooseDestination('Lisboa')"
-      >
-
-        <img
-          src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1000&q=80"
-          alt="Lisboa"
-          loading="lazy"
-        >
-
-        <div class="destination-info">
-          <strong>Lisboa</strong>
-          <span>🇵🇹 Portugal</span>
-        </div>
-
-      </article>
-
-      <article
-        class="destination-card"
-        onclick="chooseDestination('Paris')"
-      >
-
-        <img
-          src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1000&q=80"
-          alt="Paris"
-          loading="lazy"
-        >
-
-        <div class="destination-info">
-          <strong>Paris</strong>
-          <span>🇫🇷 França</span>
-        </div>
-
-      </article>
-
-      <article
-        class="destination-card"
-        onclick="chooseDestination('Roma')"
-      >
-
-        <img
-          src="https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&w=1000&q=80"
-          alt="Roma"
-          loading="lazy"
-        >
-
-        <div class="destination-info">
-          <strong>Roma</strong>
-          <span>🇮🇹 Itália</span>
-        </div>
-
-      </article>
-
-    </div>
-
   </div>
 
+  <div class="destinations" id="featuredDestinations"></div>
+
+</div>
 </section>
 
-<!-- =======================================================
-     DESTINATION
-======================================================== -->
 
-<section
-  class="section"
-  id="destinationSection"
->
+<section class="section" id="tripSection">
+<div class="container">
 
-  <div class="container">
-
-    <div class="destination-header">
-
-      <div class="destination-header-top">
-
-        <div>
-
-          <h2
-            class="destination-title"
-            id="destinationTitle"
-          >
-            —
-          </h2>
-
-          <p
-            class="destination-subtitle"
-            id="destinationSubtitle"
-          >
-            —
-          </p>
-
-        </div>
-
-        <button
-          class="back-btn"
-          onclick="backToPlanner()"
-        >
-          ← Alterar viagem
-        </button>
-
-      </div>
-
-      <div class="info-grid">
-
-        <div class="info-card">
-          <div class="info-icon">💰</div>
-          <small>Moeda</small>
-          <strong id="currencyInfo">—</strong>
-        </div>
-
-        <div class="info-card">
-          <div class="info-icon">🏛️</div>
-          <small>Capital</small>
-          <strong id="capitalInfo">—</strong>
-        </div>
-
-        <div class="info-card">
-          <div class="info-icon">🕐</div>
-          <small>Fuso</small>
-          <strong id="timezoneInfo">—</strong>
-        </div>
-
-        <div class="info-card">
-          <div class="info-icon">🗣️</div>
-          <small>Línguas</small>
-          <strong id="languagesInfo">—</strong>
-        </div>
-
-        <div class="info-card">
-          <div class="info-icon">🔌</div>
-          <small>Tomadas</small>
-          <strong id="plugInfo">—</strong>
-        </div>
-
-        <div class="info-card">
-          <div class="info-icon">🚨</div>
-          <small>Emergências</small>
-          <strong id="emergencyInfo">—</strong>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- WEATHER -->
-
-    <div class="weather-section">
-
-      <div class="section-heading">
-
-        <span>🌦️</span>
-
-        <div>
-          <h2>Meteorologia</h2>
-          <p id="weatherDescription">
-            Dados meteorológicos reais.
-          </p>
-        </div>
-
-      </div>
-
-      <div
-        id="weatherZonesGrid"
-        class="weather-zones-grid"
-      ></div>
-
-      <div
-        id="singleWeatherBox"
-        class="weather-zones-grid"
-        style="display:none"
-      ></div>
-
-    </div>
-
-    <!-- TABS -->
-
-    <div class="tabs">
-
-      <button
-        class="tab active"
-        data-category="attractions"
-      >
-        📍 Atrações
-      </button>
-
-      <button
-        class="tab"
-        data-category="restaurants"
-      >
-        🍴 Restaurantes
-      </button>
-
-      <button
-        class="tab"
-        data-category="cafes"
-      >
-        ☕ Cafés
-      </button>
-
-      <button
-        class="tab"
-        data-category="hotel"
-      >
-        🏨 Hotéis
-      </button>
-
-      <button
-        class="tab"
-        data-category="hostel"
-      >
-        🛌 Hostels
-      </button>
-
-      <button
-        class="tab"
-        data-category="other"
-      >
-        🏡 Outros
-      </button>
-
-    </div>
-
-    <div
-      id="placesStatus"
-      class="places-status"
-    >
-      Escolhe uma categoria.
-    </div>
-
-    <div
-      id="placesGrid"
-      class="places-grid"
-    ></div>
-
-  </div>
-
-</section>
-
-<!-- =======================================================
-     MINHA VIAGEM
-======================================================== -->
-
-<section
-  class="section"
-  id="minhaViagem"
->
-
-  <div class="container">
-
-    <div class="section-heading">
-
-      <span>🧳</span>
-
+  <div class="trip-top">
+    <div class="trip-title">
+      <div class="flag" id="tripFlag">🇮🇹</div>
       <div>
-        <h2>Minha viagem</h2>
-
-        <p>
-          O que escolheste fica guardado neste dispositivo.
-        </p>
-
+        <h2 id="tripDestination">Roma</h2>
+        <p id="tripCountry">Itália</p>
       </div>
-
     </div>
 
-    <div class="trip-panel">
-
-      <div class="panel">
-
-        <h3>Resumo</h3>
-
-        <div class="trip-stats">
-
-          <div class="trip-stat">
-            <small>Destino</small>
-            <strong id="tripDestination">—</strong>
-          </div>
-
-          <div class="trip-stat">
-            <small>Pessoas</small>
-            <strong id="tripPeople">—</strong>
-          </div>
-
-          <div class="trip-stat">
-            <small>Orçamento</small>
-            <strong id="tripBudget">—</strong>
-          </div>
-
-        </div>
-
-        <div
-          id="savedFavorites"
-          style="margin-top:22px"
-        ></div>
-
-      </div>
-
-      <div class="panel">
-
-        <h3>Checklist</h3>
-
-        <div class="checklist">
-
-          <label class="check-item">
-            <input
-              type="checkbox"
-              data-check="documentos"
-            >
-            Documentos
-          </label>
-
-          <label class="check-item">
-            <input
-              type="checkbox"
-              data-check="seguro"
-            >
-            Seguro de viagem
-          </label>
-
-          <label class="check-item">
-            <input
-              type="checkbox"
-              data-check="carregador"
-            >
-            Carregador
-          </label>
-
-          <label class="check-item">
-            <input
-              type="checkbox"
-              data-check="roupa"
-            >
-            Roupa adequada
-          </label>
-
-          <label class="check-item">
-            <input
-              type="checkbox"
-              data-check="reservas"
-            >
-            Reservas confirmadas
-          </label>
-
-        </div>
-
-      </div>
-
-    </div>
-
+    <button class="trip-change" onclick="resetTrip()">← Alterar viagem</button>
   </div>
 
+
+  <div class="info-grid" id="infoGrid"></div>
+
+
+  <div class="section" style="padding-bottom:20px">
+    <div class="section-head">
+      <div>
+        <h2>🌦️ Meteorologia</h2>
+        <p>Dados meteorológicos reais. A previsão pode mudar e nenhuma previsão é 100% certa.</p>
+      </div>
+    </div>
+
+    <div class="weather-wrap">
+
+      <div class="weather-main">
+
+        <div class="weather-current" id="weatherMain">
+          <div class="loading-state">
+            <span class="big-plane">✈️</span>
+            A carregar meteorologia...
+          </div>
+        </div>
+
+        <div>
+          <h3 style="margin:5px 0 13px">📍 Zonas / localidades</h3>
+          <div class="zone-grid" id="zoneGrid"></div>
+        </div>
+
+      </div>
+
+      <div class="localities" id="localities"></div>
+
+    </div>
+  </div>
+
+
+  <div class="section" id="descobrir" style="padding-top:25px">
+    <div class="section-head">
+      <div>
+        <h2>Descobre o destino</h2>
+        <p>
+          Lugares reais pesquisados em fontes de mapas abertas.
+          A pesquisa é feita apenas quando precisas dela e fica guardada
+          temporariamente para acelerar as próximas visitas.
+        </p>
+      </div>
+    </div>
+
+    <div class="explore-box">
+
+      <div class="tabs" id="tabs">
+
+        <button class="tab active" data-category="attractions">📍 Atrações</button>
+        <button class="tab" data-category="restaurants">🍴 Restaurantes</button>
+        <button class="tab" data-category="cafes">☕ Cafés</button>
+        <button class="tab" data-category="hotels">🏨 Hotéis</button>
+        <button class="tab" data-category="hostels">🛌 Hostels</button>
+        <button class="tab" data-category="other">🏡 Outros</button>
+
+      </div>
+
+      <div class="filters" id="filters"></div>
+
+      <div class="results" id="results">
+        <div class="loading-state">
+          <span class="big-plane">✈️</span>
+          A preparar os locais...
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="section">
+    <div class="section-head">
+      <div>
+        <h2>🔎 Reserva e pesquisa</h2>
+        <p>Links para procurar voos e alojamento. A Escapadinha não inventa preços ou disponibilidade.</p>
+      </div>
+    </div>
+
+    <div class="links-grid" id="travelLinks"></div>
+  </div>
+
+
+  <div class="section">
+    <div class="section-head">
+      <div>
+        <h2>🧠 Ferramentas para a viagem</h2>
+        <p>Pequenas ferramentas úteis que usam os dados que já temos da tua viagem.</p>
+      </div>
+    </div>
+
+    <div class="travel-tools">
+
+      <div class="tool-card">
+        <h3>🧳 Mala inteligente</h3>
+        <p id="packingText">
+          Analisa a meteorologia atual e prepara uma sugestão de coisas a levar.
+        </p>
+        <button class="tool-button" onclick="generatePacking()">Preparar mala</button>
+      </div>
+
+      <div class="tool-card">
+        <h3>🗺️ Ver no mapa</h3>
+        <p>
+          Abre uma pesquisa de mapa centrada no destino e permite continuar
+          a explorar locais próximos.
+        </p>
+        <button class="tool-button" onclick="openDestinationMap()">Abrir mapa</button>
+      </div>
+
+      <div class="tool-card">
+        <h3>🎬 Trailer da viagem</h3>
+        <p>
+          Junta os locais reais que já descobriste numa pequena apresentação
+          visual da viagem.
+        </p>
+        <button class="tool-button" onclick="createTrailer()">Criar trailer</button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <section id="minhaViagem" class="section">
+    <div class="my-trip">
+
+      <h2>🧳 Minha viagem</h2>
+      <p style="color:#aab4c8;margin-top:6px">
+        O que escolheste fica guardado neste dispositivo.
+      </p>
+
+      <div class="trip-summary" id="tripSummary"></div>
+
+      <div class="saved-count" id="savedCount"></div>
+
+      <div class="checklist">
+
+        <label class="check">
+          <input type="checkbox" data-check="documents">
+          Documentos
+        </label>
+
+        <label class="check">
+          <input type="checkbox" data-check="insurance">
+          Seguro de viagem
+        </label>
+
+        <label class="check">
+          <input type="checkbox" data-check="charger">
+          Carregador
+        </label>
+
+        <label class="check">
+          <input type="checkbox" data-check="clothes">
+          Roupa adequada
+        </label>
+
+        <label class="check">
+          <input type="checkbox" data-check="reservations">
+          Reservas confirmadas
+        </label>
+
+        <label class="check">
+          <input type="checkbox" data-check="money">
+          Dinheiro / cartão
+        </label>
+
+      </div>
+
+    </div>
+  </section>
+
+</div>
 </section>
 
 </main>
 
-<!-- =======================================================
-     MODAL
-======================================================== -->
 
-<div
-  id="placeModal"
-  class="modal"
-  onclick="closeModalOutside(event)"
->
+<footer>
+  🌍 Escapadinha · dados obtidos de fontes públicas e APIs externas.
+  A disponibilidade dos serviços externos pode variar.
+</footer>
 
+
+<!-- MODAL -->
+<div class="modal" id="placeModal">
   <div class="modal-box">
 
-    <img
-      id="modalImage"
-      class="modal-image"
-      src=""
-      alt=""
-    >
+    <div class="modal-image" id="modalImage"></div>
 
     <div class="modal-content">
 
-      <div class="modal-top">
-
+      <div class="modal-head">
         <div>
-          <h2 id="modalTitle">—</h2>
+          <h2 id="modalTitle"></h2>
+          <p id="modalSubtitle" style="color:#687386;margin-top:5px"></p>
         </div>
 
-        <button
-          class="close-modal"
-          onclick="closePlaceModal()"
-        >
-          ✕
-        </button>
-
+        <button class="close" onclick="closeModal()">×</button>
       </div>
 
-      <p
-        id="modalDescription"
-        class="modal-description"
-      ></p>
+      <div class="detail-grid" id="modalDetails"></div>
 
-      <div
-        id="modalDetails"
-        class="details-list"
-      ></div>
-
-      <div
-        id="modalActions"
-        class="modal-actions"
-      ></div>
+      <div class="modal-buttons" id="modalButtons"></div>
 
     </div>
-
   </div>
-
 </div>
 
-<!-- =======================================================
-     FOOTER
-======================================================== -->
 
-<footer>
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-inner">
 
-  <div class="container footer-inner">
-
-    <div>
-      <strong>🌍 Escapadinha</strong>
-      <p style="margin-top:5px">
-        Planeia. Descobre. Viaja.
-      </p>
+    <div class="flight-line">
+      <span class="flight-plane">✈️</span>
     </div>
 
-    <div>
-      Dados de locais:
-      OpenStreetMap / Overpass
-    </div>
+    <h2 id="loaderTitle">A preparar a tua viagem...</h2>
+    <p id="loaderText">A procurar informação real do destino.</p>
+
+    <div class="progress"><i></i></div>
 
   </div>
+</div>
 
-</footer>
+
+<div class="toast" id="toast"></div>
+
 
 <script>
+/* ============================================================
+   ESCAPADINHA
+   Fontes principais:
+   - OpenStreetMap / Overpass para locais
+   - Wikimedia Commons para fotografias
+   - Open-Meteo ECMWF para meteorologia
+   - REST Countries quando disponível
+   - Wikidata SPARQL como fallback para informação de país
+   ============================================================ */
 
-/* =========================================================
-   CONFIGURAÇÃO
-========================================================= */
+const $ = id => document.getElementById(id);
 
-const REQUEST_TIMEOUT = 9000;
+let CURRENT = {
+  destination:null,
+  country:null,
+  coords:null,
+  category:"attractions",
+  places:[],
+  weather:null
+};
 
-const OVERPASS_ENDPOINTS = [
-  "https://overpass-api.de/api/interpreter",
-  "https://overpass.private.coffee/api/interpreter",
-  "https://overpass.kumi.systems/api/interpreter"
+let CACHE = {};
+let photoCache = {};
+
+const CACHE_TIME = 1000 * 60 * 60 * 4;
+const WEATHER_CACHE_TIME = 1000 * 60 * 15;
+
+
+/* ============================================================
+   DESTINOS
+   ============================================================ */
+
+const DESTINATIONS = [
+
+  {city:"Lisboa",country:"Portugal",code:"PT",lat:38.7223,lon:-9.1393,flag:"🇵🇹"},
+  {city:"Porto",country:"Portugal",code:"PT",lat:41.1579,lon:-8.6291,flag:"🇵🇹"},
+  {city:"Funchal",country:"Portugal",code:"PT",lat:32.6669,lon:-16.9241,flag:"🇵🇹",region:"Madeira"},
+
+  {city:"Roma",country:"Itália",code:"IT",lat:41.9028,lon:12.4964,flag:"🇮🇹"},
+  {city:"Milão",country:"Itália",code:"IT",lat:45.4642,lon:9.19,flag:"🇮🇹"},
+  {city:"Veneza",country:"Itália",code:"IT",lat:45.4408,lon:12.3155,flag:"🇮🇹"},
+  {city:"Florença",country:"Itália",code:"IT",lat:43.7696,lon:11.2558,flag:"🇮🇹"},
+
+  {city:"Paris",country:"França",code:"FR",lat:48.8566,lon:2.3522,flag:"🇫🇷"},
+  {city:"Nice",country:"França",code:"FR",lat:43.7102,lon:7.262,flag:"🇫🇷"},
+
+  {city:"Madrid",country:"Espanha",code:"ES",lat:40.4168,lon:-3.7038,flag:"🇪🇸"},
+  {city:"Barcelona",country:"Espanha",code:"ES",lat:41.3874,lon:2.1686,flag:"🇪🇸"},
+  {city:"Sevilha",country:"Espanha",code:"ES",lat:37.3891,lon:-5.9845,flag:"🇪🇸"},
+
+  {city:"Londres",country:"Reino Unido",code:"GB",lat:51.5074,lon:-.1278,flag:"🇬🇧"},
+  {city:"Edimburgo",country:"Reino Unido",code:"GB",lat:55.9533,lon:-3.1883,flag:"🇬🇧"},
+
+  {city:"Amesterdão",country:"Países Baixos",code:"NL",lat:52.3676,lon:4.9041,flag:"🇳🇱"},
+  {city:"Bruxelas",country:"Bélgica",code:"BE",lat:50.8503,lon:4.3517,flag:"🇧🇪"},
+  {city:"Viena",country:"Áustria",code:"AT",lat:48.2082,lon:16.3738,flag:"🇦🇹"},
+  {city:"Praga",country:"Chéquia",code:"CZ",lat:50.0755,lon:14.4378,flag:"🇨🇿"},
+  {city:"Budapeste",country:"Hungria",code:"HU",lat:47.4979,lon:19.0402,flag:"🇭🇺"},
+  {city:"Atenas",country:"Grécia",code:"GR",lat:37.9838,lon:23.7275,flag:"🇬🇷"},
+  {city:"Dublin",country:"Irlanda",code:"IE",lat:53.3498,lon:-6.2603,flag:"🇮🇪"},
+
+  {city:"Istambul",country:"Turquia",code:"TR",lat:41.0082,lon:28.9784,flag:"🇹🇷"},
+  {city:"Marrakech",country:"Marrocos",code:"MA",lat:31.6295,lon:-7.9811,flag:"🇲🇦"},
+  {city:"Cairo",country:"Egito",code:"EG",lat:30.0444,lon:31.2357,flag:"🇪🇬"},
+
+  {city:"Nova Iorque",country:"Estados Unidos",code:"US",lat:40.7128,lon:-74.006,flag:"🇺🇸"},
+  {city:"Miami",country:"Estados Unidos",code:"US",lat:25.7617,lon:-80.1918,flag:"🇺🇸"},
+  {city:"Los Angeles",country:"Estados Unidos",code:"US",lat:34.0522,lon:-118.2437,flag:"🇺🇸"},
+  {city:"Toronto",country:"Canadá",code:"CA",lat:43.6532,lon:-79.3832,flag:"🇨🇦"},
+  {city:"Vancouver",country:"Canadá",code:"CA",lat:49.2827,lon:-123.1207,flag:"🇨🇦"},
+
+  {city:"Tóquio",country:"Japão",code:"JP",lat:35.6762,lon:139.6503,flag:"🇯🇵"},
+  {city:"Quioto",country:"Japão",code:"JP",lat:35.0116,lon:135.7681,flag:"🇯🇵"},
+  {city:"Seul",country:"Coreia do Sul",code:"KR",lat:37.5665,lon:126.978,flag:"🇰🇷"},
+  {city:"Banguecoque",country:"Tailândia",code:"TH",lat:13.7563,lon:100.5018,flag:"🇹🇭"},
+  {city:"Singapura",country:"Singapura",code:"SG",lat:1.3521,lon:103.8198,flag:"🇸🇬"},
+
+  {city:"Sydney",country:"Austrália",code:"AU",lat:-33.8688,lon:151.2093,flag:"🇦🇺"},
+  {city:"Melbourne",country:"Austrália",code:"AU",lat:-37.8136,lon:144.9631,flag:"🇦🇺"},
+  {city:"Auckland",country:"Nova Zelândia",code:"NZ",lat:-36.8509,lon:174.7645,flag:"🇳🇿"},
+
+  {city:"Dubai",country:"Emirados Árabes Unidos",code:"AE",lat:25.2048,lon:55.2708,flag:"🇦🇪"},
+  {city:"Abu Dhabi",country:"Emirados Árabes Unidos",code:"AE",lat:24.4539,lon:54.3773,flag:"🇦🇪"}
 ];
 
-const PLACES_CACHE_PREFIX =
-  "escapadinha_places_v4_";
 
-const PHOTO_CACHE_PREFIX =
-  "escapadinha_photo_v4_";
+/* ============================================================
+   LOCALIDADES / ZONAS DA MADEIRA
+   ============================================================ */
 
-const WEATHER_CACHE_PREFIX =
-  "escapadinha_weather_v4_";
-
-let selectedTripType = "descanso";
-
-let currentDestination = null;
-
-let currentCoordinates = null;
-
-let currentCountry = null;
-
-let currentPlaces = [];
-
-let currentCategory = "attractions";
-
-let allCountries = [];
+const MADEIRA_ZONES = [
+  {name:"Funchal",lat:32.6669,lon:-16.9241},
+  {name:"Câmara de Lobos",lat:32.648,lon:-17.028},
+  {name:"Ribeira Brava",lat:32.670,lon:-17.065},
+  {name:"Ponta do Sol",lat:32.681,lon:-17.104},
+  {name:"Calheta",lat:32.7215,lon:-17.178},
+  {name:"São Vicente",lat:32.7967,lon:-17.0417},
+  {name:"Porto Moniz",lat:32.8687,lon:-17.166},
+  {name:"Santana",lat:32.804,lon:-16.88},
+  {name:"Machico",lat:32.700,lon:-16.7656},
+  {name:"Santa Cruz",lat:32.688,lon:-16.793},
+  {name:"Curral das Freiras",lat:32.7207,lon:-17.0200}
+];
 
 
-/* =========================================================
-   DESTINOS CONHECIDOS
-========================================================= */
+/* ============================================================
+   DADOS LOCAIS DE FALLBACK
+   Evita que Roma, Portugal, etc. fiquem vazios quando
+   uma API externa está temporariamente indisponível.
+   ============================================================ */
 
-const KNOWN_DESTINATIONS = {
+const COUNTRY_FALLBACK = {
 
-  "Funchal":{
-    lat:32.6669,
-    lon:-16.9241,
-    country:"Portugal"
+  PT:{
+    name:"Portugal",
+    capital:"Lisboa",
+    currency:"Euro (EUR €)",
+    languages:"Português",
+    timezone:"UTC+00:00 / UTC+01:00",
+    plugs:"C / F",
+    emergency:"112",
+    flag:"🇵🇹"
   },
 
-  "Lisboa":{
-    lat:38.7223,
-    lon:-9.1393,
-    country:"Portugal"
+  IT:{
+    name:"Itália",
+    capital:"Roma",
+    currency:"Euro (EUR €)",
+    languages:"Italiano",
+    timezone:"UTC+01:00 / UTC+02:00",
+    plugs:"C / F / L",
+    emergency:"112",
+    flag:"🇮🇹"
   },
 
-  "Porto":{
-    lat:41.1579,
-    lon:-8.6291,
-    country:"Portugal"
+  FR:{
+    name:"França",
+    capital:"Paris",
+    currency:"Euro (EUR €)",
+    languages:"Francês",
+    timezone:"UTC+01:00 / UTC+02:00",
+    plugs:"C / E",
+    emergency:"112",
+    flag:"🇫🇷"
   },
 
-  "Paris":{
-    lat:48.8566,
-    lon:2.3522,
-    country:"France"
+  ES:{
+    name:"Espanha",
+    capital:"Madrid",
+    currency:"Euro (EUR €)",
+    languages:"Espanhol",
+    timezone:"UTC+01:00 / UTC+02:00",
+    plugs:"C / F",
+    emergency:"112",
+    flag:"🇪🇸"
   },
 
-  "Roma":{
-    lat:41.9028,
-    lon:12.4964,
-    country:"Italy"
+  GB:{
+    name:"Reino Unido",
+    capital:"Londres",
+    currency:"Libra esterlina (GBP £)",
+    languages:"Inglês",
+    timezone:"UTC+00:00 / UTC+01:00",
+    plugs:"G",
+    emergency:"999 / 112",
+    flag:"🇬🇧"
   },
 
-  "Madrid":{
-    lat:40.4168,
-    lon:-3.7038,
-    country:"Spain"
+  US:{
+    name:"Estados Unidos",
+    capital:"Washington, D.C.",
+    currency:"Dólar americano (USD $)",
+    languages:"Inglês",
+    timezone:"Vários fusos horários",
+    plugs:"A / B",
+    emergency:"911",
+    flag:"🇺🇸"
   },
 
-  "Barcelona":{
-    lat:41.3874,
-    lon:2.1686,
-    country:"Spain"
+  CA:{
+    name:"Canadá",
+    capital:"Ottawa",
+    currency:"Dólar canadiano (CAD $)",
+    languages:"Inglês / Francês",
+    timezone:"Vários fusos horários",
+    plugs:"A / B",
+    emergency:"911",
+    flag:"🇨🇦"
   },
 
-  "Amesterdão":{
-    lat:52.3676,
-    lon:4.9041,
-    country:"Netherlands"
+  JP:{
+    name:"Japão",
+    capital:"Tóquio",
+    currency:"Iene (JPY ¥)",
+    languages:"Japonês",
+    timezone:"UTC+09:00",
+    plugs:"A / B",
+    emergency:"110 polícia / 119 ambulância e bombeiros",
+    flag:"🇯🇵"
   },
 
-  "Londres":{
-    lat:51.5074,
-    lon:-.1278,
-    country:"United Kingdom"
+  AU:{
+    name:"Austrália",
+    capital:"Camberra",
+    currency:"Dólar australiano (AUD $)",
+    languages:"Inglês",
+    timezone:"Vários fusos horários",
+    plugs:"I",
+    emergency:"000",
+    flag:"🇦🇺"
   },
 
-  "Tóquio":{
-    lat:35.6762,
-    lon:139.6503,
-    country:"Japan"
+  TR:{
+    name:"Turquia",
+    capital:"Ancara",
+    currency:"Lira turca (TRY ₺)",
+    languages:"Turco",
+    timezone:"UTC+03:00",
+    plugs:"C / F",
+    emergency:"112",
+    flag:"🇹🇷"
   },
 
-  "Nova Iorque":{
-    lat:40.7128,
-    lon:-74.006,
-    country:"United States"
+  GR:{
+    name:"Grécia",
+    capital:"Atenas",
+    currency:"Euro (EUR €)",
+    languages:"Grego",
+    timezone:"UTC+02:00 / UTC+03:00",
+    plugs:"C / F",
+    emergency:"112",
+    flag:"🇬🇷"
   },
 
-  "Dubai":{
-    lat:25.2048,
-    lon:55.2708,
-    country:"United Arab Emirates"
+  NL:{
+    name:"Países Baixos",
+    capital:"Amesterdão",
+    currency:"Euro (EUR €)",
+    languages:"Neerlandês",
+    timezone:"UTC+01:00 / UTC+02:00",
+    plugs:"C / F",
+    emergency:"112",
+    flag:"🇳🇱"
   },
 
-  "Dublin":{
-    lat:53.3498,
-    lon:-6.2603,
-    country:"Ireland"
+  DE:{
+    name:"Alemanha",
+    capital:"Berlim",
+    currency:"Euro (EUR €)",
+    languages:"Alemão",
+    timezone:"UTC+01:00 / UTC+02:00",
+    plugs:"C / F",
+    emergency:"112",
+    flag:"🇩🇪"
   },
 
-  "Praga":{
-    lat:50.0755,
-    lon:14.4378,
-    country:"Czechia"
+  BE:{
+    name:"Bélgica",
+    capital:"Bruxelas",
+    currency:"Euro (EUR €)",
+    languages:"Neerlandês / Francês / Alemão",
+    timezone:"UTC+01:00 / UTC+02:00",
+    plugs:"C / E",
+    emergency:"112",
+    flag:"🇧🇪"
   },
 
-  "Viena":{
-    lat:48.2082,
-    lon:16.3738,
-    country:"Austria"
+  AT:{
+    name:"Áustria",
+    capital:"Viena",
+    currency:"Euro (EUR €)",
+    languages:"Alemão",
+    timezone:"UTC+01:00 / UTC+02:00",
+    plugs:"C / F",
+    emergency:"112",
+    flag:"🇦🇹"
+  },
+
+  CZ:{
+    name:"Chéquia",
+    capital:"Praga",
+    currency:"Coroa checa (CZK)",
+    languages:"Checo",
+    timezone:"UTC+01:00 / UTC+02:00",
+    plugs:"C / E",
+    emergency:"112",
+    flag:"🇨🇿"
+  },
+
+  HU:{
+    name:"Hungria",
+    capital:"Budapeste",
+    currency:"Forint (HUF)",
+    languages:"Húngaro",
+    timezone:"UTC+01:00 / UTC+02:00",
+    plugs:"C / F",
+    emergency:"112",
+    flag:"🇭🇺"
+  },
+
+  IE:{
+    name:"Irlanda",
+    capital:"Dublin",
+    currency:"Euro (EUR €)",
+    languages:"Irlandês / Inglês",
+    timezone:"UTC+00:00 / UTC+01:00",
+    plugs:"G",
+    emergency:"112 / 999",
+    flag:"🇮🇪"
+  },
+
+  MA:{
+    name:"Marrocos",
+    capital:"Rabat",
+    currency:"Dirham marroquino (MAD)",
+    languages:"Árabe / Amazigh",
+    timezone:"UTC+00:00 / UTC+01:00",
+    plugs:"C / E",
+    emergency:"112",
+    flag:"🇲🇦"
+  },
+
+  EG:{
+    name:"Egito",
+    capital:"Cairo",
+    currency:"Libra egípcia (EGP)",
+    languages:"Árabe",
+    timezone:"UTC+02:00",
+    plugs:"C / F",
+    emergency:"123 ambulância / 122 polícia / 180 bombeiros",
+    flag:"🇪🇬"
+  },
+
+  AE:{
+    name:"Emirados Árabes Unidos",
+    capital:"Abu Dhabi",
+    currency:"Dirham dos EAU (AED)",
+    languages:"Árabe",
+    timezone:"UTC+04:00",
+    plugs:"G",
+    emergency:"999 polícia / 998 ambulância / 997 bombeiros",
+    flag:"🇦🇪"
+  },
+
+  KR:{
+    name:"Coreia do Sul",
+    capital:"Seul",
+    currency:"Won sul-coreano (KRW ₩)",
+    languages:"Coreano",
+    timezone:"UTC+09:00",
+    plugs:"C / F",
+    emergency:"112 polícia / 119 emergência",
+    flag:"🇰🇷"
+  },
+
+  SG:{
+    name:"Singapura",
+    capital:"Singapura",
+    currency:"Dólar de Singapura (SGD)",
+    languages:"Inglês / Malaio / Mandarim / Tâmil",
+    timezone:"UTC+08:00",
+    plugs:"G",
+    emergency:"999 polícia / 995 ambulância",
+    flag:"🇸🇬"
+  },
+
+  TH:{
+    name:"Tailândia",
+    capital:"Banguecoque",
+    currency:"Baht (THB ฿)",
+    languages:"Tailandês",
+    timezone:"UTC+07:00",
+    plugs:"A / B / C / O",
+    emergency:"191 polícia / 1669 emergência médica",
+    flag:"🇹🇭"
+  },
+
+  NZ:{
+    name:"Nova Zelândia",
+    capital:"Wellington",
+    currency:"Dólar neozelandês (NZD)",
+    languages:"Inglês / Maori / Língua Gestual NZ",
+    timezone:"UTC+12:00 / UTC+13:00",
+    plugs:"I",
+    emergency:"111",
+    flag:"🇳🇿"
   }
-
 };
 
 
-/* =========================================================
-   MADEIRA — ZONAS
-========================================================= */
-
-const MADEIRA_ZONES = {
-
-  "Funchal":{
-    lat:32.6669,
-    lon:-16.9241
-  },
-
-  "Câmara de Lobos":{
-    lat:32.6483,
-    lon:-17.0261
-  },
-
-  "Ribeira Brava":{
-    lat:32.6700,
-    lon:-17.0647
-  },
-
-  "Ponta do Sol":{
-    lat:32.6817,
-    lon:-17.1046
-  },
-
-  "Calheta":{
-    lat:32.7228,
-    lon:-17.1786
-  },
-
-  "Porto Moniz":{
-    lat:32.8687,
-    lon:-17.1660
-  },
-
-  "São Vicente":{
-    lat:32.7967,
-    lon:-17.0430
-  },
-
-  "Santana":{
-    lat:32.8030,
-    lon:-16.8800
-  },
-
-  "Machico":{
-    lat:32.7000,
-    lon:-16.7667
-  },
-
-  "Santa Cruz":{
-    lat:32.6881,
-    lon:-16.7939
-  },
-
-  "Porto Santo":{
-    lat:33.0580,
-    lon:-16.3330
-  }
-
-};
-
-
-/* =========================================================
-   TOMADAS
-========================================================= */
-
-const PLUG_TYPES = {
-
-  PT:"C / F",
-  ES:"C / F",
-  FR:"C / E",
-  IT:"C / F / L",
-  DE:"C / F",
-  NL:"C / F",
-  BE:"C / E",
-  LU:"C / F",
-  AT:"C / F",
-  CH:"J",
-  GB:"G",
-  IE:"G",
-  DK:"C / F / K",
-  SE:"C / F",
-  NO:"C / F",
-  FI:"C / F",
-  IS:"C / F",
-  PL:"C / E",
-  CZ:"C / E",
-  SK:"C / E",
-  HU:"C / F",
-  RO:"C / F",
-  BG:"C / F",
-  HR:"C / F",
-  SI:"C / F",
-  GR:"C / F",
-  CY:"G",
-  MT:"G",
-  US:"A / B",
-  CA:"A / B",
-  MX:"A / B",
-  BR:"N",
-  AR:"I / C",
-  CL:"C / L",
-  PE:"A / B / C",
-  CO:"A / B",
-  CR:"A / B",
-  PA:"A / B",
-  DO:"A / B",
-  JM:"A / B",
-  BS:"A / B",
-  JP:"A / B",
-  CN:"A / C / I",
-  KR:"C / F",
-  TH:"A / B / C / O",
-  VN:"A / C",
-  PH:"A / B / C",
-  SG:"G",
-  HK:"G",
-  ID:"C / F",
-  MY:"G",
-  IN:"C / D / M",
-  AU:"I",
-  NZ:"I",
-  FJ:"I",
-  AE:"G",
-  SA:"G",
-  QA:"G",
-  IL:"H / C",
-  TR:"C / F",
-  MA:"C / E",
-  EG:"C / F",
-  ZA:"D / M / N",
-  KE:"G",
-  TZ:"G",
-  MU:"C / G",
-  SC:"G",
-  CV:"C / F",
-  AO:"C",
-  MZ:"C / F"
-
-};
-
-
-/* =========================================================
-   EMERGÊNCIAS
-========================================================= */
-
-const EMERGENCY_NUMBERS = {
-
-  PT:"112",
-  ES:"112",
-  FR:"112",
-  DE:"112",
-  IT:"112",
-  NL:"112",
-  BE:"112",
-  AT:"112",
-  GR:"112",
-  IE:"112 / 999",
-  GB:"999 / 112",
-  CH:"112",
-  TR:"112",
-  US:"911",
-  CA:"911",
-  AU:"000",
-  NZ:"111",
-  JP:"110 polícia / 119 ambulância e bombeiros",
-  AE:"999 polícia / 998 ambulância / 997 bombeiros",
-  BR:"190 polícia / 192 SAMU / 193 bombeiros",
-  EG:"123 ambulância / 122 polícia / 180 bombeiros"
-
-};
-
-
-/* =========================================================
+/* ============================================================
    HELPERS
-========================================================= */
+   ============================================================ */
 
 function escapeHTML(value){
-
-  if(value === null || value === undefined){
-    return "";
-  }
-
-  return String(value)
+  return String(value ?? "")
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
@@ -2572,3239 +1906,2132 @@ function escapeHTML(value){
     .replace(/'/g,"&#039;");
 }
 
-
-function fetchWithTimeout(
-  url,
-  options={},
-  timeout=REQUEST_TIMEOUT
-){
-
-  const controller =
-    new AbortController();
-
-  const timer =
-    setTimeout(
-      ()=>controller.abort(),
-      timeout
-    );
-
-  return fetch(
-    url,
-    {
-      ...options,
-      signal:controller.signal
-    }
-  ).finally(
-    ()=>clearTimeout(timer)
-  );
+function showToast(message){
+  const t=$("toast");
+  t.textContent=message;
+  t.classList.add("show");
+  clearTimeout(window.toastTimer);
+  window.toastTimer=setTimeout(()=>t.classList.remove("show"),3200);
 }
 
-
-function showLoader(
-  title="A preparar a tua viagem...",
-  subtitle="Estamos a procurar informações reais"
-){
-
-  const loader =
-    document.getElementById(
-      "travelLoader"
-    );
-
-  document.getElementById(
-    "loaderTitle"
-  ).textContent=title;
-
-  document.getElementById(
-    "loaderSubtitle"
-  ).textContent=subtitle;
-
-  loader.classList.add("active");
-
+function setLoader(title,text){
+  $("loaderTitle").textContent=title;
+  $("loaderText").textContent=text;
 }
 
-
-function updateLoader(
-  title,
-  subtitle
-){
-
-  const titleEl =
-    document.getElementById(
-      "loaderTitle"
-    );
-
-  const subtitleEl =
-    document.getElementById(
-      "loaderSubtitle"
-    );
-
-  if(titleEl)
-    titleEl.textContent=title;
-
-  if(subtitleEl)
-    subtitleEl.textContent=subtitle;
-
+function showLoader(title="A preparar a tua viagem...",text="A procurar informação real do destino."){
+  setLoader(title,text);
+  $("loader").classList.add("show");
 }
-
 
 function hideLoader(){
+  $("loader").classList.remove("show");
+}
 
-  document
-    .getElementById("travelLoader")
-    .classList.remove("active");
+function normalize(s){
+  return String(s||"")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .toLowerCase()
+    .trim();
+}
 
+function sleep(ms){
+  return new Promise(resolve=>setTimeout(resolve,ms));
+}
+
+function cacheSet(key,data,time=CACHE_TIME){
+  try{
+    sessionStorage.setItem(
+      "escapadinha:"+key,
+      JSON.stringify({time:Date.now(),data})
+    );
+  }catch(e){}
+}
+
+function cacheGet(key,time=CACHE_TIME){
+  try{
+    const raw=sessionStorage.getItem("escapadinha:"+key);
+    if(!raw)return null;
+
+    const parsed=JSON.parse(raw);
+
+    if(Date.now()-parsed.time>time){
+      sessionStorage.removeItem("escapadinha:"+key);
+      return null;
+    }
+
+    return parsed.data;
+  }catch(e){
+    return null;
+  }
+}
+
+async function fetchTimeout(url,options={},ms=9000){
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),ms);
+
+  try{
+    const response=await fetch(url,{
+      ...options,
+      signal:controller.signal
+    });
+
+    if(!response.ok)throw new Error("HTTP "+response.status);
+
+    return response;
+  }finally{
+    clearTimeout(timer);
+  }
 }
 
 
-function scrollToSection(id){
+/* ============================================================
+   DESTINATIONS
+   ============================================================ */
 
-  const el =
-    document.getElementById(id);
+function renderFeatured(){
 
-  if(el){
-    el.scrollIntoView({
-      behavior:"smooth",
-      block:"start"
-    });
+  const picks=[
+    "Lisboa",
+    "Porto",
+    "Funchal",
+    "Roma",
+    "Paris",
+    "Barcelona",
+    "Amesterdão",
+    "Tóquio"
+  ];
+
+  $("featuredDestinations").innerHTML=picks.map(city=>{
+
+    const d=DESTINATIONS.find(x=>x.city===city);
+
+    return `
+      <div class="destination-card"
+           onclick="selectDestination('${escapeHTML(d.city)}')">
+
+        <img
+          loading="lazy"
+          src="${destinationImage(d)}"
+          alt="${escapeHTML(d.city)}"
+          onerror="this.style.display='none';this.parentElement.querySelector('.destination-placeholder').style.display='grid'"
+        >
+
+        <div class="destination-placeholder" style="display:none">
+          ${escapeHTML(d.flag)}
+        </div>
+
+        <div class="destination-info">
+          <h3>${escapeHTML(d.city)}</h3>
+          <p>${escapeHTML(d.country)}</p>
+        </div>
+
+      </div>
+    `;
+
+  }).join("");
+}
+
+
+/*
+  Imagens de destino provenientes de Wikimedia Commons Special:
+  MediaSearch. Não são inventadas nem geradas.
+*/
+function destinationImage(d){
+  const title=encodeURIComponent(d.city+" "+d.country);
+  return `https://commons.wikimedia.org/wiki/Special:Redirect/file/${title.replace(/%20/g,"_")}.jpg`;
+}
+
+
+/* ============================================================
+   DROPDOWN DESTINOS
+   ============================================================ */
+
+function setupDestinationDropdown(){
+
+  const input=$("destinationInput");
+  const box=$("destinationDropdown");
+
+  function render(){
+
+    const query=normalize(input.value);
+
+    const results=DESTINATIONS
+      .filter(d=>
+        !query ||
+        normalize(d.city).includes(query) ||
+        normalize(d.country).includes(query)
+      )
+      .slice(0,18);
+
+    box.innerHTML=results.map(d=>`
+      <div class="drop-item" onclick="selectDestination('${escapeHTML(d.city)}')">
+        <span style="font-size:1.25rem">${d.flag}</span>
+        <div>
+          <strong>${escapeHTML(d.city)}</strong>
+          <small>${escapeHTML(d.country)}</small>
+        </div>
+      </div>
+    `).join("");
+
+    box.classList.add("show");
   }
 
+  input.addEventListener("focus",render);
+  input.addEventListener("input",render);
+
+  document.addEventListener("click",e=>{
+    if(!e.target.closest(".field"))box.classList.remove("show");
+  });
+}
+
+function selectDestination(city){
+
+  const d=DESTINATIONS.find(x=>normalize(x.city)===normalize(city));
+
+  if(!d)return;
+
+  $("destinationInput").value=d.city;
+  $("destinationDropdown").classList.remove("show");
+
+  showToast(`${d.flag} ${d.city} selecionado.`);
 }
 
 
-/* =========================================================
-   DATAS
-========================================================= */
+/* ============================================================
+   COUNTRY PICKER
+   Usa REST Countries v3.1 quando disponível e fallback local.
+   ============================================================ */
 
-function setupDates(){
+const COMMON_COUNTRIES=[
+  ["PT","Portugal","🇵🇹"],
+  ["ES","Espanha","🇪🇸"],
+  ["FR","França","🇫🇷"],
+  ["IT","Itália","🇮🇹"],
+  ["DE","Alemanha","🇩🇪"],
+  ["GB","Reino Unido","🇬🇧"],
+  ["NL","Países Baixos","🇳🇱"],
+  ["BE","Bélgica","🇧🇪"],
+  ["AT","Áustria","🇦🇹"],
+  ["GR","Grécia","🇬🇷"],
+  ["IE","Irlanda","🇮🇪"],
+  ["CH","Suíça","🇨🇭"],
+  ["NO","Noruega","🇳🇴"],
+  ["SE","Suécia","🇸🇪"],
+  ["DK","Dinamarca","🇩🇰"],
+  ["FI","Finlândia","🇫🇮"],
+  ["IS","Islândia","🇮🇸"],
+  ["PL","Polónia","🇵🇱"],
+  ["CZ","Chéquia","🇨🇿"],
+  ["HU","Hungria","🇭🇺"],
+  ["RO","Roménia","🇷🇴"],
+  ["US","Estados Unidos","🇺🇸"],
+  ["CA","Canadá","🇨🇦"],
+  ["BR","Brasil","🇧🇷"],
+  ["MX","México","🇲🇽"],
+  ["AR","Argentina","🇦🇷"],
+  ["CL","Chile","🇨🇱"],
+  ["CO","Colômbia","🇨🇴"],
+  ["JP","Japão","🇯🇵"],
+  ["KR","Coreia do Sul","🇰🇷"],
+  ["CN","China","🇨🇳"],
+  ["TH","Tailândia","🇹🇭"],
+  ["SG","Singapura","🇸🇬"],
+  ["IN","Índia","🇮🇳"],
+  ["AU","Austrália","🇦🇺"],
+  ["NZ","Nova Zelândia","🇳🇿"],
+  ["TR","Turquia","🇹🇷"],
+  ["MA","Marrocos","🇲🇦"],
+  ["EG","Egito","🇪🇬"],
+  ["AE","Emirados Árabes Unidos","🇦🇪"],
+  ["ZA","África do Sul","🇿🇦"]
+];
 
-  const today =
-    new Date();
-
-  const departure =
-    new Date();
-
-  departure.setDate(
-    today.getDate()+7
-  );
-
-  const returnDate =
-    new Date();
-
-  returnDate.setDate(
-    today.getDate()+10
-  );
-
-  const formatDate =
-    date =>
-      date.toISOString()
-        .split("T")[0];
-
-  document.getElementById(
-    "departureDate"
-  ).value=formatDate(departure);
-
-  document.getElementById(
-    "returnDate"
-  ).value=formatDate(returnDate);
-
-}
-
-
-/* =========================================================
-   PAÍSES — REST COUNTRIES
-========================================================= */
+let COUNTRIES=[...COMMON_COUNTRIES];
 
 async function loadCountries(){
 
-  const cached =
-    sessionStorage.getItem(
-      "escapadinha_countries"
-    );
+  const cached=cacheGet("countries",1000*60*60*24*7);
 
-  if(cached){
-
-    try{
-
-      allCountries =
-        JSON.parse(cached);
-
-      renderCountryDropdown(
-        document.getElementById(
-          "nationalityInput"
-        ).value
-      );
-
-      return;
-
-    }catch{}
-
-  }
-
-  try{
-
-    const response =
-      await fetchWithTimeout(
-        "https://restcountries.com/v3.1/all?fields=name,cca2,flags",
-        {},
-        7000
-      );
-
-    if(!response.ok)
-      throw new Error();
-
-    const data =
-      await response.json();
-
-    allCountries =
-      data
-        .map(country=>({
-          name:
-            country.name?.common ||
-            "",
-          code:
-            country.cca2 ||
-            "",
-          flag:
-            country.flags?.svg ||
-            country.flags?.png ||
-            ""
-        }))
-        .filter(country=>country.name)
-        .sort(
-          (a,b)=>
-            a.name.localeCompare(
-              b.name,
-              "pt",
-              {sensitivity:"base"}
-            )
-        );
-
-    sessionStorage.setItem(
-      "escapadinha_countries",
-      JSON.stringify(allCountries)
-    );
-
-    renderCountryDropdown("");
-
-  }catch(error){
-
-    console.warn(
-      "Não foi possível obter países:",
-      error
-    );
-
-    allCountries = [
-      {
-        name:"Portugal",
-        code:"PT",
-        flag:""
-      },
-      {
-        name:"Espanha",
-        code:"ES",
-        flag:""
-      },
-      {
-        name:"França",
-        code:"FR",
-        flag:""
-      },
-      {
-        name:"Itália",
-        code:"IT",
-        flag:""
-      },
-      {
-        name:"Reino Unido",
-        code:"GB",
-        flag:""
-      }
-    ];
-
-  }
-
-}
-
-
-function renderCountryDropdown(search=""){
-
-  const dropdown =
-    document.getElementById(
-      "countryDropdown"
-    );
-
-  const normalized =
-    search
-      .trim()
-      .toLocaleLowerCase("pt");
-
-  const filtered =
-    allCountries
-      .filter(country=>
-        country.name
-          .toLocaleLowerCase("pt")
-          .includes(normalized)
-      )
-      .slice(0,80);
-
-  if(!filtered.length){
-
-    dropdown.innerHTML=
-      `<div class="dropdown-empty">
-        Nenhum país encontrado.
-      </div>`;
-
+  if(cached?.length){
+    COUNTRIES=cached;
     return;
   }
 
-  dropdown.innerHTML =
-    filtered.map(country=>`
-
-      <div
-        class="dropdown-item"
-        onclick="selectCountry(
-          '${escapeHTML(country.code)}',
-          '${escapeHTML(country.name)}'
-        )"
-      >
-
-        ${
-          country.flag
-          ? `<img
-               src="${escapeHTML(country.flag)}"
-               width="24"
-               height="16"
-               style="object-fit:cover;border-radius:3px"
-               loading="lazy"
-             >`
-          : "🌍"
-        }
-
-        <span>
-          ${escapeHTML(country.name)}
-        </span>
-
-      </div>
-
-    `).join("");
-
-}
-
-
-function selectCountry(code,name){
-
-  currentCountry={
-    code,
-    name
-  };
-
-  document.getElementById(
-    "nationalityInput"
-  ).value=name;
-
-  document
-    .getElementById(
-      "countryDropdown"
-    )
-    .classList.remove("active");
-
-}
-
-
-/* =========================================================
-   DESTINO SEARCH
-========================================================= */
-
-const COMMON_DESTINATIONS = [
-  "Funchal",
-  "Lisboa",
-  "Porto",
-  "Madrid",
-  "Barcelona",
-  "Paris",
-  "Roma",
-  "Londres",
-  "Dublin",
-  "Amesterdão",
-  "Praga",
-  "Viena",
-  "Tóquio",
-  "Nova Iorque",
-  "Dubai"
-];
-
-
-function renderDestinationDropdown(
-  search=""
-){
-
-  const dropdown =
-    document.getElementById(
-      "destinationDropdown"
-    );
-
-  const results =
-    COMMON_DESTINATIONS
-      .filter(name=>
-        name
-          .toLocaleLowerCase("pt")
-          .includes(
-            search
-              .trim()
-              .toLocaleLowerCase("pt")
-          )
-      );
-
-  dropdown.innerHTML =
-    results.map(name=>`
-
-      <div
-        class="dropdown-item"
-        onclick="chooseDestination('${escapeHTML(name)}')"
-      >
-        📍
-        <span>${escapeHTML(name)}</span>
-      </div>
-
-    `).join("");
-
-  if(!results.length){
-
-    dropdown.innerHTML=
-      `<div class="dropdown-empty">
-        Pesquisa por uma cidade e poderemos tentar
-        encontrá-la no mapa.
-      </div>`;
-
-  }
-
-}
-
-
-async function resolveDestination(
-  destination
-){
-
-  const known =
-    KNOWN_DESTINATIONS[
-      destination
-    ];
-
-  if(known){
-
-    return {
-      ...known,
-      displayName:destination
-    };
-
-  }
-
-  const cacheKey =
-    "escapadinha_geo_" +
-    destination
-      .toLowerCase()
-      .replace(/\s+/g,"_");
-
   try{
 
-    const cached =
-      sessionStorage.getItem(
-        cacheKey
-      );
-
-    if(cached){
-
-      return {
-        ...JSON.parse(cached),
-        displayName:destination
-      };
-
-    }
-
-  }catch{}
-
-
-  const url =
-    "https://nominatim.openstreetmap.org/search" +
-    "?format=jsonv2" +
-    "&limit=1" +
-    "&accept-language=pt" +
-    "&q=" +
-    encodeURIComponent(destination);
-
-  const response =
-    await fetchWithTimeout(
-      url,
-      {
-        headers:{
-          "Accept":
-            "application/json"
-        }
-      },
+    const response=await fetchTimeout(
+      "https://restcountries.com/v3.1/all?fields=name,cca2,flag",
+      {},
       6500
     );
 
-  if(!response.ok)
-    throw new Error(
-      "Geocoding indisponível"
-    );
+    const data=await response.json();
 
-  const data =
-    await response.json();
+    if(Array.isArray(data)){
 
-  if(!data.length)
-    throw new Error(
-      "Destino não encontrado"
-    );
+      COUNTRIES=data
+        .filter(x=>x?.cca2 && x?.name?.common)
+        .map(x=>[
+          x.cca2,
+          x.name.common,
+          x.flag || ""
+        ])
+        .sort((a,b)=>a[1].localeCompare(b[1],"pt",{sensitivity:"base"}));
 
-  const result=data[0];
+      cacheSet("countries",COUNTRIES,1000*60*60*24*7);
+    }
 
-  const coords={
-    lat:Number(result.lat),
-    lon:Number(result.lon),
-    country:
-      result.address?.country ||
-      "",
-    countryCode:
-      result.address?.country_code?.toUpperCase() ||
-      ""
-  };
+  }catch(e){
+    COUNTRIES=[...COMMON_COUNTRIES]
+      .sort((a,b)=>a[1].localeCompare(b[1],"pt",{sensitivity:"base"}));
+  }
+}
 
-  sessionStorage.setItem(
-    cacheKey,
-    JSON.stringify(coords)
-  );
+function setupCountryDropdown(){
 
-  return {
-    ...coords,
-    displayName:destination
-  };
+  const input=$("nationalityInput");
+  const box=$("countryDropdown");
 
+  function render(){
+
+    const q=normalize(input.value);
+
+    const arr=COUNTRIES
+      .filter(c=>!q || normalize(c[1]).includes(q) || c[0].toLowerCase()===q)
+      .slice(0,30);
+
+    box.innerHTML=arr.map(c=>`
+      <div class="drop-item" onclick="chooseCountry('${escapeHTML(c[0])}','${escapeHTML(c[1])}','${escapeHTML(c[2])}')">
+        <span style="font-size:1.2rem">${c[2]}</span>
+        <strong>${escapeHTML(c[1])}</strong>
+      </div>
+    `).join("");
+
+    box.classList.add("show");
+  }
+
+  input.addEventListener("focus",render);
+  input.addEventListener("input",render);
+
+  document.addEventListener("click",e=>{
+    if(!e.target.closest(".field"))box.classList.remove("show");
+  });
+}
+
+function chooseCountry(code,name,flag){
+  $("nationalityInput").value=`${flag} ${name}`;
+  $("nationalityInput").dataset.code=code;
+  $("countryDropdown").classList.remove("show");
 }
 
 
-/* =========================================================
+/* ============================================================
    COUNTRY DATA
-========================================================= */
+   ============================================================ */
 
-async function loadCountryData(
-  countryCode
-){
+async function getCountryData(code){
 
-  if(!countryCode)
-    return null;
-
-  try{
-
-    const url =
-      "https://restcountries.com/v3.1/alpha/" +
-      encodeURIComponent(countryCode) +
-      "?fields=name,currencies,capital,timezones,languages,cca2";
-
-    const response =
-      await fetchWithTimeout(
-        url,
-        {},
-        6500
-      );
-
-    if(!response.ok)
-      throw new Error();
-
-    const data =
-      await response.json();
-
-    return Array.isArray(data)
-      ? data[0]
-      : data;
-
-  }catch(error){
-
-    console.warn(
-      "Dados do país indisponíveis:",
-      error
-    );
-
-    return null;
-
-  }
-
-}
-
-
-function findCountryFromName(
-  name
-){
-
-  if(!name)
-    return null;
-
-  const exact =
-    allCountries.find(country=>
-      country.name
-        .toLocaleLowerCase("pt") ===
-      name
-        .toLocaleLowerCase("pt")
-    );
-
-  return exact || null;
-
-}
-
-
-function findCountryCode(
-  destination
-){
-
-  const known =
-    KNOWN_DESTINATIONS[
-      destination
-    ];
-
-  if(known?.country){
-
-    const found =
-      findCountryFromName(
-        known.country
-      );
-
-    if(found)
-      return found.code;
-
-  }
-
-  return currentCoordinates?.countryCode ||
-    null;
-
-}
-
-
-/* =========================================================
-   INFO DO PAÍS
-========================================================= */
-
-function renderCountryInfo(
-  data,
-  countryCode
-){
-
-  const capital =
-    data?.capital?.[0] ||
-    "Não disponível";
-
-  const timezone =
-    data?.timezones?.[0] ||
-    "Não disponível";
-
-  const languages =
-    data?.languages
-      ? Object.values(
-          data.languages
-        ).join(", ")
-      : "Não disponível";
-
-  let currency =
-    "Não disponível";
-
-  if(data?.currencies){
-
-    const entry =
-      Object.entries(
-        data.currencies
-      )[0];
-
-    if(entry){
-
-      const code=entry[0];
-
-      const details=entry[1];
-
-      currency =
-        `${details?.name || code}` +
-        (
-          details?.symbol
-            ? ` (${details.symbol})`
-            : ""
-        );
-
-    }
-
-  }
-
-  const plugs =
-    PLUG_TYPES[countryCode] ||
-    "Não disponível";
-
-  const emergency =
-    EMERGENCY_NUMBERS[countryCode] ||
-    "Não disponível";
-
-  document.getElementById(
-    "capitalInfo"
-  ).textContent=capital;
-
-  document.getElementById(
-    "currencyInfo"
-  ).textContent=currency;
-
-  document.getElementById(
-    "timezoneInfo"
-  ).textContent=timezone;
-
-  document.getElementById(
-    "languagesInfo"
-  ).textContent=languages;
-
-  document.getElementById(
-    "plugInfo"
-  ).textContent=plugs;
-
-  document.getElementById(
-    "emergencyInfo"
-  ).textContent=emergency;
-
-}
-
-
-/* =========================================================
-   WEATHER
-========================================================= */
-
-function weatherDescription(code){
-
-  const map={
-
-    0:"Céu limpo",
-    1:"Principalmente limpo",
-    2:"Parcialmente nublado",
-    3:"Nublado",
-    45:"Nevoeiro",
-    48:"Nevoeiro",
-    51:"Chuvisco ligeiro",
-    53:"Chuvisco moderado",
-    55:"Chuvisco intenso",
-    56:"Chuvisco gelado ligeiro",
-    57:"Chuvisco gelado intenso",
-    61:"Chuva ligeira",
-    63:"Chuva moderada",
-    65:"Chuva intensa",
-    66:"Chuva gelada",
-    67:"Chuva gelada intensa",
-    71:"Neve ligeira",
-    73:"Neve moderada",
-    75:"Neve intensa",
-    77:"Grãos de neve",
-    80:"Aguaceiros ligeiros",
-    81:"Aguaceiros moderados",
-    82:"Aguaceiros fortes",
-    85:"Aguaceiros de neve ligeiros",
-    86:"Aguaceiros de neve fortes",
-    95:"Trovoada",
-    96:"Trovoada com granizo",
-    99:"Trovoada com granizo forte"
-
+  const fallback=COUNTRY_FALLBACK[code] || {
+    name:"Não disponível",
+    capital:"Não disponível",
+    currency:"Não disponível",
+    languages:"Não disponível",
+    timezone:"Não disponível",
+    plugs:"Não disponível",
+    emergency:"Não disponível",
+    flag:"🌍"
   };
 
-  return map[code] ||
-    "Condições meteorológicas";
-
-}
-
-
-function weatherEmoji(code){
-
-  if(code===0)
-    return "☀️";
-
-  if([1,2].includes(code))
-    return "🌤️";
-
-  if(code===3)
-    return "☁️";
-
-  if([45,48].includes(code))
-    return "🌫️";
-
-  if([51,53,55,56,57].includes(code))
-    return "🌦️";
-
-  if([
-    61,63,65,66,67,
-    80,81,82
-  ].includes(code))
-    return "🌧️";
-
-  if([
-    71,73,75,77,85,86
-  ].includes(code))
-    return "🌨️";
-
-  if([
-    95,96,99
-  ].includes(code))
-    return "⛈️";
-
-  return "🌦️";
-
-}
-
-
-async function getWeather(
-  lat,
-  lon,
-  zoneName
-){
-
-  const cacheKey =
-    WEATHER_CACHE_PREFIX +
-    zoneName
-      .toLowerCase()
-      .replace(/\s+/g,"_");
+  /*
+    v3.1 é tentado primeiro porque pode funcionar sem chave.
+    Se não funcionar, o fallback local mantém a aplicação útil.
+  */
 
   try{
 
-    const cached =
-      localStorage.getItem(
-        cacheKey
-      );
+    const cached=cacheGet("country:"+code,1000*60*60*24*7);
 
-    if(cached){
+    if(cached)return {...fallback,...cached};
 
-      const parsed =
-        JSON.parse(cached);
+    const response=await fetchTimeout(
+      `https://restcountries.com/v3.1/alpha/${encodeURIComponent(code)}`,
+      {},
+      5000
+    );
 
-      if(
-        Date.now() -
-        parsed.timestamp <
-        1200000
-      ){
+    const arr=await response.json();
+    const data=Array.isArray(arr)?arr[0]:arr;
 
-        renderWeather(
-          parsed.data
-        );
+    if(data){
 
-      }
+      const currencyNames=Object.values(data.currencies||{})
+        .map(x=>{
+          if(x?.name && x?.symbol)return `${x.name} (${x.symbol})`;
+          return x?.name;
+        })
+        .filter(Boolean);
 
+      const languages=Object.values(data.languages||{});
+
+      const result={
+        name:data.name?.common || fallback.name,
+        capital:data.capital?.[0] || fallback.capital,
+        currency:currencyNames.join(" / ") || fallback.currency,
+        languages:languages.join(" / ") || fallback.languages,
+        timezone:(data.timezones||[]).join(" / ") || fallback.timezone,
+        flag:data.flag || fallback.flag,
+        plugs:fallback.plugs,
+        emergency:fallback.emergency
+      };
+
+      cacheSet("country:"+code,result,1000*60*60*24*7);
+
+      return result;
     }
 
-  }catch{}
+  }catch(e){}
+
+  return fallback;
+}
 
 
-  const url =
-    "https://api.open-meteo.com/v1/ecmwf" +
-    `?latitude=${lat}` +
-    `&longitude=${lon}` +
-    "&current=" +
-    "temperature_2m," +
-    "apparent_temperature," +
-    "relative_humidity_2m," +
-    "precipitation," +
-    "weather_code," +
-    "cloud_cover," +
-    "wind_speed_10m," +
-    "wind_direction_10m" +
-    "&hourly=" +
-    "temperature_2m," +
-    "precipitation_probability," +
-    "weather_code" +
-    "&forecast_days=3" +
-    "&timezone=auto";
+/* ============================================================
+   WEATHER
+   Open-Meteo ECMWF endpoint.
+   ============================================================ */
+
+const WMO={
+  0:"Céu limpo",
+  1:"Principalmente limpo",
+  2:"Parcialmente nublado",
+  3:"Nublado",
+  45:"Nevoeiro",
+  48:"Nevoeiro com depósito de geada",
+  51:"Chuvisco ligeiro",
+  53:"Chuvisco moderado",
+  55:"Chuvisco intenso",
+  56:"Chuvisco gelado ligeiro",
+  57:"Chuvisco gelado intenso",
+  61:"Chuva ligeira",
+  63:"Chuva moderada",
+  65:"Chuva intensa",
+  66:"Chuva gelada ligeira",
+  67:"Chuva gelada intensa",
+  71:"Neve ligeira",
+  73:"Neve moderada",
+  75:"Neve intensa",
+  77:"Grãos de neve",
+  80:"Aguaceiros ligeiros",
+  81:"Aguaceiros moderados",
+  82:"Aguaceiros fortes",
+  85:"Aguaceiros de neve ligeiros",
+  86:"Aguaceiros de neve fortes",
+  95:"Trovoada",
+  96:"Trovoada com granizo ligeiro",
+  99:"Trovoada com granizo forte"
+};
+
+function weatherIcon(code){
+
+  if(code===0)return"☀️";
+  if([1,2].includes(code))return"🌤️";
+  if(code===3)return"☁️";
+  if([45,48].includes(code))return"🌫️";
+  if([51,53,55,56,57].includes(code))return"🌦️";
+  if([61,63,65,66,67,80,81,82].includes(code))return"🌧️";
+  if([71,73,75,77,85,86].includes(code))return"❄️";
+  if([95,96,99].includes(code))return"⛈️";
+  return"🌦️";
+}
+
+async function fetchWeather(zone){
+
+  const key=`weather:${zone.lat}:${zone.lon}`;
+
+  const cached=cacheGet(key,WEATHER_CACHE_TIME);
+
+  if(cached)return cached;
+
+  const url=
+    `https://api.open-meteo.com/v1/ecmwf?`+
+    `latitude=${zone.lat}&longitude=${zone.lon}`+
+    `&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m`+
+    `&hourly=precipitation_probability`+
+    `&forecast_days=1&timezone=auto`;
 
   try{
 
-    const response =
-      await fetchWithTimeout(
-        url,
-        {},
-        7000
-      );
+    const response=await fetchTimeout(url,{},7000);
+    const data=await response.json();
 
-    if(!response.ok)
-      throw new Error();
-
-    const json =
-      await response.json();
-
-    const data={
-
-      zone:zoneName,
-
-      latitude:lat,
-
-      longitude:lon,
-
-      temperature:
-        json.current?.temperature_2m,
-
-      apparent:
-        json.current?.apparent_temperature,
-
-      humidity:
-        json.current?.relative_humidity_2m,
-
-      precipitation:
-        json.current?.precipitation,
-
-      cloud:
-        json.current?.cloud_cover,
-
-      wind:
-        json.current?.wind_speed_10m,
-
-      windDirection:
-        json.current?.wind_direction_10m,
-
-      code:
-        json.current?.weather_code,
-
-      updated:
-        json.current?.time,
-
-      hourly:
-        json.hourly || {},
-
-      source:
-        "ECMWF IFS HRES 9 km via Open-Meteo"
-
+    const result={
+      zone,
+      source:"ECMWF IFS HRES · Open-Meteo",
+      current:data.current,
+      hourly:data.hourly
     };
+
+    cacheSet(key,result,WEATHER_CACHE_TIME);
+
+    return result;
+
+  }catch(e){
+
+    /*
+      Fallback real Open-Meteo model.
+      Importante: não é apresentado como ECMWF.
+    */
 
     try{
 
-      localStorage.setItem(
-        cacheKey,
-        JSON.stringify({
-          timestamp:Date.now(),
-          data
-        })
-      );
+      const fallbackUrl=
+        `https://api.open-meteo.com/v1/forecast?`+
+        `latitude=${zone.lat}&longitude=${zone.lon}`+
+        `&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m`+
+        `&hourly=precipitation_probability`+
+        `&forecast_days=1&timezone=auto`;
 
-    }catch{}
+      const response=await fetchTimeout(fallbackUrl,{},6500);
+      const data=await response.json();
 
-    renderWeather(data);
+      return{
+        zone,
+        source:"Open-Meteo · modelo meteorológico disponível",
+        current:data.current,
+        hourly:data.hourly
+      };
 
-    return data;
+    }catch(err){
 
-  }catch(error){
-
-    console.warn(
-      "Meteorologia indisponível",
-      zoneName,
-      error
-    );
-
-    return null;
-
+      return null;
+    }
   }
-
 }
 
+function getZonesForDestination(destination){
 
-function renderWeather(data){
+  if(destination.code==="PT" && (
+    destination.city==="Funchal" ||
+    destination.region==="Madeira"
+  )){
+    return MADEIRA_ZONES;
+  }
 
-  if(!data)
+  return[
+    {
+      name:destination.city,
+      lat:destination.lat,
+      lon:destination.lon
+    }
+  ];
+}
+
+async function loadWeather(destination){
+
+  const zones=getZonesForDestination(destination);
+
+  $("zoneGrid").innerHTML=zones.map((z,i)=>`
+    <div class="zone-card ${i===0?"active":""}" onclick="selectWeatherZone(${i})">
+      <div class="zone-name">${escapeHTML(z.name)}</div>
+      <div class="zone-temp" id="zoneTemp${i}">—°</div>
+      <div class="zone-desc" id="zoneDesc${i}">A carregar...</div>
+    </div>
+  `).join("");
+
+  $("localities").innerHTML=zones.map(z=>
+    `<span class="locality">📍 ${escapeHTML(z.name)}</span>`
+  ).join("");
+
+  const data=await Promise.all(zones.map(fetchWeather));
+
+  CURRENT.weather=data;
+
+  data.forEach((weather,i)=>{
+
+    if(!weather)return;
+
+    const c=weather.current;
+
+    const temp=Math.round(c.temperature_2m);
+
+    $(`zoneTemp${i}`).textContent=`${temp}°`;
+    $(`zoneDesc${i}`).textContent=
+      `${weatherIcon(c.weather_code)} ${WMO[c.weather_code]||"Condições meteorológicas"}`;
+
+  });
+
+  renderWeatherMain(data[0]);
+}
+
+function renderWeatherMain(weather){
+
+  if(!weather){
+
+    $("weatherMain").innerHTML=`
+      <div class="empty-state">
+        <span class="big-plane">✈️</span>
+        Não foi possível obter meteorologia neste momento.
+        <br>
+        <button class="retry" onclick="reloadWeather()">Tentar novamente</button>
+      </div>
+    `;
+
     return;
+  }
 
-  const destinationIsMadeira =
-    Object.prototype.hasOwnProperty.call(
-      MADEIRA_ZONES,
-      data.zone
-    );
+  const c=weather.current;
 
-  const grid =
-    document.getElementById(
-      destinationIsMadeira
-        ? "weatherZonesGrid"
-        : "singleWeatherBox"
-    );
+  $("weatherMain").innerHTML=`
 
-  if(!grid)
-    return;
-
-  const html=`
-
-    <article
-      class="weather-zone-card"
-      data-weather-zone="${escapeHTML(data.zone)}"
-    >
-
-      <div class="weather-zone-top">
-
-        <div class="weather-zone-name">
-          ${escapeHTML(data.zone)}
-        </div>
-
-        <div class="weather-icon">
-          ${weatherEmoji(data.code)}
-        </div>
-
+    <div>
+      <div style="color:#687386;font-weight:800">
+        📍 ${escapeHTML(weather.zone.name)}
       </div>
 
-      <div class="weather-temperature">
-        ${
-          data.temperature != null
-            ? Math.round(data.temperature)
-            : "—"
-        }°C
+      <div class="weather-temp">
+        ${Math.round(c.temperature_2m)}°C
       </div>
 
-      <div class="weather-description">
-        ${weatherDescription(data.code)}
+      <div style="font-size:1.35rem">
+        ${weatherIcon(c.weather_code)}
+        ${escapeHTML(WMO[c.weather_code]||"Condições meteorológicas")}
       </div>
 
-      <div class="weather-details">
+      <div class="weather-desc">
+        Dados atualizados: ${escapeHTML(
+          new Date(c.time).toLocaleString("pt-PT",{
+            dateStyle:"short",
+            timeStyle:"short"
+          })
+        )}
+      </div>
 
-        <div class="weather-detail">
-          🌡️ Sensação:
-          ${
-            data.apparent != null
-              ? Math.round(data.apparent)
-              : "—"
-          }°C
+      <div class="weather-metrics">
+
+        <div class="metric">
+          <small>🌡️ Sensação</small>
+          <strong>${Math.round(c.apparent_temperature)}°C</strong>
         </div>
 
-        <div class="weather-detail">
-          💧 Humidade:
-          ${data.humidity ?? "—"}%
+        <div class="metric">
+          <small>💧 Humidade</small>
+          <strong>${c.relative_humidity_2m}%</strong>
         </div>
 
-        <div class="weather-detail">
-          💨 Vento:
-          ${data.wind ?? "—"} km/h
+        <div class="metric">
+          <small>💨 Vento</small>
+          <strong>${Math.round(c.wind_speed_10m)} km/h</strong>
         </div>
 
-        <div class="weather-detail">
-          🌧️ Chuva:
-          ${data.precipitation ?? 0} mm
+        <div class="metric">
+          <small>🌧️ Chuva</small>
+          <strong>${c.precipitation} mm</strong>
         </div>
 
-        <div class="weather-detail">
-          ☁️ Nuvens:
-          ${data.cloud ?? "—"}%
+        <div class="metric">
+          <small>☁️ Nuvens</small>
+          <strong>${c.cloud_cover}%</strong>
         </div>
 
-        <div class="weather-detail">
-          🧭 Vento:
-          ${data.windDirection ?? "—"}°
+        <div class="metric">
+          <small>🧭 Vento</small>
+          <strong>${Math.round(c.wind_direction_10m)}°</strong>
+        </div>
+
+        <div class="metric">
+          <small>🌧️ Prob. chuva</small>
+          <strong>${getRainProbability(weather)}%</strong>
+        </div>
+
+        <div class="metric">
+          <small>🌍 Fuso local</small>
+          <strong>${escapeHTML(weather.current.timezone||"Local")}</strong>
         </div>
 
       </div>
 
       <div class="weather-source">
-        ECMWF IFS HRES 9 km · Open-Meteo
+        ${escapeHTML(weather.source)}
+        · previsão sujeita a alteração
       </div>
-
-    </article>
-
+    </div>
   `;
-
-  const existing =
-    grid.querySelector(
-      `[data-weather-zone="${CSS.escape(data.zone)}"]`
-    );
-
-  if(existing)
-    existing.outerHTML=html;
-  else
-    grid.insertAdjacentHTML(
-      "beforeend",
-      html
-    );
-
 }
 
+function getRainProbability(weather){
 
-async function loadDestinationWeather(){
+  if(!weather?.hourly?.precipitation_probability)return 0;
 
-  document.getElementById(
-    "weatherZonesGrid"
-  ).innerHTML="";
+  const values=weather.hourly.precipitation_probability.slice(0,6);
 
-  document.getElementById(
-    "singleWeatherBox"
-  ).innerHTML="";
+  return Math.max(...values.map(x=>Number(x)||0));
+}
 
-  const isMadeira =
-    currentDestination === "Funchal" ||
-    currentDestination === "Madeira";
+function selectWeatherZone(index){
 
-  if(isMadeira){
+  document.querySelectorAll(".zone-card").forEach((el,i)=>{
+    el.classList.toggle("active",i===index);
+  });
 
-    document.getElementById(
-      "weatherZonesGrid"
-    ).style.display="grid";
-
-    document.getElementById(
-      "singleWeatherBox"
-    ).style.display="none";
-
-    updateLoader(
-      "A consultar a meteorologia...",
-      "A verificar Funchal, São Vicente, Calheta e outras zonas"
-    );
-
-    await Promise.allSettled(
-
-      Object.entries(
-        MADEIRA_ZONES
-      ).map(
-        ([name,coords])=>
-          getWeather(
-            coords.lat,
-            coords.lon,
-            name
-          )
-      )
-
-    );
-
-  }else{
-
-    document.getElementById(
-      "weatherZonesGrid"
-    ).style.display="none";
-
-    document.getElementById(
-      "singleWeatherBox"
-    ).style.display="grid";
-
-    updateLoader(
-      "A consultar a meteorologia...",
-      `A obter a previsão para ${currentDestination}`
-    );
-
-    await getWeather(
-      currentCoordinates.lat,
-      currentCoordinates.lon,
-      currentDestination
-    );
-
+  if(CURRENT.weather?.[index]){
+    renderWeatherMain(CURRENT.weather[index]);
   }
+}
 
+async function reloadWeather(){
+
+  if(!CURRENT.destination)return;
+
+  showLoader(
+    "A atualizar a meteorologia...",
+    "A consultar novamente os dados meteorológicos."
+  );
+
+  try{
+
+    getZonesForDestination(CURRENT.destination).forEach(z=>{
+      try{
+        sessionStorage.removeItem(
+          "escapadinha:"+`weather:${z.lat}:${z.lon}`
+        );
+      }catch(e){}
+    });
+
+    await loadWeather(CURRENT.destination);
+
+  }finally{
+    hideLoader();
+  }
 }
 
 
-/* =========================================================
+/* ============================================================
    OVERPASS
-========================================================= */
+   VÁRIAS FONTES EM PARALELO
+   ============================================================ */
 
-const CATEGORY_CONFIG={
+const OVERPASS_ENDPOINTS=[
+  "https://overpass-api.de/api/interpreter",
+  "https://overpass.kumi.systems/api/interpreter",
+  "https://overpass.private.coffee/api/interpreter"
+];
 
-  attractions:{
-    label:"atrações",
-    query:`
-      nwr[
-        tourism~"attraction|museum|gallery|viewpoint|zoo|theme_park|aquarium"
-      ](around:6500,{lat},{lon});
-    `,
-    emoji:"📍"
-  },
+const CATEGORY_QUERIES={
 
-  restaurants:{
-    label:"restaurantes",
-    query:`
-      nwr[
-        amenity="restaurant"
-      ](around:6500,{lat},{lon});
-    `,
-    emoji:"🍴"
-  },
+  attractions:`
+    nwr["tourism"~"attraction|museum|gallery|viewpoint|theme_park|zoo|aquarium"](around:7000,{lat},{lon});
+    nwr["historic"~"monument|castle|fort|archaeological_site|memorial"](around:7000,{lat},{lon});
+    nwr["natural"~"peak|beach|waterfall|cave"](around:7000,{lat},{lon});
+  `,
 
-  cafes:{
-    label:"cafés",
-    query:`
-      nwr[
-        amenity="cafe"
-      ](around:6500,{lat},{lon});
-    `,
-    emoji:"☕"
-  },
+  restaurants:`
+    nwr["amenity"="restaurant"](around:7000,{lat},{lon});
+  `,
 
-  hotel:{
-    label:"hotéis",
-    query:`
-      nwr[
-        tourism="hotel"
-      ](around:6500,{lat},{lon});
-    `,
-    emoji:"🏨"
-  },
+  cafes:`
+    nwr["amenity"="cafe"](around:7000,{lat},{lon});
+  `,
 
-  hostel:{
-    label:"hostels",
-    query:`
-      nwr[
-        tourism="hostel"
-      ](around:6500,{lat},{lon});
-    `,
-    emoji:"🛌"
-  },
+  hotels:`
+    nwr["tourism"="hotel"](around:7000,{lat},{lon});
+  `,
 
-  other:{
-    label:"outros alojamentos",
-    query:`
-      nwr[
-        tourism~"guest_house|bed_and_breakfast|motel|resort|camp_site|chalet"
-      ](around:6500,{lat},{lon});
-    `,
-    emoji:"🏡"
-  }
+  hostels:`
+    nwr["tourism"="hostel"](around:7000,{lat},{lon});
+  `,
 
+  other:`
+    nwr["tourism"~"guest_house|bed_and_breakfast|motel|resort|camp_site|chalet"](around:7000,{lat},{lon});
+  `
 };
 
-
-function buildOverpassQuery(
-  category,
-  lat,
-  lon
-){
-
-  const config =
-    CATEGORY_CONFIG[category];
+function buildOverpassQuery(category,lat,lon){
 
   return `
-
-    [out:json][timeout:8];
-
+    [out:json][timeout:10];
     (
-      ${
-        config.query
-          .replace(
-            /\{lat\}/g,
-            lat
-          )
-          .replace(
-            /\{lon\}/g,
-            lon
-          )
-      }
+      ${CATEGORY_QUERIES[category]
+        .replaceAll("{lat}",lat)
+        .replaceAll("{lon}",lon)}
     );
-
     out center tags;
-
   `;
-
 }
 
+async function overpassRequest(endpoint,query){
 
-async function requestOverpass(
-  query
-){
+  const response=await fetchTimeout(
+    endpoint,
+    {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"
+      },
+      body:"data="+encodeURIComponent(query)
+    },
+    11500
+  );
 
-  let lastError=null;
+  return response.json();
+}
 
-  for(
-    const endpoint
-    of OVERPASS_ENDPOINTS
-  ){
+async function searchOverpass(category){
 
-    try{
+  const d=CURRENT.destination;
 
-      const response =
-        await fetchWithTimeout(
-          endpoint,
-          {
-            method:"POST",
-            headers:{
-              "Content-Type":
-                "application/x-www-form-urlencoded;charset=UTF-8"
-            },
-            body:
-              "data="+
-              encodeURIComponent(query)
-          },
-          8500
-        );
+  const cacheKey=
+    `places:${d.city}:${d.lat}:${d.lon}:${category}`;
 
-      if(!response.ok)
-        throw new Error(
-          "Overpass HTTP "+
-          response.status
-        );
+  const cached=cacheGet(cacheKey);
 
-      return await response.json();
+  if(cached?.length)return cached;
 
-    }catch(error){
+  const query=buildOverpassQuery(
+    category,
+    d.lat,
+    d.lon
+  );
 
-      lastError=error;
+  /*
+    Todas as fontes começam praticamente ao mesmo tempo.
+    A primeira resposta válida ganha.
+  */
 
+  const requests=OVERPASS_ENDPOINTS.map(endpoint=>
+    overpassRequest(endpoint,query)
+  );
+
+  try{
+
+    const result=await Promise.any(requests);
+
+    const places=(result.elements||[])
+      .filter(x=>x.tags?.name)
+      .map(normalizePlace)
+      .sort((a,b)=>{
+
+        const aa=a.distance || 999999;
+        const bb=b.distance || 999999;
+
+        return aa-bb;
+      })
+      .slice(0,24);
+
+    if(places.length){
+
+      cacheSet(cacheKey,places);
+
+      return places;
     }
 
+    throw new Error("Sem resultados");
+
+  }catch(e){
+
+    return [];
   }
-
-  throw lastError ||
-    new Error(
-      "Overpass indisponível"
-    );
-
 }
 
 
-function normalizePlace(
-  element,
-  category
-){
+/* ============================================================
+   PLACE NORMALIZATION
+   ============================================================ */
 
-  const tags =
-    element.tags || {};
+function normalizePlace(element){
 
-  const lat =
-    element.lat ??
-    element.center?.lat ??
-    null;
+  const t=element.tags||{};
 
-  const lon =
-    element.lon ??
-    element.center?.lon ??
-    null;
+  const lat=element.lat ?? element.center?.lat;
+  const lon=element.lon ?? element.center?.lon;
 
-  if(
-    lat===null ||
-    lon===null
-  )
-    return null;
+  const address=[
+    t["addr:housenumber"],
+    t["addr:street"],
+    t["addr:postcode"],
+    t["addr:city"]
+  ].filter(Boolean).join(", ");
 
-  const name =
-    tags.name ||
-    tags["name:pt"] ||
-    tags["name:en"] ||
-    null;
+  let category=
+    t.tourism ||
+    t.amenity ||
+    t.historic ||
+    t.natural ||
+    t.leisure ||
+    "Local";
 
-  if(!name)
-    return null;
+  if(t.cuisine){
+    category+=` · ${t.cuisine}`;
+  }
 
-  const addressParts=[
-    tags["addr:housenumber"],
-    tags["addr:street"],
-    tags["addr:suburb"],
-    tags["addr:city"],
-    tags["addr:postcode"]
-  ].filter(Boolean);
+  return{
 
-  return {
+    id:`${element.type}/${element.id}`,
 
-    id:
-      `${element.type}_${element.id}`,
-
-    name,
-
-    category,
+    name:t.name,
 
     lat,
     lon,
 
-    address:
-      addressParts.length
-        ? addressParts.join(", ")
-        : null,
+    category,
 
-    cuisine:
-      tags.cuisine ||
-      null,
+    address,
 
-    website:
-      tags.website ||
-      tags["contact:website"] ||
-      null,
+    phone:t.phone || t["contact:phone"] || "",
 
-    phone:
-      tags.phone ||
-      tags["contact:phone"] ||
-      null,
+    website:t.website || t["contact:website"] || "",
 
-    opening_hours:
-      tags.opening_hours ||
-      null,
+    email:t.email || t["contact:email"] || "",
 
-    wheelchair:
-      tags.wheelchair ||
-      tags["wheelchair:description"] ||
-      null,
+    openingHours:t.opening_hours || "",
 
-    outdoor_seating:
-      tags.outdoor_seating ||
-      null,
+    cuisine:t.cuisine || "",
 
-    reservation:
-      tags.reservation ||
-      null,
+    price:t["price:range"] || t.price || "",
 
-    takeaway:
-      tags.takeaway ||
-      null,
+    wheelchair:t.wheelchair || "",
 
-    delivery:
-      tags.delivery ||
-      null,
+    outdoor:t.outdoor_seating || "",
 
-    internet_access:
-      tags.internet_access ||
-      null,
+    takeaway:t.takeaway || "",
 
-    price:
-      tags["price:range"] ||
-      null,
+    delivery:t.delivery || "",
 
-    stars:
-      tags.stars ||
-      null,
+    reservation:t.reservation || "",
 
-    rooms:
-      tags.rooms ||
-      null,
+    internet:t.internet_access || "",
 
-    tourism:
-      tags.tourism ||
-      null,
+    smoking:t.smoking || "",
 
-    historic:
-      tags.historic ||
-      null,
+    operator:t.operator || "",
 
-    description:
-      tags.description ||
-      tags["description:pt"] ||
-      tags["description:en"] ||
-      null,
+    description:t.description || "",
 
-    wikidata:
-      tags.wikidata ||
-      null,
+    image:t.image || "",
 
-    wikipedia:
-      tags.wikipedia ||
-      null
+    wikimedia:t.wikimedia_commons || t.wikimedia || "",
+
+    rawTags:t
 
   };
-
 }
 
 
-/* =========================================================
-   CACHE
-========================================================= */
+/* ============================================================
+   PLACE PHOTOS
+   ============================================================ */
 
-function placesCacheKey(
-  destination,
-  category
-){
+async function getPlacePhoto(place){
 
-  return (
-    PLACES_CACHE_PREFIX+
-    destination
-      .toLowerCase()
-      .replace(/\s+/g,"_")+
-    "_"+
-    category
-  );
+  const key=`photo:${place.id}`;
 
-}
+  if(photoCache[key])return photoCache[key];
 
+  const cached=cacheGet(key,1000*60*60*24*2);
 
-function getCachedPlaces(
-  destination,
-  category
-){
-
-  try{
-
-    const raw =
-      localStorage.getItem(
-        placesCacheKey(
-          destination,
-          category
-        )
-      );
-
-    if(!raw)
-      return null;
-
-    const parsed =
-      JSON.parse(raw);
-
-    if(
-      Date.now() -
-      parsed.timestamp >
-      86400000
-    ){
-
-      localStorage.removeItem(
-        placesCacheKey(
-          destination,
-          category
-        )
-      );
-
-      return null;
-
-    }
-
-    return parsed.data;
-
-  }catch{
-
-    return null;
-
+  if(cached){
+    photoCache[key]=cached;
+    return cached;
   }
 
-}
+  /*
+    1. Foto indicada pelo próprio OSM.
+  */
 
+  if(place.image){
 
-function savePlacesCache(
-  destination,
-  category,
-  data
-){
+    photoCache[key]={
+      url:place.image,
+      source:"OpenStreetMap"
+    };
 
-  try{
-
-    localStorage.setItem(
-      placesCacheKey(
-        destination,
-        category
-      ),
-      JSON.stringify({
-        timestamp:Date.now(),
-        data
-      })
-    );
-
-  }catch{}
-
-}
-
-
-/* =========================================================
-   LOAD PLACES
-========================================================= */
-
-async function loadPlaces(
-  category,
-  background=false
-){
-
-  currentCategory=category;
-
-  const destination =
-    currentDestination;
-
-  const lat =
-    currentCoordinates.lat;
-
-  const lon =
-    currentCoordinates.lon;
-
-  const cached =
-    getCachedPlaces(
-      destination,
-      category
-    );
-
-  if(cached?.length){
-
-    currentPlaces=cached;
-
-    renderPlaces(
-      cached,
-      category
-    );
-
-    if(!background){
-
-      document.getElementById(
-        "placesStatus"
-      ).textContent =
-        `${cached.length} ${CATEGORY_CONFIG[category].label} encontrados.`;
-
-    }
-
-    // Atualização em segundo plano.
-    refreshPlacesBackground(
-      destination,
-      lat,
-      lon,
-      category
-    );
-
-    return;
-
+    return photoCache[key];
   }
 
-  if(!background){
+  /*
+    2. Wikimedia Commons por geolocalização.
+  */
 
-    updateLoader(
-      "A procurar locais...",
-      `A encontrar ${CATEGORY_CONFIG[category].label} perto de ${destination}`
-    );
+  if(Number.isFinite(place.lat) && Number.isFinite(place.lon)){
 
+    try{
+
+      const url=
+        `https://commons.wikimedia.org/w/api.php?`+
+        `action=query&generator=geosearch`+
+        `&ggsprimary=all&ggsnamespace=6`+
+        `&ggsradius=1000`+
+        `&ggscoord=${place.lat}|${place.lon}`+
+        `&ggslimit=1`+
+        `&prop=imageinfo`+
+        `&iiprop=url`+
+        `&iiurlwidth=900`+
+        `&format=json&origin=*`;
+
+      const response=await fetchTimeout(url,{},6000);
+      const data=await response.json();
+
+      const pages=Object.values(data.query?.pages||{});
+
+      const image=pages[0]?.imageinfo?.[0]?.thumburl ||
+                   pages[0]?.imageinfo?.[0]?.url;
+
+      if(image){
+
+        const result={
+          url:image,
+          source:"Wikimedia Commons"
+        };
+
+        cacheSet(key,result,1000*60*60*24*2);
+        photoCache[key]=result;
+
+        return result;
+      }
+
+    }catch(e){}
   }
 
-  const query =
-    buildOverpassQuery(
-      category,
-      lat,
-      lon
-    );
+  /*
+    3. Se não houver fotografia real, não fingimos que existe.
+  */
 
-  try{
-
-    const result =
-      await requestOverpass(
-        query
-      );
-
-    const places =
-      (result.elements || [])
-        .map(
-          element=>
-            normalizePlace(
-              element,
-              category
-            )
-        )
-        .filter(Boolean)
-        .slice(0,18);
-
-    currentPlaces=places;
-
-    savePlacesCache(
-      destination,
-      category,
-      places
-    );
-
-    renderPlaces(
-      places,
-      category
-    );
-
-    // Não esperar pelas fotografias.
-    enrichPlacesWithPhotos(
-      places
-    );
-
-  }catch(error){
-
-    console.error(error);
-
-    document.getElementById(
-      "placesGrid"
-    ).innerHTML=`
-
-      <div class="empty-state">
-
-        <div style="font-size:35px">
-          ✈️
-        </div>
-
-        <h3 style="margin-top:10px">
-          Não foi possível obter os locais agora.
-        </h3>
-
-        <p style="margin-top:7px">
-          A fonte de dados está temporariamente
-          indisponível. Tenta novamente.
-        </p>
-
-        <button
-          class="small-btn"
-          style="margin-top:15px"
-          onclick="loadPlaces('${category}')"
-        >
-          Tentar novamente
-        </button>
-
-      </div>
-
-    `;
-
-    document.getElementById(
-      "placesStatus"
-    ).textContent =
-      "Fonte temporariamente indisponível.";
-
-  }
-
+  return null;
 }
 
 
-async function refreshPlacesBackground(
-  destination,
-  lat,
-  lon,
-  category
-){
-
-  try{
-
-    const query =
-      buildOverpassQuery(
-        category,
-        lat,
-        lon
-      );
-
-    const result =
-      await requestOverpass(
-        query
-      );
-
-    const places =
-      (result.elements || [])
-        .map(
-          element=>
-            normalizePlace(
-              element,
-              category
-            )
-        )
-        .filter(Boolean)
-        .slice(0,18);
-
-    if(places.length){
-
-      savePlacesCache(
-        destination,
-        category,
-        places
-      );
-
-      currentPlaces=places;
-
-      renderPlaces(
-        places,
-        category
-      );
-
-      enrichPlacesWithPhotos(
-        places
-      );
-
-    }
-
-  }catch{}
-
-}
-
-
-/* =========================================================
+/* ============================================================
    RENDER PLACES
-========================================================= */
+   ============================================================ */
 
-function getPlaceholderEmoji(
-  category
-){
+async function loadCategory(category){
 
-  return CATEGORY_CONFIG[
-    category
-  ]?.emoji || "📍";
+  CURRENT.category=category;
 
-}
-
-
-function renderPlaces(
-  places,
-  category
-){
-
-  const grid =
-    document.getElementById(
-      "placesGrid"
+  document.querySelectorAll(".tab").forEach(btn=>{
+    btn.classList.toggle(
+      "active",
+      btn.dataset.category===category
     );
+  });
 
-  const status =
-    document.getElementById(
-      "placesStatus"
-    );
+  renderFilters(category);
+
+  $("results").innerHTML=`
+    <div class="loading-state">
+      <span class="big-plane">✈️</span>
+      A procurar locais reais...
+      <br>
+      <small>Estamos a consultar várias fontes em paralelo.</small>
+    </div>
+  `;
+
+  const places=await searchOverpass(category);
+
+  CURRENT.places=places;
 
   if(!places.length){
 
-    grid.innerHTML=`
-
+    $("results").innerHTML=`
       <div class="empty-state">
+        <span class="big-plane">✈️</span>
 
-        <div style="font-size:40px">
-          ${getPlaceholderEmoji(category)}
-        </div>
-
-        <h3 style="margin-top:10px">
-          Não encontramos locais com dados suficientes.
+        <h3 style="color:#172033;margin-bottom:6px">
+          Não encontrei locais nesta pesquisa.
         </h3>
 
-        <p style="margin-top:7px">
-          Experimenta outra categoria.
+        <p>
+          A fonte de mapas pode estar temporariamente indisponível
+          ou não existir informação suficiente nesta zona.
         </p>
 
+        <button class="retry" onclick="loadCategory('${category}')">
+          Tentar novamente
+        </button>
       </div>
-
     `;
 
-    status.textContent=
-      "Não foram encontrados resultados.";
-
     return;
-
   }
 
-  status.textContent =
-    `${places.length} ${CATEGORY_CONFIG[category].label} encontrados.`;
+  renderPlaces(places);
 
-  grid.innerHTML =
-    places.map(
-      place=>
-        placeCardHTML(place)
-    ).join("");
+  /*
+    Fotografias carregam depois dos cartões.
+    Isto é importante para a velocidade.
+  */
 
+  places.forEach((place,index)=>{
+
+    const run=()=>loadPhotoIntoCard(place,index);
+
+    if("requestIdleCallback" in window){
+      requestIdleCallback(run,{timeout:1800});
+    }else{
+      setTimeout(run,index*80);
+    }
+  });
 }
 
+function renderPlaces(places){
 
-function placeCardHTML(place){
+  $("results").innerHTML=places.map((place,index)=>{
 
-  const placeholder =
-    getPlaceholderEmoji(
-      place.category
-    );
+    const saved=isSaved(place.id);
 
-  const photo =
-    place.photo ||
-    "";
+    const tags=[];
 
-  const tags=[];
+    if(place.cuisine)
+      tags.push(place.cuisine.split(";")[0]);
 
-  if(place.cuisine)
-    tags.push(
-      escapeHTML(
-        place.cuisine
-      )
-    );
+    if(place.openingHours)
+      tags.push("Horários");
 
-  if(place.opening_hours)
-    tags.push("Horários");
+    if(place.wheelchair)
+      tags.push(`♿ ${place.wheelchair}`);
 
-  if(place.wheelchair)
-    tags.push("Acessibilidade");
+    if(place.outdoor==="yes")
+      tags.push("Exterior");
 
-  if(place.outdoor_seating==="yes")
-    tags.push("Esplanada");
+    if(place.takeaway==="yes")
+      tags.push("Takeaway");
 
-  if(place.reservation==="yes")
-    tags.push("Reservas");
+    if(place.delivery==="yes")
+      tags.push("Entrega");
 
-  if(place.takeaway==="yes")
-    tags.push("Takeaway");
+    return`
 
-  return `
+      <article class="place-card" id="place-${index}">
 
-    <article
-      class="place-card"
-      data-place-id="${escapeHTML(place.id)}"
-      onclick="openPlaceModal('${escapeHTML(place.id)}')"
-    >
-
-      <div class="place-image-wrap">
-
-        <div class="place-placeholder">
-          ${placeholder}
+        <div class="place-image" id="photo-${index}">
+          <div class="image-loading">
+            <span>
+              <span class="mini-plane">✈️</span>
+              fotografia real a carregar
+            </span>
+          </div>
         </div>
 
-        <img
-          class="place-photo"
-          ${
-            photo
-              ? `src="${escapeHTML(photo)}"`
-              : `src=""`
-          }
-          alt="${escapeHTML(place.name)}"
-          loading="lazy"
-          onerror="this.style.display='none'"
-        >
+        <div class="place-body">
 
-        <button
-          class="place-heart"
-          onclick="toggleFavorite(
-            event,
-            '${escapeHTML(place.id)}'
-          )"
-        >
-          ${isFavorite(place.id) ? "❤️" : "♡"}
-        </button>
+          <div class="place-top">
 
-      </div>
+            <div class="place-title">
+              ${escapeHTML(place.name)}
+            </div>
 
-      <div class="place-body">
+            <button
+              class="heart ${saved?"saved":""}"
+              onclick="toggleSaved(event,${index})"
+              title="Guardar"
+            >
+              ${saved?"♥":"♡"}
+            </button>
 
-        <h3>
-          ${escapeHTML(place.name)}
-        </h3>
+          </div>
 
-        <div class="place-meta">
+          <div class="place-meta">
+            ${escapeHTML(place.category)}
+          </div>
 
           ${
             place.address
-              ? "📍 "+
-                escapeHTML(
-                  place.address
-                )
-              : "📍 Localização no mapa"
+            ? `<div class="place-meta">📍 ${escapeHTML(place.address)}</div>`
+            : ""
           }
 
-        </div>
+          <div class="place-tags">
+            ${tags.slice(0,5).map(x=>`
+              <span class="tag">${escapeHTML(x)}</span>
+            `).join("")}
+          </div>
 
-        ${
-          tags.length
-            ? `
-              <div class="place-tags">
-                ${
-                  tags.slice(0,4)
-                    .map(tag=>
-                      `<span class="place-tag">
-                        ${tag}
-                      </span>`
-                    )
-                    .join("")
-                }
-              </div>
-            `
-            : ""
-        }
+          <div class="place-actions">
 
-        <div class="place-footer">
+            <button class="view" onclick="openPlace(${index})">
+              Ver tudo
+            </button>
 
-          <button
-            class="small-btn"
-            onclick="
-              event.stopPropagation();
-              openPlaceModal('${escapeHTML(place.id)}')
-            "
-          >
-            Ver detalhes
-          </button>
-
-          <a
-            class="small-btn"
-            target="_blank"
-            rel="noopener"
-            href="${googleMapsURL(place)}"
-            onclick="event.stopPropagation()"
-          >
-            🗺️ Mapa
-          </a>
-
-        </div>
-
-      </div>
-
-    </article>
-
-  `;
-
-}
-
-
-/* =========================================================
-   FOTOGRAFIAS WIKIMEDIA
-========================================================= */
-
-async function getPlacePhoto(
-  place
-){
-
-  const cacheKey =
-    PHOTO_CACHE_PREFIX+
-    place.id;
-
-  try{
-
-    const cached =
-      localStorage.getItem(
-        cacheKey
-      );
-
-    if(cached){
-
-      const parsed =
-        JSON.parse(cached);
-
-      if(
-        Date.now() -
-        parsed.timestamp <
-        604800000
-      ){
-
-        return parsed.url;
-
-      }
-
-    }
-
-  }catch{}
-
-
-  let searchTerms =
-    place.name;
-
-  if(place.wikidata)
-    searchTerms +=
-      " "+place.wikidata;
-
-  const url =
-    "https://commons.wikimedia.org/w/api.php" +
-    "?action=query" +
-    "&generator=search" +
-    "&gsrsearch="+
-    encodeURIComponent(
-      searchTerms
-    ) +
-    "&gsrnamespace=6" +
-    "&gsrlimit=1" +
-    "&prop=imageinfo" +
-    "&iiprop=url" +
-    "&iiurlwidth=800" +
-    "&format=json" +
-    "&origin=*";
-
-  const response =
-    await fetchWithTimeout(
-      url,
-      {},
-      5000
-    );
-
-  if(!response.ok)
-    return null;
-
-  const data =
-    await response.json();
-
-  const pages =
-    data.query?.pages;
-
-  if(!pages)
-    return null;
-
-  const page =
-    Object.values(
-      pages
-    )[0];
-
-  const photo =
-    page?.imageinfo?.[0]?.thumburl ||
-    page?.imageinfo?.[0]?.url ||
-    null;
-
-  if(!photo)
-    return null;
-
-  try{
-
-    localStorage.setItem(
-      cacheKey,
-      JSON.stringify({
-        timestamp:Date.now(),
-        url:photo
-      })
-    );
-
-  }catch{}
-
-  return photo;
-
-}
-
-
-async function enrichPlacesWithPhotos(
-  places
-){
-
-  // Fotografias em paralelo.
-  const jobs =
-    places
-      .slice(0,12)
-      .map(
-        async place=>{
-
-          try{
-
-            const photo =
-              await getPlacePhoto(
-                place
-              );
-
-            if(!photo)
-              return;
-
-            place.photo=photo;
-
-            const card =
-              document.querySelector(
-                `[data-place-id="${CSS.escape(place.id)}"]`
-              );
-
-            if(!card)
-              return;
-
-            const img =
-              card.querySelector(
-                ".place-photo"
-              );
-
-            if(img){
-
-              img.src=photo;
-
-              img.style.display=
-                "block";
-
-              requestAnimationFrame(
-                ()=>{
-                  img.classList.add(
-                    "loaded"
-                  );
-                }
-              );
-
+            ${
+              place.lat && place.lon
+              ? `<a
+                  target="_blank"
+                  rel="noopener"
+                  href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                    place.name+" "+(place.address||"")
+                  )}">
+                  Mapa
+                </a>`
+              : ""
             }
 
-          }catch{}
+          </div>
 
-        }
-      );
+        </div>
 
-  await Promise.allSettled(
-    jobs
-  );
+      </article>
+    `;
+  }).join("");
+}
 
+async function loadPhotoIntoCard(place,index){
+
+  const photo=await getPlacePhoto(place);
+
+  const box=$(`photo-${index}`);
+
+  if(!box)return;
+
+  if(photo?.url){
+
+    const img=document.createElement("img");
+
+    img.loading="lazy";
+    img.alt=place.name;
+    img.src=photo.url;
+
+    img.onerror=()=>{
+      box.innerHTML=`
+        <div class="image-loading">
+          📍 Sem fotografia disponível
+        </div>
+      `;
+    };
+
+    box.innerHTML="";
+    box.appendChild(img);
+
+  }else{
+
+    box.innerHTML=`
+      <div class="image-loading">
+        📍
+        <span style="margin-left:6px">
+          Sem fotografia disponível
+        </span>
+      </div>
+    `;
+  }
 }
 
 
-/* =========================================================
-   MAPA
-========================================================= */
+/* ============================================================
+   FILTERS
+   ============================================================ */
 
-function googleMapsURL(
-  place
-){
+function renderFilters(category){
 
-  return (
-    "https://www.google.com/maps/search/?api=1" +
-    "&query="+
-    encodeURIComponent(
-      `${place.name} ${place.lat},${place.lon}`
-    )
-  );
+  let html="";
 
+  if(category==="restaurants"){
+
+    html=`
+      <button class="filter" onclick="filterPlaces('cuisine','italian')">🇮🇹 Italiano</button>
+      <button class="filter" onclick="filterPlaces('cuisine','pizza')">🍕 Pizza</button>
+      <button class="filter" onclick="filterPlaces('cuisine','seafood')">🐟 Marisco</button>
+      <button class="filter" onclick="filterPlaces('cuisine','vegetarian')">🥗 Vegetariano</button>
+      <button class="filter" onclick="filterPlaces('all','')">Mostrar todos</button>
+    `;
+  }
+
+  else if(category==="cafes"){
+
+    html=`
+      <button class="filter" onclick="filterPlaces('cuisine','coffee')">☕ Café</button>
+      <button class="filter" onclick="filterPlaces('cuisine','bakery')">🥐 Padaria</button>
+      <button class="filter" onclick="filterPlaces('cuisine','dessert')">🍰 Sobremesas</button>
+      <button class="filter" onclick="filterPlaces('outdoor','yes')">🌿 Exterior</button>
+      <button class="filter" onclick="filterPlaces('all','')">Mostrar todos</button>
+    `;
+  }
+
+  else{
+
+    html=`
+      <button class="filter" onclick="filterPlaces('all','')">Todos</button>
+      <button class="filter" onclick="filterPlaces('wheelchair','yes')">♿ Acessibilidade</button>
+      <button class="filter" onclick="filterPlaces('website','yes')">🌐 Com website</button>
+      <button class="filter" onclick="filterPlaces('all','')">Limpar filtros</button>
+    `;
+  }
+
+  $("filters").innerHTML=html;
 }
 
+function filterPlaces(field,value){
 
-/* =========================================================
-   MODAL
-========================================================= */
-
-function openPlaceModal(
-  id
-){
-
-  const place =
-    currentPlaces.find(
-      item=>item.id===id
-    );
-
-  if(!place)
+  if(field==="all"){
+    renderPlaces(CURRENT.places);
     return;
+  }
 
-  const modal =
-    document.getElementById(
-      "placeModal"
-    );
+  const result=CURRENT.places.filter(place=>{
 
-  const image =
-    document.getElementById(
-      "modalImage"
-    );
+    if(field==="website")return Boolean(place.website);
 
-  image.src =
-    place.photo ||
-    "";
+    return normalize(place[field]).includes(normalize(value));
+  });
 
-  image.style.display =
-    place.photo
-      ? "block"
-      : "none";
+  renderPlaces(result);
+}
 
-  image.alt =
-    place.name;
 
-  document.getElementById(
-    "modalTitle"
-  ).textContent=
-    place.name;
+/* ============================================================
+   MODAL
+   ============================================================ */
 
-  document.getElementById(
-    "modalDescription"
-  ).textContent=
-    place.description ||
-    "Não existe uma descrição pública suficiente para este local.";
+function openPlace(index){
+
+  const place=CURRENT.places[index];
+
+  if(!place)return;
+
+  $("modalTitle").textContent=place.name;
+
+  $("modalSubtitle").textContent=place.category;
+
+  $("modalImage").innerHTML=`
+    <div class="image-loading">
+      <span class="big-plane">✈️</span>
+    </div>
+  `;
+
+  getPlacePhoto(place).then(photo=>{
+
+    if(photo?.url){
+
+      $("modalImage").innerHTML=`
+        <img
+          src="${escapeHTML(photo.url)}"
+          alt="${escapeHTML(place.name)}"
+        >
+      `;
+
+    }else{
+
+      $("modalImage").innerHTML=`
+        <div class="image-loading">
+          📍 Fotografia não disponível
+        </div>
+      `;
+    }
+
+  });
 
   const details=[];
 
-  addDetail(
-    details,
-    "Categoria",
-    place.cuisine ||
-    place.tourism ||
-    place.category
-  );
+  function detail(label,value){
 
-  addDetail(
-    details,
-    "Morada",
-    place.address
-  );
+    if(!value)return;
 
-  addDetail(
-    details,
-    "Horário",
-    place.opening_hours
-  );
+    details.push(`
+      <div class="detail">
+        <strong>${escapeHTML(label)}</strong>
+        ${escapeHTML(value)}
+      </div>
+    `);
+  }
 
-  addDetail(
-    details,
-    "Telefone",
-    place.phone
-  );
+  detail("📍 Morada",place.address);
+  detail("🏷️ Categoria",place.category);
+  detail("🍴 Cozinha",place.cuisine);
+  detail("🕐 Horário",place.openingHours);
+  detail("📞 Telefone",place.phone);
+  detail("🌐 Website",place.website);
+  detail("✉️ Email",place.email);
+  detail("♿ Acessibilidade",place.wheelchair);
+  detail("🌿 Lugares exteriores",place.outdoor);
+  detail("🥡 Takeaway",place.takeaway);
+  detail("🛵 Entrega",place.delivery);
+  detail("📅 Reservas",place.reservation);
+  detail("📶 Internet",place.internet);
+  detail("🚭 Fumar",place.smoking);
+  detail("🏢 Operador",place.operator);
+  detail("💶 Preço",place.price);
+  detail("📝 Descrição",place.description);
 
-  addDetail(
-    details,
-    "Website",
-    place.website
-  );
+  $("modalDetails").innerHTML=
+    details.length
+    ? details.join("")
+    : `<div class="detail" style="grid-column:1/-1">
+        Não existem mais informações públicas disponíveis para este local.
+      </div>`;
 
-  addDetail(
-    details,
-    "Acessibilidade",
-    place.wheelchair
-  );
-
-  addDetail(
-    details,
-    "Esplanada",
-    place.outdoor_seating
-  );
-
-  addDetail(
-    details,
-    "Reservas",
-    place.reservation
-  );
-
-  addDetail(
-    details,
-    "Takeaway",
-    place.takeaway
-  );
-
-  addDetail(
-    details,
-    "Entrega",
-    place.delivery
-  );
-
-  addDetail(
-    details,
-    "Internet",
-    place.internet_access
-  );
-
-  addDetail(
-    details,
-    "Preço",
-    place.price
-  );
-
-  addDetail(
-    details,
-    "Quartos",
-    place.rooms
-  );
-
-  document.getElementById(
-    "modalDetails"
-  ).innerHTML =
-    details.join("");
-
-  const actions=[];
-
-  actions.push(`
-    <a
-      href="${googleMapsURL(place)}"
-      target="_blank"
-      rel="noopener"
-    >
-      🗺️ Abrir no mapa
-    </a>
-  `);
+  const buttons=[];
 
   if(place.website){
 
-    let website =
-      place.website;
-
-    if(
-      !website.startsWith(
-        "http://"
-      ) &&
-      !website.startsWith(
-        "https://"
-      )
-    ){
-
-      website=
-        "https://"+
-        website;
-
-    }
-
-    actions.push(`
+    buttons.push(`
       <a
-        href="${escapeHTML(website)}"
+        href="${escapeHTML(place.website)}"
         target="_blank"
         rel="noopener"
       >
         🌐 Website
       </a>
     `);
-
   }
 
   if(place.phone){
 
-    actions.push(`
-      <a
-        href="tel:${escapeHTML(place.phone)}"
-      >
+    buttons.push(`
+      <a href="tel:${escapeHTML(place.phone)}">
         📞 Ligar
       </a>
     `);
-
   }
 
-  document.getElementById(
-    "modalActions"
-  ).innerHTML =
-    actions.join("");
+  if(place.lat && place.lon){
 
-  modal.classList.add(
-    "active"
-  );
-
-}
-
-
-function addDetail(
-  array,
-  label,
-  value
-){
-
-  if(
-    value === null ||
-    value === undefined ||
-    value === "" ||
-    value === "no" ||
-    value === "unknown"
-  )
-    return;
-
-  array.push(`
-
-    <div class="detail-row">
-
-      <small>
-        ${escapeHTML(label)}
-      </small>
-
-      <strong>
-        ${escapeHTML(value)}
-      </strong>
-
-    </div>
-
-  `);
-
-}
-
-
-function closePlaceModal(){
-
-  document
-    .getElementById(
-      "placeModal"
-    )
-    .classList.remove(
-      "active"
-    );
-
-}
-
-
-function closeModalOutside(
-  event
-){
-
-  if(
-    event.target.id ===
-    "placeModal"
-  ){
-
-    closePlaceModal();
-
+    buttons.push(`
+      <a
+        href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+          place.name+" "+(place.address||"")
+        )}"
+        target="_blank"
+        rel="noopener"
+      >
+        🗺️ Abrir no mapa
+      </a>
+    `);
   }
 
+  $("modalButtons").innerHTML=buttons.join("");
+
+  $("placeModal").classList.add("show");
 }
 
+function closeModal(){
+  $("placeModal").classList.remove("show");
+}
 
-/* =========================================================
+$("placeModal").addEventListener("click",e=>{
+  if(e.target.id==="placeModal")closeModal();
+});
+
+
+/* ============================================================
    FAVORITOS
-========================================================= */
+   ============================================================ */
 
-function getFavorites(){
+function getSaved(){
 
   try{
-
-    return JSON.parse(
-      localStorage.getItem(
-        "escapadinha_favorites"
-      ) || "[]"
-    );
-
-  }catch{
-
-    return [];
-
+    return JSON.parse(localStorage.getItem("escapadinha:favorites")||"[]");
+  }catch(e){
+    return[];
   }
-
 }
 
-
-function saveFavorites(
-  favorites
-){
-
-  localStorage.setItem(
-    "escapadinha_favorites",
-    JSON.stringify(
-      favorites
-    )
-  );
-
+function isSaved(id){
+  return getSaved().some(x=>x.id===id);
 }
 
-
-function isFavorite(id){
-
-  return getFavorites()
-    .includes(id);
-
-}
-
-
-function toggleFavorite(
-  event,
-  id
-){
+function toggleSaved(event,index){
 
   event.stopPropagation();
 
-  const favorites =
-    getFavorites();
+  const place=CURRENT.places[index];
 
-  const index =
-    favorites.indexOf(id);
+  if(!place)return;
 
-  if(index>=0)
-    favorites.splice(
-      index,
-      1
+  let saved=getSaved();
+
+  if(saved.some(x=>x.id===place.id)){
+
+    saved=saved.filter(x=>x.id!==place.id);
+    showToast("Local removido da tua viagem.");
+
+  }else{
+
+    saved.push(place);
+    showToast("♡ Local guardado na tua viagem!");
+
+  }
+
+  localStorage.setItem(
+    "escapadinha:favorites",
+    JSON.stringify(saved)
+  );
+
+  renderPlaces(CURRENT.places);
+  renderTripSummary();
+}
+
+
+/* ============================================================
+   PLANEADOR
+   ============================================================ */
+
+$("plannerForm").addEventListener("submit",async e=>{
+
+  e.preventDefault();
+
+  let destination=DESTINATIONS.find(
+    d=>normalize(d.city)===normalize($("destinationInput").value)
+  );
+
+  if(!destination){
+
+    destination=await resolveDestination(
+      $("destinationInput").value
     );
-  else
-    favorites.push(id);
+  }
 
-  saveFavorites(
-    favorites
+  if(!destination){
+
+    showToast("Escolhe ou escreve um destino válido.");
+    $("destinationInput").focus();
+    return;
+  }
+
+  CURRENT.destination=destination;
+
+  const plan={
+    destination:destination.city,
+    country:destination.country,
+    code:destination.code,
+    people:Number($("people").value)||2,
+    budget:$("budget").value,
+    departure:$("departure").value,
+    returnDate:$("returnDate").value,
+    tripType:$("tripType").value,
+    stayType:$("stayType").value
+  };
+
+  localStorage.setItem(
+    "escapadinha:plan",
+    JSON.stringify(plan)
   );
 
-  renderPlaces(
-    currentPlaces,
-    currentCategory
-  );
+  await openTrip(destination);
 
-  renderSavedFavorites();
+});
+
+
+/* ============================================================
+   RESOLVE DESTINO LIVRE
+   ============================================================ */
+
+async function resolveDestination(query){
+
+  if(!query?.trim())return null;
+
+  const key="geocode:"+normalize(query);
+
+  const cached=cacheGet(key,1000*60*60*24*7);
+
+  if(cached)return cached;
+
+  try{
+
+    const url=
+      `https://nominatim.openstreetmap.org/search?`+
+      `format=jsonv2&limit=1&accept-language=pt&q=`+
+      encodeURIComponent(query);
+
+    const response=await fetchTimeout(
+      url,
+      {},
+      6500
+    );
+
+    const data=await response.json();
+
+    if(!data?.[0])return null;
+
+    const item=data[0];
+
+    const countryCode=
+      item.address?.country_code?.toUpperCase();
+
+    const countryName=
+      item.address?.country || "Destino";
+
+    const result={
+      city:item.address?.city ||
+           item.address?.town ||
+           item.address?.municipality ||
+           item.name ||
+           query,
+
+      country:countryName,
+
+      code:countryCode || "",
+
+      lat:Number(item.lat),
+      lon:Number(item.lon),
+
+      flag:countryFlag(countryCode),
+
+      region:item.address?.state || ""
+    };
+
+    cacheSet(key,result,1000*60*60*24*7);
+
+    return result;
+
+  }catch(e){
+
+    return null;
+  }
+}
+
+function countryFlag(code){
+
+  if(!code || code.length!==2)return"🌍";
+
+  return code
+    .toUpperCase()
+    .replace(/./g,c=>String.fromCodePoint(127397+c.charCodeAt()));
 
 }
 
 
-function renderSavedFavorites(){
+/* ============================================================
+   ABRIR VIAGEM
+   ============================================================ */
 
-  const box =
-    document.getElementById(
-      "savedFavorites"
-    );
+async function openTrip(destination){
 
-  const ids =
-    getFavorites();
+  showLoader(
+    `A preparar ${destination.city}...`,
+    "A juntar informação do país, meteorologia e mapa."
+  );
 
-  if(!ids.length){
+  $("tripSection").style.display="block";
 
-    box.innerHTML=`
-      <p style="
-        color:var(--muted);
-        font-size:13px;
-        margin-top:10px;
-      ">
-        Ainda não guardaste locais.
-        Carrega em ♡ nos restaurantes,
-        cafés ou atrações.
-      </p>
-    `;
+  $("tripFlag").textContent=
+    destination.flag || countryFlag(destination.code);
+
+  $("tripDestination").textContent=destination.city;
+
+  $("tripCountry").textContent=
+    destination.region
+    ? `${destination.country} · ${destination.region}`
+    : destination.country;
+
+  /*
+    Estas chamadas são independentes.
+    Fazemos em paralelo.
+  */
+
+  const countryPromise=getCountryData(destination.code);
+
+  const weatherPromise=loadWeather(destination);
+
+  const placesPromise=searchOverpass("attractions");
+
+  const [country,places]=await Promise.all([
+    countryPromise,
+    placesPromise
+  ]);
+
+  CURRENT.country=country;
+
+  renderInfo(country,destination);
+
+  renderPlaces(places);
+  CURRENT.places=places;
+
+  renderTravelLinks(destination);
+
+  renderTripSummary();
+
+  hideLoader();
+
+  $("tripSection").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+  /*
+    A meteorologia pode acabar um pouco depois.
+    Não bloqueamos o resto da interface.
+  */
+
+  weatherPromise.catch(()=>{});
+
+  /*
+    Começa a carregar fotografias dos primeiros resultados
+    em segundo plano.
+  */
+
+  places.slice(0,8).forEach((place,index)=>{
+    setTimeout(()=>loadPhotoIntoCard(place,index),index*100);
+  });
+
+}
+
+
+/* ============================================================
+   INFO
+   ============================================================ */
+
+function renderInfo(country,destination){
+
+  const data=[
+    ["💰","Moeda",country.currency],
+    ["🏛️","Capital",country.capital],
+    ["🕐","Fuso",country.timezone],
+    ["🗣️","Línguas",country.languages],
+    ["🔌","Tomadas",country.plugs],
+    ["🚨","Emergências",country.emergency]
+  ];
+
+  $("infoGrid").innerHTML=data.map(x=>`
+    <div class="info-card">
+      <div class="info-icon">${x[0]}</div>
+      <strong>${escapeHTML(x[1])}</strong>
+      <span>${escapeHTML(x[2] || "Não disponível")}</span>
+    </div>
+  `).join("");
+}
+
+
+/* ============================================================
+   TRAVEL LINKS
+   ============================================================ */
+
+function renderTravelLinks(destination){
+
+  const q=encodeURIComponent(destination.city);
+
+  $("travelLinks").innerHTML=`
+
+    <div class="link-card">
+      <h3>✈️ Voos</h3>
+      <p>Pesquisa voos para ${escapeHTML(destination.city)}.</p>
+      <a
+        target="_blank"
+        rel="noopener"
+        href="https://www.google.com/travel/flights?q=${q}"
+      >
+        Pesquisar voos →
+      </a>
+    </div>
+
+    <div class="link-card">
+      <h3>🏨 Hotéis</h3>
+      <p>Pesquisa alojamento e compara opções disponíveis.</p>
+      <a
+        target="_blank"
+        rel="noopener"
+        href="https://www.google.com/travel/search?q=${encodeURIComponent(
+          "hotéis em "+destination.city
+        )}"
+      >
+        Pesquisar hotéis →
+      </a>
+    </div>
+
+    <div class="link-card">
+      <h3>🗺️ Mapas</h3>
+      <p>Explora a cidade, transportes e pontos de interesse.</p>
+      <a
+        target="_blank"
+        rel="noopener"
+        href="https://www.google.com/maps/search/?api=1&query=${q}"
+      >
+        Abrir mapas →
+      </a>
+    </div>
+
+    <div class="link-card">
+      <h3>📚 Informações</h3>
+      <p>Consulta informação adicional antes da viagem.</p>
+      <a
+        target="_blank"
+        rel="noopener"
+        href="https://www.google.com/search?q=${encodeURIComponent(
+          destination.city+" turismo informação oficial"
+        )}"
+      >
+        Pesquisar →
+      </a>
+    </div>
+  `;
+}
+
+
+/* ============================================================
+   MALA
+   ============================================================ */
+
+function generatePacking(){
+
+  const weather=CURRENT.weather?.[0];
+
+  if(!weather){
+
+    $("packingText").textContent=
+      "Ainda não temos meteorologia suficiente para personalizar a mala.";
 
     return;
-
   }
 
-  const places =
-    currentPlaces.filter(
-      place=>ids.includes(
-        place.id
-      )
-    );
+  const c=weather.current;
+  const temp=Number(c.temperature_2m);
+  const rain=Number(c.precipitation);
+  const code=Number(c.weather_code);
 
-  if(!places.length){
+  const things=[
+    "🪪 Documento de identificação",
+    "🔌 Carregador",
+    "💳 Cartão / dinheiro",
+    "🧴 Higiene pessoal"
+  ];
 
-    box.innerHTML=`
-      <p style="
-        color:var(--muted);
-        font-size:13px;
-      ">
-        Tens locais favoritos guardados
-        de outras pesquisas.
-      </p>
-    `;
+  if(temp<12){
+    things.push("🧥 Casaco quente");
+  }else if(temp<20){
+    things.push("🧥 Casaco leve");
+  }else{
+    things.push("👕 Roupa leve");
+  }
 
+  if(rain>0 || [51,53,55,61,63,65,80,81,82,95].includes(code)){
+    things.push("☔ Impermeável / guarda-chuva");
+  }
+
+  if(temp>24){
+    things.push("🧴 Protetor solar");
+    things.push("🕶️ Óculos de sol");
+  }
+
+  $("packingText").textContent=
+    "Para as condições atuais: "+things.join(" · ");
+}
+
+
+/* ============================================================
+   MAPA
+   ============================================================ */
+
+function openDestinationMap(){
+
+  if(!CURRENT.destination)return;
+
+  const d=CURRENT.destination;
+
+  window.open(
+    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+      d.city+" "+d.country
+    )}`,
+    "_blank",
+    "noopener"
+  );
+}
+
+
+/* ============================================================
+   TRAILER
+   ============================================================ */
+
+async function createTrailer(){
+
+  const saved=getSaved();
+
+  if(!CURRENT.destination){
+
+    showToast("Primeiro escolhe um destino.");
     return;
-
   }
 
-  box.innerHTML=`
+  if(!saved.length){
 
-    <h4 style="margin-bottom:10px">
-      ❤️ Os teus favoritos
-    </h4>
+    showToast("Guarda alguns locais para criar o trailer.");
+    return;
+  }
 
-    <div style="
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    ">
+  $("modalTitle").textContent=
+    `🎬 ${CURRENT.destination.city}`;
 
-      ${
-        places.map(
-          place=>`
-            <button
-              class="small-btn"
-              onclick="openPlaceModal('${escapeHTML(place.id)}')"
-            >
-              ${escapeHTML(place.name)}
-            </button>
-          `
-        ).join("")
-      }
+  $("modalSubtitle").textContent=
+    `${saved.length} locais guardados`;
 
+  const first=await getPlacePhoto(saved[0]);
+
+  $("modalImage").innerHTML=first?.url
+    ? `<img src="${escapeHTML(first.url)}" alt="">`
+    : `<div class="image-loading">🎬</div>`;
+
+  $("modalDetails").innerHTML=saved.slice(0,12).map((place,i)=>`
+    <div class="detail">
+      <strong>${i+1}. ${escapeHTML(place.category)}</strong>
+      ${escapeHTML(place.name)}
+    </div>
+  `).join("");
+
+  $("modalButtons").innerHTML=`
+    <button onclick="closeModal()">Fechar trailer</button>
+  `;
+
+  $("placeModal").classList.add("show");
+}
+
+
+/* ============================================================
+   SURPRESA
+   ============================================================ */
+
+$("surpriseBtn").addEventListener("click",async()=>{
+
+  const d=DESTINATIONS[
+    Math.floor(Math.random()*DESTINATIONS.length)
+  ];
+
+  $("destinationInput").value=d.city;
+
+  const types=[
+    "Descanso",
+    "Aventura",
+    "Cultura",
+    "Gastronomia",
+    "Natureza",
+    "Mistura de tudo"
+  ];
+
+  $("tripType").value=
+    types[Math.floor(Math.random()*types.length)];
+
+  const stays=[
+    "hotel",
+    "hostel",
+    "airbnb",
+    "other"
+  ];
+
+  $("stayType").value=
+    stays[Math.floor(Math.random()*stays.length)];
+
+  showToast(
+    `🎲 A surpresa escolheu ${d.flag} ${d.city}.`
+  );
+});
+
+
+$("randomDestinationBtn").addEventListener("click",()=>{
+
+  const d=
+    DESTINATIONS[
+      Math.floor(Math.random()*DESTINATIONS.length)
+    ];
+
+  $("destinationInput").value=d.city;
+
+  showToast(
+    `🌍 Destino escolhido: ${d.flag} ${d.city}`
+  );
+});
+
+
+/* ============================================================
+   TABS
+   ============================================================ */
+
+document.querySelectorAll(".tab").forEach(btn=>{
+
+  btn.addEventListener("click",()=>{
+
+    if(!CURRENT.destination)return;
+
+    loadCategory(btn.dataset.category);
+
+  });
+
+});
+
+
+/* ============================================================
+   RESET
+   ============================================================ */
+
+function resetTrip(){
+
+  $("tripSection").style.display="none";
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  showToast("Podes escolher outro destino.");
+}
+
+
+/* ============================================================
+   SUMMARY
+   ============================================================ */
+
+function renderTripSummary(){
+
+  const plan=JSON.parse(
+    localStorage.getItem("escapadinha:plan")||"null"
+  );
+
+  const saved=getSaved();
+
+  if(!plan){
+
+    $("tripSummary").innerHTML="";
+    $("savedCount").textContent="";
+    return;
+  }
+
+  const dates=
+    plan.departure
+    ? `${formatDate(plan.departure)} → ${formatDate(plan.returnDate)}`
+    : "Datas não definidas";
+
+  $("tripSummary").innerHTML=`
+
+    <div class="summary-box">
+      <small>Destino</small>
+      <strong>${escapeHTML(plan.destination)}</strong>
+    </div>
+
+    <div class="summary-box">
+      <small>Pessoas</small>
+      <strong>${plan.people}</strong>
+    </div>
+
+    <div class="summary-box">
+      <small>Datas</small>
+      <strong>${escapeHTML(dates)}</strong>
+    </div>
+
+    <div class="summary-box">
+      <small>Orçamento</small>
+      <strong>${plan.budget ? escapeHTML(plan.budget)+" €" : "—"}</strong>
+    </div>
+
+    <div class="summary-box">
+      <small>Estadia</small>
+      <strong>${escapeHTML(
+        ({
+          hotel:"🏨 Hotel",
+          hostel:"🛌 Hostel",
+          airbnb:"🏠 Airbnb",
+          other:"🏡 Outros"
+        })[plan.stayType] || "—"
+      )}</strong>
     </div>
 
   `;
 
+  $("savedCount").textContent=
+    saved.length
+    ? `❤️ ${saved.length} local${saved.length===1?"":"is"} guardado${saved.length===1?"":"s"}.`
+    : "Ainda não guardaste locais. Carrega em ♡ nos restaurantes, cafés ou atrações.";
 }
 
+function formatDate(value){
 
-/* =========================================================
-   TRIP STORAGE
-========================================================= */
-
-function saveTrip(){
-
-  const trip={
-
-    destination:
-      currentDestination,
-
-    country:
-      currentCountry,
-
-    people:
-      Number(
-        document.getElementById(
-          "peopleInput"
-        ).value
-      ) || 1,
-
-    departure:
-      document.getElementById(
-        "departureDate"
-      ).value,
-
-    returnDate:
-      document.getElementById(
-        "returnDate"
-      ).value,
-
-    budget:
-      Number(
-        document.getElementById(
-          "budgetInput"
-        ).value
-      ) || 0,
-
-    lodging:
-      document.getElementById(
-        "lodgingInput"
-      ).value,
-
-    tripType:
-      selectedTripType
-
-  };
-
-  localStorage.setItem(
-    "escapadinha_trip",
-    JSON.stringify(trip)
-  );
-
-  renderTrip();
-
-}
-
-
-function renderTrip(){
-
-  let trip=null;
+  if(!value)return"—";
 
   try{
-
-    trip =
-      JSON.parse(
-        localStorage.getItem(
-          "escapadinha_trip"
-        )
-      );
-
-  }catch{}
-
-  if(!trip){
-
-    document.getElementById(
-      "tripDestination"
-    ).textContent="—";
-
-    document.getElementById(
-      "tripPeople"
-    ).textContent="—";
-
-    document.getElementById(
-      "tripBudget"
-    ).textContent="—";
-
-    return;
-
+    return new Date(value+"T12:00:00")
+      .toLocaleDateString("pt-PT");
+  }catch(e){
+    return value;
   }
-
-  document.getElementById(
-    "tripDestination"
-  ).textContent=
-    trip.destination || "—";
-
-  document.getElementById(
-    "tripPeople"
-  ).textContent=
-    trip.people || "—";
-
-  document.getElementById(
-    "tripBudget"
-  ).textContent=
-    trip.budget
-      ? `${trip.budget} €`
-      : "—";
-
 }
 
 
-/* =========================================================
+/* ============================================================
    CHECKLIST
-========================================================= */
+   ============================================================ */
 
-function setupChecklist(){
+document.querySelectorAll("[data-check]").forEach(input=>{
 
-  document
-    .querySelectorAll(
-      ".check-item input"
-    )
-    .forEach(input=>{
+  const key="escapadinha:check:"+input.dataset.check;
 
-      const key =
-        "escapadinha_check_"+
-        input.dataset.check;
+  input.checked=localStorage.getItem(key)==="1";
 
-      input.checked =
-        localStorage.getItem(
-          key
-        ) === "1";
-
-      input.addEventListener(
-        "change",
-        ()=>{
-          localStorage.setItem(
-            key,
-            input.checked
-              ? "1"
-              : "0"
-          );
-        }
-      );
-
-    });
-
-}
-
-
-/* =========================================================
-   ABRIR DESTINO
-========================================================= */
-
-async function openDestination(
-  destination
-){
-
-  showLoader(
-    "A preparar "+destination+"...",
-    "Estamos a localizar o destino"
-  );
-
-  try{
-
-    currentDestination=
-      destination;
-
-    currentCoordinates=
-      await resolveDestination(
-        destination
-      );
-
-    document.getElementById(
-      "destinationTitle"
-    ).textContent=
-      destination;
-
-    document.getElementById(
-      "destinationSubtitle"
-    ).textContent=
-      currentCoordinates.country
-        ? `📍 ${currentCoordinates.country}`
-        : "📍 Destino localizado no mapa";
-
-    document.getElementById(
-      "destinationSection"
-    ).style.display="block";
-
-    scrollToSection(
-      "destinationSection"
+  input.addEventListener("change",()=>{
+    localStorage.setItem(
+      key,
+      input.checked?"1":"0"
     );
-
-    saveTrip();
-
-    updateLoader(
-      "A procurar informações...",
-      "A carregar dados do destino"
-    );
-
-    const countryCode =
-      findCountryCode(
-        destination
-      ) ||
-      currentCoordinates.countryCode;
-
-    if(countryCode){
-
-      const countryData =
-        await loadCountryData(
-          countryCode
-        );
-
-      renderCountryInfo(
-        countryData,
-        countryCode
-      );
-
-    }else{
-
-      renderCountryInfo(
-        null,
-        ""
-      );
-
-    }
-
-    // Weather + first category
-    // começam em paralelo.
-    await Promise.allSettled([
-
-      loadDestinationWeather(),
-
-      loadPlaces(
-        currentCategory
-      )
-
-    ]);
-
-    renderTrip();
-    renderSavedFavorites();
-
-  }catch(error){
-
-    console.error(error);
-
-    alert(
-      "Não foi possível localizar este destino. Tenta outra cidade."
-    );
-
-  }finally{
-
-    hideLoader();
-
-  }
-
-}
-
-
-async function chooseDestination(
-  destination
-){
-
-  document.getElementById(
-    "destinationInput"
-  ).value=destination;
-
-  document
-    .getElementById(
-      "destinationDropdown"
-    )
-    .classList.remove(
-      "active"
-    );
-
-}
-
-
-function backToPlanner(){
-
-  document.getElementById(
-    "destinationSection"
-  ).style.display="none";
-
-  scrollToSection(
-    "inicio"
-  );
-
-}
-
-
-/* =========================================================
-   FORM
-========================================================= */
-
-document.getElementById(
-  "plannerForm"
-).addEventListener(
-  "submit",
-  async event=>{
-
-    event.preventDefault();
-
-    const destination =
-      document.getElementById(
-        "destinationInput"
-      ).value.trim();
-
-    if(!destination){
-
-      alert(
-        "Escolhe primeiro um destino."
-      );
-
-      return;
-
-    }
-
-    await openDestination(
-      destination
-    );
-
-  }
-);
-
-
-/* =========================================================
-   TRIP TYPE
-========================================================= */
-
-document
-  .querySelectorAll(
-    ".trip-type"
-  )
-  .forEach(button=>{
-
-    button.addEventListener(
-      "click",
-      ()=>{
-
-        document
-          .querySelectorAll(
-            ".trip-type"
-          )
-          .forEach(
-            item=>
-              item.classList.remove(
-                "active"
-              )
-          );
-
-        button.classList.add(
-          "active"
-        );
-
-        selectedTripType =
-          button.dataset.trip;
-
-      }
-    );
-
   });
 
+});
 
-/* =========================================================
-   TABS
-========================================================= */
 
-document
-  .querySelectorAll(
-    ".tab"
-  )
-  .forEach(button=>{
-
-    button.addEventListener(
-      "click",
-      async ()=>{
-
-        document
-          .querySelectorAll(
-            ".tab"
-          )
-          .forEach(
-            item=>
-              item.classList.remove(
-                "active"
-              )
-          );
-
-        button.classList.add(
-          "active"
-        );
-
-        const category =
-          button.dataset.category;
-
-        currentCategory =
-          category;
-
-        if(!currentCoordinates)
-          return;
-
-        showLoader(
-          "A procurar locais...",
-          `A procurar ${CATEGORY_CONFIG[category].label}`
-        );
-
-        try{
-
-          await loadPlaces(
-            category
-          );
-
-        }finally{
-
-          hideLoader();
-
-        }
-
-      }
-    );
-
-  });
-
-
-/* =========================================================
-   SEARCH INPUTS
-========================================================= */
-
-const destinationInput =
-  document.getElementById(
-    "destinationInput"
-  );
-
-destinationInput.addEventListener(
-  "focus",
-  ()=>{
-    renderDestinationDropdown(
-      destinationInput.value
-    );
-
-    document
-      .getElementById(
-        "destinationDropdown"
-      )
-      .classList.add(
-        "active"
-      );
-  }
-);
-
-
-destinationInput.addEventListener(
-  "input",
-  ()=>{
-    renderDestinationDropdown(
-      destinationInput.value
-    );
-
-    document
-      .getElementById(
-        "destinationDropdown"
-      )
-      .classList.add(
-        "active"
-      );
-  }
-);
-
-
-const nationalityInput =
-  document.getElementById(
-    "nationalityInput"
-  );
-
-nationalityInput.addEventListener(
-  "focus",
-  ()=>{
-    renderCountryDropdown(
-      nationalityInput.value
-    );
-
-    document
-      .getElementById(
-        "countryDropdown"
-      )
-      .classList.add(
-        "active"
-      );
-  }
-);
-
-
-nationalityInput.addEventListener(
-  "input",
-  ()=>{
-
-    currentCountry=null;
-
-    renderCountryDropdown(
-      nationalityInput.value
-    );
-
-    document
-      .getElementById(
-        "countryDropdown"
-      )
-      .classList.add(
-        "active"
-      );
-
-  }
-);
-
-
-/* =========================================================
-   CLICAR FORA
-========================================================= */
-
-document.addEventListener(
-  "click",
-  event=>{
-
-    if(
-      !event.target.closest(
-        "#destinationInput"
-      ) &&
-      !event.target.closest(
-        "#destinationDropdown"
-      )
-    ){
-
-      document
-        .getElementById(
-          "destinationDropdown"
-        )
-        .classList.remove(
-          "active"
-        );
-
-    }
-
-    if(
-      !event.target.closest(
-        "#nationalityInput"
-      ) &&
-      !event.target.closest(
-        "#countryDropdown"
-      )
-    ){
-
-      document
-        .getElementById(
-          "countryDropdown"
-        )
-        .classList.remove(
-          "active"
-        );
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   POPULARES
-========================================================= */
-
-async function surpriseDestination(){
-
-  const destinations=[
-    "Funchal",
-    "Lisboa",
-    "Porto",
-    "Paris",
-    "Roma",
-    "Barcelona",
-    "Tóquio"
-  ];
-
-  const destination =
-    destinations[
-      Math.floor(
-        Math.random()*
-        destinations.length
-      )
-    ];
-
-  document.getElementById(
-    "destinationInput"
-  ).value=
-    destination;
-
-  await openDestination(
-    destination
-  );
-
-}
-
-
-async function useMadeira(){
-
-  document.getElementById(
-    "destinationInput"
-  ).value=
-    "Funchal";
-
-  await openDestination(
-    "Funchal"
-  );
-
-}
-
-
-function setQuickTrip(
-  type
-){
-
-  selectedTripType=type;
-
-  document
-    .querySelectorAll(
-      ".trip-type"
-    )
-    .forEach(button=>{
-
-      button.classList.toggle(
-        "active",
-        button.dataset.trip===type
-      );
-
-    });
-
-  scrollToSection(
-    "inicio"
-  );
-
-}
-
-
-/* =========================================================
-   QUICK DESTINATION CARDS
-========================================================= */
-
-document
-  .querySelectorAll(
-    ".destination-card"
-  )
-  .forEach(card=>{
-
-    card.addEventListener(
-      "click",
-      ()=>{
-
-        // O onclick já trata.
-      }
-    );
-
-  });
-
-
-/* =========================================================
+/* ============================================================
    INIT
-========================================================= */
+   ============================================================ */
 
 async function init(){
 
-  setupDates();
+  renderFeatured();
 
-  setupChecklist();
+  setupDestinationDropdown();
 
-  renderTrip();
+  setupCountryDropdown();
 
-  renderSavedFavorites();
+  /*
+    Carrega países em background.
+    Não bloqueia o site.
+  */
 
-  renderDestinationDropdown("");
-
-  // Países são carregados em segundo plano
-  // para não atrasar a página inicial.
   loadCountries();
+
+  /*
+    Datas mínimas.
+  */
+
+  const today=new Date();
+  const iso=today.toISOString().split("T")[0];
+
+  $("departure").min=iso;
+  $("returnDate").min=iso;
+
+  $("departure").addEventListener("change",()=>{
+    $("returnDate").min=$("departure").value;
+  });
+
+  /*
+    Recuperar viagem.
+  */
+
+  try{
+
+    const plan=JSON.parse(
+      localStorage.getItem("escapadinha:plan")||"null"
+    );
+
+    if(plan){
+
+      $("destinationInput").value=plan.destination;
+      $("people").value=plan.people||2;
+      $("budget").value=plan.budget||"";
+      $("departure").value=plan.departure||"";
+      $("returnDate").value=plan.returnDate||"";
+      $("tripType").value=plan.tripType||"Descanso";
+      $("stayType").value=plan.stayType||"hotel";
+
+      const d=DESTINATIONS.find(
+        x=>normalize(x.city)===normalize(plan.destination)
+      );
+
+      if(d){
+
+        /*
+          Não abrir automaticamente e fazer pedidos sem o utilizador.
+          Apenas deixa a viagem pronta.
+        */
+
+        CURRENT.destination=d;
+
+      }
+    }
+
+  }catch(e){}
+
+  renderTripSummary();
 
 }
 
