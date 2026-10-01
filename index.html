@@ -4,18 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🌍 Escapadinha</title>
+<meta name="description" content="Planeia a tua próxima escapadinha com destinos, meteorologia, lugares, restaurantes, cafés, alojamento, voos e roteiro.">
 
 <style>
 :root{
-  --bg:#f7f7f3;
+  --bg:#f7f8f6;
   --card:rgba(255,255,255,.86);
-  --text:#18201d;
-  --muted:#6d7772;
-  --line:#e6e9e5;
-  --green:#1d6b50;
-  --green2:#2f8c68;
+  --text:#17201d;
+  --muted:#68736e;
+  --line:#e4e9e5;
+  --green:#176b52;
+  --green2:#2c9472;
   --cream:#fffaf0;
-  --shadow:0 18px 55px rgba(27,45,37,.09);
+  --orange:#e98745;
+  --blue:#4f91c9;
+  --shadow:0 18px 50px rgba(25,48,39,.09);
   --radius:24px;
 }
 
@@ -26,28 +29,30 @@ body{
   font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   color:var(--text);
   background:
-    radial-gradient(circle at 10% 0%,rgba(188,222,204,.28),transparent 27%),
-    radial-gradient(circle at 90% 15%,rgba(255,224,177,.28),transparent 25%),
+    radial-gradient(circle at 10% 0%,rgba(47,148,114,.10),transparent 28%),
+    radial-gradient(circle at 90% 10%,rgba(233,135,69,.10),transparent 25%),
     var(--bg);
 }
-
 button,input,select{font:inherit}
 button{cursor:pointer}
-a{text-decoration:none;color:inherit}
+a{color:inherit}
 
-.header{
+.container{
+  width:min(1180px,calc(100% - 32px));
+  margin:auto;
+}
+
+header{
   position:sticky;
   top:0;
-  z-index:50;
+  z-index:100;
   backdrop-filter:blur(18px);
-  background:rgba(247,247,243,.82);
-  border-bottom:1px solid rgba(220,225,220,.75);
+  background:rgba(247,248,246,.82);
+  border-bottom:1px solid rgba(228,233,229,.8);
 }
 
 .nav{
-  max-width:1200px;
-  margin:auto;
-  padding:14px 20px;
+  height:74px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -55,173 +60,215 @@ a{text-decoration:none;color:inherit}
 }
 
 .logo{
-  font-size:21px;
+  border:0;
+  background:none;
+  font-size:22px;
   font-weight:900;
-  letter-spacing:-.5px;
+  color:var(--green);
 }
 
 .navlinks{
   display:flex;
-  gap:8px;
+  gap:7px;
 }
 
-.navlinks button,
-.mobile-nav button{
+.navlinks button{
   border:0;
   background:transparent;
-  color:var(--muted);
-  padding:10px 13px;
+  padding:10px 14px;
   border-radius:14px;
+  color:var(--muted);
   font-weight:700;
 }
 
 .navlinks button:hover,
-.mobile-nav button:hover{
-  background:#fff;
+.navlinks button.active{
+  background:white;
   color:var(--green);
-}
-
-.container{
-  max-width:1200px;
-  margin:auto;
-  padding:28px 20px 100px;
+  box-shadow:0 5px 20px rgba(0,0,0,.05);
 }
 
 .hero{
-  min-height:580px;
-  display:grid;
-  place-items:center;
-  padding:45px 0 55px;
+  padding:65px 0 45px;
 }
 
-.hero-inner{
-  width:100%;
-  max-width:980px;
-  text-align:center;
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:28px;
+  align-items:stretch;
+}
+
+.hero-copy{
+  padding:30px 0;
 }
 
 .eyebrow{
   display:inline-flex;
-  padding:8px 13px;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
   border-radius:999px;
-  background:#edf5ef;
+  background:#e7f3ee;
   color:var(--green);
-  font-weight:800;
   font-size:13px;
-  margin-bottom:18px;
+  font-weight:800;
 }
 
-.hero h1{
-  font-size:clamp(44px,7vw,82px);
-  line-height:.95;
-  letter-spacing:-5px;
-  margin:0 0 20px;
+h1{
+  font-size:clamp(44px,7vw,76px);
+  line-height:.96;
+  letter-spacing:-4px;
+  margin:20px 0;
 }
 
-.hero p{
-  max-width:690px;
-  margin:0 auto 30px;
-  color:var(--muted);
+.hero-copy p{
+  max-width:620px;
   font-size:18px;
-  line-height:1.6;
+  line-height:1.7;
+  color:var(--muted);
+}
+
+.hero-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:28px;
+}
+
+.primary,
+.secondary,
+.ghost{
+  border:0;
+  border-radius:15px;
+  padding:13px 18px;
+  font-weight:800;
+  transition:.2s;
+}
+
+.primary{
+  background:var(--green);
+  color:white;
+  box-shadow:0 12px 25px rgba(23,107,82,.2);
+}
+.primary:hover{transform:translateY(-2px)}
+
+.secondary{
+  background:#fff;
+  color:var(--green);
+  border:1px solid var(--line);
+}
+
+.ghost{
+  background:#f1f4f1;
+  color:var(--text);
 }
 
 .planner{
-  background:rgba(255,255,255,.9);
+  background:rgba(255,255,255,.92);
   border:1px solid var(--line);
-  box-shadow:var(--shadow);
   border-radius:30px;
-  padding:18px;
-  text-align:left;
+  padding:24px;
+  box-shadow:var(--shadow);
 }
 
-.planner-grid{
+.planner h2{
+  margin:0 0 18px;
+  font-size:22px;
+}
+
+.form-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:1fr 1fr;
   gap:12px;
 }
 
 .field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.field.full{grid-column:1/-1}
+
+.field label{
+  font-size:12px;
+  font-weight:800;
+  color:var(--muted);
+}
+
+.field input,
+.field select{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:white;
+  outline:none;
+}
+
+.field input:focus,
+.field select:focus{
+  border-color:var(--green2);
+  box-shadow:0 0 0 3px rgba(44,148,114,.10);
+}
+
+.destination-picker{
   position:relative;
 }
 
-.field label{
-  display:block;
-  font-size:11px;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.07em;
-  color:var(--muted);
-  margin:0 0 7px 3px;
-}
-
-.input,
-.select-like{
-  width:100%;
-  min-height:50px;
-  border:1px solid var(--line);
-  background:#fafbf9;
-  border-radius:15px;
-  padding:12px 14px;
-  outline:none;
-  color:var(--text);
-}
-
-.input:focus{
-  border-color:#9dc5b1;
-  box-shadow:0 0 0 4px rgba(47,140,104,.08);
-}
-
-.dropdown{
-  display:none;
+.suggestions{
   position:absolute;
-  z-index:20;
   left:0;
   right:0;
-  top:78px;
+  top:100%;
+  z-index:50;
   background:white;
   border:1px solid var(--line);
-  border-radius:17px;
+  border-radius:16px;
+  margin-top:6px;
+  overflow:hidden;
   box-shadow:var(--shadow);
-  max-height:260px;
-  overflow:auto;
+  max-height:300px;
+  overflow-y:auto;
 }
 
-.dropdown.show{display:block}
-
-.dropdown-item{
+.suggestion{
+  width:100%;
+  text-align:left;
+  border:0;
+  background:white;
   padding:12px 14px;
   display:flex;
-  gap:10px;
   align-items:center;
-  border-bottom:1px solid #f1f2ef;
-}
-
-.dropdown-item:hover{background:#f5f8f5}
-
-.actions{
-  display:flex;
-  flex-wrap:wrap;
   gap:10px;
-  margin-top:14px;
+}
+.suggestion:hover{background:#f1f6f3}
+
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin:20px 0 45px;
 }
 
-.btn{
-  border:0;
-  border-radius:15px;
-  padding:12px 17px;
-  font-weight:850;
+.quick{
+  border:1px solid var(--line);
+  background:white;
+  border-radius:18px;
+  padding:18px;
+  text-align:left;
   transition:.2s;
 }
-
-.btn:hover{transform:translateY(-1px)}
-.btn-primary{background:var(--green);color:white}
-.btn-secondary{background:#eef4ef;color:var(--green)}
-.btn-light{background:#f4f5f2;color:#39433f}
-.btn-dark{background:#18201d;color:white}
+.quick:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow);
+}
+.quick strong{display:block;margin-top:8px}
+.quick span{font-size:13px;color:var(--muted)}
 
 .section{
-  margin-top:55px;
+  padding:38px 0;
 }
 
 .section-head{
@@ -229,13 +276,13 @@ a{text-decoration:none;color:inherit}
   justify-content:space-between;
   align-items:end;
   gap:20px;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 
 .section-head h2{
   margin:0;
   font-size:30px;
-  letter-spacing:-1.5px;
+  letter-spacing:-1px;
 }
 
 .section-head p{
@@ -243,86 +290,122 @@ a{text-decoration:none;color:inherit}
   color:var(--muted);
 }
 
-.discover-grid{
+.discovery-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:14px;
+  gap:15px;
 }
 
 .discovery{
-  min-height:175px;
-  border-radius:24px;
+  min-height:210px;
+  position:relative;
+  overflow:hidden;
+  border-radius:23px;
+  border:0;
   padding:20px;
-  border:1px solid var(--line);
-  background:white;
+  text-align:left;
+  color:white;
+  background-size:cover;
+  background-position:center;
   display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  transition:.25s;
-}
-
-.discovery:hover{
-  transform:translateY(-4px);
+  align-items:flex-end;
   box-shadow:var(--shadow);
 }
 
-.discovery .emoji{font-size:30px}
-.discovery strong{font-size:19px}
-.discovery span{color:var(--muted);font-size:14px}
+.discovery:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(transparent 30%,rgba(0,0,0,.68));
+}
 
-.destination-view{
+.discovery div{
+  position:relative;
+  z-index:2;
+}
+
+.discovery h3{margin:0 0 5px;font-size:20px}
+.discovery p{margin:0;font-size:13px;opacity:.9}
+
+#destinationView{
   display:none;
+  padding-bottom:100px;
 }
 
 .destination-hero{
-  border-radius:34px;
+  min-height:420px;
+  border-radius:32px;
   overflow:hidden;
-  min-height:440px;
   position:relative;
+  color:white;
   display:flex;
   align-items:flex-end;
-  background:
-    linear-gradient(180deg,transparent 30%,rgba(0,0,0,.72)),
-    linear-gradient(135deg,#c8ddd3,#e9d8b7);
-  color:white;
+  background:#ddd center/cover no-repeat;
+  margin-bottom:25px;
+}
+
+.destination-hero:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(transparent 25%,rgba(0,0,0,.76));
 }
 
 .destination-hero-content{
-  padding:38px;
-  max-width:850px;
+  position:relative;
+  z-index:2;
+  padding:35px;
+  width:100%;
 }
 
 .destination-hero h1{
-  margin:0 0 8px;
-  font-size:clamp(38px,6vw,70px);
+  font-size:clamp(42px,7vw,72px);
   letter-spacing:-3px;
+  margin:10px 0;
 }
 
-.destination-hero p{
-  max-width:750px;
-  line-height:1.65;
-  color:rgba(255,255,255,.9);
-}
-
-.hero-meta{
+.destination-meta{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
 }
 
-.hero-meta span{
-  background:rgba(255,255,255,.14);
-  backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,.2);
+.pill{
   padding:8px 11px;
   border-radius:999px;
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(10px);
   font-size:13px;
+  font-weight:700;
+}
+
+.destination-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:18px;
+}
+
+.destination-actions button{
+  border:1px solid rgba(255,255,255,.25);
+  color:white;
+  background:rgba(255,255,255,.16);
+  backdrop-filter:blur(10px);
+  border-radius:14px;
+  padding:11px 14px;
+  font-weight:800;
+}
+
+.destination-actions button.visited{
+  background:#fff;
+  color:var(--green);
 }
 
 .info-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:12px;
+  margin-bottom:25px;
 }
 
 .info-card{
@@ -330,293 +413,348 @@ a{text-decoration:none;color:inherit}
   border:1px solid var(--line);
   border-radius:20px;
   padding:18px;
+  box-shadow:0 8px 30px rgba(0,0,0,.035);
 }
 
-.info-card .icon{
-  font-size:24px;
-}
+.info-card .icon{font-size:23px}
+.info-card strong{display:block;margin-top:9px}
+.info-card small{color:var(--muted);display:block;margin-top:4px;line-height:1.45}
 
-.info-card strong{
-  display:block;
-  margin:8px 0 4px;
-}
-
-.info-card p{
-  color:var(--muted);
-  margin:0;
-  line-height:1.5;
-  font-size:14px;
-}
-
-.small-action{
-  margin-top:11px;
+.info-card button{
+  margin-top:12px;
   border:0;
-  background:#edf5ef;
+  background:#eef5f1;
   color:var(--green);
-  border-radius:11px;
+  border-radius:10px;
   padding:8px 10px;
-  font-weight:800;
   font-size:12px;
+  font-weight:800;
 }
 
-.weather-zones{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-}
-
-.weather-zone{
-  background:white;
+.weather-wrap{
+  background:rgba(255,255,255,.75);
   border:1px solid var(--line);
   border-radius:25px;
-  padding:20px;
-  box-shadow:0 8px 30px rgba(30,50,40,.04);
+  padding:22px;
+  margin-bottom:25px;
 }
 
-.weather-zone-head{
+.weather-title{
   display:flex;
   justify-content:space-between;
-  align-items:start;
+  align-items:center;
+  gap:15px;
+  margin-bottom:18px;
+}
+
+.weather-title h2{margin:0}
+.weather-title span{color:var(--muted);font-size:13px}
+
+.zone-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.zone{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:19px;
+  padding:17px;
+}
+
+.zone-top{
+  display:flex;
+  justify-content:space-between;
   gap:12px;
+  align-items:start;
 }
 
-.weather-zone h3{
-  margin:0;
-  font-size:20px;
-}
-
-.zone-location{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:4px;
-}
-
-.weather-temp{
-  font-size:42px;
+.zone h3{margin:0;font-size:17px}
+.zone .temp{
+  font-size:30px;
   font-weight:900;
-  letter-spacing:-2px;
-  margin:18px 0 2px;
 }
 
 .weather-desc{
-  font-weight:750;
+  color:var(--muted);
+  margin:5px 0 15px;
 }
 
 .weather-details{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:9px;
-  margin-top:17px;
-}
-
-.weather-detail{
-  padding:10px;
-  border-radius:13px;
-  background:#f6f8f5;
-  font-size:13px;
-}
-
-.weather-detail span{
-  display:block;
+  gap:8px;
+  font-size:12px;
   color:var(--muted);
-  font-size:11px;
-  margin-bottom:3px;
 }
 
-.local-time{
-  font-size:13px;
-  font-weight:850;
-  color:var(--green);
+.weather-details div{
+  background:#f5f7f5;
+  border-radius:10px;
+  padding:8px;
+}
+
+.weather-hours{
   margin-top:12px;
+  display:flex;
+  gap:8px;
+  overflow:auto;
 }
 
-.weather-source{
-  margin-top:14px;
-  color:#8b938e;
+.hour{
+  min-width:74px;
+  padding:9px;
+  border-radius:12px;
+  background:#f4f7f5;
+  text-align:center;
   font-size:11px;
 }
+.hour strong{display:block;font-size:14px;margin:4px 0}
 
-.cards-grid{
+.content-section{
+  background:rgba(255,255,255,.7);
+  border:1px solid var(--line);
+  border-radius:25px;
+  padding:22px;
+  margin-bottom:25px;
+}
+
+.content-section h2{
+  margin:0 0 5px;
+  font-size:25px;
+}
+
+.content-section>p{
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.category-tabs{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:18px 0;
+}
+
+.category-tabs button{
+  border:1px solid var(--line);
+  background:white;
+  border-radius:12px;
+  padding:9px 12px;
+  font-weight:800;
+  color:var(--muted);
+}
+
+.category-tabs button.active{
+  background:var(--green);
+  color:white;
+  border-color:var(--green);
+}
+
+.place-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:15px;
 }
 
 .place-card{
-  overflow:hidden;
-  border-radius:23px;
   background:white;
   border:1px solid var(--line);
-  box-shadow:0 8px 28px rgba(30,50,40,.04);
+  border-radius:20px;
+  overflow:hidden;
+  transition:.2s;
 }
 
-.place-image{
+.place-card:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow);
+}
+
+.place-photo{
   width:100%;
-  height:210px;
+  height:200px;
   object-fit:cover;
   display:block;
-  background:#e8ece8;
+  background:#edf1ee;
 }
 
-.place-body{
-  padding:18px;
-}
-
-.place-body h3{
-  margin:0 0 7px;
-  font-size:19px;
-}
-
+.place-body{padding:16px}
+.place-body h3{margin:0 0 7px;font-size:18px}
 .place-body p{
-  margin:5px 0;
   color:var(--muted);
   font-size:13px;
   line-height:1.5;
+  margin:4px 0;
 }
-
-.place-tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:10px;
-}
-
-.tag{
-  padding:6px 8px;
-  background:#f1f5f1;
-  color:#53615a;
-  border-radius:8px;
-  font-size:11px;
-}
-
-.verified{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  color:#217151;
-  background:#edf7f0;
-  padding:6px 8px;
-  border-radius:8px;
-  font-size:11px;
-  font-weight:800;
-}
-
 .place-actions{
   display:flex;
-  gap:7px;
-  flex-wrap:wrap;
+  gap:8px;
   margin-top:13px;
+  flex-wrap:wrap;
+}
+.place-actions button,
+.place-actions a{
+  text-decoration:none;
+  border:0;
+  border-radius:10px;
+  padding:9px 11px;
+  font-size:12px;
+  font-weight:800;
+  background:#eef4f1;
+  color:var(--green);
+}
+.place-actions .map-link{
+  background:#17201d;
+  color:white;
 }
 
 .loading{
-  padding:30px;
+  padding:45px 10px;
   text-align:center;
-  background:white;
-  border:1px solid var(--line);
-  border-radius:22px;
   color:var(--muted);
 }
 
 .loading-plane-wrap{
-  height:50px;
+  height:60px;
   overflow:hidden;
   position:relative;
-  margin-bottom:5px;
 }
-
 .loading-plane{
   position:absolute;
-  left:50%;
-  top:8px;
   font-size:30px;
   animation:flightPath 2.8s ease-in-out infinite;
 }
-
 @keyframes flightPath{
   0%{transform:translate(-35vw,18px) rotate(-8deg)}
   50%{transform:translate(0,-10px) rotate(4deg)}
   100%{transform:translate(35vw,-30px) rotate(7deg)}
 }
 
-.sleep-tabs{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-bottom:15px;
+.lodging-grid,
+.travel-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
 }
 
-.sleep-tab{
+.travel-card{
   border:1px solid var(--line);
+  border-radius:18px;
   background:white;
-  padding:10px 13px;
-  border-radius:13px;
-  font-weight:800;
+  padding:18px;
 }
 
-.sleep-tab.active{
+.travel-card .big{font-size:28px}
+.travel-card h3{margin:8px 0 5px}
+.travel-card p{color:var(--muted);font-size:13px;line-height:1.5}
+
+.travel-card a,
+.travel-card button{
+  display:inline-block;
+  border:0;
   background:var(--green);
   color:white;
-  border-color:var(--green);
+  padding:9px 11px;
+  border-radius:10px;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:800;
+  margin-top:8px;
 }
 
 .flight-box{
-  background:#15221c;
-  color:white;
-  padding:25px;
-  border-radius:25px;
-}
-
-.flight-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr 1fr;
-  gap:10px;
-}
-
-.flight-box input{
-  background:#24332c;
-  color:white;
-  border:1px solid #3b4b43;
-}
-
-.map-box{
-  height:430px;
-  background:
-    linear-gradient(135deg,rgba(219,233,223,.9),rgba(246,238,215,.9));
+  background:linear-gradient(135deg,#edf7f3,#fffaf2);
   border:1px solid var(--line);
-  border-radius:26px;
-  position:relative;
-  overflow:hidden;
-}
-
-.map-box iframe{
-  width:100%;
-  height:100%;
-  border:0;
-}
-
-.tool-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-}
-
-.tool-card{
-  background:white;
-  border:1px solid var(--line);
-  border-radius:22px;
+  border-radius:20px;
   padding:20px;
 }
 
-.tool-card h3{margin:0 0 7px}
-.tool-card p{color:var(--muted);line-height:1.5;font-size:14px}
+.flight-form{
+  display:grid;
+  grid-template-columns:1.3fr 1fr 1fr 1fr auto;
+  gap:10px;
+}
+
+.flight-form input{
+  min-width:0;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:11px;
+  background:white;
+}
+
+.flight-form button{
+  border:0;
+  background:var(--green);
+  color:white;
+  border-radius:12px;
+  padding:11px 15px;
+  font-weight:800;
+}
+
+.map-wrap{
+  height:450px;
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:#e8eeea;
+}
+
+#map{
+  height:100%;
+  width:100%;
+}
+
+.itinerary{
+  display:grid;
+  gap:12px;
+}
+
+.day{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:15px;
+}
+
+.day-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.day h3{margin:0}
+.day button{
+  border:0;
+  background:#edf4f1;
+  color:var(--green);
+  border-radius:10px;
+  padding:7px 10px;
+  font-weight:800;
+}
+
+.day-items{
+  margin-top:12px;
+  display:grid;
+  gap:7px;
+}
+
+.itinerary-item{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:9px;
+  background:#f7f8f7;
+  border-radius:10px;
+  font-size:13px;
+}
 
 .passport{
-  background:
-    radial-gradient(circle at 15% 10%,rgba(255,255,255,.2),transparent 20%),
-    #1b3c31;
+  background:linear-gradient(135deg,#173d31,#24664f);
   color:white;
   border-radius:28px;
-  padding:28px;
+  padding:26px;
 }
 
 .stamps{
@@ -631,887 +769,618 @@ a{text-decoration:none;color:inherit}
   height:105px;
   border:2px dashed rgba(255,255,255,.55);
   border-radius:50%;
-  display:grid;
-  place-items:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   text-align:center;
+  padding:10px;
   font-size:12px;
-  font-weight:900;
-  transform:rotate(-4deg);
-}
-
-.empty{
-  padding:28px;
-  border:1px dashed #cdd5cf;
-  background:#fafcf9;
-  border-radius:20px;
-  color:var(--muted);
-  text-align:center;
+  transform:rotate(-5deg);
 }
 
 .modal{
-  display:none;
   position:fixed;
   inset:0;
-  z-index:100;
-  background:rgba(11,18,15,.56);
-  backdrop-filter:blur(8px);
-  padding:20px;
-  overflow:auto;
+  background:rgba(12,20,17,.55);
+  backdrop-filter:blur(7px);
+  z-index:500;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
 }
 
-.modal.show{
-  display:grid;
-  place-items:center;
-}
+.modal.open{display:flex}
 
-.modal-card{
-  width:min(760px,100%);
-  max-height:92vh;
+.modal-box{
+  width:min(850px,100%);
+  max-height:90vh;
   overflow:auto;
   background:white;
-  border-radius:28px;
+  border-radius:26px;
+  box-shadow:0 30px 90px rgba(0,0,0,.2);
   padding:25px;
-  box-shadow:0 30px 100px rgba(0,0,0,.25);
+  position:relative;
 }
 
-.modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:start;
-  gap:20px;
-}
-
-.close{
+.modal-close{
+  position:absolute;
+  top:15px;
+  right:15px;
   border:0;
-  background:#eef1ed;
   width:38px;
   height:38px;
   border-radius:50%;
+  background:#f1f4f2;
   font-size:20px;
 }
 
 .gallery{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin:15px 0;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:7px;
+  margin-bottom:20px;
 }
-
 .gallery img{
   width:100%;
-  height:130px;
+  height:150px;
   object-fit:cover;
-  border-radius:13px;
+  border-radius:12px;
+}
+.gallery img:first-child{
+  height:307px;
+  grid-row:span 2;
 }
 
 .checklist{
   display:grid;
   gap:8px;
 }
-
-.check{
+.check-item{
   display:flex;
   align-items:flex-start;
   gap:10px;
   padding:11px;
-  border-radius:13px;
-  background:#f6f8f5;
+  border-radius:12px;
+  background:#f6f8f6;
 }
+.check-item small{display:block;color:var(--muted);margin-top:3px}
 
-.check small{
-  display:block;
-  color:var(--muted);
-  margin-top:3px;
-}
-
-.mobile-nav{
+.bottom-nav{
   display:none;
 }
 
-.toast{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:200;
-  background:#18201d;
-  color:white;
-  padding:13px 16px;
-  border-radius:14px;
-  opacity:0;
-  transform:translateY(10px);
-  pointer-events:none;
-  transition:.25s;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translateY(0);
-}
+.hidden{display:none!important}
 
 @media(max-width:900px){
-  .planner-grid,
-  .flight-grid{grid-template-columns:1fr 1fr}
-  .info-grid{grid-template-columns:1fr 1fr}
-  .discover-grid{grid-template-columns:1fr 1fr}
-  .weather-zones{grid-template-columns:1fr 1fr}
-  .cards-grid{grid-template-columns:1fr 1fr}
-  .tool-grid{grid-template-columns:1fr 1fr}
+  .hero-grid{grid-template-columns:1fr}
+  .discovery-grid{grid-template-columns:repeat(2,1fr)}
+  .quick-grid{grid-template-columns:repeat(2,1fr)}
+  .info-grid{grid-template-columns:repeat(2,1fr)}
+  .zone-grid{grid-template-columns:1fr 1fr}
+  .place-grid{grid-template-columns:1fr 1fr}
+  .lodging-grid,.travel-grid{grid-template-columns:1fr 1fr}
+  .flight-form{grid-template-columns:1fr 1fr}
+  .flight-form button{grid-column:1/-1}
 }
 
 @media(max-width:650px){
+  .container{width:min(100% - 20px,1180px)}
   .navlinks{display:none}
-  .container{padding:20px 14px 95px}
-  .hero{padding-top:25px}
-  .hero h1{letter-spacing:-3px}
-  .planner-grid,
-  .flight-grid,
-  .info-grid,
-  .weather-zones,
-  .cards-grid,
-  .discover-grid,
-  .tool-grid{grid-template-columns:1fr}
-  .destination-hero{min-height:390px}
-  .destination-hero-content{padding:25px}
-  .section-head{display:block}
-  .mobile-nav{
+  .hero{padding-top:35px}
+  h1{letter-spacing:-2.5px}
+  .hero-copy p{font-size:16px}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .quick-grid{grid-template-columns:1fr 1fr}
+  .discovery-grid{grid-template-columns:1fr 1fr}
+  .discovery{min-height:165px}
+  .info-grid{grid-template-columns:1fr 1fr}
+  .zone-grid{grid-template-columns:1fr}
+  .place-grid{grid-template-columns:1fr}
+  .lodging-grid,.travel-grid{grid-template-columns:1fr 1fr}
+  .destination-hero{min-height:440px}
+  .destination-hero-content{padding:22px}
+  .destination-hero h1{font-size:45px}
+  .gallery{grid-template-columns:1fr 1fr}
+  .gallery img:first-child{height:210px;grid-column:1/-1;grid-row:auto}
+  .gallery img{height:110px}
+  .bottom-nav{
     display:flex;
     position:fixed;
+    z-index:300;
     bottom:0;
     left:0;
     right:0;
-    z-index:80;
+    height:67px;
     background:rgba(255,255,255,.94);
-    backdrop-filter:blur(18px);
+    backdrop-filter:blur(16px);
     border-top:1px solid var(--line);
     justify-content:space-around;
-    padding:8px 5px;
+    align-items:center;
   }
-  .mobile-nav button{
+  .bottom-nav button{
+    border:0;
+    background:none;
+    color:var(--muted);
     font-size:11px;
-    padding:7px 5px;
+    font-weight:800;
   }
-  .gallery{grid-template-columns:1fr 1fr}
+  .bottom-nav button span{
+    display:block;
+    font-size:20px;
+    margin-bottom:2px;
+  }
 }
 </style>
+
+<link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      crossorigin="">
+
 </head>
 
 <body>
 
-<header class="header">
-  <nav class="nav">
-    <div class="logo">🌍 Escapadinha</div>
+<header>
+  <div class="container nav">
+    <button class="logo" onclick="goHome()">🌍 Escapadinha</button>
 
-    <div class="navlinks">
+    <nav class="navlinks">
       <button onclick="goHome()">Início</button>
       <button onclick="scrollToId('discover')">Explorar</button>
-      <button onclick="scrollToId('passport')">Passaporte</button>
       <button onclick="openPacking()">🧳 Mala</button>
-    </div>
-  </nav>
+      <button onclick="scrollToId('passportArea')">📖 Passaporte</button>
+    </nav>
+
+    <button class="primary" onclick="surpriseMe()">✨ Surpreende-me</button>
+  </div>
 </header>
 
-<main class="container">
+<main>
 
 <section id="home" class="hero">
-  <div class="hero-inner">
+  <div class="container hero-grid">
 
-    <div class="eyebrow">✨ A tua próxima escapadinha começa aqui</div>
+    <div class="hero-copy">
+      <span class="eyebrow">✈️ A tua próxima escapadinha começa aqui</span>
 
-    <h1>Para onde vamos?</h1>
+      <h1>Viaja mais.<br>Planeia melhor.</h1>
 
-    <p>
-      Descobre destinos, lugares reais, meteorologia por zonas,
-      restaurantes, cafés, atrações, alojamento, voos e tudo o que
-      precisas para preparar a viagem.
-    </p>
+      <p>
+        Descobre destinos, vê a meteorologia por zonas, encontra lugares reais,
+        prepara a mala, organiza o roteiro e guarda as tuas viagens.
+      </p>
+
+      <div class="hero-actions">
+        <button class="primary" onclick="createTrip()">Criar a minha escapadinha →</button>
+        <button class="secondary" onclick="surpriseMe()">🎲 Decide por mim</button>
+      </div>
+    </div>
 
     <div class="planner">
+      <h2>🗺️ Para onde vais?</h2>
 
-      <div class="planner-grid">
+      <div class="form-grid">
 
-        <div class="field">
-          <label>Destino</label>
-          <input id="destinationInput" class="input"
+        <div class="field full destination-picker">
+          <label>DESTINO</label>
+          <input id="destinationInput"
                  placeholder="Lisboa, Roma, Paris..."
                  autocomplete="off">
-          <div id="destinationDropdown" class="dropdown"></div>
+          <div id="destinationSuggestions" class="suggestions hidden"></div>
         </div>
 
         <div class="field">
-          <label>Nacionalidade</label>
-          <input id="nationalityInput" class="input"
+          <label>NACIONALIDADE</label>
+          <input id="nationalityInput"
                  placeholder="Portugal"
                  autocomplete="off">
-          <div id="countryDropdown" class="dropdown"></div>
+          <div id="nationalitySuggestions" class="suggestions hidden"></div>
         </div>
 
         <div class="field">
-          <label>Partida</label>
-          <input id="dateStart" class="input" type="date">
+          <label>PESSOAS</label>
+          <input id="peopleInput" type="number" min="1" value="2">
         </div>
 
         <div class="field">
-          <label>Regresso</label>
-          <input id="dateEnd" class="input" type="date">
+          <label>IDA</label>
+          <input id="departureDate" type="date">
         </div>
 
         <div class="field">
-          <label>Pessoas</label>
-          <input id="people" class="input" type="number" min="1" value="2">
+          <label>REGRESSO</label>
+          <input id="returnDate" type="date">
         </div>
 
         <div class="field">
-          <label>Orçamento</label>
-          <select id="budget" class="input">
-            <option value="economico">💚 Económico</option>
-            <option value="medio" selected>✨ Médio</option>
-            <option value="confortavel">💎 Confortável</option>
+          <label>ORÇAMENTO</label>
+          <select id="budgetInput">
+            <option value="economico">€ Económico</option>
+            <option value="medio" selected>€€ Médio</option>
+            <option value="confortavel">€€€ Confortável</option>
           </select>
         </div>
 
         <div class="field">
-          <label>Tipo de viagem</label>
-          <select id="tripType" class="input">
-            <option>🌿 Relaxar</option>
-            <option>🏔️ Aventura</option>
-            <option>🍴 Gastronomia</option>
-            <option>🏛️ Cultura</option>
-            <option>🌊 Praia</option>
-            <option>📸 Fotografia</option>
-            <option>💞 Romântica</option>
-            <option>🌃 Noite</option>
+          <label>ESTILO</label>
+          <select id="tripType">
+            <option>Descoberta</option>
+            <option>Praia</option>
+            <option>Natureza</option>
+            <option>Gastronomia</option>
+            <option>Cultura</option>
+            <option>Romântica</option>
+            <option>Aventura</option>
+            <option>Fotografia</option>
+            <option>Noite</option>
           </select>
         </div>
 
-        <div class="field">
-          <label>Onde dormir</label>
-          <select id="sleepType" class="input">
-            <option>🏨 Hotel</option>
-            <option>🛏️ Hostel</option>
-            <option>🏠 Airbnb / apartamento</option>
-            <option>🏡 Outro</option>
+        <div class="field full">
+          <label>ONDE DORMIR</label>
+          <select id="lodgingInput">
+            <option>Hotel</option>
+            <option>Hostel</option>
+            <option>Airbnb / apartamento</option>
+            <option>Outro</option>
           </select>
         </div>
 
       </div>
 
-      <div class="actions">
-        <button class="btn btn-primary" onclick="exploreDestination()">
-          Explorar destino →
-        </button>
-
-        <button class="btn btn-secondary" onclick="surpriseMe()">
-          ✨ Surpreende-me
-        </button>
-
-        <button class="btn btn-light" onclick="openPacking()">
-          🧳 Preparar a mala
-        </button>
-
-        <button class="btn btn-dark" onclick="destinationRoulette()">
-          🎲 Decide por mim
-        </button>
-      </div>
-
+      <button class="primary"
+              style="width:100%;margin-top:15px"
+              onclick="createTrip()">
+        Explorar destino →
+      </button>
     </div>
+
+  </div>
+</section>
+
+<section class="container">
+  <div class="quick-grid">
+
+    <button class="quick" onclick="surpriseMe()">
+      <span>🎲</span>
+      <strong>Destino surpresa</strong>
+      <span>Deixa a Escapadinha decidir</span>
+    </button>
+
+    <button class="quick" onclick="findByMood('Praia')">
+      <span>🏝️</span>
+      <strong>Quero praia</strong>
+      <span>Sol, mar e descanso</span>
+    </button>
+
+    <button class="quick" onclick="findByMood('Natureza')">
+      <span>🌲</span>
+      <strong>Quero natureza</strong>
+      <span>Montanha, parques e paisagens</span>
+    </button>
+
+    <button class="quick" onclick="findByMood('Gastronomia')">
+      <span>🍝</span>
+      <strong>Quero comer bem</strong>
+      <span>Descobre a gastronomia local</span>
+    </button>
+
   </div>
 </section>
 
 <section id="discover" class="section">
-  <div class="section-head">
-    <div>
-      <h2>Explora à tua maneira</h2>
-      <p>Não precisas de saber exatamente para onde queres ir.</p>
+  <div class="container">
+
+    <div class="section-head">
+      <div>
+        <h2>Ideias para a próxima viagem</h2>
+        <p>Escolhe uma atmosfera e começa a explorar.</p>
+      </div>
+      <button class="secondary" onclick="shuffleDiscoveries()">Baralhar</button>
     </div>
+
+    <div id="discoveryGrid" class="discovery-grid"></div>
+
   </div>
+</section>
 
-  <div class="discover-grid">
+<section class="section">
+  <div class="container">
 
-    <div class="discovery" onclick="setMood('🌊 Praia')">
-      <div class="emoji">🌊</div>
-      <strong>Quero ver água</strong>
-      <span>Praia, ilhas e destinos costeiros.</span>
+    <div class="section-head">
+      <div>
+        <h2>O teu estilo de viagem</h2>
+        <p>Experimenta uma categoria.</p>
+      </div>
     </div>
 
-    <div class="discovery" onclick="setMood('🏔️ Aventura')">
-      <div class="emoji">🏔️</div>
-      <strong>Quero aventura</strong>
-      <span>Montanha, natureza e experiências.</span>
-    </div>
-
-    <div class="discovery" onclick="setMood('🍴 Gastronomia')">
-      <div class="emoji">🍴</div>
-      <strong>Quero comer bem</strong>
-      <span>Descobre restaurantes e cafés.</span>
-    </div>
-
-    <div class="discovery" onclick="setMood('🏛️ Cultura')">
-      <div class="emoji">🏛️</div>
-      <strong>Quero cultura</strong>
-      <span>Museus, monumentos e história.</span>
-    </div>
-
-    <div class="discovery" onclick="setMood('📸 Fotografia')">
-      <div class="emoji">📸</div>
-      <strong>Quero fotografar</strong>
-      <span>Destinos visualmente memoráveis.</span>
-    </div>
-
-    <div class="discovery" onclick="setMood('💞 Romântica')">
-      <div class="emoji">💞</div>
-      <strong>Quero romance</strong>
-      <span>Escapadinhas a dois.</span>
-    </div>
-
-    <div class="discovery" onclick="destinationRoulette()">
-      <div class="emoji">🎲</div>
-      <strong>Destino às cegas</strong>
-      <span>Deixa a Escapadinha decidir.</span>
-    </div>
-
-    <div class="discovery" onclick="openPacking()">
-      <div class="emoji">🧳</div>
-      <strong>Tenho uma viagem</strong>
-      <span>Prepara a mala com base na previsão.</span>
+    <div class="quick-grid">
+      <button class="quick" onclick="findByMood('Cultura')">🏛️ <strong>Cultura</strong><span>Museus, história e arquitetura</span></button>
+      <button class="quick" onclick="findByMood('Romântica')">❤️ <strong>Romântica</strong><span>Escapadinhas a dois</span></button>
+      <button class="quick" onclick="findByMood('Aventura')">🥾 <strong>Aventura</strong><span>Experiências e movimento</span></button>
+      <button class="quick" onclick="findByMood('Fotografia')">📸 <strong>Fotografia</strong><span>Lugares para guardar na memória</span></button>
     </div>
 
   </div>
 </section>
 
-<section id="passport" class="section">
-  <div class="passport">
-    <h2>📖 Passaporte da Escapadinha</h2>
-    <p>
-      Os carimbos aparecem apenas quando marcas explicitamente um destino
-      como visitado.
-    </p>
+<section id="destinationView">
+  <div class="container">
 
-    <div id="passportStats"></div>
-    <div id="stamps" class="stamps"></div>
+    <div id="destinationHero" class="destination-hero"></div>
+
+    <div id="destinationInfo" class="info-grid"></div>
+
+    <div class="weather-wrap">
+      <div class="weather-title">
+        <div>
+          <h2>🌦️ Meteorologia por zonas</h2>
+          <span id="weatherUpdated">Dados meteorológicos em tempo real</span>
+        </div>
+        <button class="secondary" onclick="loadAllWeather()">Atualizar</button>
+      </div>
+
+      <div id="zoneGrid" class="zone-grid"></div>
+    </div>
+
+    <div class="content-section">
+      <h2>✨ Sobre o destino</h2>
+      <p id="destinationDescription"></p>
+    </div>
+
+    <div class="content-section">
+      <h2>🍴 Descobre lugares reais</h2>
+      <p>
+        Restaurantes, cafés e atrações pesquisados através de dados públicos
+        associados aos locais.
+      </p>
+
+      <div class="category-tabs">
+        <button class="active" onclick="loadPlaces('restaurant',this)">🍴 Restaurantes</button>
+        <button onclick="loadPlaces('cafe',this)">☕ Cafés</button>
+        <button onclick="loadPlaces('attraction',this)">🏛️ Atrações</button>
+      </div>
+
+      <div id="placesLoading" class="loading hidden">
+        <div class="loading-plane-wrap">
+          <div class="loading-plane">✈️</div>
+        </div>
+        A procurar locais e imagens associadas...
+      </div>
+
+      <div id="placeGrid" class="place-grid"></div>
+    </div>
+
+    <div class="content-section">
+      <h2>🏨 Onde dormir</h2>
+      <p>Pesquisa hotéis, hostels, apartamentos e outras opções.</p>
+
+      <div class="lodging-grid">
+
+        <div class="travel-card">
+          <div class="big">🏨</div>
+          <h3>Hotel</h3>
+          <p>Pesquisar hotéis no destino.</p>
+          <a id="hotelSearch" target="_blank">Pesquisar hotéis →</a>
+        </div>
+
+        <div class="travel-card">
+          <div class="big">🛏️</div>
+          <h3>Hostel</h3>
+          <p>Encontrar hostels e alojamento económico.</p>
+          <a id="hostelSearch" target="_blank">Pesquisar hostels →</a>
+        </div>
+
+        <div class="travel-card">
+          <div class="big">🏠</div>
+          <h3>Airbnb</h3>
+          <p>Apartamentos e alojamentos locais.</p>
+          <a id="airbnbSearch" target="_blank">Pesquisar Airbnb →</a>
+        </div>
+
+        <div class="travel-card">
+          <div class="big">🏡</div>
+          <h3>Outras opções</h3>
+          <p>Pesquisa geral de alojamento.</p>
+          <a id="staySearch" target="_blank">Ver opções →</a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2>✈️ Voos</h2>
+      <p>Pesquisa voos reais para o destino escolhido.</p>
+
+      <div class="flight-box">
+        <div class="flight-form">
+          <input id="flightOrigin" placeholder="Origem — cidade ou aeroporto">
+          <input id="flightDate" type="date">
+          <input id="flightReturn" type="date">
+          <input id="flightPeople" type="number" min="1" value="2">
+          <button onclick="searchFlights()">Pesquisar voos</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2>🗺️ Mapa</h2>
+      <p>Explora o destino e os lugares encontrados.</p>
+      <div class="map-wrap">
+        <div id="map"></div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2>🗓️ O teu roteiro</h2>
+      <p>Cria um plano simples para cada dia.</p>
+
+      <div class="itinerary">
+        <div class="day">
+          <div class="day-head">
+            <h3>Dia 1</h3>
+            <button onclick="addItineraryItem(1)">+ adicionar</button>
+          </div>
+          <div id="day1" class="day-items"></div>
+        </div>
+
+        <div class="day">
+          <div class="day-head">
+            <h3>Dia 2</h3>
+            <button onclick="addItineraryItem(2)">+ adicionar</button>
+          </div>
+          <div id="day2" class="day-items"></div>
+        </div>
+
+        <div class="day">
+          <div class="day-head">
+            <h3>Dia 3</h3>
+            <button onclick="addItineraryItem(3)">+ adicionar</button>
+          </div>
+          <div id="day3" class="day-items"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="passportArea" class="passport">
+      <h2>📖 Passaporte da Escapadinha</h2>
+      <p>
+        Só ganhas um carimbo quando marcares explicitamente um destino como visitado.
+      </p>
+      <div id="stamps" class="stamps"></div>
+    </div>
+
   </div>
-</section>
-
-<section id="destinationView" class="destination-view">
-
-  <div id="destinationHero"></div>
-
-  <div class="actions" style="margin-top:15px">
-    <button class="btn btn-primary" onclick="toggleVisited()">
-      ✓ Marcar como visitado
-    </button>
-
-    <button class="btn btn-secondary" onclick="openPacking()">
-      🧳 Preparar mala
-    </button>
-
-    <button class="btn btn-light" onclick="openTravelMode()">
-      ✈️ Modo Viagem
-    </button>
-
-    <button class="btn btn-light" onclick="goHome()">
-      ← Voltar
-    </button>
-  </div>
-
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <h2>✨ Sobre o destino</h2>
-        <p>Informação prática para começares a planear.</p>
-      </div>
-    </div>
-
-    <div id="infoGrid" class="info-grid"></div>
-  </section>
-
-  <!-- METEOROLOGIA POR ZONAS -->
-  <section class="section" id="weatherSection">
-    <div class="section-head">
-      <div>
-        <h2>🌦️ Meteorologia por zonas</h2>
-        <p>
-          Consulta o tempo separadamente em diferentes zonas do destino.
-        </p>
-      </div>
-
-      <button class="btn btn-light" onclick="loadWeatherZones(true)">
-        ↻ Atualizar
-      </button>
-    </div>
-
-    <div id="weatherZones" class="weather-zones"></div>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <h2>🍴 Restaurantes</h2>
-        <p>Lugares reais com imagens associadas ao próprio local.</p>
-      </div>
-    </div>
-
-    <div id="restaurants" class="cards-grid"></div>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <h2>☕ Cafés</h2>
-        <p>Espaços reais para café, pequeno-almoço ou pausa.</p>
-      </div>
-    </div>
-
-    <div id="cafes" class="cards-grid"></div>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <h2>🏛️ Atrações</h2>
-        <p>Monumentos, museus, parques e outros lugares de interesse.</p>
-      </div>
-    </div>
-
-    <div id="attractions" class="cards-grid"></div>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <h2>🏨 Onde dormir</h2>
-        <p>Hotel, hostel, apartamento e outras opções.</p>
-      </div>
-    </div>
-
-    <div class="sleep-tabs">
-      <button class="sleep-tab active" onclick="setSleepTab('hotel',this)">
-        🏨 Hotel
-      </button>
-      <button class="sleep-tab" onclick="setSleepTab('hostel',this)">
-        🛏️ Hostel
-      </button>
-      <button class="sleep-tab" onclick="setSleepTab('airbnb',this)">
-        🏠 Airbnb
-      </button>
-      <button class="sleep-tab" onclick="setSleepTab('other',this)">
-        🏡 Outro
-      </button>
-    </div>
-
-    <div id="sleepResults" class="cards-grid"></div>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <h2>✈️ Voos</h2>
-        <p>Pesquisa voos sem inventar preços ou disponibilidade.</p>
-      </div>
-    </div>
-
-    <div class="flight-box">
-
-      <div class="flight-grid">
-
-        <input id="flightOrigin" class="input" placeholder="Origem — cidade ou aeroporto">
-
-        <input id="flightDestination" class="input" readonly>
-
-        <input id="flightDate" class="input" type="date">
-
-        <input id="flightReturn" class="input" type="date">
-
-      </div>
-
-      <div class="actions">
-        <button class="btn btn-primary" onclick="searchFlights()">
-          🔎 Pesquisar voos
-        </button>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <h2>🗺️ Mapa</h2>
-        <p>Explora o destino e abre a navegação.</p>
-      </div>
-    </div>
-
-    <div class="map-box">
-      <iframe id="mapFrame" loading="lazy"></iframe>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <h2>🧳 Preparação</h2>
-        <p>Transforma esta viagem num plano.</p>
-      </div>
-    </div>
-
-    <div class="tool-grid">
-
-      <div class="tool-card">
-        <h3>🧳 Mala inteligente</h3>
-        <p>
-          A lista considera destino, duração, tipo de viagem e meteorologia.
-        </p>
-        <button class="btn btn-secondary" onclick="openPacking()">
-          Abrir mala
-        </button>
-      </div>
-
-      <div class="tool-card">
-        <h3>🗺️ Itinerário</h3>
-        <p>
-          Guarda ideias e organiza os lugares que queres visitar.
-        </p>
-        <button class="btn btn-secondary" onclick="openItinerary()">
-          Criar itinerário
-        </button>
-      </div>
-
-      <div class="tool-card">
-        <h3>❤️ Favoritos</h3>
-        <p>
-          Guarda lugares que queres visitar mais tarde.
-        </p>
-        <button class="btn btn-secondary" onclick="showFavorites()">
-          Ver favoritos
-        </button>
-      </div>
-
-    </div>
-  </section>
-
 </section>
 
 </main>
 
-<nav class="mobile-nav">
-  <button onclick="goHome()">🏠<br>Início</button>
-  <button onclick="scrollToId('discover')">🧭<br>Explorar</button>
-  <button onclick="document.getElementById('destinationView').scrollIntoView()">🗺️<br>Mapa</button>
-  <button onclick="openTravelMode()">✈️<br>Viagem</button>
-  <button onclick="scrollToId('passport')">📖<br>Passaporte</button>
-</nav>
+<div class="bottom-nav">
+  <button onclick="goHome()"><span>🏠</span>Início</button>
+  <button onclick="scrollToId('discover')"><span>🧭</span>Explorar</button>
+  <button onclick="scrollToId('destinationView')"><span>🗺️</span>Mapa</button>
+  <button onclick="openPacking()"><span>🧳</span>Viagem</button>
+  <button onclick="scrollToId('passportArea')"><span>📖</span>Passaporte</button>
+</div>
 
-<div id="placeModal" class="modal">
-  <div class="modal-card">
-    <div class="modal-head">
-      <div>
-        <div id="placeVerified"></div>
-        <h2 id="placeTitle"></h2>
-      </div>
-      <button class="close" onclick="closeModal('placeModal')">×</button>
-    </div>
-
-    <div id="placeGallery" class="gallery"></div>
-    <div id="placeDetails"></div>
+<div id="modal" class="modal" onclick="closeModal(event)">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div id="modalContent"></div>
   </div>
 </div>
 
-<div id="infoModal" class="modal">
-  <div class="modal-card">
-    <div class="modal-head">
-      <h2 id="infoModalTitle"></h2>
-      <button class="close" onclick="closeModal('infoModal')">×</button>
-    </div>
-    <div id="infoModalBody"></div>
-  </div>
-</div>
-
-<div id="packingModal" class="modal">
-  <div class="modal-card">
-    <div class="modal-head">
-      <div>
-        <h2>🧳 Mala inteligente</h2>
-        <p style="color:var(--muted)">
-          Recomendações adaptadas à tua escapadinha.
-        </p>
-      </div>
-      <button class="close" onclick="closeModal('packingModal')">×</button>
-    </div>
-
-    <div id="packingProgress"></div>
-    <div id="packingList" class="checklist"></div>
-
-    <div class="actions">
-      <button class="btn btn-primary" onclick="checkAllPacking()">
-        ✓ Marcar tudo
-      </button>
-      <button class="btn btn-light" onclick="clearPacking()">
-        Limpar
-      </button>
-    </div>
-  </div>
-</div>
-
-<div id="itineraryModal" class="modal">
-  <div class="modal-card">
-    <div class="modal-head">
-      <div>
-        <h2>🗺️ Itinerário</h2>
-        <p style="color:var(--muted)">Organiza a tua escapadinha.</p>
-      </div>
-      <button class="close" onclick="closeModal('itineraryModal')">×</button>
-    </div>
-
-    <div id="itineraryContent"></div>
-  </div>
-</div>
-
-<div id="travelModal" class="modal">
-  <div class="modal-card">
-    <div class="modal-head">
-      <div>
-        <h2>✈️ Modo Viagem</h2>
-        <p style="color:var(--muted)">
-          O essencial enquanto estás no destino.
-        </p>
-      </div>
-      <button class="close" onclick="closeModal('travelModal')">×</button>
-    </div>
-
-    <div id="travelContent"></div>
-  </div>
-</div>
-
-<div id="toast" class="toast"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        crossorigin=""></script>
 
 <script>
-/* ============================================================
-   ESCAPADINHA
-   ============================================================ */
+/* =========================================================
+   ESTADO
+========================================================= */
 
-const OVERPASS_ENDPOINTS = [
-  "https://overpass-api.de/api/interpreter",
-  "https://overpass.kumi.systems/api/interpreter",
-  "https://overpass.private.coffee/api/interpreter"
-];
-
-const state = {
+const app = {
   destination:null,
   country:null,
-  zones:[],
+  weather:[],
   places:{
     restaurant:[],
     cafe:[],
-    attraction:[],
-    hotel:[],
-    hostel:[]
+    attraction:[]
   },
-  currentSleepTab:"hotel",
+  map:null,
+  markers:[],
   localTimeZones:[],
-  favorites:JSON.parse(localStorage.getItem("escapeFavorites")||"[]"),
-  visited:JSON.parse(localStorage.getItem("visitedDestinations")||"[]"),
-  packing:JSON.parse(localStorage.getItem("escapePacking")||"{}"),
-  itinerary:JSON.parse(localStorage.getItem("escapeItinerary")||"[]")
+  currentCategory:"restaurant",
+  itinerary:JSON.parse(localStorage.getItem("escapadinha_itinerary")||"{}")
 };
 
-const destinations = [
-  ["🇵🇹","Lisboa","Portugal","38.7223","-9.1393","PT"],
-  ["🇵🇹","Porto","Portugal","41.1579","-8.6291","PT"],
-  ["🇵🇹","Funchal","Portugal","32.6669","-16.9241","PT"],
-  ["🇫🇷","Paris","França","48.8566","2.3522","FR"],
-  ["🇫🇷","Nice","França","43.7102","7.2620","FR"],
-  ["🇪🇸","Madrid","Espanha","40.4168","-3.7038","ES"],
-  ["🇪🇸","Barcelona","Espanha","41.3874","2.1686","ES"],
-  ["🇪🇸","Sevilha","Espanha","37.3891","-5.9845","ES"],
-  ["🇮🇹","Roma","Itália","41.9028","12.4964","IT"],
-  ["🇮🇹","Milão","Itália","45.4642","9.1900","IT"],
-  ["🇮🇹","Veneza","Itália","45.4408","12.3155","IT"],
-  ["🇬🇧","Londres","Reino Unido","51.5074","-0.1278","GB"],
-  ["🇬🇧","Edimburgo","Reino Unido","55.9533","-3.1883","GB"],
-  ["🇳🇱","Amesterdão","Países Baixos","52.3676","4.9041","NL"],
-  ["🇧🇪","Bruxelas","Bélgica","50.8503","4.3517","BE"],
-  ["🇦🇹","Viena","Áustria","48.2082","16.3738","AT"],
-  ["🇨🇿","Praga","Chéquia","50.0755","14.4378","CZ"],
-  ["🇭🇺","Budapeste","Hungria","47.4979","19.0402","HU"],
-  ["🇬🇷","Atenas","Grécia","37.9838","23.7275","GR"],
-  ["🇮🇪","Dublin","Irlanda","53.3498","-6.2603","IE"],
-  ["🇹🇷","Istambul","Turquia","41.0082","28.9784","TR"],
-  ["🇲🇦","Marraquexe","Marrocos","31.6295","-7.9811","MA"],
-  ["🇪🇬","Cairo","Egito","30.0444","31.2357","EG"],
-  ["🇺🇸","Nova Iorque","Estados Unidos","40.7128","-74.0060","US"],
-  ["🇺🇸","Miami","Estados Unidos","25.7617","-80.1918","US"],
-  ["🇺🇸","Los Angeles","Estados Unidos","34.0522","-118.2437","US"],
-  ["🇨🇦","Toronto","Canadá","43.6532","-79.3832","CA"],
-  ["🇨🇦","Vancouver","Canadá","49.2827","-123.1207","CA"],
-  ["🇯🇵","Tóquio","Japão","35.6762","139.6503","JP"],
-  ["🇯🇵","Quioto","Japão","35.0116","135.7681","JP"],
-  ["🇰🇷","Seul","Coreia do Sul","37.5665","126.9780","KR"],
-  ["🇸🇬","Singapura","Singapura","1.3521","103.8198","SG"],
-  ["🇹🇭","Banguecoque","Tailândia","13.7563","100.5018","TH"],
-  ["🇦🇺","Sydney","Austrália","-33.8688","151.2093","AU"],
-  ["🇦🇺","Melbourne","Austrália","-37.8136","144.9631","AU"],
-  ["🇳🇿","Auckland","Nova Zelândia","-36.8509","174.7645","NZ"],
-  ["🇦🇪","Dubai","Emirados Árabes Unidos","25.2048","55.2708","AE"]
+const DESTINATIONS=[
+  {name:"Lisboa",country:"Portugal",lat:38.7223,lon:-9.1393,code:"PT",emoji:"🇵🇹"},
+  {name:"Porto",country:"Portugal",lat:41.1579,lon:-8.6291,code:"PT",emoji:"🇵🇹"},
+  {name:"Funchal",country:"Portugal",lat:32.6669,lon:-16.9241,code:"PT",emoji:"🇵🇹"},
+  {name:"Paris",country:"França",lat:48.8566,lon:2.3522,code:"FR",emoji:"🇫🇷"},
+  {name:"Nice",country:"França",lat:43.7102,lon:7.2620,code:"FR",emoji:"🇫🇷"},
+  {name:"Roma",country:"Itália",lat:41.9028,lon:12.4964,code:"IT",emoji:"🇮🇹"},
+  {name:"Milão",country:"Itália",lat:45.4642,lon:9.1900,code:"IT",emoji:"🇮🇹"},
+  {name:"Veneza",country:"Itália",lat:45.4408,lon:12.3155,code:"IT",emoji:"🇮🇹"},
+  {name:"Madrid",country:"Espanha",lat:40.4168,lon:-3.7038,code:"ES",emoji:"🇪🇸"},
+  {name:"Barcelona",country:"Espanha",lat:41.3874,lon:2.1686,code:"ES",emoji:"🇪🇸"},
+  {name:"Sevilha",country:"Espanha",lat:37.3891,lon:-5.9845,code:"ES",emoji:"🇪🇸"},
+  {name:"Londres",country:"Reino Unido",lat:51.5074,lon:-.1278,code:"GB",emoji:"🇬🇧"},
+  {name:"Edimburgo",country:"Reino Unido",lat:55.9533,lon:-3.1883,code:"GB",emoji:"🏴"},
+  {name:"Amesterdão",country:"Países Baixos",lat:52.3676,lon:4.9041,code:"NL",emoji:"🇳🇱"},
+  {name:"Bruxelas",country:"Bélgica",lat:50.8503,lon:4.3517,code:"BE",emoji:"🇧🇪"},
+  {name:"Viena",country:"Áustria",lat:48.2082,lon:16.3738,code:"AT",emoji:"🇦🇹"},
+  {name:"Praga",country:"Chéquia",lat:50.0755,lon:14.4378,code:"CZ",emoji:"🇨🇿"},
+  {name:"Budapeste",country:"Hungria",lat:47.4979,lon:19.0402,code:"HU",emoji:"🇭🇺"},
+  {name:"Atenas",country:"Grécia",lat:37.9838,lon:23.7275,code:"GR",emoji:"🇬🇷"},
+  {name:"Dublin",country:"Irlanda",lat:53.3498,lon:-6.2603,code:"IE",emoji:"🇮🇪"},
+  {name:"Istambul",country:"Turquia",lat:41.0082,lon:28.9784,code:"TR",emoji:"🇹🇷"},
+  {name:"Marraquexe",country:"Marrocos",lat:31.6295,lon:-7.9811,code:"MA",emoji:"🇲🇦"},
+  {name:"Cairo",country:"Egito",lat:30.0444,lon:31.2357,code:"EG",emoji:"🇪🇬"},
+  {name:"Nova Iorque",country:"Estados Unidos",lat:40.7128,lon:-74.006,code:"US",emoji:"🇺🇸"},
+  {name:"Miami",country:"Estados Unidos",lat:25.7617,lon:-80.1918,code:"US",emoji:"🇺🇸"},
+  {name:"Los Angeles",country:"Estados Unidos",lat:34.0522,lon:-118.2437,code:"US",emoji:"🇺🇸"},
+  {name:"Toronto",country:"Canadá",lat:43.6532,lon:-79.3832,code:"CA",emoji:"🇨🇦"},
+  {name:"Vancouver",country:"Canadá",lat:49.2827,lon:-123.1207,code:"CA",emoji:"🇨🇦"},
+  {name:"Tóquio",country:"Japão",lat:35.6762,lon:139.6503,code:"JP",emoji:"🇯🇵"},
+  {name:"Quioto",country:"Japão",lat:35.0116,lon:135.7681,code:"JP",emoji:"🇯🇵"},
+  {name:"Seul",country:"Coreia do Sul",lat:37.5665,lon:126.978,code:"KR",emoji:"🇰🇷"},
+  {name:"Singapura",country:"Singapura",lat:1.3521,lon:103.8198,code:"SG",emoji:"🇸🇬"},
+  {name:"Banguecoque",country:"Tailândia",lat:13.7563,lon:100.5018,code:"TH",emoji:"🇹🇭"},
+  {name:"Sydney",country:"Austrália",lat:-33.8688,lon:151.2093,code:"AU",emoji:"🇦🇺"},
+  {name:"Melbourne",country:"Austrália",lat:-37.8136,lon:144.9631,code:"AU",emoji:"🇦🇺"},
+  {name:"Auckland",country:"Nova Zelândia",lat:-36.8509,lon:174.7645,code:"NZ",emoji:"🇳🇿"},
+  {name:"Dubai",country:"Emirados Árabes Unidos",lat:25.2048,lon:55.2708,code:"AE",emoji:"🇦🇪"},
+  {name:"Abu Dhabi",country:"Emirados Árabes Unidos",lat:24.4539,lon:54.3773,code:"AE",emoji:"🇦🇪"}
 ];
 
-const fallbackCountries = [
-  ["🇵🇹","Portugal","PT"],
-  ["🇪🇸","Espanha","ES"],
-  ["🇫🇷","França","FR"],
-  ["🇮🇹","Itália","IT"],
-  ["🇬🇧","Reino Unido","GB"],
-  ["🇩🇪","Alemanha","DE"],
-  ["🇳🇱","Países Baixos","NL"],
-  ["🇧🇪","Bélgica","BE"],
-  ["🇺🇸","Estados Unidos","US"],
-  ["🇨🇦","Canadá","CA"],
-  ["🇯🇵","Japão","JP"],
-  ["🇦🇺","Austrália","AU"],
-  ["🇳🇿","Nova Zelândia","NZ"],
-  ["🇧🇷","Brasil","BR"],
-  ["🇲🇦","Marrocos","MA"]
+const DISCOVERY=[
+  {name:"Lisboa",emoji:"🇵🇹",img:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1200&q=85",text:"Luz, miradouros e bairros históricos."},
+  {name:"Roma",emoji:"🇮🇹",img:"https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&w=1200&q=85",text:"História, comida e arquitetura."},
+  {name:"Paris",emoji:"🇫🇷",img:"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=85",text:"Arte, gastronomia e passeios."},
+  {name:"Tóquio",emoji:"🇯🇵",img:"https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1200&q=85",text:"Uma cidade onde tradição e futuro se encontram."},
+  {name:"Amesterdão",emoji:"🇳🇱",img:"https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&w=1200&q=85",text:"Canais, bicicletas e museus."},
+  {name:"Veneza",emoji:"🇮🇹",img:"https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?auto=format&fit=crop&w=1200&q=85",text:"Canais, praças e arquitetura."},
+  {name:"Barcelona",emoji:"🇪🇸",img:"https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=1200&q=85",text:"Arquitetura, praia e gastronomia."},
+  {name:"Dubai",emoji:"🇦🇪",img:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85",text:"Arquitetura, praia e experiências."}
 ];
 
-const currencyMap = {
-  PT:["Euro","EUR","€"],ES:["Euro","EUR","€"],FR:["Euro","EUR","€"],
-  IT:["Euro","EUR","€"],DE:["Euro","EUR","€"],NL:["Euro","EUR","€"],
-  BE:["Euro","EUR","€"],AT:["Euro","EUR","€"],IE:["Euro","EUR","€"],
-  GR:["Euro","EUR","€"],FI:["Euro","EUR","€"],CY:["Euro","EUR","€"],
-  MT:["Euro","EUR","€"],LU:["Euro","EUR","€"],SI:["Euro","EUR","€"],
-  SK:["Euro","EUR","€"],HR:["Euro","EUR","€"],
-  GB:["Libra esterlina","GBP","£"],US:["Dólar americano","USD","$"],
-  CA:["Dólar canadiano","CAD","$"],AU:["Dólar australiano","AUD","$"],
-  NZ:["Dólar neozelandês","NZD","$"],JP:["Iene","JPY","¥"],
-  CH:["Franco suíço","CHF","CHF"],TR:["Lira turca","TRY","₺"],
-  BR:["Real brasileiro","BRL","R$"],MX:["Peso mexicano","MXN","$"],
-  MA:["Dirham marroquino","MAD","د.م."],EG:["Libra egípcia","EGP","£"],
-  AE:["Dirham dos EAU","AED","د.إ"],SA:["Riyal saudita","SAR","﷼"],
-  IN:["Rupia indiana","INR","₹"],CN:["Yuan","CNY","¥"],
-  KR:["Won sul-coreano","KRW","₩"],TH:["Baht","THB","฿"],
-  SG:["Dólar de Singapura","SGD","$"],ID:["Rupia indonésia","IDR","Rp"],
-  VN:["Dong vietnamita","VND","₫"],ZA:["Rand","ZAR","R"]
-};
+const COUNTRY_FALLBACK=[
+  "Portugal","Espanha","França","Itália","Reino Unido","Irlanda",
+  "Alemanha","Países Baixos","Bélgica","Áustria","Suíça","Grécia",
+  "Estados Unidos","Canadá","Brasil","Japão","Coreia do Sul",
+  "Austrália","Nova Zelândia","Marrocos","Egito","Turquia"
+];
 
-const plugs = {
-  PT:"C / F",ES:"C / F",FR:"C / E",IT:"C / F / L",DE:"C / F",
-  NL:"C / F",BE:"C / E",GB:"G",IE:"G",DK:"C / F / K",SE:"C / F",
-  NO:"C / F",FI:"C / F",IS:"C / F",PL:"C / E",CZ:"C / E",SK:"C / E",
-  HU:"C / F",RO:"C / F",BG:"C / F",GR:"C / F",US:"A / B",CA:"A / B",
-  MX:"A / B",BR:"N",AR:"I / C",JP:"A / B",CN:"A / C / I",KR:"C / F",
-  TH:"A / B / C / O",AU:"I",NZ:"I",SG:"G",IN:"C / D / M",AE:"G",
-  TR:"C / F",MA:"C / E",EG:"C / F",ZA:"D / M / N"
-};
+let countries=[];
 
-const languages = {
-  PT:["Português"],
-  ES:["Espanhol"],
-  FR:["Francês"],
-  IT:["Italiano"],
-  DE:["Alemão"],
-  NL:["Neerlandês"],
-  BE:["Neerlandês","Francês","Alemão"],
-  GB:["Inglês"],
-  IE:["Inglês","Irlandês"],
-  US:["Inglês"],
-  CA:["Inglês","Francês"],
-  JP:["Japonês"],
-  KR:["Coreano"],
-  CN:["Chinês"],
-  TH:["Tailandês"],
-  AU:["Inglês"],
-  NZ:["Inglês","Maori"],
-  BR:["Português"],
-  MA:["Árabe","Amazigue"],
-  EG:["Árabe"],
-  AE:["Árabe"],
-  TR:["Turco"],
-  GR:["Grego"]
-};
 
-const emergency = {
-  PT:"112",
-  ES:"112",
-  FR:"112",
-  IT:"112",
-  DE:"112",
-  NL:"112",
-  BE:"112",
-  AT:"112",
-  CZ:"112",
-  HU:"112",
-  GR:"112",
-  IE:"112 / 999",
-  GB:"999 / 112",
-  CH:"112",
-  TR:"112",
-  US:"911",
-  CA:"911",
-  AU:"000",
-  NZ:"111",
-  JP:"110 polícia / 119 ambulância e bombeiros",
-  AE:"999 polícia / 998 ambulância / 997 bombeiros",
-  BR:"190 polícia / 192 SAMU / 193 bombeiros",
-  EG:"123 ambulância / 122 polícia / 180 bombeiros"
-};
-
-const moodDestinations = {
-  "🌊 Praia":["Funchal","Nice","Miami","Sydney","Auckland"],
-  "🏔️ Aventura":["Auckland","Edimburgo","Vancouver","Quioto","Funchal"],
-  "🍴 Gastronomia":["Roma","Paris","Lisboa","Banguecoque","Tóquio"],
-  "🏛️ Cultura":["Roma","Paris","Atenas","Quioto","Londres"],
-  "📸 Fotografia":["Veneza","Paris","Quioto","Sevilha","Funchal"],
-  "💞 Romântica":["Paris","Veneza","Roma","Viena","Praga"]
-};
-
-/* ============================================================
+/* =========================================================
    UTILIDADES
-   ============================================================ */
+========================================================= */
 
-function esc(s){
-  return String(s??"")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+function escapeHTML(value){
+  return String(value??"")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 
-function normalize(s){
-  return String(s||"")
-    .toLowerCase()
+function normalize(value){
+  return String(value||"")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g,"")
-    .replace(/[^\p{L}\p{N}]+/gu," ")
+    .toLowerCase()
     .trim();
-}
-
-function exactNameMatches(name,text){
-  const n=normalize(name);
-  const t=normalize(text);
-  if(!n || !t)return false;
-  if(t.includes(n))return true;
-
-  const words=n.split(" ").filter(w=>w.length>3);
-  return words.length>=2 && words.every(w=>t.includes(w));
-}
-
-function showToast(text){
-  const el=document.getElementById("toast");
-  el.textContent=text;
-  el.classList.add("show");
-  clearTimeout(showToast.timer);
-  showToast.timer=setTimeout(()=>el.classList.remove("show"),2800);
 }
 
 function scrollToId(id){
   document.getElementById(id)?.scrollIntoView({behavior:"smooth"});
-}
-
-function closeModal(id){
-  document.getElementById(id).classList.remove("show");
-}
-
-function openModal(id){
-  document.getElementById(id).classList.add("show");
 }
 
 function goHome(){
@@ -1519,20 +1388,35 @@ function goHome(){
   document.getElementById("home").scrollIntoView({behavior:"smooth"});
 }
 
-function cacheSet(key,value,minutes=60){
-  localStorage.setItem(
-    key,
-    JSON.stringify({
-      expires:Date.now()+minutes*60000,
-      value
-    })
-  );
+function openModal(html){
+  document.getElementById("modalContent").innerHTML=html;
+  document.getElementById("modal").classList.add("open");
 }
 
-function cacheGet(key){
+function closeModal(e){
+  if(!e || e.target.id==="modal"){
+    document.getElementById("modal").classList.remove("open");
+  }
+}
+
+function cacheSet(key,value,minutes=60){
   try{
-    const obj=JSON.parse(localStorage.getItem(key));
-    if(!obj || Date.now()>obj.expires)return null;
+    localStorage.setItem(
+      key,
+      JSON.stringify({
+        time:Date.now(),
+        value
+      })
+    );
+  }catch{}
+}
+
+function cacheGet(key,minutes=60){
+  try{
+    const raw=localStorage.getItem(key);
+    if(!raw)return null;
+    const obj=JSON.parse(raw);
+    if(Date.now()-obj.time>minutes*60000)return null;
     return obj.value;
   }catch{
     return null;
@@ -1541,742 +1425,635 @@ function cacheGet(key){
 
 async function fetchJSON(url,options={}){
   const controller=new AbortController();
-  const timer=setTimeout(()=>controller.abort(),options.timeout||12000);
+  const timeout=setTimeout(()=>controller.abort(),options.timeout||12000);
 
   try{
-    const res=await fetch(url,{
+    const response=await fetch(url,{
       ...options,
       signal:controller.signal
     });
 
-    if(!res.ok)throw new Error("HTTP "+res.status);
-    return await res.json();
+    if(!response.ok)throw new Error("HTTP "+response.status);
+
+    return await response.json();
   }finally{
-    clearTimeout(timer);
+    clearTimeout(timeout);
   }
 }
 
-/* ============================================================
+
+/* =========================================================
    DESTINOS
-   ============================================================ */
+========================================================= */
 
-function setupDestinationDropdown(){
-  const input=document.getElementById("destinationInput");
-  const dropdown=document.getElementById("destinationDropdown");
-
-  function render(){
-    const q=normalize(input.value);
-
-    const list=destinations.filter(d=>{
-      if(!q)return true;
-      return normalize(d[1]+" "+d[2]).includes(q);
-    }).slice(0,12);
-
-    dropdown.innerHTML=list.map(d=>`
-      <div class="dropdown-item"
-           onclick="chooseDestination(${JSON.stringify(d).replace(/"/g,'&quot;')})">
-        <span>${d[0]}</span>
-        <div>
-          <strong>${esc(d[1])}</strong>
-          <div style="font-size:12px;color:var(--muted)">${esc(d[2])}</div>
-        </div>
-      </div>
-    `).join("");
-
-    dropdown.classList.add("show");
-  }
-
-  input.addEventListener("focus",render);
-  input.addEventListener("input",render);
-
-  document.addEventListener("click",e=>{
-    if(!input.parentElement.contains(e.target)){
-      dropdown.classList.remove("show");
-    }
-  });
+function findDestination(value){
+  const n=normalize(value);
+  return DESTINATIONS.find(d=>normalize(d.name)===n)
+      || DESTINATIONS.find(d=>normalize(d.name).includes(n)||n.includes(normalize(d.name)));
 }
 
-function chooseDestination(d){
-  document.getElementById("destinationInput").value=d[1];
-  document.getElementById("destinationDropdown").classList.remove("show");
-}
+async function resolveDestination(value){
+  const known=findDestination(value);
+  if(known)return known;
 
-async function resolveDestination(name){
-  const clean=name.trim();
-
-  const known=destinations.find(
-    d=>normalize(d[1])===normalize(clean)
-  );
-
-  if(known){
-    return {
-      emoji:known[0],
-      name:known[1],
-      country:known[2],
-      lat:Number(known[3]),
-      lon:Number(known[4]),
-      countryCode:known[5]
-    };
-  }
-
-  const cache=cacheGet("destination:"+normalize(clean));
-
-  if(cache)return cache;
+  const key="geo_"+normalize(value);
+  const cached=cacheGet(key,1440);
+  if(cached)return cached;
 
   const data=await fetchJSON(
     "https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q="+
-    encodeURIComponent(clean),
-    {headers:{"Accept":"application/json"}}
+    encodeURIComponent(value),
+    {headers:{"Accept-Language":"pt-PT"}}
   );
 
   if(!data?.length)throw new Error("Destino não encontrado.");
 
   const item=data[0];
 
-  const parts=(item.display_name||"").split(",");
-
   const result={
-    emoji:"📍",
-    name:item.name||clean,
-    country:parts[parts.length-1]?.trim()||"Destino",
+    name:item.display_name.split(",")[0],
+    country:item.address?.country||"",
     lat:Number(item.lat),
     lon:Number(item.lon),
-    countryCode:null
+    code:item.address?.country_code?.toUpperCase()||"",
+    emoji:"🌍",
+    osmType:item.type
   };
 
-  cacheSet("destination:"+normalize(clean),result,1440);
-
+  cacheSet(key,result,1440);
   return result;
 }
 
-/* ============================================================
-   PAÍSES
-   ============================================================ */
 
-async function loadCountries(){
-  const cached=cacheGet("countries");
+/* =========================================================
+   AUTOCOMPLETE
+========================================================= */
 
-  if(cached){
-    setupCountries(cached);
-    return;
-  }
+function setupDestinationSearch(){
+  const input=document.getElementById("destinationInput");
+  const box=document.getElementById("destinationSuggestions");
 
-  try{
-    const data=await fetchJSON(
-      "https://restcountries.com/v3.1/all?fields=name,cca2,flags"
-    );
+  input.addEventListener("focus",()=>renderDestinationSuggestions(input.value));
 
-    const countries=data
-      .map(c=>[
-        "🌍",
-        c?.name?.common||"",
-        c?.cca2||""
-      ])
-      .filter(c=>c[1])
-      .sort((a,b)=>a[1].localeCompare(b[1],"pt",{sensitivity:"base"}));
-
-    cacheSet("countries",countries,10080);
-    setupCountries(countries);
-  }catch{
-    setupCountries(fallbackCountries);
-  }
-}
-
-function setupCountries(countries){
-  const input=document.getElementById("nationalityInput");
-  const dropdown=document.getElementById("countryDropdown");
-
-  function render(){
-    const q=normalize(input.value);
-
-    const list=countries.filter(c=>{
-      if(!q)return true;
-      return normalize(c[1]).includes(q);
-    }).slice(0,15);
-
-    dropdown.innerHTML=list.map(c=>`
-      <div class="dropdown-item" onclick="chooseCountry('${esc(c[1])}','${c[2]}')">
-        <span>${c[0]}</span>
-        <strong>${esc(c[1])}</strong>
-      </div>
-    `).join("");
-
-    dropdown.classList.add("show");
-  }
-
-  input.addEventListener("focus",render);
-  input.addEventListener("input",render);
+  input.addEventListener("input",()=>{
+    renderDestinationSuggestions(input.value);
+  });
 
   document.addEventListener("click",e=>{
     if(!input.parentElement.contains(e.target)){
-      dropdown.classList.remove("show");
+      box.classList.add("hidden");
     }
   });
+}
+
+function renderDestinationSuggestions(value=""){
+  const box=document.getElementById("destinationSuggestions");
+  const n=normalize(value);
+
+  let list=DESTINATIONS.filter(d=>
+    !n ||
+    normalize(d.name).includes(n) ||
+    normalize(d.country).includes(n)
+  ).slice(0,12);
+
+  box.innerHTML=list.map(d=>`
+    <button class="suggestion" onclick="selectDestination('${escapeHTML(d.name)}')">
+      <span>${d.emoji}</span>
+      <span><strong>${escapeHTML(d.name)}</strong><br><small>${escapeHTML(d.country)}</small></span>
+    </button>
+  `).join("");
+
+  box.classList.remove("hidden");
+}
+
+function selectDestination(name){
+  document.getElementById("destinationInput").value=name;
+  document.getElementById("destinationSuggestions").classList.add("hidden");
+}
+
+function setupNationalitySearch(){
+  const input=document.getElementById("nationalityInput");
+  const box=document.getElementById("nationalitySuggestions");
 
   input.value="Portugal";
+
+  input.addEventListener("focus",()=>renderNationalities(input.value));
+  input.addEventListener("input",()=>renderNationalities(input.value));
+
+  document.addEventListener("click",e=>{
+    if(!input.parentElement.contains(e.target)){
+      box.classList.add("hidden");
+    }
+  });
 }
 
-function chooseCountry(name,code){
+function renderNationalities(value=""){
+  const box=document.getElementById("nationalitySuggestions");
+  const n=normalize(value);
+
+  const list=(countries.length?countries:COUNTRY_FALLBACK)
+    .filter(c=>!n||normalize(typeof c==="string"?c:c.name).includes(n))
+    .slice(0,15);
+
+  box.innerHTML=list.map(c=>{
+    const name=typeof c==="string"?c:c.name;
+    const flag=typeof c==="string"?"🌍":(c.flag||"🌍");
+
+    return `
+      <button class="suggestion"
+        onclick="selectNationality('${escapeHTML(name)}')">
+        ${flag} ${escapeHTML(name)}
+      </button>
+    `;
+  }).join("");
+
+  box.classList.remove("hidden");
+}
+
+function selectNationality(name){
   document.getElementById("nationalityInput").value=name;
-  document.getElementById("countryDropdown").classList.remove("show");
-  document.getElementById("nationalityInput").dataset.code=code;
+  document.getElementById("nationalitySuggestions").classList.add("hidden");
 }
 
-/* ============================================================
-   DESTINO
-   ============================================================ */
+async function loadCountries(){
+  try{
+    const cached=cacheGet("countries",10080);
+    if(cached){
+      countries=cached;
+      return;
+    }
 
-async function exploreDestination(){
-  const input=document.getElementById("destinationInput");
-  const name=input.value.trim();
+    const data=await fetchJSON(
+      "https://restcountries.com/v3.1/all?fields=name,flags,cca2"
+    );
 
-  if(!name){
-    showToast("Escolhe primeiro um destino.");
+    countries=data
+      .map(c=>({
+        name:c.name?.common||"",
+        flag:c.flags?.emoji||"",
+        code:c.cca2||""
+      }))
+      .filter(c=>c.name)
+      .sort((a,b)=>a.name.localeCompare(b.name,"pt"));
+
+    cacheSet("countries",countries,10080);
+  }catch{
+    countries=[];
+  }
+}
+
+
+/* =========================================================
+   CRIAR VIAGEM
+========================================================= */
+
+async function createTrip(){
+  const value=document.getElementById("destinationInput").value.trim();
+
+  if(!value){
+    openModal(`
+      <h2>🗺️ Escolhe um destino</h2>
+      <p>Escreve uma cidade ou país para começar a tua escapadinha.</p>
+    `);
     return;
   }
+
+  const button=document.querySelector(".planner .primary");
+  const original=button.textContent;
+
+  button.disabled=true;
+  button.textContent="A preparar a viagem...";
+
+  try{
+    const destination=await resolveDestination(value);
+    await showDestination(destination);
+  }catch(error){
+    openModal(`
+      <h2>Não consegui localizar esse destino</h2>
+      <p>${escapeHTML(error.message||"Experimenta escrever uma cidade diferente.")}</p>
+    `);
+  }finally{
+    button.disabled=false;
+    button.textContent=original;
+  }
+}
+
+async function showDestination(destination){
+  app.destination=destination;
 
   const view=document.getElementById("destinationView");
   view.style.display="block";
-  view.scrollIntoView({behavior:"smooth"});
 
-  renderLoadingAll();
+  renderDestinationHero();
+  renderTravelLinks();
+  renderBasicInfo();
+  renderDescription();
+  renderPassport();
+  renderItinerary();
+
+  scrollToId("destinationView");
+
+  document.getElementById("placeGrid").innerHTML="";
+  document.getElementById("zoneGrid").innerHTML="";
+
+  await Promise.allSettled([
+    loadCountryInfo(),
+    loadZonesAndWeather(),
+    loadPlaces("restaurant")
+  ]);
+
+  initMap();
+}
+
+
+/* =========================================================
+   HERO DESTINO
+========================================================= */
+
+async function getDestinationImage(destination){
+  const exact=await findExactWikimediaImage(destination.name);
+
+  if(exact?.url)return exact.url;
+
+  const fallback=DISCOVERY.find(d=>normalize(d.name)===normalize(destination.name));
+  return fallback?.img||"https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1600&q=85";
+}
+
+async function renderDestinationHero(){
+  const hero=document.getElementById("destinationHero");
+  hero.style.backgroundImage="linear-gradient(135deg,#315f50,#182b24)";
+
+  const image=await getDestinationImage(app.destination);
+
+  hero.style.backgroundImage=`url("${image}")`;
+
+  const visited=isVisited(app.destination.name);
+
+  hero.innerHTML=`
+    <div class="destination-hero-content">
+      <div class="destination-meta">
+        <span class="pill">${app.destination.emoji}</span>
+        <span class="pill">${escapeHTML(app.destination.country)}</span>
+      </div>
+
+      <h1>${escapeHTML(app.destination.name)}</h1>
+
+      <div class="destination-meta">
+        <span class="pill" id="heroTemp">🌡️ A carregar meteorologia...</span>
+        <span class="pill" id="heroTime">🕐 Hora local...</span>
+      </div>
+
+      <div class="destination-actions">
+        <button
+          id="visitedButton"
+          class="${visited?"visited":""}"
+          onclick="toggleVisited()">
+          ${visited?"✓ Já visitei":"○ Marcar como visitado"}
+        </button>
+
+        <button onclick="openPacking()">🧳 Preparar mala</button>
+        <button onclick="scrollToId('destinationView')">🗺️ Explorar</button>
+      </div>
+    </div>
+  `;
+
+  updateHeroTime();
+}
+
+
+/* =========================================================
+   REST COUNTRIES
+========================================================= */
+
+let countryData=null;
+
+async function loadCountryInfo(){
+  if(!app.destination.code)return;
 
   try{
-    state.destination=await resolveDestination(name);
+    countryData=await fetchJSON(
+      "https://restcountries.com/v3.1/alpha/"+
+      encodeURIComponent(app.destination.code)+
+      "?fields=name,currencies,capital,timezones,languages,cca2,flags"
+    );
 
-    document.getElementById("flightDestination").value=state.destination.name;
-
-    await resolveCountry();
-
-    renderDestinationHero();
-    renderInfoCards();
-
-    createZones();
-
-    await Promise.allSettled([
-      loadWeatherZones(),
-      loadPlaces("restaurant"),
-      loadPlaces("cafe"),
-      loadPlaces("attraction"),
-      loadPlaces("hotel"),
-      loadPlaces("hostel")
-    ]);
-
-    renderSleepTab();
-    updatePassport();
-  }catch(err){
-    console.error(err);
-    showToast("Não foi possível carregar este destino.");
+    renderBasicInfo();
+    renderTravelLinks();
+  }catch{
+    countryData=null;
   }
 }
 
-async function resolveCountry(){
-  let code=state.destination.countryCode;
+function renderBasicInfo(){
+  const c=countryData;
 
-  if(!code){
-    const q=state.destination.country;
+  const currencyObj=c?.currencies
+    ?Object.entries(c.currencies)[0]
+    :null;
 
-    try{
-      const data=await fetchJSON(
-        "https://restcountries.com/v3.1/name/"+encodeURIComponent(q)+"?fields=name,cca2,currencies,capital,timezones,languages"
-      );
+  const currency=currencyObj
+    ?`${currencyObj[1]?.name||currencyObj[0]} (${currencyObj[0]}) ${currencyObj[1]?.symbol||""}`
+    :"Consultar moeda local";
 
-      if(data?.length){
-        const c=data[0];
-        code=c.cca2;
-        state.country=c;
-      }
-    }catch{}
-  }
+  const languages=c?.languages
+    ?Object.values(c.languages).join(", ")
+    :"Consultar línguas oficiais";
 
-  if(code){
-    try{
-      const data=await fetchJSON(
-        "https://restcountries.com/v3.1/alpha/"+encodeURIComponent(code)+
-        "?fields=name,cca2,currencies,capital,timezones,languages"
-      );
+  const capital=c?.capital?.[0]||"Consultar";
 
-      state.country=data;
-      state.destination.countryCode=data.cca2;
-      state.destination.country=data.name?.common||state.destination.country;
-    }catch{}
-  }
-}
+  const plug=getPlug(app.destination.code);
+  const emergency=getEmergency(app.destination.code);
 
-function renderLoadingAll(){
-  const ids=[
-    "restaurants","cafes","attractions",
-    "sleepResults","weatherZones"
-  ];
-
-  ids.forEach(id=>{
-    const el=document.getElementById(id);
-    if(!el)return;
-
-    el.innerHTML=`
-      <div class="loading" style="grid-column:1/-1">
-        <div class="loading-plane-wrap">
-          <div class="loading-plane">✈️</div>
-        </div>
-        A preparar a tua escapadinha…
-      </div>
-    `;
-  });
-}
-
-function renderDestinationHero(){
-  const d=state.destination;
-
-  const visited=state.visited.some(
-    x=>normalize(x.name)===normalize(d.name)
-  );
-
-  document.getElementById("destinationHero").innerHTML=`
-    <div class="destination-hero">
-      <div class="destination-hero-content">
-
-        <div class="eyebrow" style="background:rgba(255,255,255,.14);color:white">
-          ${d.emoji} ${esc(d.country)}
-        </div>
-
-        <h1>${esc(d.name)}</h1>
-
-        <p>
-          Explora ${esc(d.name)} com informação prática,
-          meteorologia por zonas, lugares reais, restaurantes,
-          cafés, atrações, alojamento e voos.
-        </p>
-
-        <div class="hero-meta">
-          <span>📍 ${d.lat.toFixed(3)}, ${d.lon.toFixed(3)}</span>
-          ${visited?`<span>✓ Já visitado</span>`:""}
-        </div>
-
-      </div>
-    </div>
+  document.getElementById("destinationInfo").innerHTML=`
+    ${infoCard("🗣️","Línguas",languages,"language")}
+    ${infoCard("💶","Moeda",currency,"currency")}
+    ${infoCard("🔌","Tomadas",plug,"electricity")}
+    ${infoCard("🏛️","Capital",capital,"capital")}
+    ${infoCard("🚇","Transportes","Metro, comboio, autocarro e táxi conforme o destino","transport")}
+    ${infoCard("🛂","Documentos","Requisitos dependem da nacionalidade","documents")}
+    ${infoCard("🚨","Emergências",emergency,"emergency")}
+    ${infoCard("🕐","Hora local","A atualizar em tempo real","time")}
   `;
 }
 
-function renderInfoCards(){
-  const d=state.destination;
-  const c=state.country||{};
-  const code=d.countryCode||"";
-
-  const currency=
-    currencyMap[code]||
-    [
-      Object.keys(c.currencies||{})[0]||"Moeda local",
-      Object.keys(c.currencies||{})[0]||"",
-      ""
-    ];
-
-  const langs=
-    languages[code]||
-    Object.values(c.languages||{});
-
-  const capital=
-    Array.isArray(c.capital)
-      ?c.capital[0]
-      :"Consultar país";
-
-  const timezone=
-    Array.isArray(c.timezones)
-      ?c.timezones[0]
-      :"";
-
-  const plug=plugs[code]||"Confirma localmente";
-
-  const emergencyNumber=emergency[code]||"Confirma localmente";
-
-  const cards=[
-    ["🗣️","Línguas",langs.length?langs.join(", "):"Consultar país",
-      ()=>openInfo("🗣️ Línguas",languageGuide(langs))],
-
-    ["💶","Moeda",`${currency[0]} (${currency[1]||"local"})`,
-      ()=>openInfo("💶 Moeda",`
-        <p><strong>${esc(currency[0])}</strong></p>
-        <p>Código: ${esc(currency[1]||"—")}</p>
-        <p>Símbolo: ${esc(currency[2]||"—")}</p>
-        <p>Confirma as condições de pagamento e eventuais comissões antes da viagem.</p>
-      `)],
-
-    ["🔌","Tomadas",plug,
-      ()=>openInfo("🔌 Tomadas",`
-        <p>Tipos de ficha identificados para este país: <strong>${esc(plug)}</strong>.</p>
-        <p>Confirma se o teu equipamento suporta a tensão elétrica do destino. Se a ficha for diferente, leva um adaptador.</p>
-      `)],
-
-    ["🚇","Transportes","Transportes locais",
-      ()=>openInfo("🚇 Transportes",`
-        <p>Consulta transportes públicos, trajetos e horários atualizados através de mapas e operadores locais.</p>
-        <a class="btn btn-secondary" target="_blank"
-          href="https://www.google.com/maps/search/${encodeURIComponent("transportes "+d.name)}">
-          Abrir transportes no Maps
-        </a>
-      `)],
-
-    ["🛂","Documentos","Verificar antes da viagem",
-      ()=>openInfo("🛂 Documentos",`
-        <p>Os documentos e requisitos dependem da tua nacionalidade e do destino.</p>
-        <p><strong>Nacionalidade:</strong> ${esc(document.getElementById("nationalityInput").value||"Portugal")}</p>
-        <div class="actions">
-          <a class="btn btn-secondary" target="_blank"
-             href="https://portaldascomunidades.mne.gov.pt/pt/vai-viajar">
-             Portal das Comunidades
-          </a>
-          <a class="btn btn-light" target="_blank"
-             href="https://europa.eu/youreurope/citizens/travel/entry-exit/index_pt.htm">
-             Your Europe
-          </a>
-        </div>
-      `)],
-
-    ["🚨","Emergências",emergencyNumber,
-      ()=>openInfo("🚨 Emergências",`
-        <p><strong>Número(s): ${esc(emergencyNumber)}</strong></p>
-        <p>Confirma os números locais antes de viajar, especialmente fora da União Europeia.</p>
-      `)],
-
-    ["🏛️","Capital",capital,
-      ()=>openInfo("🏛️ Capital",`
-        <p>A capital nacional é <strong>${esc(capital)}</strong>.</p>
-      `)],
-
-    ["🕐","Hora local","Hora local agora",
-      ()=>openInfo("🕐 Hora local",`
-        <p class="big-time" id="modalLocalTime"></p>
-        <p>${esc(timezone||"A determinar automaticamente pelo destino.")}</p>
-      `)]
-  ];
-
-  document.getElementById("infoGrid").innerHTML=cards.map((c,i)=>`
-    <div class="info-card">
-      <div class="icon">${c[0]}</div>
-      <strong>${c[1]}</strong>
-      <p>${esc(c[2])}</p>
-      <button class="small-action" onclick="infoAction(${i})">
-        Ver mais
-      </button>
-    </div>
-  `).join("");
-
-  window.currentInfoActions=cards.map(c=>c[3]);
-}
-
-function infoAction(i){
-  window.currentInfoActions?.[i]?.();
-}
-
-function languageGuide(langs){
-  if(!langs?.length)return "<p>Não foi possível determinar as línguas neste momento.</p>";
-
+function infoCard(icon,title,value,type){
   return `
-    <p>As línguas associadas ao país incluem:</p>
-    <ul>
-      ${langs.map(l=>`<li><strong>${esc(l)}</strong></li>`).join("")}
-    </ul>
-
     <div class="info-card">
-      <strong>Frases úteis</strong>
-      <p>Olá · Obrigado/a · Por favor · Desculpe · Onde fica…? · Quanto custa?</p>
+      <div class="icon">${icon}</div>
+      <strong>${escapeHTML(title)}</strong>
+      <small>${escapeHTML(value)}</small>
+      <button onclick="openInfo('${type}')">Ver mais</button>
     </div>
   `;
 }
 
-function openInfo(title,body){
-  document.getElementById("infoModalTitle").textContent=title;
-  document.getElementById("infoModalBody").innerHTML=body;
-  openModal("infoModal");
 
-  updateModalClock();
+/* =========================================================
+   INFO
+========================================================= */
+
+const PLUGS={
+  PT:"C / F",ES:"C / F",FR:"C / E",IT:"C / F / L",DE:"C / F",
+  NL:"C / F",BE:"C / E",AT:"C / F",CH:"J",GB:"G",IE:"G",
+  US:"A / B",CA:"A / B",MX:"A / B",BR:"N",AR:"I / C",CL:"C / L",
+  JP:"A / B",CN:"A / C / I",KR:"C / F",TH:"A / B / C / O",
+  SG:"G",AU:"I",NZ:"I",AE:"G",TR:"C / F",MA:"C / E",EG:"C / F",
+  ZA:"D / M / N",IN:"C / D / M"
+};
+
+function getPlug(code){
+  return PLUGS[code]||"Confirma o tipo de tomada local";
 }
 
-/* ============================================================
-   ZONAS METEOROLÓGICAS
-   ============================================================ */
+const EMERGENCY={
+  PT:"112",ES:"112",FR:"112",IT:"112",DE:"112",NL:"112",BE:"112",
+  AT:"112",IE:"112 / 999",GB:"112 / 999",CH:"112",GR:"112",CZ:"112",
+  HU:"112",PL:"112",US:"911",CA:"911",AU:"000",NZ:"111",JP:"110 polícia / 119 ambulância e bombeiros",
+  BR:"190 polícia / 192 SAMU / 193 bombeiros",MX:"911",TR:"112",
+  MA:"112",EG:"123 ambulância / 122 polícia / 180 bombeiros",
+  AE:"999 polícia / 998 ambulância / 997 bombeiros"
+};
 
-function createZones(){
-  const d=state.destination;
+function getEmergency(code){
+  return EMERGENCY[code]||"Confirma os números locais antes da viagem";
+}
 
-  /*
-    IMPORTANTE:
-    As zonas são calculadas a partir do destino.
-    Assim a meteorologia deixa de ser uma única caixa
-    e volta a aparecer dividida por zonas.
-  */
+function openInfo(type){
+  const c=countryData;
+  let title="";
+  let body="";
 
-  const presetZones={
-    "Lisboa":[
-      ["Centro","Lisboa",38.7223,-9.1393],
-      ["Belém / Alcântara","Lisboa",38.6968,-9.2060],
-      ["Parque das Nações","Lisboa",38.7677,-9.0958]
-    ],
-    "Porto":[
-      ["Centro","Porto",41.1579,-8.6291],
-      ["Foz","Porto",41.1512,-8.6760],
-      ["Boavista","Porto",41.1599,-8.6308]
-    ],
-    "Funchal":[
-      ["Centro do Funchal","Funchal",32.6669,-16.9241],
-      ["Monte","Funchal",32.6930,-16.9010],
-      ["Zona Leste","Funchal",32.6600,-16.8850],
-      ["Zona Oeste","Funchal",32.6500,-16.9550]
-    ],
-    "Paris":[
-      ["Centro","Paris",48.8566,2.3522],
-      ["Montmartre","Paris",48.8867,2.3431],
-      ["Eiffel / Trocadéro","Paris",48.8584,2.2945]
-    ],
-    "Roma":[
-      ["Centro Histórico","Roma",41.9028,12.4964],
-      ["Vaticano","Roma",41.9029,12.4534],
-      ["Trastevere","Roma",41.8897,12.4697]
-    ],
-    "Londres":[
-      ["Centro","Londres",51.5074,-0.1278],
-      ["Westminster","Londres",51.4975,-0.1357],
-      ["Camden","Londres",51.5416,-0.1433]
-    ],
-    "Barcelona":[
-      ["Centro","Barcelona",41.3874,2.1686],
-      ["Barceloneta","Barcelona",41.3785,2.1925],
-      ["Gràcia","Barcelona",41.4036,2.1569]
-    ],
-    "Madrid":[
-      ["Centro","Madrid",40.4168,-3.7038],
-      ["Salamanca","Madrid",40.4305,-3.6866],
-      ["Retiro","Madrid",40.4153,-3.6844]
-    ]
-  };
+  if(type==="language"){
+    title="🗣️ Guia de idioma";
+    const langs=c?.languages?Object.values(c.languages):[];
+    body=`
+      <p><strong>Língua(s) oficial(is):</strong> ${escapeHTML(langs.join(", ")||"Consultar")}</p>
+      ${languagePhrases(langs)}
+    `;
+  }
 
-  if(presetZones[d.name]){
-    state.zones=presetZones[d.name].map(z=>({
-      name:z[0],
-      place:z[1],
-      lat:z[2],
-      lon:z[3],
-      timezone:null
-    }));
+  if(type==="currency"){
+    title="💶 Moeda";
+    const item=c?.currencies?Object.entries(c.currencies)[0]:null;
+    body=`
+      <p><strong>Moeda:</strong> ${escapeHTML(item?.[1]?.name||item?.[0]||"Consultar")}</p>
+      <p><strong>Código:</strong> ${escapeHTML(item?.[0]||"")}</p>
+      <p>Confirma a taxa de câmbio atual antes de efetuar conversões.</p>
+    `;
+  }
 
+  if(type==="electricity"){
+    title="🔌 Eletricidade";
+    body=`
+      <p><strong>Tipo de tomada:</strong> ${escapeHTML(getPlug(app.destination.code))}</p>
+      <p>Confirma a tensão elétrica do destino e verifica se os teus equipamentos
+      são compatíveis. Se necessário, leva um adaptador.</p>
+    `;
+  }
+
+  if(type==="capital"){
+    title="🏛️ Capital";
+    body=`
+      <p><strong>Capital nacional:</strong> ${escapeHTML(c?.capital?.[0]||"Consultar")}</p>
+      <p>O destino escolhido pode ser uma cidade diferente da capital nacional.</p>
+    `;
+  }
+
+  if(type==="transport"){
+    title="🚇 Transportes";
+    body=`
+      <p>Usa o mapa para pesquisar percursos a partir da tua localização.</p>
+      <p>As opções disponíveis variam por cidade e podem incluir metro,
+      comboio, autocarro, elétrico, ferry, táxi e transporte por aplicação.</p>
+      <a class="primary" style="display:inline-block;text-decoration:none"
+         target="_blank"
+         href="${mapsSearch(app.destination.name+" transportes")}">
+         Abrir Google Maps
+      </a>
+    `;
+  }
+
+  if(type==="documents"){
+    title="🛂 Documentos";
+    body=`
+      <p>Os requisitos dependem da tua nacionalidade, do país de destino
+      e do objetivo/duração da viagem.</p>
+      <p>Antes de viajar, confirma as regras oficiais.</p>
+
+      <p>
+        <a href="https://portaldascomunidades.mne.gov.pt/pt/vai-viajar"
+           target="_blank">Portal das Comunidades Portuguesas →</a>
+      </p>
+
+      <p>
+        <a href="https://europa.eu/youreurope/citizens/travel/entry-exit/index_pt.htm"
+           target="_blank">Your Europe →</a>
+      </p>
+    `;
+  }
+
+  if(type==="emergency"){
+    title="🚨 Emergências";
+    body=`
+      <p><strong>Número:</strong> ${escapeHTML(getEmergency(app.destination.code))}</p>
+      <p>Guarda também o endereço do alojamento e os contactos locais importantes.</p>
+    `;
+  }
+
+  if(type==="time"){
+    title="🕐 Hora local agora";
+    body=`
+      <div id="modalClock" style="font-size:45px;font-weight:900"></div>
+      <p id="modalDate"></p>
+    `;
+
+    openModal(`<h2>${title}</h2>${body}`);
+
+    updateModalClock();
     return;
   }
 
-  const delta=0.035;
-
-  state.zones=[
-    {
-      name:"Centro",
-      place:d.name,
-      lat:d.lat,
-      lon:d.lon,
-      timezone:null
-    },
-    {
-      name:"Zona Norte",
-      place:d.name,
-      lat:d.lat+delta,
-      lon:d.lon,
-      timezone:null
-    },
-    {
-      name:"Zona Sul",
-      place:d.name,
-      lat:d.lat-delta,
-      lon:d.lon,
-      timezone:null
-    },
-    {
-      name:"Zona Este",
-      place:d.name,
-      lat:d.lat,
-      lon:d.lon+delta,
-      timezone:null
-    },
-    {
-      name:"Zona Oeste",
-      place:d.name,
-      lat:d.lat,
-      lon:d.lon-delta,
-      timezone:null
-    }
-  ];
+  openModal(`<h2>${title}</h2>${body}`);
 }
 
-async function loadWeatherZones(force=false){
-  const container=document.getElementById("weatherZones");
+function languagePhrases(langs){
+  const lang=(langs?.[0]||"").toLowerCase();
 
-  if(!state.destination)return;
+  const packs={
+    portuguese:[
+      ["Olá","Olá"],
+      ["Obrigado","Obrigado"],
+      ["Onde fica...?","Onde fica...?"],
+      ["A conta, por favor","A conta, por favor"],
+      ["Ajuda","Preciso de ajuda"]
+    ],
+    italian:[
+      ["Olá","Ciao"],
+      ["Obrigado","Grazie"],
+      ["Onde fica...?","Dov'è...?"],
+      ["A conta, por favor","Il conto, per favore"],
+      ["Ajuda","Aiuto"]
+    ],
+    spanish:[
+      ["Olá","Hola"],
+      ["Obrigado","Gracias"],
+      ["Onde fica...?","¿Dónde está...?"],
+      ["A conta, por favor","La cuenta, por favor"],
+      ["Ajuda","Ayuda"]
+    ],
+    french:[
+      ["Olá","Bonjour"],
+      ["Obrigado","Merci"],
+      ["Onde fica...?","Où est...?"],
+      ["A conta, por favor","L'addition, s'il vous plaît"],
+      ["Ajuda","À l'aide"]
+    ],
+    english:[
+      ["Olá","Hello"],
+      ["Obrigado","Thank you"],
+      ["Onde fica...?","Where is...?"],
+      ["A conta, por favor","The bill, please"],
+      ["Ajuda","Help"]
+    ],
+    german:[
+      ["Olá","Hallo"],
+      ["Obrigado","Danke"],
+      ["Onde fica...?","Wo ist...?"],
+      ["A conta, por favor","Die Rechnung, bitte"],
+      ["Ajuda","Hilfe"]
+    ],
+    japanese:[
+      ["Olá","こんにちは"],
+      ["Obrigado","ありがとうございます"],
+      ["Onde fica...?","どこですか？"],
+      ["A conta, por favor","お会計お願いします"],
+      ["Ajuda","助けてください"]
+    ]
+  };
 
-  if(!state.zones.length)createZones();
+  let key="english";
 
-  container.innerHTML=state.zones.map((z,i)=>`
-    <article class="weather-zone" id="weather-zone-${i}">
-      <div class="weather-zone-head">
-        <div>
-          <h3>${esc(z.name)}</h3>
-          <div class="zone-location">${esc(z.place)}</div>
+  if(lang.includes("portugu"))key="portuguese";
+  else if(lang.includes("ital"))key="italian";
+  else if(lang.includes("span")||lang.includes("espan"))key="spanish";
+  else if(lang.includes("fran"))key="french";
+  else if(lang.includes("german")||lang.includes("alem"))key="german";
+  else if(lang.includes("japan")||lang.includes("japon"))key="japanese";
+
+  return `
+    <div style="display:grid;gap:8px">
+      ${packs[key].map(p=>`
+        <div style="background:#f5f7f5;border-radius:12px;padding:12px">
+          <small>${escapeHTML(p[0])}</small>
+          <strong style="display:block;margin-top:3px">${escapeHTML(p[1])}</strong>
         </div>
-        <span>🌦️</span>
-      </div>
-
-      <div class="weather-temp">—</div>
-      <div class="weather-desc">A carregar…</div>
-
-      <div class="weather-details">
-        <div class="weather-detail">
-          <span>Sensação</span>—
-        </div>
-        <div class="weather-detail">
-          <span>Humidade</span>—
-        </div>
-        <div class="weather-detail">
-          <span>Vento</span>—
-        </div>
-        <div class="weather-detail">
-          <span>Chuva</span>—
-        </div>
-      </div>
-
-      <div class="local-time">
-        🕐 Hora local: —
-      </div>
-
-      <div class="weather-source">
-        Dados meteorológicos: Open-Meteo
-      </div>
-    </article>
-  `).join("");
-
-  const requests=state.zones.map((zone,index)=>
-    loadZoneWeather(zone,index,force)
-  );
-
-  await Promise.allSettled(requests);
+      `).join("")}
+    </div>
+  `;
 }
 
-async function loadZoneWeather(zone,index,force=false){
-  const key=
-    "weather:"+zone.lat.toFixed(3)+":"+zone.lon.toFixed(3);
 
-  let data=!force?cacheGet(key):null;
-
-  try{
-    if(!data){
-      const url=
-        "https://api.open-meteo.com/v1/forecast"+
-        "?latitude="+encodeURIComponent(zone.lat)+
-        "&longitude="+encodeURIComponent(zone.lon)+
-        "&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m"+
-        "&hourly=precipitation_probability"+
-        "&timezone=auto";
-
-      data=await fetchJSON(url,{timeout:12000});
-      cacheSet(key,data,10);
-    }
-
-    const current=data.current||{};
-    const tz=data.timezone||"Europe/Lisbon";
-
-    zone.timezone=tz;
-
-    const rainProbability=
-      data.hourly?.precipitation_probability?.[0];
-
-    const el=document.getElementById("weather-zone-"+index);
-
-    if(!el)return;
-
-    el.querySelector(".weather-temp").textContent=
-      current.temperature_2m!=null
-        ?Math.round(current.temperature_2m)+"°C"
-        :"—";
-
-    el.querySelector(".weather-desc").textContent=
-      weatherDescription(current.weather_code);
-
-    const details=el.querySelectorAll(".weather-detail");
-
-    details[0].innerHTML=
-      `<span>Sensação</span>${current.apparent_temperature!=null?Math.round(current.apparent_temperature)+"°C":"—"}`;
-
-    details[1].innerHTML=
-      `<span>Humidade</span>${current.relative_humidity_2m!=null?current.relative_humidity_2m+"%":"—"}`;
-
-    details[2].innerHTML=
-      `<span>Vento</span>${current.wind_speed_10m!=null?Math.round(current.wind_speed_10m)+" km/h":"—"}`;
-
-    details[3].innerHTML=
-      `<span>Chuva</span>${rainProbability!=null?rainProbability+"%":"—"}`;
-
-    el.querySelector(".local-time").dataset.tz=tz;
-
-    updateWeatherTimes();
-
-  }catch(err){
-    const el=document.getElementById("weather-zone-"+index);
-
-    if(el){
-      el.querySelector(".weather-desc").textContent=
-        "Meteorologia temporariamente indisponível";
-      el.querySelector(".weather-source").textContent=
-        "Tenta atualizar novamente em alguns segundos.";
-    }
-  }
-}
+/* =========================================================
+   WEATHER
+========================================================= */
 
 function weatherDescription(code){
   const map={
     0:"Céu limpo",
-    1:"Predominantemente limpo",
+    1:"Maioritariamente limpo",
     2:"Parcialmente nublado",
     3:"Nublado",
     45:"Nevoeiro",
-    48:"Nevoeiro com gelo",
-    51:"Chuvisco ligeiro",
-    53:"Chuvisco moderado",
+    48:"Nevoeiro",
+    51:"Chuvisco",
+    53:"Chuvisco",
     55:"Chuvisco intenso",
-    56:"Chuvisco gelado ligeiro",
-    57:"Chuvisco gelado intenso",
     61:"Chuva ligeira",
-    63:"Chuva moderada",
+    63:"Chuva",
     65:"Chuva forte",
-    66:"Chuva gelada ligeira",
-    67:"Chuva gelada forte",
     71:"Neve ligeira",
-    73:"Neve moderada",
+    73:"Neve",
     75:"Neve forte",
-    77:"Grãos de neve",
-    80:"Aguaceiros ligeiros",
-    81:"Aguaceiros moderados",
+    80:"Aguaceiros",
+    81:"Aguaceiros",
     82:"Aguaceiros fortes",
-    85:"Aguaceiros de neve",
-    86:"Aguaceiros de neve fortes",
     95:"Trovoada",
-    96:"Trovoada com granizo ligeiro",
-    99:"Trovoada com granizo forte"
+    96:"Trovoada com granizo",
+    99:"Trovoada com granizo"
   };
 
-  return map[code]||"Condições meteorológicas";
+  return map[code]||"Condições variáveis";
 }
 
-function formatLocalTime(timeZone){
+function weatherIcon(code){
+  if(code===0)return"☀️";
+  if([1,2].includes(code))return"🌤️";
+  if([3].includes(code))return"☁️";
+  if([45,48].includes(code))return"🌫️";
+  if([51,53,55,61,63,65,80,81,82].includes(code))return"🌧️";
+  if([71,73,75].includes(code))return"❄️";
+  if([95,96,99].includes(code))return"⛈️";
+  return"🌦️";
+}
+
+function formatTimeZone(tz){
   try{
     return new Intl.DateTimeFormat("pt-PT",{
-      timeZone,
+      timeZone:tz,
       hour:"2-digit",
       minute:"2-digit",
       second:"2-digit",
       hour12:false
     }).format(new Date());
   }catch{
-    return "—";
+    return "--:--:--";
   }
 }
 
-function formatLocalDate(timeZone){
+function formatDateZone(tz){
   try{
     return new Intl.DateTimeFormat("pt-PT",{
-      timeZone,
+      timeZone:tz,
       weekday:"long",
       day:"2-digit",
       month:"long",
@@ -2287,1368 +2064,1184 @@ function formatLocalDate(timeZone){
   }
 }
 
-function updateWeatherTimes(){
-  document.querySelectorAll(".local-time[data-tz]").forEach(el=>{
-    const tz=el.dataset.tz;
-    el.textContent="🕐 Hora local: "+formatLocalTime(tz);
-  });
+async function getWeather(lat,lon){
+  const url=
+    "https://api.open-meteo.com/v1/forecast"+
+    "?latitude="+lat+
+    "&longitude="+lon+
+    "&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m"+
+    "&hourly=temperature_2m,precipitation_probability,weather_code"+
+    "&forecast_days=2"+
+    "&timezone=auto";
+
+  return await fetchJSON(url,{timeout:12000});
 }
 
-function updateModalClock(){
-  const el=document.getElementById("modalLocalTime");
+async function getZones(destination){
+  const key="zones_"+normalize(destination.name);
 
-  if(el && state.zones[0]?.timezone){
-    el.textContent=formatLocalTime(state.zones[0].timezone);
-  }
-}
+  const cached=cacheGet(key,720);
+  if(cached)return cached;
 
-setInterval(()=>{
-  updateWeatherTimes();
-  updateModalClock();
-},1000);
-
-/* ============================================================
-   OVERPASS
-   ============================================================ */
-
-function overpassQuery(lat,lon,type){
-  let filter="";
-
-  if(type==="restaurant"){
-    filter=`nwr["amenity"="restaurant"](around:8000,${lat},${lon});`;
-  }
-
-  if(type==="cafe"){
-    filter=`nwr["amenity"="cafe"](around:8000,${lat},${lon});`;
-  }
-
-  if(type==="hotel"){
-    filter=`nwr["tourism"="hotel"](around:8000,${lat},${lon});`;
-  }
-
-  if(type==="hostel"){
-    filter=`nwr["tourism"="hostel"](around:8000,${lat},${lon});`;
-  }
-
-  if(type==="attraction"){
-    filter=`
-      nwr["tourism"~"attraction|museum|gallery|theme_park|zoo|viewpoint"](around:8000,${lat},${lon});
-      nwr["historic"](around:8000,${lat},${lon});
-      nwr["leisure"~"park|nature_reserve"](around:8000,${lat},${lon});
-    `;
-  }
-
-  return `[out:json][timeout:18];(${filter});out center tags;`;
-}
-
-async function fetchOverpass(query){
-  const requests=OVERPASS_ENDPOINTS.map(endpoint=>
-    fetch(endpoint,{
-      method:"POST",
-      body:query,
-      headers:{
-        "Content-Type":"text/plain;charset=UTF-8"
-      }
-    }).then(async r=>{
-      if(!r.ok)throw new Error("Overpass "+r.status);
-      return r.json();
-    })
-  );
-
-  return await Promise.any(requests);
-}
-
-function elementToPlace(el,type){
-  const t=el.tags||{};
-
-  const lat=
-    Number(el.lat??el.center?.lat);
-
-  const lon=
-    Number(el.lon??el.center?.lon);
-
-  if(!t.name || !Number.isFinite(lat)||!Number.isFinite(lon)){
-    return null;
-  }
-
-  return {
-    id:String(el.type)+"_"+String(el.id),
-    osmId:el.id,
-    osmType:el.type,
-    name:t.name,
-    type,
-    lat,
-    lon,
-    tags:t,
-    wikidata:t.wikidata||null,
-    wikipedia:t.wikipedia||null,
-    commons:t.wikimedia_commons||null,
-    image:t.image||null,
-    website:t.website||t["contact:website"]||null,
-    phone:t.phone||t["contact:phone"]||null,
-    opening:t.opening_hours||null,
-    cuisine:t.cuisine||null,
-    address:[
-      t["addr:housenumber"],
-      t["addr:street"],
-      t["addr:postcode"],
-      t["addr:city"]
-    ].filter(Boolean).join(", "),
-    gallery:[]
-  };
-}
-
-/* ============================================================
-   FOTOGRAFIAS VERIFICADAS
-   ============================================================ */
-
-function isUsableImageUrl(url){
-  if(!url)return false;
+  const zones=[];
 
   try{
-    const u=new URL(url);
+    const q=
+      `[out:json][timeout:10];
+      (
+        node(around:18000,${destination.lat},${destination.lon})["place"="suburb"];
+        node(around:18000,${destination.lat},${destination.lon})["place"="neighbourhood"];
+        node(around:18000,${destination.lat},${destination.lon})["place"="town"];
+      );
+      out center tags;`;
 
-    if(!/^https?:$/.test(u.protocol))return false;
-
-    const lower=u.href.toLowerCase();
-
-    return (
-      lower.includes("wikimedia.org") ||
-      lower.includes("wikipedia.org") ||
-      /\.(jpg|jpeg|png|webp)(\?|$)/i.test(lower)
+    const data=await fetchJSON(
+      "https://overpass-api.de/api/interpreter?data="+encodeURIComponent(q),
+      {timeout:13000}
     );
+
+    for(const item of data.elements||[]){
+      const name=item.tags?.name;
+      if(!name)continue;
+
+      const lat=item.lat??item.center?.lat;
+      const lon=item.lon??item.center?.lon;
+
+      if(!Number.isFinite(lat)||!Number.isFinite(lon))continue;
+
+      zones.push({
+        name,
+        lat,
+        lon
+      });
+    }
+  }catch{}
+
+  const unique=[];
+  const seen=new Set();
+
+  for(const z of zones){
+    const key=normalize(z.name);
+    if(seen.has(key))continue;
+    seen.add(key);
+    unique.push(z);
+  }
+
+  unique.sort((a,b)=>{
+    const da=(a.lat-destination.lat)**2+(a.lon-destination.lon)**2;
+    const db=(b.lat-destination.lat)**2+(b.lon-destination.lon)**2;
+    return da-db;
+  });
+
+  const result=[
+    {
+      name:destination.name+" — centro",
+      lat:destination.lat,
+      lon:destination.lon
+    },
+    ...unique.slice(0,8)
+  ];
+
+  cacheSet(key,result,720);
+
+  return result;
+}
+
+async function loadZonesAndWeather(){
+  const grid=document.getElementById("zoneGrid");
+
+  grid.innerHTML=`
+    <div class="loading">
+      <div class="loading-plane-wrap">
+        <div class="loading-plane">✈️</div>
+      </div>
+      A carregar meteorologia das zonas...
+    </div>
+  `;
+
+  try{
+    const zones=await getZones(app.destination);
+
+    const weatherResults=await Promise.allSettled(
+      zones.slice(0,9).map(async zone=>{
+        const weather=await getWeather(zone.lat,zone.lon);
+
+        return {
+          zone,
+          weather
+        };
+      })
+    );
+
+    app.weather=weatherResults
+      .filter(r=>r.status==="fulfilled")
+      .map(r=>r.value);
+
+    renderWeather();
+
   }catch{
-    return false;
+    grid.innerHTML="";
   }
 }
 
-function imageTextLooksLikePerson(text){
-  return /\b(
-    portrait|
-    selfie|
-    person|
-    people|
-    man|
-    woman|
-    men|
-    women|
-    chef portrait
-  )\b/i.test(text||"");
-}
+function renderWeather(){
+  const grid=document.getElementById("zoneGrid");
 
-async function commonsSearchExact(place){
-  const name=place.name;
-
-  const searches=[];
-
-  if(place.wikidata){
-    searches.push(
-      `"${place.wikidata}"`,
-      `"${name}"`
-    );
-  }else{
-    searches.push(`"${name}"`);
+  if(!app.weather.length){
+    grid.innerHTML="";
+    return;
   }
 
-  for(const query of searches){
+  grid.innerHTML=app.weather.map((item,index)=>{
+    const w=item.weather;
+    const c=w.current;
 
+    app.localTimeZones[index]=w.timezone;
+
+    const hours=(w.hourly?.time||[])
+      .slice(0,8)
+      .map((time,i)=>({
+        time,
+        temp:w.hourly.temperature_2m?.[i],
+        rain:w.hourly.precipitation_probability?.[i]
+      }));
+
+    return `
+      <article class="zone">
+        <div class="zone-top">
+          <div>
+            <h3>${escapeHTML(item.zone.name)}</h3>
+            <div class="weather-desc">
+              ${weatherIcon(c.weather_code)}
+              ${weatherDescription(c.weather_code)}
+            </div>
+          </div>
+
+          <div class="temp">
+            ${Math.round(c.temperature_2m)}°
+          </div>
+        </div>
+
+        <div style="font-size:12px;color:#68736e;margin-bottom:12px">
+          Sensação ${Math.round(c.apparent_temperature)}° ·
+          Hora local <strong data-timezone="${escapeHTML(w.timezone)}">
+            ${formatTimeZone(w.timezone)}
+          </strong>
+        </div>
+
+        <div class="weather-details">
+          <div>💧 ${c.relative_humidity_2m}% humidade</div>
+          <div>🌧️ ${c.precipitation} mm</div>
+          <div>💨 ${Math.round(c.wind_speed_10m)} km/h</div>
+          <div>☁️ ${c.cloud_cover}% nuvens</div>
+        </div>
+
+        <div class="weather-hours">
+          ${hours.map(h=>`
+            <div class="hour">
+              ${new Date(h.time).toLocaleTimeString("pt-PT",{hour:"2-digit",minute:"2-digit"})}
+              <strong>${Math.round(h.temp)}°</strong>
+              💧 ${h.rain??0}%
+            </div>
+          `).join("")}
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  const first=app.weather[0];
+
+  if(first){
+    const c=first.weather.current;
+    document.getElementById("heroTemp").textContent=
+      `${weatherIcon(c.weather_code)} ${Math.round(c.temperature_2m)}° · ${weatherDescription(c.weather_code)}`;
+
+    document.getElementById("heroTime").textContent=
+      `🕐 ${formatTimeZone(first.weather.timezone)}`;
+
+    document.getElementById("weatherUpdated").textContent=
+      `Atualizado agora · ${first.weather.timezone}`;
+  }
+}
+
+async function loadAllWeather(){
+  await loadZonesAndWeather();
+}
+
+function updateHeroTime(){
+  const zone=app.weather[0]?.weather?.timezone;
+
+  if(!zone){
+    document.getElementById("heroTime")?.setAttribute("data-wait","1");
+    return;
+  }
+
+  document.getElementById("heroTime").textContent=
+    `🕐 ${formatTimeZone(zone)}`;
+}
+
+
+/* =========================================================
+   IMAGENS / WIKIMEDIA
+========================================================= */
+
+function imageURL(url,width=1000){
+  if(!url)return null;
+
+  if(url.includes("commons.wikimedia.org")){
+    return url;
+  }
+
+  return url;
+}
+
+function textMatchesPlace(name,text){
+  const n=normalize(name);
+  const t=normalize(text);
+
+  if(!n||!t)return false;
+
+  if(t.includes(n))return true;
+
+  const words=n.split(" ").filter(w=>w.length>3);
+
+  if(words.length>=2){
+    return words.filter(w=>t.includes(w)).length>=Math.max(2,Math.ceil(words.length*.65));
+  }
+
+  return false;
+}
+
+function rejectPeopleImage(text){
+  return /\b(selfie|portrait|person|people|man|woman|men|women|crew|staff)\b/i.test(text||"");
+}
+
+async function findExactWikimediaImage(name){
+  const key="wikimedia_exact_"+normalize(name);
+
+  const cached=cacheGet(key,1440);
+  if(cached)return cached;
+
+  const queries=[
+    `"${name}"`,
+    name
+  ];
+
+  for(const query of queries){
     try{
-
       const url=
         "https://commons.wikimedia.org/w/api.php"+
         "?action=query"+
         "&generator=search"+
         "&gsrnamespace=6"+
-        "&gsrlimit=20"+
-        "&gsrsearch="+encodeURIComponent(query)+
+        "&gsrlimit=15"+
         "&prop=imageinfo"+
         "&iiprop=url|extmetadata"+
         "&iiurlwidth=1200"+
         "&format=json"+
-        "&origin=*";
+        "&origin=*"+
+        "&gsrsearch="+encodeURIComponent(query);
 
-      const data=await fetchJSON(url,{timeout:10000});
+      const data=await fetchJSON(url,{timeout:9000});
 
-      const pages=Object.values(data?.query?.pages||{});
+      const pages=Object.values(data.query?.pages||{});
 
-      const images=pages.map(page=>{
+      for(const page of pages){
         const info=page.imageinfo?.[0];
+        const meta=info?.extmetadata||{};
 
-        const title=page.title||"";
-        const description=
-          info?.extmetadata?.ImageDescription?.value||"";
+        const text=[
+          page.title||"",
+          meta.ImageDescription?.value||"",
+          meta.ObjectName?.value||"",
+          meta.Categories?.value||""
+        ].join(" ");
 
-        const combined=title+" "+description;
+        if(!textMatchesPlace(name,text))continue;
+        if(rejectPeopleImage(text))continue;
 
-        const exact=exactNameMatches(place.name,combined);
-
-        const qid=
-          info?.extmetadata?.Wikidata?.value||
-          "";
-
-        const wikidataMatch=
-          place.wikidata &&
-          qid &&
-          qid===place.wikidata;
-
-        if(!exact && !wikidataMatch)return null;
-
-        if(imageTextLooksLikePerson(combined))return null;
-
-        const imageUrl=
-          info?.thumburl||
-          info?.url||
-          null;
-
-        if(!isUsableImageUrl(imageUrl))return null;
-
-        return {
-          url:imageUrl,
-          title,
+        const result={
+          url:info.thumburl||info.url,
           source:"Wikimedia Commons",
-          sourceUrl:
-            "https://commons.wikimedia.org/wiki/"+encodeURIComponent(title.replace(/^File:/,"File:")),
-          verifiedBy:wikidataMatch?"Wikidata + Wikimedia Commons":"nome exato + Wikimedia Commons"
+          sourceUrl:"https://commons.wikimedia.org/wiki/"+encodeURIComponent(page.title),
+          title:page.title
         };
-      }).filter(Boolean);
 
-      if(images.length)return images;
-
-    }catch{}
-  }
-
-  return [];
-}
-
-async function wikipediaExact(place){
-  if(!place.wikipedia)return [];
-
-  let title=place.wikipedia;
-
-  if(title.includes(":")){
-    title=title.split(":").slice(1).join(":");
-  }
-
-  try{
-    const url=
-      "https://en.wikipedia.org/api/rest_v1/page/summary/"+
-      encodeURIComponent(title.replaceAll(" ","_"));
-
-    const data=await fetchJSON(url,{timeout:10000});
-
-    const pageTitle=data?.title||"";
-    const extract=data?.extract||"";
-
-    const matches=
-      exactNameMatches(place.name,pageTitle) ||
-      exactNameMatches(place.name,extract);
-
-    const image=data?.originalimage?.source||
-      data?.thumbnail?.source||
-      null;
-
-    if(
-      matches &&
-      isUsableImageUrl(image) &&
-      !imageTextLooksLikePerson(pageTitle+" "+extract)
-    ){
-      return [{
-        url:image,
-        title:pageTitle,
-        source:"Wikipedia",
-        sourceUrl:data.content_urls?.desktop?.page||
-          "https://en.wikipedia.org/wiki/"+encodeURIComponent(title),
-        verifiedBy:"página Wikipedia associada ao local"
-      }];
-    }
-  }catch{}
-
-  return [];
-}
-
-async function verifyPlacePhotos(place){
-  const results=[];
-
-  /*
-    1. Imagem explícita do próprio OSM.
-    Só aceitamos se a URL for direta e o próprio
-    elemento tiver a imagem associada.
-  */
-  if(isUsableImageUrl(place.image)){
-    results.push({
-      url:place.image,
-      title:place.name,
-      source:"OpenStreetMap",
-      sourceUrl:"https://www.openstreetmap.org/",
-      verifiedBy:"imagem associada ao elemento OSM"
-    });
-  }
-
-  /*
-    2. Wikimedia Commons por entidade/nome exato.
-  */
-  const commons=await commonsSearchExact(place);
-
-  for(const img of commons){
-    if(!results.some(x=>x.url===img.url)){
-      results.push(img);
-    }
-  }
-
-  /*
-    3. Wikipedia apenas quando o OSM possui ligação explícita.
-  */
-  const wiki=await wikipediaExact(place);
-
-  for(const img of wiki){
-    if(!results.some(x=>x.url===img.url)){
-      results.push(img);
-    }
-  }
-
-  /*
-    Nunca usamos geosearch aleatório.
-    Se não houver relação verificável com o lugar,
-    o cartão não aparece.
-  */
-
-  return results.slice(0,6);
-}
-
-function rankPlace(p){
-  const t=p.tags||{};
-
-  let score=0;
-
-  if(p.wikidata)score+=40;
-  if(p.wikipedia)score+=35;
-  if(p.commons)score+=30;
-  if(p.website)score+=18;
-  if(p.image)score+=18;
-  if(t.brand)score+=8;
-  if(t["name:en"])score+=3;
-  if(p.address)score+=3;
-
-  if(p.type==="attraction"){
-    if(t.tourism==="attraction")score+=15;
-    if(t.tourism==="museum")score+=15;
-    if(t.historic)score+=12;
-    if(t.leisure==="park")score+=8;
-  }
-
-  if(p.type==="restaurant" && t.cuisine)score+=5;
-
-  return score;
-}
-
-async function loadPlaces(type){
-  const targetMap={
-    restaurant:"restaurants",
-    cafe:"cafes",
-    attraction:"attractions",
-    hotel:"sleepResults",
-    hostel:"sleepResults"
-  };
-
-  const container=document.getElementById(targetMap[type]);
-
-  if(!container)return;
-
-  try{
-    const query=overpassQuery(
-      state.destination.lat,
-      state.destination.lon,
-      type
-    );
-
-    const data=await fetchOverpass(query);
-
-    let candidates=(data.elements||[])
-      .map(el=>elementToPlace(el,type))
-      .filter(Boolean);
-
-    candidates.sort((a,b)=>rankPlace(b)-rankPlace(a));
-
-    /*
-      Procuramos fotos em várias fontes e não paramos
-      apenas porque os primeiros locais não têm imagens.
-    */
-    const verified=[];
-
-    const batchSize=6;
-
-    for(
-      let start=0;
-      start<candidates.length &&
-      verified.length<15;
-      start+=batchSize
-    ){
-
-      const batch=candidates.slice(start,start+batchSize);
-
-      const results=await Promise.allSettled(
-        batch.map(async place=>{
-          place.gallery=await verifyPlacePhotos(place);
-
-          if(place.gallery.length){
-            place.image=place.gallery[0].url;
-            return place;
-          }
-
-          return null;
-        })
-      );
-
-      for(const result of results){
-        if(
-          result.status==="fulfilled" &&
-          result.value
-        ){
-          verified.push(result.value);
-        }
+        cacheSet(key,result,1440);
+        return result;
       }
-
-      /*
-        Se já temos bastantes resultados,
-        não precisamos de consultar centenas de lugares.
-      */
-      if(
-        verified.length>=
-        (type==="attraction"?12:9)
-      )break;
-    }
-
-    state.places[type]=verified;
-
-    renderPlaces(type);
-
-  }catch(err){
-
-    console.error(type,err);
-
-    state.places[type]=[];
-
-    renderPlaces(type);
-  }
-}
-
-function renderPlaces(type){
-  const targetMap={
-    restaurant:"restaurants",
-    cafe:"cafes",
-    attraction:"attractions"
-  };
-
-  const container=document.getElementById(targetMap[type]);
-
-  if(!container)return;
-
-  const places=state.places[type]||[];
-
-  if(!places.length){
-    /*
-      Não mostramos a mensagem antiga.
-      Não mostramos cartão sem fotografia.
-      O espaço fica visualmente discreto.
-    */
-    container.innerHTML=`
-      <div class="empty" style="grid-column:1/-1">
-        Estamos a procurar locais com imagens diretamente associadas.
-        Atualiza a pesquisa para tentar obter mais resultados.
-      </div>
-    `;
-    return;
-  }
-
-  container.innerHTML=places.map((p,i)=>placeCardHTML(p,i)).join("");
-}
-
-function placeCardHTML(p,index){
-  const image=p.gallery?.[0];
-
-  if(!image)return "";
-
-  const fav=state.favorites.some(
-    x=>x.id===p.id
-  );
-
-  const tags=[];
-
-  if(p.cuisine){
-    tags.push(esc(p.cuisine.split(";").slice(0,2).join(" · ")));
-  }
-
-  if(p.tags?.tourism){
-    tags.push(esc(p.tags.tourism));
-  }
-
-  if(p.tags?.historic){
-    tags.push("histórico");
-  }
-
-  return `
-    <article class="place-card">
-
-      <img
-        class="place-image"
-        src="${esc(image.url)}"
-        alt="${esc(p.name)}"
-        loading="lazy"
-        referrerpolicy="no-referrer"
-      >
-
-      <div class="place-body">
-
-        <div class="verified">
-          ✓ Imagem associada ao local
-        </div>
-
-        <h3>${esc(p.name)}</h3>
-
-        ${
-          p.address
-          ?`<p>📍 ${esc(p.address)}</p>`
-          :""
-        }
-
-        ${
-          tags.length
-          ?`<div class="place-tags">
-              ${tags.map(t=>`<span class="tag">${t}</span>`).join("")}
-            </div>`
-          :""
-        }
-
-        <div class="place-actions">
-
-          <button class="btn btn-secondary"
-            onclick="openPlace('${encodeURIComponent(p.id)}')">
-            Ver local
-          </button>
-
-          <button class="btn btn-light"
-            onclick="toggleFavorite('${encodeURIComponent(p.id)}')">
-            ${fav?"❤️":"♡"} Guardar
-          </button>
-
-          <a class="btn btn-light"
-             target="_blank"
-             href="https://www.google.com/maps/search/?api=1&query=${p.lat},${p.lon}">
-             🗺️ Maps
-          </a>
-
-        </div>
-
-      </div>
-    </article>
-  `;
-}
-
-/* ============================================================
-   PLACE MODAL
-   ============================================================ */
-
-function findPlaceById(id){
-  for(const arr of Object.values(state.places)){
-    const found=arr.find(p=>p.id===id);
-    if(found)return found;
+    }catch{}
   }
 
   return null;
 }
 
-function openPlace(encodedId){
-  const id=decodeURIComponent(encodedId);
-  const place=findPlaceById(id);
+async function findPlaceImages(place){
+  const cacheKey="place_images_"+normalize(place.name)+"_"+place.lat.toFixed(3)+"_"+place.lon.toFixed(3);
 
-  if(!place)return;
+  const cached=cacheGet(cacheKey,720);
+  if(cached)return cached;
 
-  document.getElementById("placeTitle").textContent=place.name;
+  const images=[];
 
-  document.getElementById("placeVerified").innerHTML=`
-    <span class="verified">
-      ✓ Imagens associadas diretamente a este local
-    </span>
+  if(place.tags?.image){
+    images.push({
+      url:place.tags.image,
+      source:"OpenStreetMap",
+      sourceUrl:"https://www.openstreetmap.org/"
+    });
+  }
+
+  if(place.tags?.wikimedia_commons){
+    const commonsName=place.tags.wikimedia_commons;
+
+    try{
+      const url=
+        "https://commons.wikimedia.org/w/api.php"+
+        "?action=query"+
+        "&generator=search"+
+        "&gsrnamespace=6"+
+        "&gsrlimit=12"+
+        "&prop=imageinfo"+
+        "&iiprop=url|extmetadata"+
+        "&iiurlwidth=1200"+
+        "&format=json"+
+        "&origin=*"+
+        "&gsrsearch="+encodeURIComponent(commonsName);
+
+      const data=await fetchJSON(url,{timeout:9000});
+
+      for(const page of Object.values(data.query?.pages||{})){
+        const info=page.imageinfo?.[0];
+        if(!info)continue;
+
+        images.push({
+          url:info.thumburl||info.url,
+          source:"Wikimedia Commons",
+          sourceUrl:"https://commons.wikimedia.org/wiki/"+encodeURIComponent(page.title),
+          title:page.title
+        });
+      }
+    }catch{}
+  }
+
+  const exact=await findExactWikimediaImage(place.name);
+
+  if(exact)images.unshift(exact);
+
+  const unique=[];
+  const seen=new Set();
+
+  for(const image of images){
+    if(!image.url)continue;
+
+    const normalized=image.url.split("?")[0];
+
+    if(seen.has(normalized))continue;
+
+    seen.add(normalized);
+    unique.push(image);
+  }
+
+  const result=unique.slice(0,5);
+
+  cacheSet(cacheKey,result,720);
+
+  return result;
+}
+
+
+/* =========================================================
+   OVERPASS / LOCAIS
+========================================================= */
+
+const OVERPASS_ENDPOINTS=[
+  "https://overpass-api.de/api/interpreter",
+  "https://overpass.kumi.systems/api/interpreter",
+  "https://overpass.private.coffee/api/interpreter"
+];
+
+async function overpass(query){
+  const requests=OVERPASS_ENDPOINTS.map(endpoint=>
+    fetchJSON(
+      endpoint+"?data="+encodeURIComponent(query),
+      {timeout:12000}
+    )
+  );
+
+  return await Promise.any(requests);
+}
+
+function placeDistance(lat1,lon1,lat2,lon2){
+  const R=6371;
+  const p=Math.PI/180;
+
+  const a=
+    .5-Math.cos((lat2-lat1)*p)/2+
+    Math.cos(lat1*p)*Math.cos(lat2*p)*
+    (1-Math.cos((lon2-lon1)*p))/2;
+
+  return R*2*Math.asin(Math.sqrt(a));
+}
+
+function rankPlace(item){
+  const t=item.tags||{};
+
+  let score=0;
+
+  if(t.wikidata)score+=50;
+  if(t.wikipedia)score+=40;
+  if(t.wikimedia_commons)score+=35;
+  if(t.image)score+=25;
+  if(t.website)score+=20;
+  if(t.official_website)score+=20;
+  if(t.brand)score+=10;
+  if(t.name:en)score+=5;
+
+  return score;
+}
+
+async function getPlaces(category){
+  const d=app.destination;
+
+  let filter="";
+
+  if(category==="restaurant"){
+    filter=`nwr(around:9000,${d.lat},${d.lon})["amenity"="restaurant"];`;
+  }
+
+  if(category==="cafe"){
+    filter=`nwr(around:9000,${d.lat},${d.lon})["amenity"="cafe"];`;
+  }
+
+  if(category==="attraction"){
+    filter=`
+      nwr(around:12000,${d.lat},${d.lon})["tourism"~"attraction|museum|gallery|theme_park|zoo|viewpoint"];
+      nwr(around:12000,${d.lat},${d.lon})["historic"];
+      nwr(around:12000,${d.lat},${d.lon})["leisure"="park"];
+    `;
+  }
+
+  const query=`
+    [out:json][timeout:12];
+    (
+      ${filter}
+    );
+    out center tags;
   `;
 
-  document.getElementById("placeGallery").innerHTML=
-    (place.gallery||[]).map(img=>`
-      <a href="${esc(img.url)}" target="_blank">
-        <img
-          src="${esc(img.url)}"
-          alt="${esc(place.name)}"
-          loading="lazy"
-          referrerpolicy="no-referrer">
-      </a>
-    `).join("");
+  const data=await overpass(query);
 
-  const details=[];
+  const candidates=(data.elements||[])
+    .map(item=>{
+      const t=item.tags||{};
 
-  if(place.address)details.push(`<p>📍 ${esc(place.address)}</p>`);
-  if(place.cuisine)details.push(`<p>🍴 ${esc(place.cuisine)}</p>`);
-  if(place.opening)details.push(`<p>🕐 ${esc(place.opening)}</p>`);
-  if(place.phone)details.push(`<p>📞 ${esc(place.phone)}</p>`);
+      return {
+        id:item.id,
+        type:item.type,
+        lat:item.lat??item.center?.lat,
+        lon:item.lon??item.center?.lon,
+        tags:t,
+        name:t.name||t["name:en"]||""
+      };
+    })
+    .filter(p=>
+      p.name &&
+      Number.isFinite(p.lat) &&
+      Number.isFinite(p.lon)
+    )
+    .map(p=>({
+      ...p,
+      distance:placeDistance(d.lat,d.lon,p.lat,p.lon),
+      score:rankPlace(p)
+    }))
+    .sort((a,b)=>{
+      if(b.score!==a.score)return b.score-a.score;
+      return a.distance-b.distance;
+    });
 
-  if(place.website){
-    details.push(`
-      <p>
-        🌐
-        <a class="btn btn-secondary"
-           target="_blank"
-           href="${esc(place.website)}">
-           Website
-        </a>
-      </p>
-    `);
-  }
-
-  details.push(`
-    <div class="actions">
-      <a class="btn btn-primary"
-         target="_blank"
-         href="https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lon}">
-         🧭 Ir para o local
-      </a>
-    </div>
-  `);
-
-  details.push(`
-    <p style="font-size:11px;color:#8a938e;margin-top:18px">
-      Fonte da imagem: ${esc(place.gallery?.[0]?.source||"fonte verificada")}.
-      ${esc(place.gallery?.[0]?.verifiedBy||"")}
-    </p>
-  `);
-
-  document.getElementById("placeDetails").innerHTML=
-    details.join("");
-
-  openModal("placeModal");
+  return candidates;
 }
 
-/* ============================================================
-   FAVORITOS
-   ============================================================ */
+async function loadPlaces(category="restaurant",clickedButton=null){
+  app.currentCategory=category;
 
-function toggleFavorite(encodedId){
-  const id=decodeURIComponent(encodedId);
-  const place=findPlaceById(id);
+  document.querySelectorAll(".category-tabs button")
+    .forEach(b=>b.classList.remove("active"));
+
+  if(clickedButton)clickedButton.classList.add("active");
+  else{
+    const buttons=document.querySelectorAll(".category-tabs button");
+    const index={restaurant:0,cafe:1,attraction:2}[category];
+    buttons[index]?.classList.add("active");
+  }
+
+  const grid=document.getElementById("placeGrid");
+  const loading=document.getElementById("placesLoading");
+
+  loading.classList.remove("hidden");
+  grid.innerHTML="";
+
+  try{
+    const key="places_"+normalize(app.destination.name)+"_"+category;
+
+    let candidates=cacheGet(key,360);
+
+    if(!candidates){
+      candidates=await getPlaces(category);
+      cacheSet(key,candidates,360);
+    }
+
+    const selected=[];
+
+    /*
+      Não usamos simplesmente uma fotografia geográfica próxima.
+      Cada imagem é pesquisada através do nome/identificação do local.
+    */
+    for(const place of candidates.slice(0,30)){
+      try{
+        const images=await findPlaceImages(place);
+
+        if(images.length){
+          selected.push({
+            ...place,
+            images
+          });
+        }
+      }catch{}
+      
+      if(selected.length>=12)break;
+    }
+
+    app.places[category]=selected;
+
+    renderPlaces(selected,category);
+
+  }catch(error){
+    /*
+      Não mostramos o antigo bloco "não há fotografias".
+      Mantemos a área limpa e tentamos automaticamente um segundo endpoint.
+    */
+
+    try{
+      const candidates=await getPlaces(category);
+
+      const selected=[];
+
+      for(const place of candidates.slice(0,20)){
+        const images=await findPlaceImages(place);
+
+        if(images.length){
+          selected.push({...place,images});
+        }
+
+        if(selected.length>=10)break;
+      }
+
+      app.places[category]=selected;
+      renderPlaces(selected,category);
+    }catch{
+      grid.innerHTML="";
+    }
+  }finally{
+    loading.classList.add("hidden");
+  }
+}
+
+function renderPlaces(places,category){
+  const grid=document.getElementById("placeGrid");
+
+  if(!places.length){
+    grid.innerHTML="";
+    return;
+  }
+
+  grid.innerHTML=places.map((place,index)=>{
+    const img=place.images[0];
+
+    const cuisine=place.tags.cuisine
+      ?place.tags.cuisine.split(";").join(", ")
+      :"";
+
+    const address=[
+      place.tags["addr:street"],
+      place.tags["addr:housenumber"]
+    ].filter(Boolean).join(" ");
+
+    return `
+      <article class="place-card">
+        <img class="place-photo"
+             loading="lazy"
+             src="${escapeHTML(img.url)}"
+             alt="${escapeHTML(place.name)}"
+             onerror="this.closest('.place-card').remove()">
+
+        <div class="place-body">
+          <h3>${escapeHTML(place.name)}</h3>
+
+          ${cuisine?`<p>🍽️ ${escapeHTML(cuisine)}</p>`:""}
+
+          ${address?`<p>📍 ${escapeHTML(address)}</p>`:""}
+
+          <p>📏 ${place.distance.toFixed(1)} km do centro</p>
+
+          <div class="place-actions">
+            <button onclick="openPlace('${category}',${index})">
+              Ver local
+            </button>
+
+            <a class="map-link"
+               target="_blank"
+               href="${mapsSearch(place.name+" "+app.destination.name)}">
+               🗺️ Mapa
+            </a>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+function openPlace(category,index){
+  const place=app.places[category]?.[index];
 
   if(!place)return;
 
-  const index=state.favorites.findIndex(
-    x=>x.id===id
-  );
+  const images=place.images||[];
 
-  if(index>=0){
-    state.favorites.splice(index,1);
-    showToast("Removido dos favoritos.");
-  }else{
-    state.favorites.push({
-      id:place.id,
-      name:place.name,
-      type:place.type,
-      lat:place.lat,
-      lon:place.lon
-    });
+  const gallery=images.slice(0,5).map(img=>`
+    <img src="${escapeHTML(img.url)}"
+         alt="${escapeHTML(place.name)}"
+         loading="lazy">
+  `).join("");
 
-    showToast("Guardado nos favoritos ❤️");
-  }
+  const t=place.tags||{};
 
-  localStorage.setItem(
-    "escapeFavorites",
-    JSON.stringify(state.favorites)
-  );
+  openModal(`
+    <h2>${escapeHTML(place.name)}</h2>
 
-  renderPlaces("restaurant");
-  renderPlaces("cafe");
-  renderPlaces("attraction");
-  renderSleepTab();
-}
+    <div class="gallery">
+      ${gallery}
+    </div>
 
-function showFavorites(){
-  const list=state.favorites;
+    <div style="display:grid;gap:8px">
 
-  if(!list.length){
-    openInfo(
-      "❤️ Favoritos",
-      "<div class='empty'>Ainda não tens lugares guardados.</div>"
-    );
-    return;
-  }
+      ${t.cuisine?`<p><strong>🍽️ Cozinha:</strong> ${escapeHTML(t.cuisine)}</p>`:""}
 
-  openInfo(
-    "❤️ Favoritos",
-    `<div class="checklist">
-      ${list.map(x=>`
-        <div class="check">
-          <span>📍</span>
-          <div>
-            <strong>${esc(x.name)}</strong>
-            <small>${esc(x.type)}</small>
-          </div>
-        </div>
-      `).join("")}
-    </div>`
-  );
-}
+      ${t.opening_hours?`<p><strong>🕐 Horário:</strong> ${escapeHTML(t.opening_hours)}</p>`:""}
 
-/* ============================================================
-   ALOJAMENTO
-   ============================================================ */
+      ${t.phone?`<p><strong>📞 Telefone:</strong> ${escapeHTML(t.phone)}</p>`:""}
 
-function setSleepTab(tab,button){
-  state.currentSleepTab=tab;
-
-  document.querySelectorAll(".sleep-tab")
-    .forEach(x=>x.classList.remove("active"));
-
-  button?.classList.add("active");
-
-  renderSleepTab();
-}
-
-function renderSleepTab(){
-  const container=document.getElementById("sleepResults");
-
-  if(!container)return;
-
-  const tab=state.currentSleepTab;
-
-  if(tab==="airbnb"){
-    container.innerHTML=`
-      <div class="empty" style="grid-column:1/-1">
-        <h3>🏠 Airbnb / apartamentos</h3>
+      ${t.website?`
         <p>
-          Para não inventar alojamentos ou fotografias,
-          a Escapadinha abre a pesquisa real do destino.
+          <strong>🌐 Website:</strong>
+          <a href="${escapeHTML(t.website)}" target="_blank">
+            Abrir website
+          </a>
         </p>
+      `:""}
 
-        <a class="btn btn-primary"
-           target="_blank"
-           href="https://www.airbnb.com/s/${encodeURIComponent(state.destination.name)}">
-           Pesquisar no Airbnb →
-        </a>
-      </div>
-    `;
-    return;
-  }
-
-  if(tab==="other"){
-    container.innerHTML=`
-      <div class="empty" style="grid-column:1/-1">
-        <h3>🏡 Outras opções</h3>
+      ${t["addr:street"]?`
         <p>
-          Podes pesquisar apartamentos, guesthouses, casas rurais
-          ou outras modalidades diretamente no destino.
+          <strong>📍 Morada:</strong>
+          ${escapeHTML([t["addr:street"],t["addr:housenumber"],t["addr:postcode"],t["addr:city"]].filter(Boolean).join(", "))}
         </p>
+      `:""}
 
-        <a class="btn btn-secondary"
+      <p>
+        <strong>📸 Fotografias:</strong>
+        ${images.length} imagem(ns) associada(s) ao local
+      </p>
+
+      <p style="font-size:12px;color:#68736e">
+        Dados do local: OpenStreetMap.
+        Fotografias pesquisadas através de fontes associadas ao próprio local.
+      </p>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a class="primary"
+           style="text-decoration:none;display:inline-block"
            target="_blank"
-           href="https://www.google.com/search?q=${encodeURIComponent("alojamento "+state.destination.name)}">
-           Pesquisar alojamento →
+           href="${mapsSearch(place.name+" "+app.destination.name)}">
+           🗺️ Abrir no mapa
         </a>
+
+        ${t.website?`
+          <a class="secondary"
+             style="text-decoration:none;display:inline-block"
+             target="_blank"
+             href="${escapeHTML(t.website)}">
+             🌐 Website
+          </a>
+        `:""}
       </div>
-    `;
-    return;
-  }
-
-  const places=state.places[tab]||[];
-
-  if(!places.length){
-    container.innerHTML=`
-      <div class="empty" style="grid-column:1/-1">
-        A procurar alojamentos com imagens diretamente associadas.
-      </div>
-    `;
-    return;
-  }
-
-  container.innerHTML=places
-    .map((p,i)=>placeCardHTML(p,i))
-    .join("");
+    </div>
+  `);
 }
 
-/* ============================================================
-   VOOS
-   ============================================================ */
+
+/* =========================================================
+   MAPA
+========================================================= */
+
+function initMap(){
+  if(!window.L)return;
+
+  if(app.map){
+    app.map.remove();
+    app.map=null;
+  }
+
+  app.map=L.map("map").setView(
+    [app.destination.lat,app.destination.lon],
+    12
+  );
+
+  L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+      maxZoom:19,
+      attribution:'© OpenStreetMap contributors'
+    }
+  ).addTo(app.map);
+
+  L.marker([app.destination.lat,app.destination.lon])
+    .addTo(app.map)
+    .bindPopup(`<strong>${escapeHTML(app.destination.name)}</strong>`);
+
+  addPlaceMarkers();
+}
+
+function addPlaceMarkers(){
+  if(!app.map)return;
+
+  app.markers.forEach(m=>m.remove());
+  app.markers=[];
+
+  Object.values(app.places).flat().forEach(place=>{
+    if(!place.lat||!place.lon)return;
+
+    const marker=L.marker([place.lat,place.lon])
+      .addTo(app.map)
+      .bindPopup(`
+        <strong>${escapeHTML(place.name)}</strong><br>
+        ${escapeHTML(app.destination.name)}
+      `);
+
+    app.markers.push(marker);
+  });
+}
+
+function mapsSearch(query){
+  return "https://www.google.com/maps/search/?api=1&query="+
+    encodeURIComponent(query);
+}
+
+
+/* =========================================================
+   ALOJAMENTO / VOOS
+========================================================= */
+
+function renderTravelLinks(){
+  if(!app.destination)return;
+
+  const d=app.destination.name;
+
+  document.getElementById("hotelSearch").href=
+    "https://www.google.com/travel/search?q="+
+    encodeURIComponent("hotéis em "+d);
+
+  document.getElementById("hostelSearch").href=
+    "https://www.google.com/search?q="+
+    encodeURIComponent("hostels em "+d);
+
+  document.getElementById("airbnbSearch").href=
+    "https://www.airbnb.com/s/"+encodeURIComponent(d);
+
+  document.getElementById("staySearch").href=
+    "https://www.google.com/search?q="+
+    encodeURIComponent("alojamento em "+d);
+}
 
 function searchFlights(){
-  if(!state.destination)return;
+  if(!app.destination)return;
 
-  const origin=
-    document.getElementById("flightOrigin").value.trim();
+  const origin=document.getElementById("flightOrigin").value.trim();
+  const date=document.getElementById("flightDate").value;
+  const ret=document.getElementById("flightReturn").value;
+  const people=document.getElementById("flightPeople").value||1;
 
-  const destination=state.destination.name;
+  let query=`voos para ${app.destination.name}`;
 
-  let query=destination;
-
-  if(origin){
-    query+=" "+origin;
-  }
-
-  const start=document.getElementById("flightDate").value;
-  const end=document.getElementById("flightReturn").value;
-
-  if(start)query+=" "+start;
-  if(end)query+=" "+end;
+  if(origin)query+=` de ${origin}`;
+  if(date)query+=` ${date}`;
+  if(ret)query+=` até ${ret}`;
+  query+=` ${people} passageiros`;
 
   window.open(
-    "https://www.google.com/travel/flights?q="+
-    encodeURIComponent(query),
+    "https://www.google.com/travel/flights?q="+encodeURIComponent(query),
     "_blank"
   );
 }
 
-/* ============================================================
-   MALA
-   ============================================================ */
 
-function openPacking(){
-  openModal("packingModal");
-  generatePacking();
+/* =========================================================
+   DESCRIÇÃO
+========================================================= */
+
+const DESCRIPTIONS={
+  "Lisboa":"Capital de Portugal, conhecida pela luz atlântica, bairros históricos, miradouros, gastronomia e proximidade do Tejo.",
+  "Porto":"Cidade do norte de Portugal junto ao Douro, conhecida pelo centro histórico, arquitetura, gastronomia e vinho do Porto.",
+  "Funchal":"Cidade principal da Madeira, rodeada pelo Atlântico e pelas montanhas da ilha, com jardins, mercados e paisagens costeiras.",
+  "Paris":"Capital francesa com uma enorme concentração de museus, arquitetura, gastronomia, jardins e bairros históricos.",
+  "Roma":"Capital italiana com património histórico, praças, igrejas, gastronomia e monumentos de diferentes períodos.",
+  "Barcelona":"Cidade mediterrânica conhecida pela arquitetura, bairros históricos, gastronomia e proximidade do mar.",
+  "Madrid":"Capital espanhola com museus, parques, praças, gastronomia e uma vida urbana intensa.",
+  "Londres":"Grande capital europeia com museus, bairros históricos, parques, mercados e uma rede extensa de transportes.",
+  "Amesterdão":"Cidade conhecida pelos canais, arquitetura histórica, bicicletas e museus.",
+  "Tóquio":"Grande metrópole japonesa que combina bairros modernos, templos, gastronomia e uma extensa rede ferroviária.",
+  "Quioto":"Cidade japonesa conhecida pelos templos, jardins, bairros tradicionais e património cultural."
+};
+
+function renderDescription(){
+  document.getElementById("destinationDescription").textContent=
+    DESCRIPTIONS[app.destination.name]||
+    `${app.destination.name} é um destino para explorar através da sua cultura, gastronomia, arquitetura, paisagens e vida local.`;
 }
 
-function packingKey(){
-  return state.destination
-    ?normalize(state.destination.name)
-    :"sem-destino";
-}
 
-function generatePacking(){
-  const type=document.getElementById("tripType")?.value||"";
-  const sleep=document.getElementById("sleepType")?.value||"";
-  const start=document.getElementById("dateStart")?.value;
-  const end=document.getElementById("dateEnd")?.value;
-
-  let duration=3;
-
-  if(start&&end){
-    const a=new Date(start);
-    const b=new Date(end);
-    duration=Math.max(
-      1,
-      Math.round((b-a)/86400000)
-    );
-  }
-
-  const items=[
-    ["documentos","🪪 Documento de identificação / passaporte","Essencial para a viagem."],
-    ["carteira","💳 Cartões e algum dinheiro","Útil para pagamentos e emergências."],
-    ["reservas","📄 Reservas e bilhetes","Mantém os documentos importantes acessíveis."],
-    ["telemovel","📱 Telemóvel","Para comunicação, mapas e reservas."],
-    ["carregador","🔌 Carregador","Evita ficar sem bateria."],
-    ["powerbank","🔋 Powerbank","Útil durante dias longos fora do alojamento."],
-    ["auscultadores","🎧 Auscultadores","Para viagens e momentos de descanso."],
-    ["higiene","🪥 Produtos de higiene","Inclui os teus produtos pessoais essenciais."],
-    ["medicacao","💊 Medicação habitual","Se tomas medicação regularmente, leva o suficiente conforme as tuas orientações habituais."],
-    ["sapatos","👟 Calçado confortável","Recomendado para explorar o destino."],
-    ["roupa","👕 Roupa para "+duration+" dia(s)","Ajusta a quantidade à duração da viagem."],
-    ["casaco","🧥 Casaco leve","Útil para mudanças de temperatura."],
-    ["garrafa","💧 Garrafa reutilizável","Prática para dias de passeio."],
-    ["mochila","🎒 Mochila pequena","Útil para transportar o essencial durante o dia."]
-  ];
-
-  if(type.includes("Praia")){
-    items.push(
-      ["fato","🩱 Fato de banho","Recomendado para atividades de praia/piscina."],
-      ["oculos","🕶️ Óculos de sol","Proteção solar durante atividades exteriores."],
-      ["protetor","☀️ Protetor solar","Proteção solar."]
-    );
-  }
-
-  if(type.includes("Aventura")){
-    items.push(
-      ["aventura","🥾 Calçado adequado","Útil para terrenos e caminhadas."],
-      ["impermeavel","🌧️ Impermeável","Pode ser útil em atividades exteriores."],
-      ["lanterna","🔦 Lanterna pequena","Útil em caminhadas ou zonas com pouca iluminação."]
-    );
-  }
-
-  if(type.includes("Fotografia")){
-    items.push(
-      ["camera","📷 Câmara","Para registar a viagem."],
-      ["cartao","💾 Cartão de memória","Para espaço adicional para fotografias."]
-    );
-  }
-
-  if(sleep.includes("Hostel")){
-    items.push(
-      ["cadeado","🔐 Pequeno cadeado","Pode ser útil para cacifos, conforme o alojamento."],
-      ["tampoes","😴 Tampões para os ouvidos","Podem ajudar em quartos partilhados."]
-    );
-  }
-
-  const plug=plugs[state.destination?.countryCode];
-
-  if(plug){
-    items.push(
-      ["adaptador","🔌 Adaptador de tomada","O destino usa fichas "+plug+"; confirma se precisas de adaptador."]
-    );
-  }
-
-  const key=packingKey();
-
-  if(!state.packing[key]){
-    state.packing[key]=Object.fromEntries(
-      items.map(x=>[x[0],false])
-    );
-    localStorage.setItem(
-      "escapePacking",
-      JSON.stringify(state.packing)
-    );
-  }
-
-  const stored=state.packing[key];
-
-  document.getElementById("packingList").innerHTML=
-    items.map(item=>`
-      <label class="check">
-        <input
-          type="checkbox"
-          ${stored[item[0]]?"checked":""}
-          onchange="togglePacking('${item[0]}',this.checked)">
-        <div>
-          <strong>${esc(item[1])}</strong>
-          <small>${esc(item[2])}</small>
-        </div>
-      </label>
-    `).join("");
-
-  updatePackingProgress(items);
-}
-
-function togglePacking(key,value){
-  const id=packingKey();
-
-  if(!state.packing[id])state.packing[id]={};
-
-  state.packing[id][key]=value;
-
-  localStorage.setItem(
-    "escapePacking",
-    JSON.stringify(state.packing)
-  );
-
-  generatePacking();
-}
-
-function updatePackingProgress(items){
-  const values=items.map(x=>state.packing[packingKey()]?.[x[0]]);
-
-  const done=values.filter(Boolean).length;
-  const total=values.length;
-
-  const percent=Math.round(done/total*100);
-
-  document.getElementById("packingProgress").innerHTML=`
-    <div style="margin:10px 0 18px">
-      <strong>${percent}% preparado</strong>
-      <div style="height:8px;background:#edf0ec;border-radius:99px;margin-top:7px">
-        <div style="height:100%;width:${percent}%;background:var(--green);border-radius:99px"></div>
-      </div>
-    </div>
-  `;
-}
-
-function checkAllPacking(){
-  const key=packingKey();
-
-  if(!state.packing[key])return;
-
-  Object.keys(state.packing[key])
-    .forEach(k=>state.packing[key][k]=true);
-
-  localStorage.setItem(
-    "escapePacking",
-    JSON.stringify(state.packing)
-  );
-
-  generatePacking();
-}
-
-function clearPacking(){
-  const key=packingKey();
-
-  if(state.packing[key]){
-    Object.keys(state.packing[key])
-      .forEach(k=>state.packing[key][k]=false);
-  }
-
-  localStorage.setItem(
-    "escapePacking",
-    JSON.stringify(state.packing)
-  );
-
-  generatePacking();
-}
-
-/* ============================================================
-   ITINERÁRIO
-   ============================================================ */
-
-function openItinerary(){
-  openModal("itineraryModal");
-
-  const key=state.destination
-    ?normalize(state.destination.name)
-    :"sem-destino";
-
-  if(!state.itinerary[key]){
-    state.itinerary[key]=[];
-  }
-
-  renderItinerary();
-}
-
-function renderItinerary(){
-  const key=state.destination
-    ?normalize(state.destination.name)
-    :"sem-destino";
-
-  const list=state.itinerary[key]||[];
-
-  document.getElementById("itineraryContent").innerHTML=`
-    <div class="actions">
-      <input id="newItineraryItem"
-             class="input"
-             placeholder="Adicionar lugar ou atividade..."
-             style="flex:1">
-      <button class="btn btn-primary" onclick="addItineraryItem()">
-        + Adicionar
-      </button>
-    </div>
-
-    <div class="checklist" style="margin-top:15px">
-      ${
-        list.length
-        ?list.map((x,i)=>`
-          <div class="check">
-            <span>${i+1}</span>
-            <div style="flex:1">
-              <strong>${esc(x)}</strong>
-            </div>
-            <button class="small-action"
-              onclick="removeItineraryItem(${i})">
-              Remover
-            </button>
-          </div>
-        `).join("")
-        :`<div class="empty">
-            Ainda não adicionaste nada ao itinerário.
-          </div>`
-      }
-    </div>
-  `;
-}
-
-function addItineraryItem(){
-  const input=document.getElementById("newItineraryItem");
-  const value=input.value.trim();
-
-  if(!value)return;
-
-  const key=normalize(state.destination?.name||"sem-destino");
-
-  if(!state.itinerary[key]){
-    state.itinerary[key]=[];
-  }
-
-  state.itinerary[key].push(value);
-
-  localStorage.setItem(
-    "escapeItinerary",
-    JSON.stringify(state.itinerary)
-  );
-
-  input.value="";
-  renderItinerary();
-}
-
-function removeItineraryItem(index){
-  const key=normalize(state.destination?.name||"sem-destino");
-
-  state.itinerary[key].splice(index,1);
-
-  localStorage.setItem(
-    "escapeItinerary",
-    JSON.stringify(state.itinerary)
-  );
-
-  renderItinerary();
-}
-
-/* ============================================================
+/* =========================================================
    PASSAPORTE
-   ============================================================ */
+========================================================= */
+
+function getVisited(){
+  try{
+    return JSON.parse(localStorage.getItem("visitedDestinations")||"[]");
+  }catch{
+    return [];
+  }
+}
+
+function isVisited(name){
+  return getVisited().some(x=>normalize(x.name)===normalize(name));
+}
 
 function toggleVisited(){
-  if(!state.destination)return;
+  if(!app.destination)return;
 
-  const index=state.visited.findIndex(
-    x=>normalize(x.name)===normalize(state.destination.name)
-  );
+  const list=getVisited();
+  const index=list.findIndex(x=>normalize(x.name)===normalize(app.destination.name));
 
   if(index>=0){
-    state.visited.splice(index,1);
-    showToast("Destino retirado do passaporte.");
+    list.splice(index,1);
   }else{
-    state.visited.push({
-      name:state.destination.name,
-      country:state.destination.country,
+    list.push({
+      name:app.destination.name,
+      country:app.destination.country,
       date:new Date().toISOString()
     });
-
-    showToast("✈️ Destino carimbado no passaporte!");
   }
 
-  localStorage.setItem(
-    "visitedDestinations",
-    JSON.stringify(state.visited)
-  );
+  localStorage.setItem("visitedDestinations",JSON.stringify(list));
 
-  renderDestinationHero();
-  updatePassport();
+  const button=document.getElementById("visitedButton");
+
+  if(button){
+    const visited=isVisited(app.destination.name);
+    button.classList.toggle("visited",visited);
+    button.textContent=visited
+      ?"✓ Já visitei"
+      :"○ Marcar como visitado";
+  }
+
+  renderPassport();
 }
 
-function updatePassport(){
+function renderPassport(){
   const stamps=document.getElementById("stamps");
-  const stats=document.getElementById("passportStats");
+  if(!stamps)return;
 
-  if(!stamps||!stats)return;
+  const list=getVisited();
 
-  stats.innerHTML=`
-    <strong>${state.visited.length}</strong>
-    destino(s) visitado(s)
-  `;
-
-  if(!state.visited.length){
+  if(!list.length){
     stamps.innerHTML=`
       <div style="opacity:.8">
-        Ainda não tens carimbos.
-        Marca um destino como visitado quando realmente lá estiveres.
+        Ainda não tens carimbos.<br>
+        Marca um destino como visitado para começar.
       </div>
     `;
     return;
   }
 
-  stamps.innerHTML=state.visited.map(x=>`
+  stamps.innerHTML=list.map(item=>`
     <div class="stamp">
       ✈️<br>
-      ${esc(x.name)}<br>
-      ✓ VISITADO
+      <strong>${escapeHTML(item.name)}</strong>
     </div>
   `).join("");
 }
 
-/* ============================================================
-   MODO VIAGEM
-   ============================================================ */
 
-function openTravelMode(){
-  if(!state.destination){
-    showToast("Escolhe primeiro um destino.");
+/* =========================================================
+   ITINERÁRIO
+========================================================= */
+
+function saveItinerary(){
+  localStorage.setItem(
+    "escapadinha_itinerary",
+    JSON.stringify(app.itinerary)
+  );
+}
+
+function renderItinerary(){
+  for(let day=1;day<=3;day++){
+    const box=document.getElementById("day"+day);
+    if(!box)continue;
+
+    const items=app.itinerary[day]||[];
+
+    box.innerHTML=items.map((item,index)=>`
+      <div class="itinerary-item">
+        <span>📍</span>
+        <span style="flex:1">${escapeHTML(item)}</span>
+        <button
+          style="border:0;background:none;color:#9a4c35"
+          onclick="removeItineraryItem(${day},${index})">
+          ×
+        </button>
+      </div>
+    `).join("");
+  }
+}
+
+function addItineraryItem(day){
+  const value=prompt("O que queres adicionar ao Dia "+day+"?");
+
+  if(!value?.trim())return;
+
+  if(!app.itinerary[day])app.itinerary[day]=[];
+
+  app.itinerary[day].push(value.trim());
+
+  saveItinerary();
+  renderItinerary();
+}
+
+function removeItineraryItem(day,index){
+  app.itinerary[day]?.splice(index,1);
+  saveItinerary();
+  renderItinerary();
+}
+
+
+/* =========================================================
+   MALA INTELIGENTE
+========================================================= */
+
+function openPacking(){
+  if(!app.destination){
+    openModal(`
+      <h2>🧳 Preparar a mala</h2>
+      <p>Escolhe primeiro um destino para podermos adaptar a lista à meteorologia.</p>
+      <button class="primary" onclick="closeModal();scrollToId('home')">
+        Escolher destino
+      </button>
+    `);
     return;
   }
 
-  const key=normalize(state.destination.name);
-  const itinerary=state.itinerary[key]||[];
-  const zone=state.zones[0];
+  const weather=app.weather[0]?.weather?.current;
 
-  document.getElementById("travelContent").innerHTML=`
-    <div class="info-grid">
+  const temp=weather?.temperature_2m;
+  const rain=weather?.precipitation||0;
+  const wind=weather?.wind_speed_10m||0;
 
-      <div class="info-card">
-        <div class="icon">📍</div>
-        <strong>${esc(state.destination.name)}</strong>
-        <p>${esc(state.destination.country)}</p>
-      </div>
+  const list=[
+    ["📄","Documento de identificação","Leva o documento adequado à viagem."],
+    ["💳","Cartões / dinheiro","Confirma os meios de pagamento aceites."],
+    ["📱","Telemóvel","Essencial para mapas, reservas e comunicação."],
+    ["🔌","Carregador","Para manter os equipamentos carregados."],
+    ["🔋","Powerbank","Útil para dias longos fora do alojamento."],
+    ["👟","Calçado confortável","Recomendado para explorar a cidade."],
+    ["🧴","Produtos pessoais","Inclui os teus produtos habituais."]
+  ];
 
-      <div class="info-card">
-        <div class="icon">🕐</div>
-        <strong>Hora local</strong>
-        <p id="travelClock">—</p>
-      </div>
+  if(temp!==undefined){
+    if(temp<12){
+      list.push(["🧥","Casaco quente",`Recomendado porque a temperatura atual está nos ${Math.round(temp)}°C.`]);
+      list.push(["🧦","Meias quentes","Úteis para temperaturas baixas."]);
+    }else if(temp<21){
+      list.push(["🧥","Casaco leve",`Recomendado porque a temperatura está nos ${Math.round(temp)}°C.`]);
+      list.push(["👖","Calças","Boa opção para temperaturas moderadas."]);
+    }else{
+      list.push(["👕","Roupa leve",`Recomendada para uma temperatura de cerca de ${Math.round(temp)}°C.`]);
+      list.push(["🕶️","Óculos de sol","Úteis para exposição solar."]);
+    }
+  }
 
-      <div class="info-card">
-        <div class="icon">🚨</div>
-        <strong>Emergências</strong>
-        <p>${esc(emergency[state.destination.countryCode]||"Confirma localmente")}</p>
-      </div>
+  if(rain>0){
+    list.push(["☔","Proteção para chuva",`Há ${rain} mm de precipitação registada neste momento.`]);
+  }
 
-      <div class="info-card">
-        <div class="icon">🗺️</div>
-        <strong>Mapa</strong>
-        <p>
-          <a class="btn btn-secondary"
-             target="_blank"
-             href="https://www.google.com/maps/search/?api=1&query=${state.destination.lat},${state.destination.lon}">
-             Abrir Maps
-          </a>
-        </p>
-      </div>
+  if(wind>=25){
+    list.push(["🧥","Camada corta-vento",`O vento está perto de ${Math.round(wind)} km/h.`]);
+  }
 
+  if(getPlug(app.destination.code)!=="Confirma o tipo de tomada local"){
+    list.push(["🔌","Adaptador","Confirma se a ficha dos teus equipamentos é compatível."]);
+  }
+
+  openModal(`
+    <h2>🧳 Mala para ${escapeHTML(app.destination.name)}</h2>
+
+    <p>
+      Lista adaptada aos dados meteorológicos disponíveis,
+      datas e destino.
+    </p>
+
+    <div class="checklist">
+      ${list.map((item,index)=>`
+        <label class="check-item">
+          <input type="checkbox"
+                 onchange="savePackingState(${index},this.checked)">
+          <div>
+            <strong>${item[0]} ${escapeHTML(item[1])}</strong>
+            <small>${escapeHTML(item[2])}</small>
+          </div>
+        </label>
+      `).join("")}
     </div>
 
-    <div class="section" style="margin-top:25px">
-      <h3>🗺️ O teu itinerário</h3>
-
-      ${
-        itinerary.length
-        ?`<div class="checklist">
-          ${itinerary.map((x,i)=>`
-            <div class="check">
-              <strong>${i+1}.</strong>
-              <span>${esc(x)}</span>
-            </div>
-          `).join("")}
-        </div>`
-        :`<div class="empty">
-            Ainda não tens atividades no itinerário.
-          </div>`
-      }
-    </div>
-
-    <div class="actions">
-      <a class="btn btn-primary"
-         target="_blank"
-         href="https://www.google.com/maps/search/?api=1&query=${state.destination.lat},${state.destination.lon}">
-         📍 Estou aqui / abrir mapa
-      </a>
-
-      <a class="btn btn-light"
-         target="_blank"
-         href="https://www.google.com/search?q=${encodeURIComponent("emergências "+state.destination.country)}">
-         🚨 Informação de emergência
-      </a>
-    </div>
-  `;
-
-  openModal("travelModal");
-
-  updateTravelClock();
-
-  clearInterval(window.travelClockInterval);
-
-  window.travelClockInterval=setInterval(
-    updateTravelClock,
-    1000
-  );
+    <button class="primary"
+            style="margin-top:15px"
+            onclick="window.print()">
+      🖨️ Imprimir lista
+    </button>
+  `);
 }
 
-function updateTravelClock(){
-  const el=document.getElementById("travelClock");
-
-  if(!el||!state.zones[0]?.timezone)return;
-
-  el.textContent=formatLocalTime(
-    state.zones[0].timezone
-  );
+function savePackingState(index,value){
+  const key="packing_"+(app.destination?.name||"");
+  const data=JSON.parse(localStorage.getItem(key)||"{}");
+  data[index]=value;
+  localStorage.setItem(key,JSON.stringify(data));
 }
 
-/* ============================================================
-   SURPRESAS
-   ============================================================ */
 
-function setMood(mood){
-  const list=moodDestinations[mood];
+/* =========================================================
+   SURPRESA / DESCOBERTA
+========================================================= */
 
-  if(!list?.length)return;
+function renderDiscoveries(list=DISCOVERY){
+  document.getElementById("discoveryGrid").innerHTML=
+    list.map(d=>`
+      <button class="discovery"
+              style="background-image:url('${d.img}')"
+              onclick="selectDestination('${escapeHTML(d.name)}');createTrip()">
+        <div>
+          <h3>${d.emoji} ${escapeHTML(d.name)}</h3>
+          <p>${escapeHTML(d.text)}</p>
+        </div>
+      </button>
+    `).join("");
+}
 
-  const choice=
-    list[Math.floor(Math.random()*list.length)];
-
-  document.getElementById("destinationInput").value=choice;
-
-  document.getElementById("tripType").value=mood;
-
-  showToast(mood+" — destino sugerido: "+choice);
-
-  exploreDestination();
+function shuffleDiscoveries(){
+  const shuffled=[...DISCOVERY].sort(()=>Math.random()-.5);
+  renderDiscoveries(shuffled);
 }
 
 function surpriseMe(){
-  const all=destinations;
+  const destination=DESTINATIONS[
+    Math.floor(Math.random()*DESTINATIONS.length)
+  ];
 
-  const choice=
-    all[Math.floor(Math.random()*all.length)];
+  document.getElementById("destinationInput").value=destination.name;
 
-  document.getElementById("destinationInput").value=choice[1];
-
-  showToast("✨ A Escapadinha escolheu "+choice[1]);
-
-  exploreDestination();
+  createTrip();
 }
 
-function destinationRoulette(){
-  const all=destinations;
+function findByMood(mood){
+  const matches={
+    Praia:["Nice","Barcelona","Miami","Sydney","Funchal"],
+    Natureza:["Funchal","Vancouver","Auckland","Edimburgo"],
+    Gastronomia:["Roma","Lisboa","Porto","Paris","Madrid"],
+    Cultura:["Roma","Paris","Viena","Praga","Quioto"],
+    Romântica:["Paris","Veneza","Roma","Lisboa"],
+    Aventura:["Auckland","Vancouver","Sydney","Tóquio"],
+    Fotografia:["Veneza","Quioto","Paris","Amesterdão"],
+    Noite:["Londres","Madrid","Barcelona","Tóquio"]
+  };
 
-  const choice=
-    all[Math.floor(Math.random()*all.length)];
+  const list=matches[mood]||DESTINATIONS.map(d=>d.name);
 
-  document.getElementById("destinationInput").value=choice[1];
+  const destination=list[Math.floor(Math.random()*list.length)];
 
-  document.getElementById("tripType").selectedIndex=
-    Math.floor(Math.random()*document.getElementById("tripType").options.length);
+  document.getElementById("destinationInput").value=destination;
 
-  document.getElementById("budget").selectedIndex=
-    Math.floor(Math.random()*3);
-
-  exploreDestination();
+  createTrip();
 }
 
-/* ============================================================
-   SLEEP / DATE HELPERS
-   ============================================================ */
+
+/* =========================================================
+   RELÓGIO
+========================================================= */
+
+function updateModalClock(){
+  const el=document.getElementById("modalClock");
+
+  if(!el||!app.weather[0])return;
+
+  const tz=app.weather[0].weather.timezone;
+
+  el.textContent=formatTimeZone(tz);
+
+  const date=document.getElementById("modalDate");
+  if(date)date.textContent=formatDateZone(tz);
+
+  setTimeout(()=>{
+    if(document.getElementById("modalClock"))updateModalClock();
+  },1000);
+}
+
+setInterval(()=>{
+  updateHeroTime();
+
+  document.querySelectorAll("[data-timezone]").forEach(el=>{
+    el.textContent=formatTimeZone(el.dataset.timezone);
+  });
+},1000);
+
+
+/* =========================================================
+   DATAS
+========================================================= */
 
 function setupDates(){
-  const today=new Date();
-  const start=new Date(today);
-  start.setDate(start.getDate()+7);
+  const today=new Date().toISOString().split("T")[0];
 
-  const end=new Date(start);
-  end.setDate(end.getDate()+4);
+  document.getElementById("departureDate").min=today;
+  document.getElementById("flightDate").min=today;
 
-  document.getElementById("dateStart").value=
-    start.toISOString().slice(0,10);
-
-  document.getElementById("dateEnd").value=
-    end.toISOString().slice(0,10);
-
-  document.getElementById("flightDate").value=
-    start.toISOString().slice(0,10);
-
-  document.getElementById("flightReturn").value=
-    end.toISOString().slice(0,10);
+  document.getElementById("returnDate").min=today;
+  document.getElementById("flightReturn").min=today;
 }
 
-/* ============================================================
-   INIT
-   ============================================================ */
 
-setupDestinationDropdown();
-loadCountries();
-setupDates();
-updatePassport();
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
 
-window.addEventListener("keydown",e=>{
-  if(e.key==="Escape"){
-    document.querySelectorAll(".modal.show")
-      .forEach(x=>x.classList.remove("show"));
-  }
+document.addEventListener("DOMContentLoaded",async()=>{
+  setupDestinationSearch();
+  setupNationalitySearch();
+  setupDates();
+
+  renderDiscoveries();
+  renderPassport();
+
+  await loadCountries();
 });
-
-document.querySelectorAll(".modal").forEach(modal=>{
-  modal.addEventListener("click",e=>{
-    if(e.target===modal){
-      modal.classList.remove("show");
-    }
-  });
-});
-
-/*
-  Destino inicial apenas quando o utilizador escolhe.
-  Não é marcado como visitado automaticamente.
-*/
 </script>
 
 </body>
