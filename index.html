@@ -1,1119 +1,1155 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌍 Escapadinha</title>
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f5f7fb;
-  color:#172033;
-  line-height:1.5
-}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer;border:0}
-a{text-decoration:none;color:inherit}
-
-.container{
-  width:min(1180px,92%);
-  margin:auto
-}
-
-nav{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:rgba(255,255,255,.96);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid #e5e9f0
-}
-
-.nav-inner{
-  min-height:68px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px
-}
-
-.logo{
-  font-size:1.35rem;
-  font-weight:800;
-  color:#246bfe
-}
-
-.nav-links{
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap
-}
-
-.nav-links a{
-  font-size:.92rem;
-  font-weight:700;
-  color:#4a5568
-}
-
-.hero{
-  background:
-    linear-gradient(135deg,rgba(15,55,120,.94),rgba(36,107,254,.78)),
-    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80")
-    center/cover;
-  color:white;
-  padding:90px 0 75px
-}
-
-.hero h1{
-  font-size:clamp(2.5rem,6vw,4.8rem);
-  line-height:1;
-  margin-bottom:20px
-}
-
-.hero p{
-  max-width:720px;
-  font-size:1.1rem;
-  margin-bottom:30px
-}
-
-.search-box{
-  background:white;
-  color:#172033;
-  padding:20px;
-  border-radius:20px;
-  box-shadow:0 20px 50px rgba(0,0,0,.2)
-}
-
-.search-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px
-}
-
-.field label{
-  display:block;
-  font-size:.8rem;
-  font-weight:800;
-  margin-bottom:6px;
-  color:#4a5568
-}
-
-.field input,.field select{
-  width:100%;
-  padding:13px;
-  border:1px solid #d9dee8;
-  border-radius:10px;
-  outline:none
-}
-
-.search-btn{
-  grid-column:1/-1;
-  padding:14px;
-  border-radius:10px;
-  background:#246bfe;
-  color:white;
-  font-weight:800
-}
-
-section{padding:70px 0}
-
-.section-title{margin-bottom:30px}
-.section-title h2{font-size:2rem;margin-bottom:6px}
-.section-title p{color:#697386}
-
-.destination-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:20px
-}
-
-.destination-card{
-  background:white;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 8px 25px rgba(31,41,55,.07);
-  transition:.2s
-}
-
-.destination-card:hover{
-  transform:translateY(-5px)
-}
-
-.destination-card img{
-  width:100%;
-  height:170px;
-  object-fit:cover
-}
-
-.destination-content{padding:16px}
-.destination-content h3{margin-bottom:5px}
-.destination-content p{
-  color:#697386;
-  font-size:.9rem;
-  margin-bottom:12px
-}
-
-.small-btn{
-  padding:9px 13px;
-  border-radius:9px;
-  background:#edf3ff;
-  color:#246bfe;
-  font-weight:800
-}
-
-.places-toolbar{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:20px
-}
-
-.places-toolbar input,
-.places-toolbar select{
-  padding:12px;
-  border:1px solid #d9dee8;
-  border-radius:10px;
-  background:white
-}
-
-.places-toolbar input{
-  flex:1;
-  min-width:230px
-}
-
-.places-toolbar button{
-  padding:12px 18px;
-  border-radius:10px;
-  background:#246bfe;
-  color:white;
-  font-weight:800
-}
-
-.status{
-  display:none;
-  padding:13px 15px;
-  border-radius:10px;
-  margin:15px 0
-}
-
-.status.show{display:block}
-.status.normal{background:#eef4ff;color:#2452a4}
-.status.success{background:#eaf9f0;color:#18733b}
-.status.error{background:#fff0f0;color:#a32929}
-
-.places-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px
-}
-
-.place-card{
-  background:white;
-  border-radius:17px;
-  overflow:hidden;
-  box-shadow:0 8px 25px rgba(31,41,55,.07)
-}
-
-.place-card img{
-  width:100%;
-  height:190px;
-  object-fit:cover;
-  display:block
-}
-
-.place-body{padding:17px}
-
-.place-type{
-  display:inline-block;
-  padding:5px 9px;
-  background:#eef4ff;
-  color:#246bfe;
-  border-radius:999px;
-  font-size:.75rem;
-  font-weight:800;
-  margin-bottom:8px
-}
-
-.place-body h3{
-  margin-bottom:6px;
-  font-size:1.1rem
-}
-
-.place-address{
-  color:#697386;
-  font-size:.87rem;
-  margin-bottom:12px
-}
-
-.place-distance{
-  font-size:.82rem;
-  color:#7b8494;
-  margin-bottom:12px
-}
-
-.place-link{
-  color:#246bfe;
-  font-weight:800;
-  font-size:.9rem
-}
-
-.info-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px
-}
-
-.info-card{
-  background:white;
-  padding:25px;
-  border-radius:17px;
-  box-shadow:0 8px 25px rgba(31,41,55,.07)
-}
-
-.info-icon{
-  font-size:2rem;
-  margin-bottom:10px
-}
-
-.info-card h3{margin-bottom:7px}
-.info-card p{color:#697386}
-
-.planner{
-  background:#172033;
-  color:white
-}
-
-.planner-box{
-  background:white;
-  color:#172033;
-  padding:25px;
-  border-radius:18px
-}
-
-.planner-form{
-  display:grid;
-  grid-template-columns:180px 1fr auto;
-  gap:12px
-}
-
-.planner-form input{
-  padding:13px;
-  border:1px solid #d9dee8;
-  border-radius:10px
-}
-
-.planner-form button{
-  padding:13px 20px;
-  background:#246bfe;
-  color:white;
-  border-radius:10px;
-  font-weight:800
-}
-
-#planList{
-  margin-top:20px;
-  display:grid;
-  gap:10px
-}
-
-.plan-item{
-  padding:13px 15px;
-  background:#f4f6fa;
-  border-radius:10px;
-  display:flex;
-  justify-content:space-between
-}
-
-.remove-plan{
-  color:#c0392b;
-  background:none;
-  font-weight:800
-}
-
-.map-box{
-  height:430px;
-  border-radius:18px;
-  overflow:hidden;
-  background:#dce5f2
-}
-
-#map{
-  width:100%;
-  height:100%;
-  border:0
-}
-
-.quiz-box{
-  background:white;
-  max-width:800px;
-  margin:auto;
-  padding:30px;
-  border-radius:18px;
-  box-shadow:0 8px 25px rgba(31,41,55,.07)
-}
-
-.quiz-question{
-  font-size:1.3rem;
-  font-weight:800;
-  margin-bottom:20px
-}
-
-.quiz-options{
-  display:grid;
-  gap:10px
-}
-
-.quiz-options button{
-  padding:13px;
-  text-align:left;
-  border-radius:10px;
-  background:#f2f5fa
-}
-
-#quizResult{
-  margin-top:20px;
-  font-weight:800
-}
-
-.diary-box{
-  background:white;
-  padding:25px;
-  border-radius:18px;
-  box-shadow:0 8px 25px rgba(31,41,55,.07)
-}
-
-.diary-box textarea{
-  width:100%;
-  min-height:160px;
-  padding:15px;
-  border:1px solid #d9dee8;
-  border-radius:12px;
-  resize:vertical;
-  margin-bottom:12px
-}
-
-.diary-box button{
-  padding:12px 20px;
-  background:#246bfe;
-  color:white;
-  border-radius:10px;
-  font-weight:800
-}
-
-#savedDiary{
-  margin-top:15px;
-  padding:15px;
-  background:#f5f7fb;
-  border-radius:10px;
-  white-space:pre-wrap
-}
-
-footer{
-  padding:35px 0;
-  text-align:center;
-  background:#0e1525;
-  color:#aeb8ca
-}
-
-@media(max-width:1000px){
-  .destination-grid{grid-template-columns:repeat(3,1fr)}
-  .places-grid{grid-template-columns:repeat(2,1fr)}
-  .info-grid{grid-template-columns:1fr 1fr}
-}
-
-@media(max-width:700px){
-  .nav-inner{
-    flex-direction:column;
-    align-items:flex-start;
-    padding:12px 0
-  }
-
-  .search-grid,
-  .destination-grid,
-  .places-grid,
-  .info-grid,
-  .planner-form{
-    grid-template-columns:1fr
-  }
-
-  .search-btn{grid-column:auto}
-  .hero{padding:60px 0}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>🌍 Escapadinha</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #0f172a;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --shadow: 0 10px 30px rgba(15, 23, 42, .08);
+      --radius: 18px;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* NAV */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: auto;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      color: #475569;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 440px;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(rgba(15,23,42,.62), rgba(15,23,42,.65)),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80")
+        center/cover;
+      color: white;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      width: 100%;
+      margin: auto;
+      padding: 70px 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 7vw, 70px);
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      max-width: 700px;
+      font-size: 19px;
+      color: #e2e8f0;
+      margin-bottom: 28px;
+    }
+
+    .search-box {
+      background: white;
+      padding: 10px;
+      border-radius: 16px;
+      display: flex;
+      max-width: 760px;
+      gap: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .search-box input {
+      flex: 1;
+      border: 0;
+      outline: none;
+      padding: 15px;
+      color: var(--text);
+      min-width: 0;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 13px 20px;
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn.secondary {
+      background: #e2e8f0;
+      color: var(--secondary);
+    }
+
+    .btn.success {
+      background: var(--success);
+    }
+
+    /* CONTAINER */
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 60px 20px;
+    }
+
+    .section-title {
+      margin-bottom: 25px;
+    }
+
+    .section-title h2 {
+      font-size: 32px;
+      margin-bottom: 6px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+    }
+
+    /* CARDS */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .destination-image {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    /* RESULTS */
+
+    #results {
+      margin-top: 25px;
+    }
+
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .place-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .place-card img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      background: #e2e8f0;
+    }
+
+    .place-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .place-type {
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .place-body h3 {
+      margin-bottom: 7px;
+    }
+
+    .place-address {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .place-distance {
+      font-size: 13px;
+      color: #475569;
+      margin-bottom: 14px;
+    }
+
+    .place-actions {
+      margin-top: auto;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .place-actions a {
+      display: inline-block;
+      padding: 9px 12px;
+      border-radius: 9px;
+      background: #eff6ff;
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* FILTERS */
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--border);
+      background: white;
+      color: #475569;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-weight: 700;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* ALERT */
+
+    .alert {
+      padding: 15px 18px;
+      border-radius: 12px;
+      margin: 15px 0;
+      display: none;
+    }
+
+    .alert.show {
+      display: block;
+    }
+
+    .alert.error {
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    .alert.success {
+      background: #f0fdf4;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .alert.info {
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+    }
+
+    /* LOADING */
+
+    .loading {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #dbeafe;
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* INFO */
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .info-box {
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+    }
+
+    .info-box .icon {
+      font-size: 35px;
+      margin-bottom: 10px;
+    }
+
+    .info-box h3 {
+      margin-bottom: 8px;
+    }
+
+    .info-box p {
+      color: var(--muted);
+    }
+
+    /* PLANNER */
+
+    .planner {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .field label {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      outline: none;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--primary);
+    }
+
+    /* MAP */
+
+    .map-wrapper {
+      background: white;
+      padding: 10px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    #map {
+      width: 100%;
+      height: 450px;
+      border: 0;
+      border-radius: 12px;
+    }
+
+    /* QUIZ */
+
+    .quiz {
+      background: #0f172a;
+      color: white;
+      padding: 30px;
+      border-radius: 20px;
+    }
+
+    .quiz-question {
+      font-size: 23px;
+      margin-bottom: 20px;
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .quiz-options button {
+      background: #1e293b;
+      color: white;
+      border: 1px solid #334155;
+      padding: 14px;
+      border-radius: 10px;
+      text-align: left;
+    }
+
+    .quiz-options button:hover {
+      background: #334155;
+    }
+
+    #quizResult {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    /* DIARY */
+
+    .diary {
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+    }
+
+    .diary textarea {
+      width: 100%;
+      min-height: 150px;
+      resize: vertical;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 12px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #0f172a;
+      color: #cbd5e1;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 40px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+      .grid,
+      .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+
+      .nav-inner {
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: center;
+      }
+
+      .search-box {
+        flex-direction: column;
+      }
+
+      .grid,
+      .info-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: 500px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<nav>
-  <div class="container nav-inner">
-    <a class="logo" href="#">🌍 Escapadinha</a>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
 
-    <div class="nav-links">
-      <a href="#destinos">Destinos</a>
-      <a href="#lugares">Atrações</a>
-      <a href="#planeador">Planeador</a>
-      <a href="#mapa">Mapa</a>
-      <a href="#quiz">Quiz</a>
-      <a href="#diario">Diário</a>
+      <a href="#" class="logo">🌍 Escapadinha</a>
+
+      <div class="nav-links">
+        <a href="#destinos">Destinos</a>
+        <a href="#lugares">Lugares</a>
+        <a href="#planeador">Planeador</a>
+        <a href="#mapa">Mapa</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#diario">Diário</a>
+      </div>
+
     </div>
-  </div>
-</nav>
+  </nav>
 
 
-<header class="hero">
-  <div class="container">
+  <!-- HERO -->
+  <section class="hero">
 
-    <h1>Descobre a tua próxima escapadinha.</h1>
+    <div class="hero-content">
 
-    <p>
-      Pesquisa destinos, atrações turísticas e restaurantes reais
-      e cria o teu roteiro.
-    </p>
+      <h1>🌍 Escapadinha</h1>
 
-    <div class="search-box">
+      <p>
+        Descobre destinos, atrações turísticas, restaurantes e cafés
+        reais através do Geoapify.
+      </p>
 
-      <div class="search-grid">
+      <form id="searchForm" class="search-box">
 
-        <div class="field">
-          <label>De onde partes?</label>
-          <input id="origin" placeholder="Ex.: Funchal">
-        </div>
+        <input
+          id="cityInput"
+          type="text"
+          placeholder="Ex.: Paris, Roma, Londres..."
+          autocomplete="off"
+          required
+        >
 
-        <div class="field">
-          <label>Destino</label>
-          <input id="destination" placeholder="Ex.: Paris">
-        </div>
-
-        <div class="field">
-          <label>Data de ida</label>
-          <input id="startDate" type="date">
-        </div>
-
-        <div class="field">
-          <label>Data de volta</label>
-          <input id="endDate" type="date">
-        </div>
-
-        <div class="field">
-          <label>Adultos</label>
-          <select id="people">
-            <option>1</option>
-            <option selected>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Crianças</label>
-          <select id="children">
-            <option selected>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-          </select>
-        </div>
-
-        <button class="search-btn" id="searchTrip">
-          🔎 Procurar escapadinha
+        <button class="btn" type="submit">
+          🔎 Explorar
         </button>
 
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <!-- DESTINOS -->
+  <section id="destinos" class="container">
+
+    <div class="section-title">
+      <h2>✈️ Destinos populares</h2>
+      <p>Começa por explorar um destes destinos.</p>
+    </div>
+
+    <div class="grid">
+
+      <article class="card">
+        <img
+          class="destination-image"
+          src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1000&q=80"
+          alt="Paris"
+        >
+
+        <div class="card-content">
+          <h3>🇫🇷 Paris</h3>
+          <p>A Torre Eiffel, o Louvre e muito mais.</p>
+
+          <button
+            class="btn"
+            onclick="searchCity('Paris')"
+          >
+            Explorar Paris
+          </button>
+        </div>
+      </article>
+
+
+      <article class="card">
+        <img
+          class="destination-image"
+          src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1000&q=80"
+          alt="Roma"
+        >
+
+        <div class="card-content">
+          <h3>🇮🇹 Roma</h3>
+          <p>História, monumentos e gastronomia italiana.</p>
+
+          <button
+            class="btn"
+            onclick="searchCity('Roma')"
+          >
+            Explorar Roma
+          </button>
+        </div>
+      </article>
+
+
+      <article class="card">
+        <img
+          class="destination-image"
+          src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1000&q=80"
+          alt="Londres"
+        >
+
+        <div class="card-content">
+          <h3>🇬🇧 Londres</h3>
+          <p>Big Ben, museus, parques e cultura.</p>
+
+          <button
+            class="btn"
+            onclick="searchCity('Londres')"
+          >
+            Explorar Londres
+          </button>
+        </div>
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <!-- LUGARES -->
+  <section id="lugares" class="container">
+
+    <div class="section-title">
+      <h2>📍 Lugares reais</h2>
+      <p id="searchDescription">
+        Pesquisa uma cidade para encontrar locais reais.
+      </p>
+    </div>
+
+    <div id="alertBox" class="alert"></div>
+
+    <div class="filters">
+
+      <button
+        class="filter-btn active"
+        data-type="tourism"
+      >
+        🏛️ Atrações
+      </button>
+
+      <button
+        class="filter-btn"
+        data-type="restaurants"
+      >
+        🍽️ Restaurantes
+      </button>
+
+      <button
+        class="filter-btn"
+        data-type="cafes"
+      >
+        ☕ Cafés
+      </button>
+
+      <button
+        class="filter-btn"
+        data-type="hotels"
+      >
+        🏨 Hotéis
+      </button>
+
+    </div>
+
+    <div id="results">
+
+      <div class="loading">
+        Pesquisa uma cidade para começar.
       </div>
 
     </div>
 
-    <div id="heroStatus" class="status"></div>
-
-  </div>
-</header>
+  </section>
 
 
-<section id="destinos">
-<div class="container">
+  <!-- INFO -->
+  <section class="container">
 
-  <div class="section-title">
-    <h2>✈️ Destinos populares</h2>
-    <p>Escolhe um destino para pesquisar locais reais.</p>
-  </div>
-
-  <div class="destination-grid" id="destinationGrid"></div>
-
-</div>
-</section>
-
-
-<section id="lugares">
-<div class="container">
-
-  <div class="section-title">
-    <h2>📍 Atrações e restaurantes reais</h2>
-    <p>
-      Os resultados são obtidos através da Geoapify.
-    </p>
-  </div>
-
-  <div class="places-toolbar">
-
-    <input
-      id="placesCity"
-      placeholder="Ex.: Paris"
-    >
-
-    <select id="placesType">
-      <option value="tourism">🏛️ Atrações</option>
-      <option value="restaurant">🍽️ Restaurantes</option>
-      <option value="cafe">☕ Cafés</option>
-      <option value="museum">🏛️ Museus</option>
-      <option value="park">🌳 Parques</option>
-      <option value="all">🌍 Tudo</option>
-    </select>
-
-    <button id="searchPlaces">
-      🔎 Pesquisar
-    </button>
-
-  </div>
-
-  <div id="placesStatus" class="status"></div>
-
-  <div class="places-grid" id="placesGrid"></div>
-
-</div>
-</section>
-
-
-<section>
-<div class="container">
-
-  <div class="section-title">
-    <h2>🧳 Prepara a viagem</h2>
-  </div>
-
-  <div class="info-grid">
-
-    <div class="info-card">
-      <div class="info-icon">🗺️</div>
-      <h3>Explora</h3>
-      <p>
-        Descobre atrações, monumentos, museus, parques,
-        restaurantes e cafés.
-      </p>
+    <div class="section-title">
+      <h2>💡 Porque usar a Escapadinha?</h2>
     </div>
 
-    <div class="info-card">
-      <div class="info-icon">📅</div>
-      <h3>Planeia</h3>
-      <p>
-        Organiza as atividades da tua viagem.
-      </p>
+    <div class="info-grid">
+
+      <div class="info-box">
+        <div class="icon">📍</div>
+        <h3>Lugares reais</h3>
+        <p>
+          Os resultados são pesquisados através do serviço
+          Geoapify Places.
+        </p>
+      </div>
+
+      <div class="info-box">
+        <div class="icon">🗺️</div>
+        <h3>Mapa</h3>
+        <p>
+          Visualiza a zona pesquisada diretamente no mapa.
+        </p>
+      </div>
+
+      <div class="info-box">
+        <div class="icon">🧳</div>
+        <h3>Planeia a viagem</h3>
+        <p>
+          Guarda datas, orçamento e notas da tua escapadinha.
+        </p>
+      </div>
+
     </div>
 
-    <div class="info-card">
-      <div class="info-icon">📔</div>
-      <h3>Guarda</h3>
-      <p>
-        Guarda as tuas notas e memórias no diário.
-      </p>
+  </section>
+
+
+  <!-- PLANEADOR -->
+  <section id="planeador" class="container">
+
+    <div class="section-title">
+      <h2>🧳 Planeador</h2>
+      <p>Organiza rapidamente a tua viagem.</p>
     </div>
 
-  </div>
-</div>
-</section>
+    <div class="planner">
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label for="planDestination">
+            Destino
+          </label>
+
+          <input
+            id="planDestination"
+            type="text"
+            placeholder="Paris"
+          >
+        </div>
 
 
-<section class="planner" id="planeador">
-<div class="container">
+        <div class="field">
+          <label for="planPeople">
+            Número de pessoas
+          </label>
 
-  <div class="section-title">
-    <h2>📝 O meu planeador</h2>
-    <p style="color:#b9c4d7">
-      Cria o teu roteiro.
-    </p>
-  </div>
+          <input
+            id="planPeople"
+            type="number"
+            min="1"
+            value="2"
+          >
+        </div>
 
-  <div class="planner-box">
 
-    <div class="planner-form">
+        <div class="field">
+          <label for="planStart">
+            Data de ida
+          </label>
 
-      <input id="planTime" type="time" value="10:00">
+          <input
+            id="planStart"
+            type="date"
+          >
+        </div>
 
-      <input
-        id="planActivity"
-        placeholder="Ex.: Visitar a Torre Eiffel"
+
+        <div class="field">
+          <label for="planEnd">
+            Data de regresso
+          </label>
+
+          <input
+            id="planEnd"
+            type="date"
+          >
+        </div>
+
+
+        <div class="field">
+          <label for="planBudget">
+            Orçamento (€)
+          </label>
+
+          <input
+            id="planBudget"
+            type="number"
+            min="0"
+            placeholder="500"
+          >
+        </div>
+
+
+        <div class="field">
+          <label for="planStyle">
+            Tipo de viagem
+          </label>
+
+          <select id="planStyle">
+            <option>Descanso</option>
+            <option>Cultura</option>
+            <option>Aventura</option>
+            <option>Gastronomia</option>
+            <option>Romântica</option>
+            <option>Família</option>
+          </select>
+        </div>
+
+      </div>
+
+      <br>
+
+      <button
+        class="btn"
+        onclick="savePlan()"
       >
-
-      <button id="addPlan">
-        + Adicionar
+        💾 Guardar plano
       </button>
 
+      <div id="planResult"></div>
+
     </div>
 
-    <div id="planList"></div>
-
-  </div>
-
-</div>
-</section>
+  </section>
 
 
-<section id="mapa">
-<div class="container">
+  <!-- MAPA -->
+  <section id="mapa" class="container">
 
-  <div class="section-title">
-    <h2>🗺️ Mapa</h2>
-    <p>Localização do destino pesquisado.</p>
-  </div>
+    <div class="section-title">
+      <h2>🗺️ Mapa</h2>
+      <p id="mapDescription">
+        O mapa será atualizado quando pesquisares uma cidade.
+      </p>
+    </div>
 
-  <div class="map-box">
+    <div class="map-wrapper">
 
-    <iframe
-      id="map"
-      loading="lazy"
-      src="https://www.openstreetmap.org/export/embed.html?bbox=2.25%2C48.82%2C2.40%2C48.90&layer=mapnik">
-    </iframe>
+      <iframe
+        id="map"
+        title="Mapa da viagem"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-9.3%2C38.65%2C-9.1%2C38.8&amp;layer=mapnik"
+      ></iframe>
 
-  </div>
+    </div>
 
-</div>
-</section>
-
-
-<section id="quiz">
-<div class="container">
-
-  <div class="section-title">
-    <h2>🎯 Quiz de viagem</h2>
-  </div>
-
-  <div class="quiz-box">
-
-    <div id="quizQuestion" class="quiz-question"></div>
-
-    <div id="quizOptions" class="quiz-options"></div>
-
-    <div id="quizResult"></div>
-
-  </div>
-
-</div>
-</section>
+  </section>
 
 
-<section id="diario">
-<div class="container">
+  <!-- QUIZ -->
+  <section id="quiz" class="container">
 
-  <div class="section-title">
-    <h2>📔 Diário de viagem</h2>
-  </div>
+    <div class="section-title">
+      <h2>🎯 Quiz de viagem</h2>
+    </div>
 
-  <div class="diary-box">
+    <div class="quiz">
 
-    <textarea
-      id="diaryText"
-      placeholder="Escreve aqui..."
-    ></textarea>
+      <div
+        id="quizQuestion"
+        class="quiz-question"
+      >
+        Que tipo de viagem preferes?
+      </div>
 
-    <button id="saveDiary">
-      💾 Guardar
-    </button>
+      <div
+        id="quizOptions"
+        class="quiz-options"
+      >
 
-    <div id="savedDiary"></div>
+        <button onclick="answerQuiz('cultura')">
+          🏛️ Cultura e história
+        </button>
 
-  </div>
+        <button onclick="answerQuiz('praia')">
+          🏖️ Praia e descanso
+        </button>
 
-</div>
-</section>
+        <button onclick="answerQuiz('aventura')">
+          🏔️ Aventura e natureza
+        </button>
+
+        <button onclick="answerQuiz('comida')">
+          🍝 Gastronomia
+        </button>
+
+      </div>
+
+      <div id="quizResult"></div>
+
+    </div>
+
+  </section>
 
 
-<footer>
-🌍 Escapadinha — planeia. explora. viaja.
-</footer>
+  <!-- DIÁRIO -->
+  <section id="diario" class="container">
+
+    <div class="section-title">
+      <h2>📔 Diário de viagem</h2>
+      <p>Escreve as tuas memórias.</p>
+    </div>
+
+    <div class="diary">
+
+      <textarea
+        id="diaryText"
+        placeholder="Escreve aqui as tuas memórias..."
+      ></textarea>
+
+      <button
+        class="btn"
+        onclick="saveDiary()"
+      >
+        💾 Guardar diário
+      </button>
+
+      <button
+        class="btn secondary"
+        onclick="loadDiary()"
+      >
+        📖 Carregar
+      </button>
+
+      <div id="diaryMessage"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <p>
+      🌍 Escapadinha — planeia a tua próxima aventura.
+    </p>
+
+    <p style="margin-top:8px;font-size:13px;">
+      Dados de lugares: Geoapify / OpenStreetMap
+    </p>
+
+  </footer>
 
 
 <script>
 
-/* ==========================================================
-   CHAVE GEOAPIFY
-   ========================================================== */
+  /*
+  ============================================================
+  GEOAPIFY
+  ============================================================
+  */
 
-const GEOAPIFY_API_KEY =
-  "a3cf4feb4f3b41eda5c8b8ec7361b924";
+  const GEOAPIFY_API_KEY =
+    "a3cf4feb4f3b41eda5c8b8ec7361b924";
 
 
-/* ==========================================================
-   DESTINOS
-   ========================================================== */
+  let currentCity = null;
+  let currentLocation = null;
+  let currentType = "tourism";
 
-const destinations = [
 
-  {
-    city:"Paris",
-    country:"França",
-    image:"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=900&q=80"
-  },
+  /*
+  ============================================================
+  ELEMENTOS
+  ============================================================
+  */
 
-  {
-    city:"Lisboa",
-    country:"Portugal",
-    image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=900&q=80"
-  },
+  const searchForm =
+    document.getElementById("searchForm");
 
-  {
-    city:"Porto",
-    country:"Portugal",
-    image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=900&q=80"
-  },
+  const cityInput =
+    document.getElementById("cityInput");
 
-  {
-    city:"Roma",
-    country:"Itália",
-    image:"https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&w=900&q=80"
-  },
+  const results =
+    document.getElementById("results");
 
-  {
-    city:"Londres",
-    country:"Reino Unido",
-    image:"https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80"
-  },
+  const alertBox =
+    document.getElementById("alertBox");
 
-  {
-    city:"Barcelona",
-    country:"Espanha",
-    image:"https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=900&q=80"
-  },
+  const searchDescription =
+    document.getElementById("searchDescription");
 
-  {
-    city:"Madrid",
-    country:"Espanha",
-    image:"https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=900&q=80"
-  },
+  const map =
+    document.getElementById("map");
 
-  {
-    city:"Amesterdão",
-    country:"Países Baixos",
-    image:"https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&w=900&q=80"
-  },
+  const mapDescription =
+    document.getElementById("mapDescription");
 
-  {
-    city:"Praga",
-    country:"Chéquia",
-    image:"https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=900&q=80"
-  },
 
-  {
-    city:"Viena",
-    country:"Áustria",
-    image:"https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&w=900&q=80"
-  },
+  /*
+  ============================================================
+  ALERTAS
+  ============================================================
+  */
 
-  {
-    city:"Berlim",
-    country:"Alemanha",
-    image:"https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=900&q=80"
-  },
+  function showAlert(message, type = "info") {
 
-  {
-    city:"Dublin",
-    country:"Irlanda",
-    image:"https://images.unsplash.com/photo-1549918864-48ac978761a0?auto=format&fit=crop&w=900&q=80"
+    alertBox.textContent = message;
+
+    alertBox.className =
+      "alert show " + type;
+
   }
 
-];
+
+  function hideAlert() {
+
+    alertBox.className = "alert";
+
+  }
 
 
-const destinationGrid =
-  document.getElementById("destinationGrid");
+  /*
+  ============================================================
+  GEOCODIFICAÇÃO
+  ============================================================
+  */
 
+  async function geocodeCity(city) {
 
-destinations.forEach(destination => {
+    const params = new URLSearchParams({
 
-  const card = document.createElement("article");
+      text: city,
 
-  card.className = "destination-card";
+      limit: "1",
 
-  card.innerHTML = `
+      lang: "pt",
 
-    <img
-      src="${destination.image}"
-      alt="${destination.city}"
-      loading="lazy"
-    >
-
-    <div class="destination-content">
-
-      <h3>${destination.city}</h3>
-
-      <p>${destination.country}</p>
-
-      <button
-        class="small-btn"
-        data-city="${destination.city}"
-      >
-        Explorar
-      </button>
-
-    </div>
-  `;
-
-  destinationGrid.appendChild(card);
-});
-
-
-document.querySelectorAll(".small-btn").forEach(button => {
-
-  button.addEventListener("click", () => {
-
-    const city = button.dataset.city;
-
-    document.getElementById("destination").value = city;
-
-    document.getElementById("placesCity").value = city;
-
-    document
-      .getElementById("lugares")
-      .scrollIntoView({behavior:"smooth"});
-
-    searchRealPlaces(city,"tourism");
-
-  });
-
-});
-
-
-/* ==========================================================
-   GEOCODING
-   ========================================================== */
-
-async function geocodeCity(city){
-
-  const url =
-    "https://api.geoapify.com/v1/geocode/search?" +
-    new URLSearchParams({
-
-      text:city,
-
-      limit:"1",
-
-      lang:"pt",
-
-      apiKey:GEOAPIFY_API_KEY
+      apiKey: GEOAPIFY_API_KEY
 
     });
 
-  const response = await fetch(url);
-
-  if(!response.ok){
-
-    throw new Error(
-      "Erro Geoapify: HTTP " + response.status
-    );
-
-  }
-
-  const data = await response.json();
-
-  if(!data.features || !data.features.length){
-
-    throw new Error(
-      "Não encontrei essa cidade."
-    );
-
-  }
-
-  return data.features[0];
-
-}
-
-
-/* ==========================================================
-   CATEGORIAS
-   ========================================================== */
-
-function getCategories(type){
-
-  if(type === "restaurant"){
-
-    return [
-      "catering.restaurant"
-    ];
-
-  }
-
-  if(type === "cafe"){
-
-    return [
-      "catering.cafe",
-      "commercial.cafe"
-    ];
-
-  }
-
-  if(type === "museum"){
-
-    return [
-      "entertainment.museum"
-    ];
-
-  }
-
-  if(type === "park"){
-
-    return [
-      "leisure.park"
-    ];
-
-  }
-
-  if(type === "tourism"){
-
-    return [
-
-      "tourism",
-
-      "tourism.attraction",
-
-      "tourism.sights",
-
-      "tourism.sights.tower",
-
-      "tourism.sights.castle",
-
-      "tourism.sights.monument",
-
-      "tourism.sights.memorial",
-
-      "tourism.sights.building",
-
-      "tourism.sights.bridge",
-
-      "tourism.sights.church",
-
-      "tourism.sights.cathedral",
-
-      "tourism.sights.lighthouse",
-
-      "tourism.sights.monastery"
-
-    ];
-
-  }
-
-  return [
-
-    "tourism",
-
-    "tourism.attraction",
-
-    "tourism.sights",
-
-    "tourism.sights.tower",
-
-    "tourism.sights.castle",
-
-    "tourism.sights.monument",
-
-    "entertainment.museum",
-
-    "leisure.park",
-
-    "catering.restaurant",
-
-    "catering.cafe"
-
-  ];
-
-}
-
-
-/* ==========================================================
-   PESQUISA PRINCIPAL
-   ========================================================== */
-
-async function searchRealPlaces(city,type="tourism"){
-
-  const grid =
-    document.getElementById("placesGrid");
-
-  const status =
-    document.getElementById("placesStatus");
-
-  grid.innerHTML = "";
-
-  status.className = "status show normal";
-
-  status.textContent =
-    "🔎 A procurar locais reais em " + city + "...";
-
-
-  try{
-
-    const location =
-      await geocodeCity(city);
-
-    const props =
-      location.properties || {};
-
-    const lat =
-      Number(
-        props.lat ??
-        location.geometry.coordinates[1]
-      );
-
-    const lon =
-      Number(
-        props.lon ??
-        location.geometry.coordinates[0]
-      );
-
-
-    /*
-      Raio aumentado para 30 km.
-
-      O bias mantém os locais próximos no topo,
-      mas não exclui resultados mais afastados.
-    */
-
-    const categories =
-      getCategories(type);
-
 
     const url =
-      "https://api.geoapify.com/v2/places?" +
-      new URLSearchParams({
+      "https://api.geoapify.com/v1/geocode/search?" +
+      params.toString();
 
-        categories:categories.join(","),
 
-        filter:
-          `circle:${lon},${lat},30000`,
-
-        bias:
-          `proximity:${lon},${lat}`,
-
-        limit:"100",
-
-        lang:"pt",
-
-        apiKey:GEOAPIFY_API_KEY
-
-      });
+    console.log(
+      "🌍 Geocoding:",
+      url
+    );
 
 
     const response =
       await fetch(url);
 
 
-    if(!response.ok){
+    if (!response.ok) {
+
+      const error =
+        await response.text();
+
+      console.error(
+        "Geoapify geocoding:",
+        response.status,
+        error
+      );
 
       throw new Error(
-        "Geoapify devolveu HTTP " +
-        response.status
+        `Geoapify geocoding HTTP ${response.status}`
       );
 
     }
@@ -1123,1196 +1159,1378 @@ async function searchRealPlaces(city,type="tourism"){
       await response.json();
 
 
-    let features =
-      Array.isArray(data.features)
-        ? data.features
-        : [];
+    if (
+      !data.features ||
+      data.features.length === 0
+    ) {
 
-
-    /*
-      Remover duplicados.
-    */
-
-    const seen = new Set();
-
-    features =
-      features.filter(feature => {
-
-        const p =
-          feature.properties || {};
-
-        const id =
-          p.place_id ||
-          p.name ||
-          JSON.stringify(
-            feature.geometry
-          );
-
-        if(seen.has(id)){
-          return false;
-        }
-
-        seen.add(id);
-
-        return true;
-
-      });
-
-
-    /*
-      Ordenar por distância.
-    */
-
-    features.sort((a,b) => {
-
-      const da =
-        getDistanceKm(
-          lat,
-          lon,
-          Number(a.properties?.lat),
-          Number(a.properties?.lon)
-        );
-
-      const db =
-        getDistanceKm(
-          lat,
-          lon,
-          Number(b.properties?.lat),
-          Number(b.properties?.lon)
-        );
-
-      return da - db;
-
-    });
-
-
-    /*
-      Para turismo, colocamos monumentos/atrações
-      antes de restaurantes.
-    */
-
-    if(type === "tourism"){
-
-      features.sort((a,b) => {
-
-        const scoreA =
-          tourismScore(a);
-
-        const scoreB =
-          tourismScore(b);
-
-        return scoreB - scoreA;
-
-      });
+      throw new Error(
+        "Não encontrei essa cidade."
+      );
 
     }
 
 
-    if(!features.length){
+    return data.features[0];
 
-      /*
-        Pesquisa alternativa sem filtro de círculo.
-        Isto evita perder atrações devido ao centro
-        geográfico da cidade.
-      */
-
-      const fallbackUrl =
-        "https://api.geoapify.com/v2/places?" +
-        new URLSearchParams({
-
-          categories:categories.join(","),
-
-          bias:
-            `proximity:${lon},${lat}`,
-
-          limit:"100",
-
-          lang:"pt",
-
-          apiKey:GEOAPIFY_API_KEY
-
-        });
+  }
 
 
-      const fallbackResponse =
-        await fetch(fallbackUrl);
+  /*
+  ============================================================
+  CATEGORIAS GEOAPIFY
+  ============================================================
+  */
+
+  function getCategories(type) {
+
+    const categories = {
+
+      tourism: [
+        "tourism",
+        "tourism.attraction",
+        "tourism.sights",
+        "tourism.sights.tower",
+        "tourism.sights.castle",
+        "tourism.sights.monument",
+        "tourism.sights.memorial",
+        "tourism.sights.building",
+        "tourism.sights.bridge",
+        "tourism.sights.church",
+        "tourism.sights.cathedral",
+        "tourism.sights.lighthouse",
+        "tourism.sights.monastery",
+        "entertainment.museum"
+      ],
+
+      restaurants: [
+        "catering.restaurant"
+      ],
+
+      cafes: [
+        "catering.cafe"
+      ],
+
+      hotels: [
+        "accommodation.hotel"
+      ]
+
+    };
 
 
-      if(fallbackResponse.ok){
+    return (
+      categories[type] ||
+      categories.tourism
+    ).join(",");
 
-        const fallbackData =
-          await fallbackResponse.json();
+  }
 
-        features =
-          Array.isArray(fallbackData.features)
-            ? fallbackData.features
-            : [];
+
+  /*
+  ============================================================
+  BUSCAR LUGARES
+  ============================================================
+  */
+
+  async function searchRealPlaces(
+    lat,
+    lon,
+    type = "tourism"
+  ) {
+
+    const categories =
+      getCategories(type);
+
+
+    const params =
+      new URLSearchParams();
+
+
+    params.set(
+      "categories",
+      categories
+    );
+
+
+    /*
+      IMPORTANTE:
+
+      Geoapify usa:
+
+      circle:LONGITUDE,LATITUDE,RAIO
+
+      e o raio é em metros.
+    */
+
+    params.set(
+      "filter",
+      `circle:${Number(lon)},${Number(lat)},30000`
+    );
+
+
+    params.set(
+      "bias",
+      `proximity:${Number(lon)},${Number(lat)}`
+    );
+
+
+    params.set(
+      "limit",
+      "100"
+    );
+
+
+    params.set(
+      "lang",
+      "en"
+    );
+
+
+    params.set(
+      "apiKey",
+      GEOAPIFY_API_KEY
+    );
+
+
+    const url =
+      "https://api.geoapify.com/v2/places?" +
+      params.toString();
+
+
+    console.log(
+      "🔎 Geoapify Places:",
+      url
+    );
+
+
+    const response =
+      await fetch(url);
+
+
+    if (!response.ok) {
+
+      let errorText = "";
+
+      try {
+        errorText =
+          await response.text();
+      }
+      catch(e) {}
+
+
+      console.error(
+        "❌ Geoapify:",
+        response.status,
+        errorText
+      );
+
+
+      throw new Error(
+        `Geoapify devolveu HTTP ${response.status}.`
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    console.log(
+      "✅ Resultados:",
+      data.features?.length || 0
+    );
+
+
+    return data.features || [];
+
+  }
+
+
+  /*
+  ============================================================
+  DISTÂNCIA
+  ============================================================
+  */
+
+  function distanceKm(
+    lat1,
+    lon1,
+    lat2,
+    lon2
+  ) {
+
+    const R = 6371;
+
+    const dLat =
+      (lat2 - lat1) *
+      Math.PI / 180;
+
+    const dLon =
+      (lon2 - lon1) *
+      Math.PI / 180;
+
+
+    const a =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos(lat1 * Math.PI / 180) *
+      Math.cos(lat2 * Math.PI / 180) *
+      Math.sin(dLon / 2) ** 2;
+
+
+    return (
+      R *
+      2 *
+      Math.atan2(
+        Math.sqrt(a),
+        Math.sqrt(1 - a)
+      )
+    );
+
+  }
+
+
+  /*
+  ============================================================
+  SCORE TURÍSTICO
+  ============================================================
+  */
+
+  function tourismScore(place) {
+
+    const p =
+      place.properties || {};
+
+
+    const name =
+      (
+        p.name ||
+        p.address_line1 ||
+        ""
+      ).toLowerCase();
+
+
+    const categories =
+      p.categories || [];
+
+
+    let score = 0;
+
+
+    if (
+      categories.some(
+        c =>
+          c.includes("tourism.sights")
+      )
+    ) {
+      score += 50;
+    }
+
+
+    if (
+      categories.some(
+        c =>
+          c.includes("attraction")
+      )
+    ) {
+      score += 30;
+    }
+
+
+    const important =
+      [
+
+        "eiffel",
+        "tour eiffel",
+        "louvre",
+        "arc de triomphe",
+        "notre dame",
+
+        "colosseum",
+        "coliseum",
+
+        "big ben",
+        "tower bridge",
+
+        "acropolis",
+        "sagrada familia",
+
+        "brandenburg",
+        "trevi",
+        "pantheon",
+
+        "buckingham",
+
+        "versailles",
+
+        "montmartre",
+
+        "sacre coeur"
+
+      ];
+
+
+    for (
+      const word of important
+    ) {
+
+      if (
+        name.includes(word)
+      ) {
+
+        score += 100;
 
       }
 
     }
 
 
-    if(!features.length){
+    return score;
 
-      status.className =
-        "status show normal";
+  }
 
-      status.textContent =
-        "Não foram encontrados locais para esta pesquisa.";
 
-      updateMap(lat,lon);
+  /*
+  ============================================================
+  IMAGENS
+  ============================================================
+  */
+
+  function getPlaceImage(place) {
+
+    const p =
+      place.properties || {};
+
+
+    const name =
+      (
+        p.name ||
+        p.address_line1 ||
+        ""
+      ).toLowerCase();
+
+
+    if (
+      name.includes("eiffel")
+    ) {
+
+      return (
+        "https://images.unsplash.com/" +
+        "photo-1543349689-9a4d426bee8e" +
+        "?auto=format&fit=crop&w=1000&q=80"
+      );
+
+    }
+
+
+    if (
+      name.includes("louvre")
+    ) {
+
+      return (
+        "https://images.unsplash.com/" +
+        "photo-1564399579883-451a5d44ec08" +
+        "?auto=format&fit=crop&w=1000&q=80"
+      );
+
+    }
+
+
+    if (
+      name.includes("colosseum") ||
+      name.includes("coliseum")
+    ) {
+
+      return (
+        "https://images.unsplash.com/" +
+        "photo-1552832230-c0197dd311b5" +
+        "?auto=format&fit=crop&w=1000&q=80"
+      );
+
+    }
+
+
+    if (
+      name.includes("big ben")
+    ) {
+
+      return (
+        "https://images.unsplash.com/" +
+        "photo-1513635269975-59663e0ac1ad" +
+        "?auto=format&fit=crop&w=1000&q=80"
+      );
+
+    }
+
+
+    return (
+      "https://images.unsplash.com/" +
+      "photo-1500530855697-b586d89ba3ee" +
+      "?auto=format&fit=crop&w=1000&q=80"
+    );
+
+  }
+
+
+  /*
+  ============================================================
+  NOME DO TIPO
+  ============================================================
+  */
+
+  function getTypeName(type) {
+
+    const names = {
+
+      tourism:
+        "Atração turística",
+
+      restaurants:
+        "Restaurante",
+
+      cafes:
+        "Café",
+
+      hotels:
+        "Hotel"
+
+    };
+
+
+    return (
+      names[type] ||
+      "Local"
+    );
+
+  }
+
+
+  /*
+  ============================================================
+  RENDER LUGARES
+  ============================================================
+  */
+
+  function renderPlaces(
+    places,
+    type
+  ) {
+
+    if (
+      !places ||
+      places.length === 0
+    ) {
+
+      results.innerHTML = `
+        <div class="alert show info">
+          Não encontrei locais deste tipo
+          nos 30 km pesquisados.
+        </div>
+      `;
 
       return;
 
     }
 
 
-    renderPlaces(features,lat,lon);
-
-    updateMap(lat,lon);
-
-
-    status.className =
-      "status show success";
-
-    status.textContent =
-      `✅ ${features.length} locais encontrados em ${city}.`;
+    const unique =
+      new Map();
 
 
-  }catch(error){
+    places.forEach(
+      place => {
 
-    console.error(error);
-
-    status.className =
-      "status show error";
-
-    status.textContent =
-      "❌ " + error.message;
-
-  }
-
-}
+        const p =
+          place.properties || {};
 
 
-/* ==========================================================
-   SCORE TURÍSTICO
-   ========================================================== */
-
-function tourismScore(feature){
-
-  const p =
-    feature.properties || {};
-
-  const categories =
-    Array.isArray(p.categories)
-      ? p.categories
-      : [];
-
-  const name =
-    String(p.name || "").toLowerCase();
+        const name =
+          p.name ||
+          p.address_line1;
 
 
-  let score = 0;
+        if (!name) {
+          return;
+        }
 
 
-  if(categories.includes("tourism.sights")){
-    score += 40;
-  }
+        const key =
+          (
+            name +
+            "|" +
+            (p.lat || "") +
+            "|" +
+            (p.lon || "")
+          ).toLowerCase();
 
-  if(categories.some(c =>
-    c.includes("tourism.sights")
-  )){
-    score += 30;
-  }
 
-  if(categories.includes(
-    "tourism.sights.tower"
-  )){
-    score += 50;
-  }
+        if (!unique.has(key)) {
 
-  if(categories.some(c =>
-    c.includes("monument")
-  )){
-    score += 45;
-  }
+          unique.set(
+            key,
+            place
+          );
 
-  if(categories.some(c =>
-    c.includes("castle")
-  )){
-    score += 40;
-  }
+        }
 
-  if(categories.some(c =>
-    c.includes("museum")
-  )){
-    score += 35;
+      }
+    );
+
+
+    let finalPlaces =
+      Array.from(
+        unique.values()
+      );
+
+
+    if (
+      type === "tourism"
+    ) {
+
+      finalPlaces.sort(
+        (a,b) =>
+          tourismScore(b) -
+          tourismScore(a)
+      );
+
+    }
+
+
+    finalPlaces =
+      finalPlaces.slice(
+        0,
+        30
+      );
+
+
+    results.innerHTML = "";
+
+
+    const grid =
+      document.createElement(
+        "div"
+      );
+
+
+    grid.className =
+      "grid";
+
+
+    finalPlaces.forEach(
+      place => {
+
+        const p =
+          place.properties || {};
+
+
+        const name =
+          p.name ||
+          p.address_line1 ||
+          "Local sem nome";
+
+
+        const lat =
+          Number(
+            p.lat ??
+            place.geometry?.coordinates?.[1]
+          );
+
+
+        const lon =
+          Number(
+            p.lon ??
+            place.geometry?.coordinates?.[0]
+          );
+
+
+        let address =
+          p.address_line2 ||
+          p.address_line1 ||
+          "";
+
+
+        if (
+          !address &&
+          p.street
+        ) {
+
+          address =
+            `${p.street} ${p.housenumber || ""}`;
+
+        }
+
+
+        let distance = "";
+
+
+        if (
+          currentLocation &&
+          Number.isFinite(lat) &&
+          Number.isFinite(lon)
+        ) {
+
+          const km =
+            distanceKm(
+              currentLocation.lat,
+              currentLocation.lon,
+              lat,
+              lon
+            );
+
+
+          distance =
+            `${km.toFixed(1)} km`;
+
+        }
+
+
+        const googleMaps =
+          `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+            `${name} ${lat},${lon}`
+          )}`;
+
+
+        const image =
+          getPlaceImage(place);
+
+
+        const card =
+          document.createElement(
+            "article"
+          );
+
+
+        card.className =
+          "place-card";
+
+
+        card.innerHTML = `
+
+          <img
+            src="${image}"
+            alt="${escapeHtml(name)}"
+            loading="lazy"
+            onerror="this.src='https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=80'"
+          >
+
+          <div class="place-body">
+
+            <div class="place-type">
+              ${getTypeName(type)}
+            </div>
+
+            <h3>
+              ${escapeHtml(name)}
+            </h3>
+
+            ${
+              address
+                ? `
+                  <div class="place-address">
+                    📍 ${escapeHtml(address)}
+                  </div>
+                `
+                : ""
+            }
+
+            ${
+              distance
+                ? `
+                  <div class="place-distance">
+                    📏 ${distance}
+                  </div>
+                `
+                : ""
+            }
+
+            <div class="place-actions">
+
+              <a
+                href="${googleMaps}"
+                target="_blank"
+                rel="noopener"
+              >
+                🗺️ Google Maps
+              </a>
+
+              ${
+                Number.isFinite(lat) &&
+                Number.isFinite(lon)
+                  ? `
+                    <a
+                      href="https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      🌍 OpenStreetMap
+                    </a>
+                  `
+                  : ""
+              }
+
+            </div>
+
+          </div>
+
+        `;
+
+
+        grid.appendChild(
+          card
+        );
+
+      }
+    );
+
+
+    results.appendChild(
+      grid
+    );
+
   }
 
 
   /*
-    Pequena prioridade para locais conhecidos
-    quando o nome contém termos turísticos.
+  ============================================================
+  ESCAPE HTML
+  ============================================================
   */
 
-  const importantWords = [
+  function escapeHtml(value) {
 
-    "eiffel",
-    "louvre",
-    "arc de triomphe",
-    "notre dame",
-    "colosseum",
-    "coliseu",
-    "sagrada",
-    "big ben",
-    "tower bridge",
-    "acropolis",
-    "acrópole",
-    "brandenburg",
-    "versailles",
-    "palácio",
-    "palace",
-    "castle",
-    "cathedral",
-    "catedral"
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
 
-  ];
-
-
-  importantWords.forEach(word => {
-
-    if(name.includes(word)){
-      score += 100;
-    }
-
-  });
-
-
-  return score;
-
-}
-
-
-/* ==========================================================
-   DISTÂNCIA
-   ========================================================== */
-
-function getDistanceKm(
-  lat1,
-  lon1,
-  lat2,
-  lon2
-){
-
-  if(
-    !Number.isFinite(lat1) ||
-    !Number.isFinite(lon1) ||
-    !Number.isFinite(lat2) ||
-    !Number.isFinite(lon2)
-  ){
-    return 999999;
   }
 
 
-  const R = 6371;
+  /*
+  ============================================================
+  MAPA
+  ============================================================
+  */
 
-  const dLat =
-    (lat2-lat1) *
-    Math.PI/180;
+  function updateMap(
+    lat,
+    lon,
+    city
+  ) {
 
-  const dLon =
-    (lon2-lon1) *
-    Math.PI/180;
-
-
-  const a =
-    Math.sin(dLat/2) *
-    Math.sin(dLat/2) +
-
-    Math.cos(lat1*Math.PI/180) *
-    Math.cos(lat2*Math.PI/180) *
-
-    Math.sin(dLon/2) *
-    Math.sin(dLon/2);
+    const delta =
+      0.12;
 
 
-  return (
-    R *
-    2 *
-    Math.atan2(
-      Math.sqrt(a),
-      Math.sqrt(1-a)
-    )
-  );
-
-}
-
-
-/* ==========================================================
-   RENDER PLACES
-   ========================================================== */
-
-function renderPlaces(
-  features,
-  cityLat,
-  cityLon
-){
-
-  const grid =
-    document.getElementById("placesGrid");
-
-  grid.innerHTML = "";
+    const bbox =
+      [
+        lon - delta,
+        lat - delta,
+        lon + delta,
+        lat + delta
+      ]
+      .map(
+        encodeURIComponent
+      )
+      .join("%2C");
 
 
-  features
-    .slice(0,60)
-    .forEach(feature => {
+    map.src =
+      `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat}%2C${lon}`;
 
-      const p =
-        feature.properties || {};
 
-      const name =
-        p.name ||
-        "Local sem nome";
+    mapDescription.textContent =
+      `Mapa de ${city}`;
+
+  }
+
+
+  /*
+  ============================================================
+  PESQUISA DA CIDADE
+  ============================================================
+  */
+
+  async function searchCity(
+    city
+  ) {
+
+    if (!city) {
+      return;
+    }
+
+
+    city =
+      city.trim();
+
+
+    if (!city) {
+      return;
+    }
+
+
+    currentCity =
+      city;
+
+
+    cityInput.value =
+      city;
+
+
+    results.innerHTML = `
+
+      <div class="loading">
+
+        <div class="spinner"></div>
+
+        <p>
+          A procurar lugares reais em
+          <strong>${escapeHtml(city)}</strong>...
+        </p>
+
+      </div>
+
+    `;
+
+
+    showAlert(
+      `A procurar ${city}...`,
+      "info"
+    );
+
+
+    try {
+
+      /*
+        1. Encontrar coordenadas
+      */
+
+      const location =
+        await geocodeCity(
+          city
+        );
+
 
       const lat =
-        Number(p.lat);
+        Number(
+          location.properties.lat
+        );
+
 
       const lon =
-        Number(p.lon);
-
-      const address =
-        p.formatted ||
-        p.address_line1 ||
-        "Morada não disponível";
+        Number(
+          location.properties.lon
+        );
 
 
-      const categories =
-        Array.isArray(p.categories)
-          ? p.categories
-          : [];
+      if (
+        !Number.isFinite(lat) ||
+        !Number.isFinite(lon)
+      ) {
 
+        throw new Error(
+          "Coordenadas inválidas."
+        );
 
-      let type =
-        "📍 Local";
-
-
-      if(categories.some(c =>
-        c.startsWith("catering.restaurant")
-      )){
-        type =
-          "🍽️ Restaurante";
-      }
-      else if(categories.some(c =>
-        c.includes("cafe")
-      )){
-        type =
-          "☕ Café";
-      }
-      else if(categories.some(c =>
-        c.includes("museum")
-      )){
-        type =
-          "🏛️ Museu";
-      }
-      else if(categories.some(c =>
-        c.includes("park")
-      )){
-        type =
-          "🌳 Parque";
-      }
-      else if(categories.some(c =>
-        c.includes("tourism")
-      )){
-        type =
-          "📸 Atração";
       }
 
 
-      const distance =
-        getDistanceKm(
-          cityLat,
-          cityLon,
+      currentLocation = {
+        lat,
+        lon
+      };
+
+
+      updateMap(
+        lat,
+        lon,
+        city
+      );
+
+
+      searchDescription.textContent =
+        `Resultados reais encontrados perto de ${city}.`;
+
+
+      /*
+        2. Procurar lugares
+      */
+
+      const places =
+        await searchRealPlaces(
           lat,
-          lon
+          lon,
+          currentType
         );
 
 
-      const image =
-        getImageForPlace(
-          name,
-          type
+      /*
+        3. Mostrar resultados
+      */
+
+      renderPlaces(
+        places,
+        currentType
+      );
+
+
+      if (
+        places.length
+      ) {
+
+        showAlert(
+          `${places.length} locais encontrados em ${city}.`,
+          "success"
         );
 
+      }
+      else {
 
-      const googleMaps =
-        `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-          lat + "," + lon
-        )}`;
+        showAlert(
+          `Não foram encontrados locais em ${city}.`,
+          "info"
+        );
 
-
-      const googleSearch =
-        `https://www.google.com/search?q=${encodeURIComponent(
-          name + " " + address
-        )}`;
+      }
 
 
-      const card =
-        document.createElement("article");
+      document
+        .getElementById("lugares")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
 
-      card.className =
-        "place-card";
+
+    }
+    catch(error) {
+
+      console.error(
+        error
+      );
 
 
-      card.innerHTML = `
+      results.innerHTML = `
 
-        <img
-          src="${image}"
-          alt="${escapeHTML(name)}"
-          loading="lazy"
-          onerror="this.src='https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80'"
-        >
+        <div class="alert show error">
 
-        <div class="place-body">
-
-          <span class="place-type">
-            ${escapeHTML(type)}
-          </span>
-
-          <h3>
-            ${escapeHTML(name)}
-          </h3>
-
-          <div class="place-address">
-            📍 ${escapeHTML(address)}
-          </div>
-
-          <div class="place-distance">
-            📏 ${distance < 999
-              ? distance.toFixed(1) + " km do centro pesquisado"
-              : ""}
-          </div>
-
-          <a
-            class="place-link"
-            href="${googleMaps}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            🗺️ Abrir no mapa
-          </a>
+          ❌ ${escapeHtml(
+            error.message ||
+            "Ocorreu um erro."
+          )}
 
           <br><br>
 
-          <a
-            class="place-link"
-            href="${googleSearch}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            🔎 Ver informações
-          </a>
+          <small>
+            Abre a consola do navegador
+            (F12 → Console) para veres
+            mais detalhes.
+          </small>
 
         </div>
+
       `;
 
 
-      grid.appendChild(card);
+      showAlert(
+        error.message ||
+        "Erro ao pesquisar.",
+        "error"
+      );
 
-    });
+    }
 
-}
-
-
-/* ==========================================================
-   IMAGENS
-   ========================================================== */
-
-function getImageForPlace(name,type){
-
-  const n =
-    name.toLowerCase();
+  }
 
 
   /*
-    Imagens específicas para atrações muito conhecidas.
+  ============================================================
+  FORMULÁRIO
+  ============================================================
   */
 
-  if(
-    n.includes("eiffel") ||
-    n.includes("torre eiffel")
-  ){
+  searchForm.addEventListener(
+    "submit",
+    function(event) {
 
-    return "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=900&q=80";
+      event.preventDefault();
 
-  }
-
-
-  if(
-    n.includes("louvre") ||
-    n.includes("louvre museum")
-  ){
-
-    return "https://images.unsplash.com/photo-1564399579883-451a5d44ec08?auto=format&fit=crop&w=900&q=80";
-
-  }
-
-
-  if(
-    n.includes("colosseum") ||
-    n.includes("coliseu")
-  ){
-
-    return "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=900&q=80";
-
-  }
-
-
-  if(
-    n.includes("big ben")
-  ){
-
-    return "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80";
-
-  }
-
-
-  if(type.includes("Restaurante")){
-
-    return "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80";
-
-  }
-
-
-  if(type.includes("Café")){
-
-    return "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=900&q=80";
-
-  }
-
-
-  if(type.includes("Museu")){
-
-    return "https://images.unsplash.com/photo-1564399579883-451a5d44ec08?auto=format&fit=crop&w=900&q=80";
-
-  }
-
-
-  if(type.includes("Parque")){
-
-    return "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80";
-
-  }
-
-
-  return "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80";
-
-}
-
-
-/* ==========================================================
-   MAPA
-   ========================================================== */
-
-function updateMap(lat,lon){
-
-  const delta = 0.08;
-
-  const bbox =
-    `${lon-delta},${lat-delta},${lon+delta},${lat+delta}`;
-
-
-  document.getElementById("map").src =
-    `https://www.openstreetmap.org/export/embed.html?bbox=${encodeURIComponent(bbox)}&layer=mapnik&marker=${lat},${lon}`;
-
-}
-
-
-/* ==========================================================
-   HELPERS
-   ========================================================== */
-
-function escapeHTML(value){
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-/* ==========================================================
-   PESQUISA PRINCIPAL
-   ========================================================== */
-
-document
-.getElementById("searchTrip")
-.addEventListener("click",()=>{
-
-  const city =
-    document
-      .getElementById("destination")
-      .value
-      .trim();
-
-
-  if(!city){
-
-    const status =
-      document.getElementById("heroStatus");
-
-    status.className =
-      "status show error";
-
-    status.textContent =
-      "Escreve primeiro um destino.";
-
-    return;
-
-  }
-
-
-  document.getElementById("placesCity").value =
-    city;
-
-
-  document.getElementById("placesType").value =
-    "tourism";
-
-
-  document
-    .getElementById("lugares")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
-
-
-  searchRealPlaces(
-    city,
-    "tourism"
-  );
-
-});
-
-
-/* ==========================================================
-   PESQUISA MANUAL
-   ========================================================== */
-
-document
-.getElementById("searchPlaces")
-.addEventListener("click",()=>{
-
-  const city =
-    document
-      .getElementById("placesCity")
-      .value
-      .trim();
-
-
-  const type =
-    document
-      .getElementById("placesType")
-      .value;
-
-
-  if(!city){
-
-    const status =
-      document.getElementById("placesStatus");
-
-    status.className =
-      "status show error";
-
-    status.textContent =
-      "Escreve uma cidade.";
-
-    return;
-
-  }
-
-
-  searchRealPlaces(
-    city,
-    type
-  );
-
-});
-
-
-document
-.getElementById("placesCity")
-.addEventListener("keydown",event=>{
-
-  if(event.key === "Enter"){
-
-    document
-      .getElementById("searchPlaces")
-      .click();
-
-  }
-
-});
-
-
-document
-.getElementById("destination")
-.addEventListener("keydown",event=>{
-
-  if(event.key === "Enter"){
-
-    document
-      .getElementById("searchTrip")
-      .click();
-
-  }
-
-});
-
-
-/* ==========================================================
-   PLANEADOR
-   ========================================================== */
-
-let plans =
-  JSON.parse(
-    localStorage.getItem(
-      "escapadinha_plans"
-    ) || "[]"
-  );
-
-
-function renderPlans(){
-
-  const list =
-    document.getElementById("planList");
-
-  list.innerHTML = "";
-
-
-  if(!plans.length){
-
-    list.innerHTML =
-      "<p style='color:#697386'>Ainda não adicionaste atividades.</p>";
-
-    return;
-
-  }
-
-
-  plans
-    .sort((a,b)=>
-      a.time.localeCompare(b.time)
-    )
-    .forEach((plan,index)=>{
-
-      const item =
-        document.createElement("div");
-
-      item.className =
-        "plan-item";
-
-
-      item.innerHTML = `
-
-        <span>
-          <strong>${escapeHTML(plan.time)}</strong>
-          —
-          ${escapeHTML(plan.activity)}
-        </span>
-
-        <button
-          class="remove-plan"
-          data-index="${index}"
-        >
-          Remover
-        </button>
-
-      `;
-
-
-      list.appendChild(item);
-
-    });
-
-
-  document
-    .querySelectorAll(".remove-plan")
-    .forEach(button=>{
-
-      button.addEventListener(
-        "click",
-        ()=>{
-
-          plans.splice(
-            Number(button.dataset.index),
-            1
-          );
-
-          localStorage.setItem(
-            "escapadinha_plans",
-            JSON.stringify(plans)
-          );
-
-          renderPlans();
-
-        }
+      searchCity(
+        cityInput.value
       );
 
-    });
-
-}
-
-
-document
-.getElementById("addPlan")
-.addEventListener("click",()=>{
-
-  const time =
-    document.getElementById("planTime").value;
-
-  const activity =
-    document
-      .getElementById("planActivity")
-      .value
-      .trim();
-
-
-  if(!activity){
-
-    return;
-
-  }
-
-
-  plans.push({
-    time:time || "10:00",
-    activity
-  });
-
-
-  document
-    .getElementById("planActivity")
-    .value = "";
-
-
-  localStorage.setItem(
-    "escapadinha_plans",
-    JSON.stringify(plans)
+    }
   );
 
 
-  renderPlans();
-
-});
-
-
-renderPlans();
-
-
-/* ==========================================================
-   QUIZ
-   ========================================================== */
-
-const questions = [
-
-  {
-    q:"O que preferes numa viagem?",
-    options:[
-      ["🏖️ Praia","praia"],
-      ["🏛️ Cultura","cultura"],
-      ["🌲 Natureza","natureza"],
-      ["🍽️ Gastronomia","gastronomia"]
-    ]
-  },
-
-  {
-    q:"Qual ambiente gostas mais?",
-    options:[
-      ["🌊 Costa","praia"],
-      ["🏙️ Cidade","cultura"],
-      ["🏔️ Montanha","natureza"],
-      ["🍷 Ruas e restaurantes","gastronomia"]
-    ]
-  },
-
-  {
-    q:"Escolhe um dia perfeito:",
-    options:[
-      ["☀️ Relaxar","praia"],
-      ["📚 Visitar museus","cultura"],
-      ["🥾 Caminhar","natureza"],
-      ["🍝 Experimentar comida","gastronomia"]
-    ]
-  }
-
-];
-
-
-let questionIndex = 0;
-
-let quizScore = {
-  praia:0,
-  cultura:0,
-  natureza:0,
-  gastronomia:0
-};
-
-
-function renderQuiz(){
-
-  const question =
-    questions[questionIndex];
-
+  /*
+  ============================================================
+  FILTROS
+  ============================================================
+  */
 
   document
-    .getElementById("quizQuestion")
-    .textContent =
-    question.q;
+    .querySelectorAll(".filter-btn")
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          async function() {
+
+            document
+              .querySelectorAll(".filter-btn")
+              .forEach(
+                b =>
+                  b.classList.remove(
+                    "active"
+                  )
+              );
 
 
-  const options =
-    document.getElementById("quizOptions");
+            this.classList.add(
+              "active"
+            );
 
 
-  options.innerHTML = "";
+            currentType =
+              this.dataset.type;
 
 
-  question.options.forEach(option=>{
+            if (
+              !currentLocation
+            ) {
 
-    const button =
-      document.createElement("button");
+              results.innerHTML = `
 
-    button.textContent =
-      option[0];
+                <div class="alert show info">
+                  Primeiro pesquisa uma cidade.
+                </div>
+
+              `;
+
+              return;
+
+            }
 
 
-    button.onclick = ()=>{
+            results.innerHTML = `
 
-      quizScore[option[1]]++;
+              <div class="loading">
 
-      questionIndex++;
+                <div class="spinner"></div>
+
+                <p>
+                  A procurar
+                  ${getTypeName(currentType).toLowerCase()}...
+                </p>
+
+              </div>
+
+            `;
 
 
-      if(
-        questionIndex >=
-        questions.length
-      ){
+            try {
 
-        showQuizResult();
+              const places =
+                await searchRealPlaces(
+                  currentLocation.lat,
+                  currentLocation.lon,
+                  currentType
+                );
 
-      }else{
 
-        renderQuiz();
+              renderPlaces(
+                places,
+                currentType
+              );
+
+
+              showAlert(
+                `${places.length} resultados encontrados.`,
+                "success"
+              );
+
+
+            }
+            catch(error) {
+
+              console.error(
+                error
+              );
+
+
+              showAlert(
+                error.message,
+                "error"
+              );
+
+            }
+
+          }
+        );
 
       }
+    );
+
+
+  /*
+  ============================================================
+  PLANEADOR
+  ============================================================
+  */
+
+  function savePlan() {
+
+    const plan = {
+
+      destination:
+        document.getElementById(
+          "planDestination"
+        ).value,
+
+      people:
+        document.getElementById(
+          "planPeople"
+        ).value,
+
+      start:
+        document.getElementById(
+          "planStart"
+        ).value,
+
+      end:
+        document.getElementById(
+          "planEnd"
+        ).value,
+
+      budget:
+        document.getElementById(
+          "planBudget"
+        ).value,
+
+      style:
+        document.getElementById(
+          "planStyle"
+        ).value
 
     };
 
 
-    options.appendChild(button);
-
-  });
-
-}
-
-
-function showQuizResult(){
-
-  let result =
-    "praia";
+    localStorage.setItem(
+      "escapadinha_plan",
+      JSON.stringify(plan)
+    );
 
 
-  Object.keys(quizScore)
-    .forEach(key=>{
+    document.getElementById(
+      "planResult"
+    ).innerHTML = `
 
-      if(
-        quizScore[key] >
-        quizScore[result]
-      ){
+      <div class="alert show success"
+           style="margin-top:20px">
 
-        result = key;
+        ✅ Plano guardado neste dispositivo.
 
-      }
+      </div>
 
-    });
+    `;
 
-
-  const names = {
-
-    praia:"🏖️ Praia e descanso",
-
-    cultura:"🏛️ Cultura e história",
-
-    natureza:"🌲 Natureza e aventura",
-
-    gastronomia:"🍽️ Gastronomia"
-
-  };
+  }
 
 
-  document
-    .getElementById("quizQuestion")
-    .textContent =
-    "Resultado";
+  function loadPlan() {
+
+    const saved =
+      localStorage.getItem(
+        "escapadinha_plan"
+      );
 
 
-  document
-    .getElementById("quizOptions")
-    .innerHTML = "";
+    if (!saved) {
+      return;
+    }
 
 
-  document
-    .getElementById("quizResult")
-    .textContent =
-    "O teu perfil é: " +
-    names[result];
+    try {
+
+      const plan =
+        JSON.parse(saved);
 
 
-  const restart =
-    document.createElement("button");
+      document.getElementById(
+        "planDestination"
+      ).value =
+        plan.destination || "";
 
 
-  restart.textContent =
-    "🔄 Fazer novamente";
+      document.getElementById(
+        "planPeople"
+      ).value =
+        plan.people || 2;
 
 
-  restart.style.marginTop =
-    "15px";
-
-  restart.style.padding =
-    "12px 18px";
-
-  restart.style.background =
-    "#246bfe";
-
-  restart.style.color =
-    "white";
-
-  restart.style.borderRadius =
-    "10px";
+      document.getElementById(
+        "planStart"
+      ).value =
+        plan.start || "";
 
 
-  restart.onclick = ()=>{
+      document.getElementById(
+        "planEnd"
+      ).value =
+        plan.end || "";
 
-    questionIndex = 0;
 
-    quizScore = {
-      praia:0,
-      cultura:0,
-      natureza:0,
-      gastronomia:0
+      document.getElementById(
+        "planBudget"
+      ).value =
+        plan.budget || "";
+
+
+      document.getElementById(
+        "planStyle"
+      ).value =
+        plan.style || "Descanso";
+
+    }
+    catch(e) {
+
+      console.error(e);
+
+    }
+
+  }
+
+
+  /*
+  ============================================================
+  QUIZ
+  ============================================================
+  */
+
+  function answerQuiz(type) {
+
+    const answers = {
+
+      cultura:
+        "🏛️ Talvez gostes de Paris, Roma, Atenas ou Londres.",
+
+      praia:
+        "🏖️ Experimenta Madeira, Algarve, Canárias ou Grécia.",
+
+      aventura:
+        "🏔️ Madeira, Açores, Alpes ou Escócia podem ser interessantes.",
+
+      comida:
+        "🍝 Itália, França, Espanha e Portugal são excelentes opções gastronómicas."
+
     };
 
 
-    document
-      .getElementById("quizResult")
-      .textContent = "";
+    document.getElementById(
+      "quizResult"
+    ).textContent =
+      answers[type] ||
+      "Boa viagem! 🌍";
+
+  }
 
 
-    renderQuiz();
+  /*
+  ============================================================
+  DIÁRIO
+  ============================================================
+  */
 
-  };
+  function saveDiary() {
 
-
-  document
-    .getElementById("quizOptions")
-    .appendChild(restart);
-
-}
-
-
-renderQuiz();
-
-
-/* ==========================================================
-   DIÁRIO
-   ========================================================== */
-
-const diary =
-  localStorage.getItem(
-    "escapadinha_diary"
-  ) || "";
+    const text =
+      document.getElementById(
+        "diaryText"
+      ).value;
 
 
-document
-  .getElementById("diaryText")
-  .value = diary;
+    localStorage.setItem(
+      "escapadinha_diary",
+      text
+    );
 
 
-document
-  .getElementById("savedDiary")
-  .textContent =
-  diary
-    ? "Última nota guardada."
-    : "Ainda não tens nenhuma nota.";
+    document.getElementById(
+      "diaryMessage"
+    ).innerHTML = `
+
+      <div class="alert show success"
+           style="margin-top:15px">
+
+        ✅ Diário guardado.
+
+      </div>
+
+    `;
+
+  }
 
 
-document
-.getElementById("saveDiary")
-.addEventListener("click",()=>{
+  function loadDiary() {
 
-  const text =
-    document
-      .getElementById("diaryText")
-      .value
-      .trim();
+    const text =
+      localStorage.getItem(
+        "escapadinha_diary"
+      ) || "";
 
 
-  localStorage.setItem(
-    "escapadinha_diary",
-    text
+    document.getElementById(
+      "diaryText"
+    ).value =
+      text;
+
+
+    document.getElementById(
+      "diaryMessage"
+    ).innerHTML = `
+
+      <div class="alert show info"
+           style="margin-top:15px">
+
+        📖 Diário carregado.
+
+      </div>
+
+    `;
+
+  }
+
+
+  /*
+  ============================================================
+  INICIALIZAÇÃO
+  ============================================================
+  */
+
+  loadPlan();
+
+  loadDiary();
+
+
+  /*
+  ============================================================
+  TESTE INICIAL DA API
+  ============================================================
+  */
+
+  console.log(
+    "🌍 Escapadinha iniciada."
   );
 
-
-  document
-    .getElementById("savedDiary")
-    .textContent =
-    text
-      ? "✅ Nota guardada neste dispositivo."
-      : "Ainda não tens nenhuma nota.";
-
-});
-
-
-/* ==========================================================
-   DATAS
-   ========================================================== */
-
-const today =
-  new Date()
-    .toISOString()
-    .split("T")[0];
-
-
-document
-  .getElementById("startDate")
-  .min = today;
-
-
-document
-  .getElementById("endDate")
-  .min = today;
-
-
-document
-.getElementById("startDate")
-.addEventListener("change",event=>{
-
-  document
-    .getElementById("endDate")
-    .min =
-    event.target.value;
-
-});
-
+  console.log(
+    "🔑 Geoapify API configurada:",
+    Boolean(GEOAPIFY_API_KEY)
+  );
 
 </script>
 
 </body>
 </html>
-```
